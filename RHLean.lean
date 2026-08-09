@@ -29,6 +29,7 @@ import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeSieveAbelIdentity
+import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
