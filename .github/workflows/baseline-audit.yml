@@ -1,0 +1,108 @@
+name: Baseline coupling audit
+
+on:
+  push:
+    branches: [main]          # warm the trusted main-branch build cache
+    paths:
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/baseline-audit.yml'
+  pull_request:
+    paths:
+      - '**.lean'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+      - '.github/workflows/baseline-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobius-baseline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  baseline-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit unfinished proofs and project-local axioms
+        run: bash scripts/audit_assumptions.sh
+
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+
+      - name: Restore RHLean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+
+      - name: Build the synthesis library
+        run: lake build RHLean --wfail
+
+      # Saved even on failure: a partial build lets the next run resume
+      # instead of recompiling the whole library from scratch.
+      - name: Save RHLean build cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+
+      - name: Print the synthesis theorem and its axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/baseline_check.lean <<'EOF'
+          import RHLean.Analysis.PrimeSieveQuotientPNTError
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError
+
+          #print axioms RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError
+          EOF
+          lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
+
+      - name: Assert the theorem rests only on the standard Lean axioms
+        run: |
+          if grep -q 'sorryAx' /tmp/baseline_check.log; then
+            echo 'Synthesis theorem depends on sorryAx: the proof is unfinished.' >&2
+            exit 1
+          fi
+          if ! grep -qE 'depends on axioms|does not depend on any axioms' /tmp/baseline_check.log; then
+            echo 'No axiom report produced; the theorem did not elaborate.' >&2
+            exit 1
+          fi
+          echo 'Axiom audit passed.'
+
+      # The point of this audit is that the theorem genuinely couples both
+      # architectures, so require an anchor from each family rather than just
+      # printing whatever turns up.
+      - name: Assert the theorem couples square-block and prime-wheel machinery
+        run: |
+          echo 'square anchors found:'
+          grep -oiE 'squareprefix|squareblock|survivor|lifetime|deathshell|ancestry' \
+            /tmp/baseline_check.log | sort -u | tee /tmp/square_anchors.txt
+          echo 'wheel anchors found:'
+          grep -oiE 'primorial|primewheel|ramanujan|conductor|coconductor' \
+            /tmp/baseline_check.log | sort -u | tee /tmp/wheel_anchors.txt
+          if [ ! -s /tmp/square_anchors.txt ]; then
+            echo 'Theorem carries no square-block anchor: it is not a synthesis statement.' >&2
+            exit 1
+          fi
+          if [ ! -s /tmp/wheel_anchors.txt ]; then
+            echo 'Theorem carries no prime-wheel anchor: it is not a synthesis statement.' >&2
+            exit 1
+          fi
+          echo 'Coupling audit passed.'

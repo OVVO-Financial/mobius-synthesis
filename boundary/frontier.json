@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "frontier_id": "mobius-synthesis/nonzero-response",
+  "target": {
+    "predicate": "RHLean.Analysis.MobiusSynthesisBoundary.NonzeroResponseRHScale",
+    "object": "RHLean.Analysis.squareWheelNonzeroSampleResponse",
+    "description": "Uniform complete-square nonzero-response bound at exponent 1/2 + epsilon",
+    "scope": "All synchronized primorial blocks k >= 2 and complete square samples in the block"
+  },
+  "certified": {
+    "kind": "exact_reduction",
+    "summary": "Zero-mode elimination, uniform contraction, and the expansion-reindexed identity are exact; no nontrivial pointwise power saving for the nonzero response is certified.",
+    "witnesses": [
+      "RHLean.Analysis.primeWheelEndpointResidual_eq_eliminated",
+      "RHLean.Analysis.primorialMinimalSquareSampleRatio_lt_one_sixth",
+      "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_expansionReindexed"
+    ]
+  }
+}

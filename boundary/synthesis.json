@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "revision": 0,
+  "baseline": {
+    "parent_source_commit": "38d89861ee24a24cbb4f8bccd51e5791b645d9be",
+    "parent_lean_anchor": "5ebdcbcbf2f7755948da7d29520293b06dadbfdb",
+    "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
+    "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",
+    "summary": "Initial standalone mathematical baseline: the canonical square-wheel nonzero response is identified exactly with the centered PNT-corrected comb minus twice the centered Mertens-weighted reciprocal-interval prime-count discrepancy."
+  },
+  "last_witness": null,
+  "description": "Monotone ledger for cross-track synthesis theorems accepted in the standalone repository. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once."
+}
