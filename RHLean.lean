@@ -28,6 +28,7 @@ import RHLean.Analysis.MertensZetaIdentityContinuation
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
+import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
