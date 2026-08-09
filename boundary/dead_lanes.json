@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "purpose": "Routes that have been closed, with the reason each fails. A proposal that matches a closed lane must either cite new information that defeats the stated obstruction, or be rejected without spending a Lean build on it.",
+  "closure_kinds": {
+    "circular": "an exact identity that restates the target in other notation; proving it is proving the target",
+    "lossy": "the route is sound but discards more than the target can afford",
+    "ceiling": "the mechanism is real but its best case is provably weaker than the target"
+  },
+  "lanes": [
+    {
+      "id": "blockwise-delta-triangle-sum",
+      "title": "Bound the wheel residual by summing separately bounded square blocks",
+      "kind": "lossy",
+      "closed_on": "2026-08-09",
+      "claim": "Per-block bounds on Delta_j, summed, control the pinned wheel residual R_k.",
+      "obstruction": "Only the signed sum telescopes. sum_{j<=J} Delta_j = R_k(X_J) - R_k(X_0), so replacing it by sum_j |Delta_j| discards exactly the cancellation being sought. Measured loss over mu-sieved data: 29.7x at J=64, 660x at J=256, 67.5x at J=1024, against sqrt(J) = 8.0, 16.0, 32.0. Over a full primorial block J is astronomically larger.",
+      "evidence": {
+        "lean": "RHLean/Analysis/SquareWheelNesting.lean",
+        "lean_note": "The module header states this directly: an absolute-value sum over the blocks loses a full square-root factor.",
+        "numeric": "exploratory probe, mu sieve to 4e6"
+      },
+      "what_would_reopen": "A bound on the SIGNED consecutive sums that does not pass through per-block absolute values. Note that such a bound is the wheel residual bound itself, so this is circular unless it supplies independent correlation information about adjacent Delta_j."
+    },
+    {
+      "id": "at-derivative",
+      "title": "Differentiate the square-root smooth/transport prefix decomposition",
+      "kind": "circular",
+      "closed_on": "2026-08-09",
+      "claim": "Differencing M(X_n) = A_n - T_n exposes a new cross-n cancellation mechanism.",
+      "obstruction": "The decomposition is at the PREFIX level (squarePrefixMertens_eq_squareRootSmooth_sub_transport), so the increment is Delta A_n - Delta T_n. The reclassification term created when the square-root cutoff advances appears in both increments with the same sign and cancels identically, returning Delta A_n - Delta T_n = Delta_n. The derivative removes the moving-cutoff mechanism rather than exposing it.",
+      "evidence": {
+        "lean": "RHLean/Analysis/TwoABScaleTransfer.lean"
+      },
+      "what_would_reopen": "Nothing at the level of the raw (A,T) pair. The lifetime decomposition M(X_t) = L + Z + D is the productive replacement, since it discharges two of three terms unconditionally."
+    },
+    {
+      "id": "survivor-residue-covariance-cauchy",
+      "title": "Bound the survivor via residue energy and finite Cauchy-Schwarz",
+      "kind": "lossy",
+      "closed_on": "2026-08-09",
+      "claim": "|Z|^2 <= s (D + C) with negative cross-cofactor covariance C cancelling the diagonal D delivers an RH-scale survivor bound for some modulus schedule.",
+      "obstruction": "C is indeed negative at every modulus tested, but the fibre split and the prime-face toggle are governed by the same object: the square-unit subgroup mod s. For s | 24 every unit has q^2 = 1, so u = const - c^2 is a FUNCTION of c, the split is Z re-bucketed, and proving the energy small is proving the survivor bound. Raising s makes the fibres informative (30.6 fibres per cofactor at s=10080) but degrades V/D from 1e-4 to 0.61 while the factor s enters the bound. At t=600, |Z| = 27 against a target of t = 600, yet sqrt(sV) never falls below 1642 at any modulus tested.",
+      "evidence": {
+        "lean": [
+          "RHLean/Proof/SurvivorResidueCovarianceCriterion.lean",
+          "RHLean/Proof/SurvivorResiduePrimeToggle.lean",
+          "RHLean/Proof/SurvivorResidueCollisionReindex.lean"
+        ],
+        "numeric": "exploratory probe: t in {100..600}, Lambda in {2,8}, s in {12,24,60,120,360,840,2520,10080}"
+      },
+      "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the STRUCTURE - degeneracy trades against the Cauchy factor - not on the numerics alone.",
+      "what_would_reopen": "Applying the toggle pairing BEFORE passing to residues: cancel matched (c, c*ell) sources directly in Z = sum_c -mu(c) K(c), leaving the boundary set {c : c*ell*q > X_t} as the unpaired remainder. That keeps the mechanism and never introduces s, so neither the degeneracy nor the Cauchy factor applies."
+    }
+  ],
+  "not_closed": {
+    "note": "Recorded so the distinction is not lost. The added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane."
+  }
+}

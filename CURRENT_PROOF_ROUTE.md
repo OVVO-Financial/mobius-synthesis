@@ -49,7 +49,7 @@ Merely rewriting `H` does not count as quantitative progress.
 The repository also contains the explicit finite expansion-reindexed form. Writing
 
 ```math
-N_k(x)=\operatorname{primorialExpansionReindexedNumerator}(k,x),
+N_k(x)=\mathrm{primorialExpansionReindexedNumerator}(k,x),
 ```
 
 its content is
@@ -74,7 +74,7 @@ Above the square-root cutoff,
 ```math
 M_y^+(x)-M(x)
 =
-2\sum_{\substack{y<q\le x\\q\ \mathrm{prime}}}
+2\sum_{y<q\le x,\ q\ \mathrm{prime}}
 M(\lfloor x/q\rfloor).
 ```
 
