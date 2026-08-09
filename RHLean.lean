@@ -30,6 +30,7 @@ import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeSieveAbelIdentity
 import RHLean.Analysis.PrimeSieveCollapseIdentity
+import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
