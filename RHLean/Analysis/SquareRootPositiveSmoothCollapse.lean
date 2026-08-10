@@ -94,7 +94,9 @@ theorem squareRootPositiveSmoothMass_eq_sourceMass
       cumulativeSquarePrefixSet (R - 1) =
         insert 0 (Finset.Icc 1 (squareRootEndpoint R)) := by
     ext m
-    simp [cumulativeSquarePrefixSet, squareRootEndpoint, hpred]
+    have hRpos : 0 < R := by omega
+    have hsqpos : 0 < R * R := Nat.mul_pos hRpos hRpos
+    simp [cumulativeSquarePrefixSet, squareRootEndpoint, hpred, pow_two]
     omega
   rw [hset, Finset.sum_filter]
   simp [canonicalMoebiusWeight]
