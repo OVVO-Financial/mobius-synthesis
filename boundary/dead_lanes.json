@@ -49,10 +49,64 @@
         "numeric": "exploratory probe: t in {100..600}, Lambda in {2,8}, s in {12,24,60,120,360,840,2520,10080}"
       },
       "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the STRUCTURE - degeneracy trades against the Cauchy factor - not on the numerics alone.",
-      "what_would_reopen": "Applying the toggle pairing BEFORE passing to residues: cancel matched (c, c*ell) sources directly in Z = sum_c -mu(c) K(c), leaving the boundary set {c : c*ell*q > X_t} as the unpaired remainder. That keeps the mechanism and never introduces s, so neither the degeneracy nor the Cauchy factor applies."
+      "what_would_reopen": "Applying the toggle pairing BEFORE passing to residues: cancel matched (c, c*ell) sources directly in Z = sum_c -mu(c) K(c), leaving the boundary set {c : c*ell*q > X_t} as the unpaired remainder. That keeps the mechanism and never introduces s, so neither the degeneracy nor the Cauchy factor applies.",
+      "reopener_outcome": "Tried on 2026-08-09 and carried out; it terminates in the lane 'canonical-orientation-split' below. Pairing before residues is exactly the far-upper survivor route, and RHLean/Proof/SurvivorFarUpperRigidity.lean proves the fixed-q fibre is then the FULL negative reciprocal Mertens prefix -M(floor(X_t/q)) with no unpaired-boundary saving at all. The remainder set {c : c*ell*q > X_t} is empty in the far range, so the pairing cancels nothing there."
+    },
+    {
+      "id": "canonical-orientation-split",
+      "title": "Split the square-root smooth mass by canonical orientation (c < q against q <= c) and bound the matched born-smooth / transport object",
+      "kind": "ceiling",
+      "closed_on": "2026-08-10",
+      "claim": "squareRootMatchedBornSmoothTransport R = bornSmooth R - transport R is the residual carrying the large cancellation, so an RH-scale bound on it (equivalently on bornSmooth + farUpperSurvivor, which differs from it by the elementary 7R root strip) delivers the RH-scale Mertens bound.",
+      "obstruction": "The orientation split leaves exactly one region uncancelled, and that region is a pi-weighted Mertens sum of true order R^(3/2)/log R, a full quarter power of X = R^2-1 above the X^(1/2+eps) target. Writing q = P+(m) and c = m/q, the positive-orientation region c < q <= R collapses in closed form to squareRootPositiveSmoothMass R = -sum_{q<=R prime} M(q-1) = -sum_{c<R} mu(c)*(pi(R)-pi(c)), and M(R^2-1) = positiveSmooth R + matched R. Summation by parts turns positiveSmooth into an INTEGRAL of M against dpi: integration is a smoothing that removes precisely the sign oscillation the target needs. Under RH the explicit formula gives int_1^R M(t)dt = sum_rho R^(rho+1)/(rho(rho+1)zeta'(rho)) + O(1), every term of modulus exactly R^(3/2)/|rho(rho+1)zeta'(rho)|, so no cancellation among zeros can push it below R^(3/2-o(1)). Hence matched R = M(R^2-1) - positiveSmooth R is itself of order R^(3/2)/log R. The route is self-defeating: if |matched| << R^(1+eps) were proved, then |M(R^2-1)| >= |positiveSmooth| - |matched| would be Omega(R^(3/2-eps)) = Omega(X^(3/4-eps)), which DISPROVES RH.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/SquareRootMatchedTransport.lean",
+          "RHLean/Proof/MatchedFarSurvivorBridge.lean",
+          "RHLean/Proof/SurvivorFarUpperRigidity.lean"
+        ],
+        "numeric": "scripts/probes/verify_defs.py, matched_growth.py, posSmooth_1e9.py, mechanism.py",
+        "measured": {
+          "closed_form_check": "positiveSmooth R = -sum_{q<=R} M(q-1) verified against the literal largest-prime-factor definition for every R = 2..300, together with smooth = bornSmooth + positiveSmooth, M(R^2-1) = smooth - transport, and M(R^2-1) = positiveSmooth + matched",
+          "growth_of_positiveSmooth": "running max over R <= 5.37e8; fitted exponent 1.4440 on the last 8 octaves against the predicted 1.5 - 1/log R = 1.4502 at that R",
+          "normalised_band": "|positiveSmooth| * log R / R^1.5 stays in [0.0079, 0.0202] for R in [1e5, 5.37e8] - flat over four decades",
+          "ratio_to_R": "|positiveSmooth|/R rises from 0.32 at R=128 to 18.96 at R=5.37e8, i.e. it diverges away from the R^(1+eps) target",
+          "mechanism_check": "positiveSmooth R / (-int_2^R M(t)/log t dt) = 0.641, 0.748, 0.903, 0.963, 0.976, 1.005 at R = 1e3..1e8: the object IS the smoothed integral of M",
+          "integral_carries_full_power": "running max of |sum_{n<=R} M(n)| has fitted exponent 1.5606 on the last 8 octaves to R = 6.7e7"
+        }
+      },
+      "caveats": "The Omega(R^(3/2-eps)) statement for the integral of M is the explicit-formula consequence under RH with simple zeros; the numerics are what pin the constant and the exponent in the computed range. No Lean build was available in the closing session, so nothing here is machine checked.",
+      "what_would_reopen": "Nothing at the level of the (bornSmooth, transport) pair or its far-upper survivor rewriting, since the obstruction is a lower bound on an object both forms contain. A split of the smooth mass whose uncancelled region is NOT a monotone-weighted Mertens sum would be a different lane."
+    },
+    {
+      "id": "pnt-reciprocal-coordinate-change",
+      "title": "Attack the signed combined object C^PNT - 2 E^rec as a route to the H_{k,n} bound",
+      "kind": "circular",
+      "closed_on": "2026-08-10",
+      "claim": "The PNT-centered coordinates expose favourable signed structure, so attacking C - 2E directly is progress on H_{k,n}.",
+      "obstruction": "C - 2E is H_{k,n} by construction, not a new object. The centering operator Z is linear and M = (allPlus - 2*Bulk) - 2*Err, so Z[M] = Z[allPlus - 2 Bulk] - 2 Z[Err] = C - 2E identically; the repository's own theorem primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter already gives H = Z[M]. Hence C = H + 2E is an identity, and the pair of obligations {|C| << s, |E| << s} is EQUIVALENT to {|H| << s, |E| << s}, which is strictly stronger than the target {|H| << s}. The coordinate change therefore cannot reduce the difficulty; it can only relocate it. The observed C/E correlation reported as favourable is forced by that identity rather than being independent evidence: with C = H + 2E and |H| comparable to |2E|, positive correlation of C with E is automatic.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/PrimeSievePNTCentering.lean",
+          "RHLean/Analysis/PrimeSieveQuotientPNTError.lean",
+          "RHLean/Proof/PrimeSievePostSqrtGap.lean"
+        ],
+        "numeric": "scripts/probes/routeB.py, routeB_dense.py",
+        "measured": {
+          "identity_check": "C - 2E = M(x) reproduced to floating tolerance at every x on a 240-point log grid from 1e4 to 1e8",
+          "correlations": "corr(C, 2E) = +0.8809, corr(M, 2E) = -0.9544, corr(C, M) = -0.6994 over the grid",
+          "no_reduction": "|C|/|M| has median 1.296 and only 34.6 percent of grid points have |C| < |M|; max|C|/sqrt(x) = 0.4095 against max|M|/sqrt(x) = 0.4045. Neither piece is systematically smaller than the target."
+        }
+      },
+      "caveats": "This closes the coordinate change as a REDUCTION, not the reciprocal-interval representation of E^rec, which is a genuine object and is recorded as still open under not_closed below.",
+      "what_would_reopen": "An independent bound on the PNT-corrected comb C that does not route through M - i.e. combinatorial control of allPlus - 2*Bulk proved without assuming the Mertens bound. That would make the split a real reduction rather than a relabelling."
     }
   ],
   "not_closed": {
-    "note": "Recorded so the distinction is not lost. The added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane."
+    "note": "Recorded so the distinction is not lost. The added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane.",
+    "reciprocal_d_family": {
+      "status": "open, and the measured mechanism is now identified",
+      "note": "The reciprocal-interval family E^rec = sum_d M(d) * (pi(I_d) - LiMass(I_d)) over the D = floor(x/y) ~ sqrt(x) fibres does exhibit square-root cancellation across d, and that cancellation is exactly what carries the termwise bound down to the target. Measured on a 240-point log grid to x = 1e8: sum_d |E_d| grows with exponent 0.678 (sub-range fits 0.635, 0.648, 0.706, 0.677 - robustly ABOVE the 0.5 target, so termwise absolute values cannot close, confirming CURRENT_PROOF_ROUTE section 6), while the signed |E^rec| fits exponent 0.51 and tracks sum_d|E_d|/sqrt(D) with median ratio 1.428 and log-log correlation 0.777. The median saving over the triangle bound is 24.9x at these scales, against a required saving of about x^0.18. So the answer to 'why does the combined signed operator save roughly X^(1/2)' is: square-root cancellation over the d-fibres, with essentially no margin. What this does NOT do is move the target, for the reason recorded in lane pnt-reciprocal-coordinate-change."
+    }
   }
 }

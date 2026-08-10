@@ -108,7 +108,7 @@ C_{k,n}^{\mathrm{PNT}}
 2E_{k,n}^{\mathrm{rec}},
 ```
 
-where `E^{rec}` is the centered, Mertens-weighted reciprocal-interval prime discrepancy.
+where `E^rec` is the centered, Mertens-weighted reciprocal-interval prime discrepancy.
 
 The diagnostic update is decisive:
 
@@ -124,31 +124,23 @@ independently and then combine them by triangle inequality.
 
 Finite diagnostics show that this loses a large part of the actual cancellation. `C` and `E` usually have the same sign and are positively correlated; because the expression is `C-2E`, that same-sign correlation is favorable.
 
-Therefore the actual open analytic theorem should attack the **signed combined object**
+**However, the pair of obligations is strictly stronger than the target, and the correlation is forced.** The centering operator is linear and `M = (allPlus - 2 Bulk) - 2 Err`, so
 
 ```math
-\boxed{
-C_{k,n}^{\mathrm{PNT}}
--
-2E_{k,n}^{\mathrm{rec}}
-}
+C_{k,n}^{\mathrm{PNT}}-2E_{k,n}^{\mathrm{rec}} = H_{k,n}
 ```
 
-directly.
-
-Equivalently, the desired theorem is simply
+is an identity, not a reformulation, and therefore
 
 ```math
-\boxed{
-\left|
-C_{k,n}^{\mathrm{PNT}}
--
-2E_{k,n}^{\mathrm{rec}}
-\right|
-\ll_\varepsilon
-X_n^{1/2+\varepsilon}.
-}
+C_{k,n}^{\mathrm{PNT}} = H_{k,n}+2E_{k,n}^{\mathrm{rec}}.
 ```
+
+Consequently `{|C| = O(s), |E| = O(s)}` is *equivalent* to `{|H| = O(s), |E| = O(s)}`, which is strictly stronger than the target `{|H| = O(s)}`. The PNT coordinate change cannot reduce the difficulty; it can only relocate it. The observed positive correlation of `C` with `E` (measured `+0.88`, against `corr(H,2E) = -0.95`) is a consequence of that identity rather than independent evidence.
+
+By §3 — merely rewriting `H` is not quantitative progress — "attack `C-2E` directly" is therefore **not** an actionable next step: `C-2E` *is* `H`. See the lane `pnt-reciprocal-coordinate-change` in `boundary/dead_lanes.json`.
+
+What survives from this section is the genuine content of §6: the reciprocal-interval *representation* of `E^rec`. The split becomes a real reduction only if the comb side `C = allPlus - 2*Bulk` is controlled by combinatorial means that do not route back through `M`.
 
 ## 6. Exploit the reciprocal-`d` family without destroying its signs
 
@@ -178,6 +170,17 @@ not merely
 How large are its two pieces separately?
 ```
 
+### Measured answer to that question
+
+Finite diagnostics now identify the mechanism. Writing `D = floor(x/y)`, which is about `sqrt(x)`, for the number of reciprocal fibres, measurements on a 240-point logarithmic grid to `x = 1e8` give:
+
+- the termwise triangle bound `sum_d |E_d|` grows with exponent `0.678` (sub-range fits `0.635, 0.648, 0.706, 0.677`), robustly **above** the `1/2` target — so absolute values are indeed fatal, confirming the paragraph above;
+- the signed `|E^rec|` fits exponent about `0.51` and tracks `sum_d |E_d| / sqrt(D)` with median ratio `1.43` and log-log correlation `0.78`.
+
+So the saving is **square-root cancellation across the `d`-fibres**, and it is exactly sufficient with essentially no margin: the required saving over the triangle bound is about `x^0.18`, and the observed median saving is `24.9x` at these scales.
+
+This is the mechanism a proof has to capture. It also sets the bar: any proposed estimate that yields less than full square-root cancellation over the `d`-family cannot close, and any estimate that passes through `|M(d)| <= K d^(1/2+eps)` termwise has already discarded it.
+
 ## 7. Once the `H`-bound is proved, the rest of the route is already built
 
 The `H` estimate plus exact zero-mode elimination controls the complete block residual. The square-gap estimate transports that to arbitrary `x`, yielding the RH-strength Mertens bound.
@@ -204,3 +207,39 @@ The **single live proof problem** is the signed-cancellation arrow.
 The active analytic strategy is:
 
 > **Prove signed cancellation in the combined reciprocal-interval representation of `H_{k,n}`, exploiting the many-`d`, short-interval structure without taking absolute values termwise.**
+
+## 8. Routes that are closed
+
+`boundary/dead_lanes.json` is the ledger. A proposal matching a closed lane must defeat the stated obstruction or be rejected before a Lean build is spent on it.
+
+The two closures added most recently constrain the wording above directly.
+
+### The canonical orientation split is off the table
+
+Splitting the square-root smooth mass by canonical orientation — `c < q` against `q <= c`, with `q = P+(m)` and `c = m/q` — and then bounding
+
+```math
+\mathrm{matched}(R) = \mathrm{bornSmooth}(R) - \mathrm{transport}(R)
+```
+
+**cannot deliver the RH-scale bound, and pursuing it is self-defeating.** The split leaves exactly one region uncancelled, and that region has a closed form:
+
+```math
+\mathrm{positiveSmooth}(R)
+= -\sum_{q\le R,\ q\ \mathrm{prime}} M(q-1)
+= -\sum_{c<R}\mu(c)\bigl(\pi(R)-\pi(c)\bigr),
+\qquad
+M(R^2-1)=\mathrm{positiveSmooth}(R)+\mathrm{matched}(R).
+```
+
+Summation by parts turns it into an **integral of `M` against `dpi`**, and integration is a smoothing that removes exactly the sign oscillation the target relies on. Under RH the explicit formula gives every zero a contribution to `int_1^R M` of modulus exactly `R^(3/2) / |rho(rho+1)zeta'(rho)|`, so the integral is `R^(3/2-o(1))` and no cancellation among zeros lowers it.
+
+Hence `matched(R)` is of order `R^(3/2)/log R = X^(3/4+o(1))` — a full quarter power of `X` above the target. The dichotomy is sharp: **either `|matched|` exceeds `R^(1+eps)` and the route fails, or `M(R^2-1) = Omega(X^(3/4-eps))` and RH is false.**
+
+Measured to `R = 5.37e8`: `|positiveSmooth|/R` rises from `0.32` to `18.96`; the normalized `|positiveSmooth| * log R / R^(3/2)` is flat in `[0.0079, 0.0202]` across four decades; the fitted exponent `1.4440` matches the predicted `1.5 - 1/log R = 1.4502`; and `positiveSmooth(R) / (-int_2^R M(t) dt/log t)` tends to `1.005`.
+
+This closes `RHLean/Analysis/SquareRootMatchedTransport.lean` as a *quantitative* lane, and with it the far-upper survivor localization of `RHLean/Proof/MatchedFarSurvivorBridge.lean`, which differs from `matched` only by the elementary `7R` root strip. Those modules remain correct exact algebra; they are simply not a route to the bound.
+
+### Pairing before residues terminates here too
+
+The reopener recorded for `survivor-residue-covariance-cauchy` — cancel matched `(c, c*l)` sources directly, before passing to residues — was carried out. `RHLean/Proof/SurvivorFarUpperRigidity.lean` proves the fixed-`q` fibre is then the **full** negative reciprocal Mertens prefix `-M(floor(X_t/q))`, with the unpaired-boundary set empty in the far range. The pairing cancels nothing there, and the resulting object is the closed lane above.
