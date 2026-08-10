@@ -122,7 +122,7 @@ The diagnostic update is decisive:
 
 independently and then combine them by triangle inequality.
 
-Finite diagnostics show that this loses a large part of the actual cancellation. `C` and `E` usually have the same sign and are positively correlated; because the expression is `C-2E`, that same-sign correlation is favorable.
+Finite diagnostics show that `C` and `E` usually have the same sign and are strongly positively correlated. The exact identity explains why such a correlation can appear whenever `H` is substantially smaller than the two individual terms: `C` must then track `2E` closely. The measured correlation coefficient is therefore a diagnostic of the signed cancellation, not independent evidence for a new theorem.
 
 Therefore the actual open analytic theorem should attack the **signed combined object**
 
@@ -150,7 +150,61 @@ X_n^{1/2+\varepsilon}.
 }
 ```
 
-## 6. Exploit the reciprocal-`d` family without destroying its signs
+## 6. Record the exact positive-orientation collapse without promoting its numerics to a theorem
+
+The square-root smooth/transport coordinates also admit the exact orientation split
+
+```math
+M(R^2-1)
+=
+P(R)+\operatorname{matched}(R),
+```
+
+where `P(R)` is the positive-orientation smooth mass `c<q=P^+(m)` and `matched` is the born-smooth minus transport term.
+
+The positive orientation collapses exactly to
+
+```math
+\boxed{
+P(R)
+=
+-\sum_{\substack{q\le R\\q\ \mathrm{prime}}} M(q-1).
+}
+```
+
+This identity is finite algebra. It does **not** provide an asymptotic lower bound for `P(R)` and it does **not** make `matched(R)` a new canonical RH target.
+
+Independent exact numerics through
+
+```text
+R = 536,870,912
+```
+
+show an envelope compatible with `R^(3/2+o(1))` for `|P(R)|`, and the normalized quantity `|P(R)| log R / R^(3/2)` remains roughly flat over the measured large-scale ranges. Those observations are diagnostic only.
+
+The rigorous warning is conditional:
+
+```math
+P(R)=\Omega(R^{3/2-o(1)})
+```
+
+**if proved independently**, together with an RH-scale bound
+
+```math
+\operatorname{matched}(R)=O_\varepsilon(R^{1+\varepsilon}),
+```
+
+would force `M(R^2-1)` to have `R^(3/2-o(1)) = X^(3/4-o(1))` excursions and would therefore be incompatible with RH. The repository does not currently prove the required lower bound for `P(R)`, so this is not an asymptotic closure theorem.
+
+The same caution applies to survivor pairing. Far-upper rigidity proves that a fixed prime fibre is exactly
+
+```math
+-M(\lfloor X/q\rfloor).
+```
+
+Thus a fixed-`q` prime-face toggle changes representation but does not make that fibre smaller. This rules out **fixed-`q` cancellation as the whole mechanism**. It does not rule out signed cancellation across `q`, nor cancellation between survivor and another signed frontier before norms are taken.
+
+## 7. Exploit the reciprocal-`d` family without destroying its signs
 
 This is the active analytic research step.
 
@@ -178,7 +232,7 @@ not merely
 How large are its two pieces separately?
 ```
 
-## 7. Once the `H`-bound is proved, the rest of the route is already built
+## 8. Once the `H`-bound is proved, the rest of the route is already built
 
 The `H` estimate plus exact zero-mode elimination controls the complete block residual. The square-gap estimate transports that to arbitrary `x`, yielding the RH-strength Mertens bound.
 
@@ -199,7 +253,9 @@ square blocks + prime wheels
   -> RH
 ```
 
-The **single live proof problem** is the signed-cancellation arrow.
+The positive-smooth collapse is a **diagnostic side coordinate**, not a replacement for this route.
+
+The **single live proof problem** remains the signed-cancellation arrow.
 
 The active analytic strategy is:
 

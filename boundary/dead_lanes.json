@@ -44,15 +44,16 @@
         "lean": [
           "RHLean/Proof/SurvivorResidueCovarianceCriterion.lean",
           "RHLean/Proof/SurvivorResiduePrimeToggle.lean",
-          "RHLean/Proof/SurvivorResidueCollisionReindex.lean"
+          "RHLean/Proof/SurvivorResidueCollisionReindex.lean",
+          "RHLean/Proof/SurvivorFarUpperRigidity.lean"
         ],
         "numeric": "exploratory probe: t in {100..600}, Lambda in {2,8}, s in {12,24,60,120,360,840,2520,10080}"
       },
-      "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the STRUCTURE - degeneracy trades against the Cauchy factor - not on the numerics alone.",
-      "what_would_reopen": "Applying the toggle pairing BEFORE passing to residues: cancel matched (c, c*ell) sources directly in Z = sum_c -mu(c) K(c), leaving the boundary set {c : c*ell*q > X_t} as the unpaired remainder. That keeps the mechanism and never introduces s, so neither the degeneracy nor the Cauchy factor applies."
+      "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the residue/Cauchy STRUCTURE, not on the numerics alone. Far-upper rigidity further shows that a fixed-q prime-face pairing is only a representation change: the complete far-upper fibre is exactly -M(floor(X_t/q)). This does not close cancellation across q.",
+      "what_would_reopen": "A genuinely signed theorem that acts ACROSS distinct prime fibres q, or pairs the survivor against another signed frontier before any norm is taken. The former pairing-before-residues reopener is no longer sufficient at fixed q: SurvivorFarUpperRigidity proves that the far-upper fixed-q fibre remains the full -M(floor(X_t/q))."
     }
   ],
   "not_closed": {
-    "note": "Recorded so the distinction is not lost. The added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane."
+    "note": "Two distinctions are intentionally preserved. First, the added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane. Second, the positive-orientation square-root split now has the exact identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1), and exact numerics through R=536870912 show an envelope compatible with R^(3/2+o(1)). That numerical envelope is NOT an asymptotic theorem, so the standalone matched-transport bound is numerically disfavored but not registered here as a proved ceiling. A true asymptotic closure would require an independently proved lower bound such as positiveSmooth(R)=Omega(R^(3/2-o(1)))."
   }
 }
