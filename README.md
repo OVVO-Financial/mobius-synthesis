@@ -144,6 +144,10 @@ The synchronized exact work makes the present analytic boundary more explicit ra
 1. control of the centered PNT-corrected comb;
 2. control of the centered Mertens-weighted reciprocal-interval prime-count discrepancies, including the short reciprocal intervals near the square-root edge.
 
+That pair is **not a reduction**. Because `H = C - 2E` is an identity, `C = H + 2E`, so proving both components is equivalent to proving the target *plus* the `E` bound — strictly more than the target asks. The separation is a change of coordinates, not a simplification; see `CURRENT_PROOF_ROUTE.md` §5 and the lane `pnt-reciprocal-coordinate-change` in `boundary/dead_lanes.json`.
+
+The canonical orientation split of the square-root smooth mass is closed outright: its uncancelled region equals `-sum_{q<=R prime} M(q-1)`, an integral of `M` against `dpi`, which is of order `R^(3/2)/log R = X^(3/4+o(1))` — a quarter power above the target. See §8 of `CURRENT_PROOF_ROUTE.md`.
+
 No pointwise or averaged PNT-error theorem, short-interval prime theorem, Bombieri-Vinogradov estimate, large-sieve estimate, power saving, or unconditional proof of RH is claimed by these exact reductions.
 
 If the required RH-scale bound for `H_{k,n}` is established, the existing zero-mode elimination, square interpolation, Mertens transfer, Mellin continuation, zeta identity continuation, and terminal RH bridge carry it through the remaining formal chain.
