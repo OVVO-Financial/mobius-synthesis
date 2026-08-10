@@ -25,9 +25,15 @@ import RHLean.Analysis.MertensPowerGrowth
 import RHLean.Analysis.MertensStepFunction
 import RHLean.Analysis.MertensStepGrowth
 import RHLean.Analysis.MertensZetaIdentityContinuation
+import RHLean.Analysis.MobiusSynthesisBoundary
+import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
+import RHLean.Analysis.PrimeSieveAbelIdentity
+import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
+import RHLean.Analysis.PrimeSieveCollapseIdentity
+import RHLean.Analysis.PrimeSieveLipschitzExcursion
 import RHLean.Analysis.PrimeSievePNTCentering
 import RHLean.Analysis.PrimeSieveQuotientPNTError
 import RHLean.Analysis.PrimeWheelArithmeticSpectrum
@@ -81,6 +87,7 @@ import RHLean.Analysis.SquareBlockSurvivorBridge
 import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
 import RHLean.Analysis.SquareRootMatchedTransport
+import RHLean.Analysis.SquareRootPositiveSmoothCollapse
 import RHLean.Analysis.SquareRootTransportRealization
 import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelEndpointCofactorFibres

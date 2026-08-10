@@ -44,7 +44,8 @@
         "lean": [
           "RHLean/Proof/SurvivorResidueCovarianceCriterion.lean",
           "RHLean/Proof/SurvivorResiduePrimeToggle.lean",
-          "RHLean/Proof/SurvivorResidueCollisionReindex.lean"
+          "RHLean/Proof/SurvivorResidueCollisionReindex.lean",
+          "RHLean/Proof/SurvivorFarUpperRigidity.lean"
         ],
         "numeric": "exploratory probe: t in {100..600}, Lambda in {2,8}, s in {12,24,60,120,360,840,2520,10080}"
       },
@@ -219,5 +220,11 @@
     "measured_separation": "A_R and T_R are each ~ X/log^2 X while M(X) = A_R - T_R is ~ sqrt(X). Measured |A_R| = 124, 6355, 354099 at R = 100, 1000, 10000, i.e. |A_R|/sqrt(X) = 1.24, 6.36, 35.4 - diverging like sqrt(X)/log^2 X. At X=1e8, A_R = -354099 against a target of 1e4 and against -1.2 X/log^2 X = -354000. So RH-scale control of A or T individually is structurally mis-scaled, and the near-cancellation between them is the entire content of M.",
     "wheel_cutoff_correction": "CORRECTION recorded 2026-08-10. It is wrong to infer from Q_k > 6U_k that the wheel's prime coordinates reach only log U_k. That conflates two different prime scales. The prime defining the primorial BLOCK ENDPOINT is logarithmic in that endpoint, but the WHEEL deliberately extends its prime coordinates to the square-root cutoff: RHLean/Arithmetic/PrimorialWheelScale.lean defines primorialWheelCutoff k = Nat.sqrt (primorialBlockUpper k) with 'every prime coordinate at most the square-root cutoff', and the square-sensitive modulus is Q_k = prod_{p <= sqrt(U_k)} p^2. Consequently the wheel-smooth population is NOT the very thin log-x-smooth population; near the top of a synchronized block its cutoff is exactly the same square-root scale appearing in A_R, so the wheel smooth sector runs into the SAME large-smooth-mass obstruction just measured for A_R rather than offering a thin-set escape.",
     "periodicity_still_dead": "Q_k > 6U_k does still kill the periodicity idea: no complete wheel period fits inside the arithmetic block. The quantitative bridge uses the large modulus to make the zero-frequency coupling contractive (rho < 1/6), not to supply many periods for averaging."
+      "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the residue/Cauchy STRUCTURE, not on the numerics alone. Far-upper rigidity further shows that a fixed-q prime-face pairing is only a representation change: the complete far-upper fibre is exactly -M(floor(X_t/q)). This does not close cancellation across q.",
+      "what_would_reopen": "A genuinely signed theorem that acts ACROSS distinct prime fibres q, or pairs the survivor against another signed frontier before any norm is taken. The former pairing-before-residues reopener is no longer sufficient at fixed q: SurvivorFarUpperRigidity proves that the far-upper fixed-q fibre remains the full -M(floor(X_t/q))."
+    }
+  ],
+  "not_closed": {
+    "note": "Two distinctions are intentionally preserved. First, the added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane. Second, the positive-orientation square-root split now has the exact identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1), and exact numerics through R=536870912 show an envelope compatible with R^(3/2+o(1)). That numerical envelope is NOT an asymptotic theorem, so the standalone matched-transport bound is numerically disfavored but not registered here as a proved ceiling. A true asymptotic closure would require an independently proved lower bound such as positiveSmooth(R)=Omega(R^(3/2-o(1)))."
   }
 }
