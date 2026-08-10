@@ -100,6 +100,30 @@
       },
       "caveats": "This closes the coordinate change as a REDUCTION, not the reciprocal-interval representation of E^rec, which is a genuine object and is recorded as still open under not_closed below.",
       "what_would_reopen": "An independent bound on the PNT-corrected comb C that does not route through M - i.e. combinatorial control of allPlus - 2*Bulk proved without assuming the Mertens bound. That would make the split a real reduction rather than a relabelling."
+    },
+    {
+      "id": "divisor-band-harmonic-mobius",
+      "title": "Divisor-band cancellation of the prime-by-prime correction (all-minus-one start, corrected prime by prime, bands d = floor(x/q))",
+      "kind": "circular",
+      "closed_on": "2026-08-10",
+      "claim": "Starting every site at -1 and correcting prime by prime, the bands d = floor(x/q) cancel against each other, so the divisor-band structure supplies the cancellation for free and yields the Mertens bound.",
+      "obstruction": "The band bulk does reindex onto the harmonic Moebius sum, but ONLY up to a finite boundary term, and that boundary is the whole difficulty. With S_D = sum_{d<=D} M(d)/(d(d+1)) and A_D = sum_{n<=D} mu(n)/n, finite Abel summation over the telescoping 1/d - 1/(d+1) gives S_D = sum_{n<=D} mu(n)(1/n - 1/(D+1)), i.e. the EXACT identity S_D = A_D - M(D)/(D+1). The formal infinite calculation sum_{d>=1} M(d)/(d(d+1)) = sum_{n>=1} mu(n)/n = 0 silently discards M(D)/(D+1); making that boundary vanish is already PNT-strength. Worse at the target rate: requiring A_D = O(D^(-1/2+eps)) forces M(D)/(D+1) = O(D^(-1/2+eps)), i.e. M(D) = O(D^(1/2+eps)) - the boundary term literally regenerates the original Mertens problem. So the mechanism transforms the problem into 'weighted band bulk = harmonic Moebius sum + Mertens boundary' rather than solving any part of it.",
+      "unification": "This is the SAME 1/log^2 lane as the added-prime Euler-density ceiling recorded under not_closed. Both arrive at 1/log^2 from opposite directions: the added-prime lever because alpha_q ~ 1.2/q in the tail sums to log log Q, and the divisor bands because the zeroth-order band cancellation is exactly sum mu(n)/n, which is PNT and no more. Divisor-band cancellation and Euler-density cancellation are one lane, not two.",
+      "evidence": {
+        "lean": [
+          "RHLean/Proof/PrimeSievePostSqrtGap.lean",
+          "RHLean/Analysis/PrimeSieveQuotientPNTError.lean"
+        ],
+        "numeric": "scripts/probes/band.py",
+        "measured": {
+          "identity_exact": "S_D = A_D - M(D)/(D+1) verified in exact rational arithmetic for EVERY D = 1..3000, zero mismatches",
+          "table": "A_D - S_D equals M(D)/(D+1) to all printed digits at D = 10, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7",
+          "band_weights": "band d has weight M(d) and population pi(I_d) ~ x/(d(d+1)log(x/d)); the d=2 band (q in (x/3,x/2]) contributes exactly zero since M(2)=0, and d=1 (q > x/2) needs no correction at all",
+          "extra_band_cancellation": "|S_D| decays faster than |A_D| (2.18e-6 against 1.02e-4 at D=1e7) because A_D ~ M(D)/(D+1) to within a few percent and S_D is the residue between them. Suggestive of genuine additional cancellation in the band coordinate, but it is a difference of two nearly equal quantities over only four decades - not a claim."
+        }
+      },
+      "caveats": "The next-order heuristic T ~ -x/log^2 x, obtained by expanding 1/log(x/d) and inserting sum mu(n) log n / n = -1, gives the right sign and magnitude (measured T = -3.56e5 against -x/log^2 x = -2.95e5 at x = 1e8) but is NOT established as a uniform asymptotic here: promoting it requires controlling the truncation and the weighted Moebius remainder, not merely substituting the formal identity. Treat it as a heuristic only.",
+      "what_would_reopen": "Control of the Mertens boundary M(D)/(D+1) at rate D^(-1/2+eps) obtained independently of the Mertens bound itself. Absent that, the reindexing is an exact restatement."
     }
   ],
   "not_closed": {
