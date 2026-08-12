@@ -18,6 +18,15 @@ inside one primorial block,
 
 `Delta_j = R_k(X_j) - R_k(X_{j-1})`.
 
+The same statement also applies to an arbitrary integer prefix. Every `x` has
+the canonical complete-square anchor
+
+`floor(sqrt x)^2 - 1`,
+
+which lies at or below `x` and differs from `x` by only `O(sqrt x)`. Whenever
+that anchor and `x` lie in one primorial block, the partial square prefix is
+exactly one difference of the same pinned wheel residual.
+
 More generally every consecutive run of complete square blocks telescopes to
 one difference of wheel-residual values. Therefore a uniform wheel-residual
 bound controls all such block runs with only the sharp triangle-inequality
@@ -49,6 +58,79 @@ theorem primorialWheel_residual_cast_eq_mertens_sub_le
   rw [primorialWheel_residual_eq_moebiusInterval k hupper]
   push_cast
   exact moebius_Ioc_cast_eq_mertens_sub hlower
+
+/-! ## Arbitrary prefixes inside one wheel block -/
+
+/-- Any two integer prefixes in one closed primorial block differ by exactly
+the corresponding difference of pinned wheel residual values. -/
+theorem mertens_sub_eq_primorialResidual_sub
+    (k : ℕ) {a b : ℕ}
+    (haLower : primorialBlockLower k ≤ a)
+    (haUpper : a ≤ primorialBlockUpper k)
+    (hbLower : primorialBlockLower k ≤ b)
+    (hbUpper : b ≤ primorialBlockUpper k) :
+    RHLean.Analysis.mertensSummatory b -
+        RHLean.Analysis.mertensSummatory a =
+      ((((primorialWheelSystem k).residual b : ℤ) : ℂ)) -
+        ((((primorialWheelSystem k).residual a : ℤ) : ℂ)) := by
+  rw [primorialWheel_residual_cast_eq_mertens_sub_le k hbLower hbUpper,
+    primorialWheel_residual_cast_eq_mertens_sub_le k haLower haUpper]
+  ring
+
+/-- Canonical complete-square anchor attached to an arbitrary prefix `x`. -/
+def canonicalSquareAnchor (x : ℕ) : ℕ :=
+  (Nat.sqrt x) ^ 2 - 1
+
+/-- The canonical complete-square anchor never lies above its prefix. -/
+theorem canonicalSquareAnchor_le (x : ℕ) :
+    canonicalSquareAnchor x ≤ x := by
+  unfold canonicalSquareAnchor
+  exact (Nat.sub_le _ _).trans (Nat.sqrt_le' x)
+
+/-- For a positive prefix, the canonical anchor is exactly the repository's
+complete square-prefix endpoint indexed by `sqrt(x)-1`. -/
+theorem canonicalSquareAnchor_eq_squarePrefixEndpoint
+    {x : ℕ} (hx : 0 < x) :
+    canonicalSquareAnchor x =
+      RHLean.Analysis.squarePrefixEndpoint (Nat.sqrt x - 1) := by
+  unfold canonicalSquareAnchor RHLean.Analysis.squarePrefixEndpoint
+  have hr : 1 ≤ Nat.sqrt x := Nat.sqrt_pos.mpr hx
+  have hpred : Nat.sqrt x - 1 + 1 = Nat.sqrt x := by omega
+  rw [hpred]
+
+/-- The unfinished part of the square block containing `x` has length
+`O(sqrt x)` with an explicit elementary bound. -/
+theorem canonicalSquareAnchor_gap_le (x : ℕ) :
+    x - canonicalSquareAnchor x ≤ 2 * (Nat.sqrt x + 1) := by
+  have hx_lt : x < (Nat.sqrt x + 1) ^ 2 := Nat.lt_succ_sqrt' x
+  have hsquare :
+      (Nat.sqrt x + 1) ^ 2 =
+        (Nat.sqrt x) ^ 2 + 2 * Nat.sqrt x + 1 := by ring
+  rw [hsquare] at hx_lt
+  unfold canonicalSquareAnchor
+  omega
+
+/-- Signed Mobius mass of the partial square prefix from the canonical complete
+square anchor through an arbitrary `x`. -/
+def canonicalPartialSquarePrefixMass (x : ℕ) : ℂ :=
+  RHLean.Analysis.mertensSummatory x -
+    RHLean.Analysis.mertensSummatory (canonicalSquareAnchor x)
+
+/-- If an arbitrary prefix and its canonical complete-square anchor lie in one
+primorial block, then the partial square prefix is exactly one increment of the
+same pinned wheel residual. -/
+theorem canonicalPartialSquarePrefixMass_eq_primorialResidual_sub
+    (k x : ℕ)
+    (hanchorLower : primorialBlockLower k ≤ canonicalSquareAnchor x)
+    (hanchorUpper : canonicalSquareAnchor x ≤ primorialBlockUpper k)
+    (hxLower : primorialBlockLower k ≤ x)
+    (hxUpper : x ≤ primorialBlockUpper k) :
+    canonicalPartialSquarePrefixMass x =
+      ((((primorialWheelSystem k).residual x : ℤ) : ℂ)) -
+        ((((primorialWheelSystem k).residual (canonicalSquareAnchor x) : ℤ) : ℂ)) := by
+  unfold canonicalPartialSquarePrefixMass
+  exact mertens_sub_eq_primorialResidual_sub
+    k hanchorLower hanchorUpper hxLower hxUpper
 
 /-- One complete square-block increment is the discrete derivative of the
 square-prefix Mertens sequence. -/

@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.PrimeSievePostSqrtGap
+import RHLean.Analysis.PrimeDilateTransportCompression
 import RHLean.Analysis.SquareRootTransportRealization
 
 /-!
@@ -10,7 +11,21 @@ that, after all primes through `y > sqrt x` have acted in the all-plus comb, the
 remaining discrepancy from `M(x)` is exactly twice the lower-scale Mertens tail
 carried by primes above `y`.
 
-This module specializes that elementary process to the complete square endpoint
+The arbitrary-prime cofactor compression theorem now rewrites each lower-scale
+Mertens value in that tail as the exact `p`-free reciprocal shell
+
+```text
+floor(x/q) / p < c <= floor(x/q),   p ∤ c.
+```
+
+Thus, for any fixed prime `p`, the generic post-square-root gap is exactly a sum
+of the same prime-dilate boundary shells identified geometrically in
+`PrimeDilateTransportCompression`.  When `p <= y < q`, the acting prime `p` and
+unprocessed prime `q` are automatically distinct, so this is literally the
+parent/child mechanism of the prime-dilate transport theorem.
+
+The second half of the module specializes that elementary process to the
+complete square endpoint
 
 ```text
 x = R^2 - 1,   y = R,
@@ -36,6 +51,67 @@ open scoped ArithmeticFunction.Moebius BigOperators
 namespace RHLean.Proof
 
 open RHLean.Arithmetic
+
+/-! ## Arbitrary-prefix prime-dilate shell form -/
+
+/-- The post-square-root prime tail after replacing every lower-scale Mertens
+value by its exact `p`-free reciprocal boundary shell. -/
+def primeSievePrimeDilateShellTail (p y x : ℕ) : ℂ :=
+  ∑ q ∈ Finset.Ioc y x,
+    if q.Prime then
+      ∑ c ∈ primeDilatePrefixReciprocalShell p x q,
+        canonicalMoebiusWeight c
+    else
+      0
+
+/-- Every lower-scale Mertens value in a `q`-fiber is exactly the mass of the
+arbitrary-prefix `1/p` shell from `PrimeDilateTransportCompression`. -/
+theorem mertensSummatory_primeDilatePrefixCutoff_eq_shellMass
+    (p x q : ℕ) (hp : p.Prime) :
+    RHLean.Analysis.mertensSummatory (primeDilatePrefixCutoff x q) =
+      ∑ c ∈ primeDilatePrefixReciprocalShell p x q,
+        canonicalMoebiusWeight c := by
+  rw [← cofactorMobiusPrefixMass_eq_mertensSummatory
+    (primeDilatePrefixCutoff x q)]
+  rw [cofactorMobiusPrefixMass_eq_primeCofactorBoundaryMass
+    p (primeDilatePrefixCutoff x q) hp]
+  unfold primeCofactorBoundaryMass
+  rw [primeCofactorBoundary_eq_primeDilatePrefixReciprocalShell]
+
+/-- The Mertens prime tail is exactly the sum of the moving `1/p` boundary
+shells in all unresolved prime fibers. -/
+theorem primeSieveMertensPrimeTail_eq_primeDilateShellTail
+    (p y x : ℕ) (hp : p.Prime) :
+    primeSieveMertensPrimeTail y x =
+      primeSievePrimeDilateShellTail p y x := by
+  unfold primeSieveMertensPrimeTail primeSievePrimeDilateShellTail
+  apply Finset.sum_congr rfl
+  intro q hq
+  by_cases hprime : q.Prime
+  · simp only [hprime, if_true]
+    simpa only [primeDilatePrefixCutoff] using
+      (mertensSummatory_primeDilatePrefixCutoff_eq_shellMass p x q hp)
+  · simp [hprime]
+
+/-- **Arbitrary-prefix shell gap identity.**  For every `x`, once the sieve
+cutoff lies strictly above `sqrt x`, the remaining discrepancy is exactly twice
+the total `p`-free prime-dilate boundary mass, for any fixed prime `p`. -/
+theorem allPlusPrimeCombPrefixMass_sub_mertens_eq_two_primeDilateShellTail
+    (p y x : ℕ) (hp : p.Prime) (hroot : Nat.sqrt x < y) :
+    allPlusPrimeCombPrefixMass y x - RHLean.Analysis.mertensSummatory x =
+      2 * primeSievePrimeDilateShellTail p y x := by
+  rw [allPlusPrimeCombPrefixMass_sub_mertens_eq_two_mertensPrimeTail y x hroot,
+    primeSieveMertensPrimeTail_eq_primeDilateShellTail p y x hp]
+
+/-- A prime already processed by the cutoff is distinct from every unresolved
+prime in the post-square-root tail. -/
+theorem processedPrime_ne_unprocessedPrime
+    {p y x q : ℕ} (hpy : p ≤ y) (hq : q ∈ Finset.Ioc y x) :
+    p ≠ q := by
+  have hyq := (Finset.mem_Ioc.mp hq).1
+  omega
+
+/-! ## Complete square specialization -/
 
 /-- Sum of the all-plus prime-comb state over a complete square prefix after all
 primes at most `R` have acted. -/
