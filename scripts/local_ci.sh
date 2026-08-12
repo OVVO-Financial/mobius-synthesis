@@ -28,6 +28,13 @@ lean_lib='RHLean'
 axiom_import='RHLean.Analysis.PrimeSieveQuotientPNTError'
 axiom_decl='RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError'
 
+# The prime-counting endpoint of the native Selberg--Erdos architecture. It is
+# gated separately from the headline synthesis theorem above because it is an
+# unconditional asymptotic statement rather than an exact identity, so it
+# carries none of the architectural anchors checked at the end of this script.
+pnt_axiom_import='RHLean.Analysis.NativePNTSquarePrefixTransfer'
+pnt_axiom_decl='RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem'
+
 # The hosted job requires an anchor from each architecture, so that the
 # headline statement is a genuine synthesis rather than whatever happened to
 # elaborate. Entries are 'label=extended regex'.
@@ -50,6 +57,7 @@ tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 check_lean="$tmp_dir/baseline_check.lean"
 check_log="$tmp_dir/baseline_check.log"
+pnt_check_log="$tmp_dir/pnt_endpoint_check.log"
 
 step 'Auditing unfinished proofs and project-local axioms'
 bash scripts/audit_assumptions.sh
@@ -67,28 +75,43 @@ fi
 step "Building $lean_lib with warnings fatal"
 lake build "$lean_lib" --wfail
 
-step 'Printing the headline theorem and its axioms'
-cat > "$check_lean" <<EOF
-import $axiom_import
+# Elaborate a declaration, print it with its axiom report, and reject both an
+# unfinished proof and a silent non-elaboration. Writes the report to $2 so a
+# caller can run further assertions against the printed statement.
+print_and_audit_axioms() {
+  local decl_import="$1" decl="$2" log="$3"
+
+  cat > "$check_lean" <<EOF
+import $decl_import
 
 set_option pp.fullNames true in
-#print $axiom_decl
+#print $decl
 
-#print axioms $axiom_decl
+#print axioms $decl
 EOF
 
-if ! lake env lean "$check_lean" | tee "$check_log"; then
-  fail "$axiom_decl did not elaborate."
-fi
+  if ! lake env lean "$check_lean" | tee "$log"; then
+    fail "$decl did not elaborate."
+  fi
+  if grep -q 'sorryAx' "$log"; then
+    fail "$decl depends on sorryAx: the proof is unfinished."
+  fi
+  if ! grep -qE 'depends on axioms|does not depend on any axioms' "$log"; then
+    fail "no axiom report was produced for $decl; the declaration did not elaborate."
+  fi
+}
+
+step 'Printing the headline theorem and its axioms'
+print_and_audit_axioms "$axiom_import" "$axiom_decl" "$check_log"
 
 step 'Asserting the theorem rests only on the standard Lean axioms'
-if grep -q 'sorryAx' "$check_log"; then
-  fail "$axiom_decl depends on sorryAx: the proof is unfinished."
-fi
-if ! grep -qE 'depends on axioms|does not depend on any axioms' "$check_log"; then
-  fail 'no axiom report was produced; the declaration did not elaborate.'
-fi
 echo 'Axiom audit passed.'
+
+step 'Printing the prime-counting endpoint and its axioms'
+print_and_audit_axioms "$pnt_axiom_import" "$pnt_axiom_decl" "$pnt_check_log"
+
+step 'Asserting the prime-counting endpoint rests only on the standard Lean axioms'
+echo 'Prime-counting axiom audit passed.'
 
 if [[ ${#anchor_checks[@]} -gt 0 ]]; then
   step 'Asserting the theorem still carries its architectural anchors'

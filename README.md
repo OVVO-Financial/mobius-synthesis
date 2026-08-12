@@ -144,10 +144,6 @@ The synchronized exact work makes the present analytic boundary more explicit ra
 1. control of the centered PNT-corrected comb;
 2. control of the centered Mertens-weighted reciprocal-interval prime-count discrepancies, including the short reciprocal intervals near the square-root edge.
 
-That pair is **not a reduction**. Because `H = C - 2E` is an identity, `C = H + 2E`, so proving both components is equivalent to proving the target *plus* the `E` bound — strictly more than the target asks. The separation is a change of coordinates, not a simplification; see `CURRENT_PROOF_ROUTE.md` §5 and the lane `pnt-reciprocal-coordinate-change` in `boundary/dead_lanes.json`.
-
-The canonical orientation split of the square-root smooth mass is closed outright: its uncancelled region equals `-sum_{q<=R prime} M(q-1)`, an integral of `M` against `dpi`, which is of order `R^(3/2)/log R = X^(3/4+o(1))` — a quarter power above the target. See §8 of `CURRENT_PROOF_ROUTE.md`.
-
 No pointwise or averaged PNT-error theorem, short-interval prime theorem, Bombieri-Vinogradov estimate, large-sieve estimate, power saving, or unconditional proof of RH is claimed by these exact reductions.
 
 If the required RH-scale bound for `H_{k,n}` is established, the existing zero-mode elimination, square interpolation, Mertens transfer, Mellin continuation, zeta identity continuation, and terminal RH bridge carry it through the remaining formal chain.
@@ -179,9 +175,32 @@ The checked source currently includes, among other results:
 10. exact PNT centering of the prime tail;
 11. exact reciprocal quotient-fibre reindexing of the PNT error;
 12. the reciprocal-interval representation and norm transfer for `H_{k,n}`;
-13. Mertens, Mellin, zeta-continuation, and terminal RH transfer infrastructure.
+13. Mertens, Mellin, zeta-continuation, and terminal RH transfer infrastructure;
+14. the native Selberg--Erdős prime number theorem, unconditionally, through to `pi(N) log N / N -> 1`;
+15. the finite primorial reciprocal Möbius factorization separating signed contraction from squarefree support;
+16. the truncated primorial wheel boundary profile and its exact fresh-prime recurrence.
 
-These are exact structural, centering, reindexing, and transfer theorems. They do not by themselves provide the unresolved analytic cancellation estimate.
+Items 1 through 13, 15, and 16 are exact structural, centering, reindexing, and transfer theorems. They do not by themselves provide the unresolved analytic cancellation estimate. Item 14 is the one asymptotic theorem rather than an exact identity, and its scope is stated precisely in the next section.
+
+## Native Selberg--Erdős prime number theorem
+
+The repository carries a complete elementary proof of the ordinary prime-counting prime number theorem, ending at
+
+```text
+RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
+  : Tendsto (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N) atTop (𝓝 1)
+```
+
+The chain runs: fresh-prime Möbius cancellation, reciprocal-fibre reindexing, sharp log-factorial and log-square summatory estimates, summatory Selberg symmetry, absolute and squared Chebyshev-error recurrences, good-interval selection, reciprocal `Lambda_2` good-fibre packing, a positive `c log^2 N` good-mass density, cubic affine-slope contraction, `R(N)/N -> 0`, `psi(N)/N -> 1`, the elementary `psi - theta = o(N)` bridge, and a finite multiplicative cutoff to `pi`.
+
+What this is, precisely:
+
+- **unconditional** — the endpoint theorem takes no hypotheses;
+- **elementary** — no zero-free region, Perron formula, Tauberian theorem, or spectral input;
+- **explicit** — every error term in the chain carries a numeric constant rather than an existential one;
+- **axiom clean** — the dependency closure contains no `sorry`, no project-local `axiom`, and no `native_decide`, and `scripts/local_ci.sh` gates the endpoint on `#print axioms`.
+
+What it is **not**: progress against this repository's frontier target. The prime number theorem is equivalent to `M(x) = o(x)`, whereas the open target in `boundary/frontier.json` is a uniform bound at exponent `1/2 + epsilon`. The proved asymptotic is therefore the baseline against which the nonzero-response contraction is measured, not a reduction of it. `RHLean.Analysis.NativePNTQuantitativeStatements` states the RH-scale targets separately so that the two are never conflated.
 
 ## Direct synthesis modules
 
@@ -249,6 +268,8 @@ lake build RHLean --wfail
 
 The `Baseline coupling audit` workflow runs the same build in CI, then prints the synthesis theorem together with its axiom dependencies. It fails if that theorem rests on `sorryAx`, if no axiom report is produced, or if the statement loses either its square-block or its prime-wheel anchor.
 
+`scripts/local_ci.sh` mirrors that job and additionally prints `nativePNTSquarePrefixPrimeNumberTheorem` with its axiom report, failing on `sorryAx` or on a missing report. The prime-counting endpoint is gated separately from the headline synthesis theorem because it is an unconditional asymptotic statement rather than an exact identity, so the square-block and prime-wheel anchor checks do not apply to it.
+
 ## Status convention
 
 - **Machine checked** means the statement is represented by a checked theorem or definition in the synchronized Lean source.
@@ -256,7 +277,7 @@ The `Baseline coupling audit` workflow runs the same build in CI, then prints th
 - **Open analytic target** means an estimate is still unresolved and must not be described as established.
 - Numerical experiments and finite-range checks are diagnostic evidence only.
 
-At the synchronized mathematical baseline, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, and transfer infrastructure are machine checked. The RH-scale bound on the canonical nonzero response remains open.
+At the synchronized mathematical baseline, the square-wheel bridge, elementary prime-sieve seam, PNT centering, reciprocal quotient reindexing, transfer infrastructure, and the native Selberg--Erdős prime number theorem are machine checked. The RH-scale bound on the canonical nonzero response remains open, and the prime number theorem does not narrow it: `M(x) = o(x)` is equivalent to the prime number theorem, while the open target is `O(x^(1/2 + epsilon))`.
 
 ## License
 

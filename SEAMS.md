@@ -63,6 +63,28 @@ It also reindexes the deterministic PNT bulk and exact prime tail, proves the de
 
 These are exact finite realization, centering, and reindexing theorems. They assert no PNT error estimate, Bombieri-Vinogradov estimate, large-sieve estimate, RH-scale power saving, or new axiom. The centered PNT-corrected comb remains a separate analytic target from the explicit reciprocal-interval prime-distribution error.
 
+## Native prime number theorem seam
+
+The elementary seams above assert no PNT error estimate. That restriction is
+about *estimates consumed by the synthesis route*, and it is unchanged.
+
+Separately, the repository now proves the prime number theorem itself, from the
+same reciprocal-fibre Möbius architecture, at
+`RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem`. The seam between the
+two is worth stating explicitly, because they meet at the Möbius endpoint:
+
+```text
+RHLean.Analysis.NativePNTAxer.nativeMertensSummatory      -- M(N) = sum_{m <= N} mu(m)
+```
+
+`NativePNTAxer` carries `M(x)` and the elementary route from the Chebyshev
+asymptotic to it. This is the one place where the native prime number theorem
+touches the same object as the synthesis route, and the scales are different:
+the native chain establishes `M(x) = o(x)`, which is equivalent to the prime
+number theorem, while the synthesis route targets `M(x) = O(x^(1/2+epsilon))`.
+The seam is a shared object, not a shared strength, and nothing in the native
+chain may be read as certifying the power-saving statement.
+
 ## Build completeness
 
 The library is build-complete as a standalone Lean project: `RHLean.lean` is the
@@ -70,3 +92,7 @@ authoritative import manifest, and every module it imports resolves to a file
 under `RHLean/`. When the manifest gains an import, the module and the manifest
 change together, so the formal statements never depend on a file that is not
 present here.
+
+`scripts/check_export_sync.py` in the development tree enforces both halves of
+that invariant for this export: every module reachable from `RHLean.lean` exists
+on disk, and every module on disk is reachable from `RHLean.lean`.
