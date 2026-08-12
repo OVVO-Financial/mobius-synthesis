@@ -142,7 +142,7 @@ theorem sum_floor_succ_div_sub_eq_card_divisors (x K : ℕ) :
 
 /-- The floor increment counts multiples exactly:
 `⌊(x+h)/d⌋ − ⌊x/d⌋ = #{n ∈ (x, x+h] : d ∣ n}`. -/
-theorem floor_add_div_sub_eq_card_multiples (x h d : ℕ) (hd : 0 < d) :
+theorem floor_add_div_sub_eq_card_multiples (x h d : ℕ) (_hd : 0 < d) :
     (x + h) / d - x / d = ((Finset.Ioc x (x + h)).filter (d ∣ ·)).card := by
   classical
   have hdisj : Disjoint ((Finset.Ioc 0 x).filter (d ∣ ·))
