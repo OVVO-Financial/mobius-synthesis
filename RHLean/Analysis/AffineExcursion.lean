@@ -23,8 +23,9 @@ uses the *inclusive* convention `t <= W`, so the moment sums below run over
 `Finset.range (W + 1)`, which has `W + 1` points.
 
 The module is fully abstract (no arithmetic input): the core statement is in
-excursion coordinates `g t = f (x0 +/- t)`, and one-line wrappers give the
-forward and backward directions for a sequence `f` pinned at `x0`.  Both the
+excursion coordinates `g t = f (x0 + t)` or `g t = f (x0 - t)`, and one-line
+wrappers give the forward and backward directions for a sequence `f` pinned
+at `x0`.  Both the
 norm and the `2k`-th moment bounds hold unconditionally; they are vacuous
 only when the window is empty, and `one_le_affineExcursionWindow` certifies
 nonemptiness under the explicit height hypothesis `H >= 2(A + B)`.

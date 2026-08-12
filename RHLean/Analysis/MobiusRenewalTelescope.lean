@@ -104,7 +104,8 @@ theorem sum_Icc_divisorsAntidiagonal_eq_sum_div (F : ℕ → ℕ → ℂ) (N : �
           obtain ⟨-, hp⟩ := hz
           rw [Nat.mem_divisorsAntidiagonal] at hp
           obtain ⟨hab, -⟩ := hp
-          subst hab
+          have hab' : a * b = n := hab
+          subst hab'
           rfl
         · rintro ⟨a, b⟩ _
           rfl
