@@ -70,7 +70,9 @@ precise about which part of the informal argument survives.
   those; the informal `sqrt x exp(-c (log x)^{3/5})` bound is PNT-strength input,
   not elementary arithmetic.  `primeSieveQuotientTop_stable` gives a checkable
   sufficient condition (`x % (y+1) + h < y+1`) for the hypothesis, and the
-  window used by the excursion lemma is short enough for it to be typical.
+  window used by the excursion lemma is short enough for it to be typical
+  (it fails exactly at the canonical square pins `x0 = (y+1)^2 - 1`, where
+  `x0 % (y+1) = y`; the backward module exists for that reason).
 
 ## 2. The excursion (pinned to windowed) transfer
 

@@ -1,3 +1,4 @@
+import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.CanonicalExtremePrimeSupport
 import RHLean.Analysis.CanonicalHighSectorBridge
 import RHLean.Analysis.CanonicalHighSectorCore
@@ -25,6 +26,7 @@ import RHLean.Analysis.MertensPowerGrowth
 import RHLean.Analysis.MertensStepFunction
 import RHLean.Analysis.MertensStepGrowth
 import RHLean.Analysis.MertensZetaIdentityContinuation
+import RHLean.Analysis.MobiusRenewalTelescope
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NativePNTAxer
@@ -51,6 +53,8 @@ import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeSieveAbelIdentity
+import RHLean.Analysis.PrimeSieveAbelTwoObligations
+import RHLean.Analysis.PrimeSieveAffineExcursion
 import RHLean.Analysis.PrimeSieveBackwardAffineExcursion
 import RHLean.Analysis.PrimeSieveCollapseIdentity
 import RHLean.Analysis.PrimeSieveLipschitzExcursion
