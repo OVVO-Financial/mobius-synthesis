@@ -2,7 +2,7 @@ name: Baseline coupling audit
 
 on:
   push:
-    branches: [main]          # warm the trusted main-branch build cache
+    branches: [main]
     paths:
       - '**.lean'
       - 'lean-toolchain'
@@ -52,8 +52,6 @@ jobs:
       - name: Build the synthesis library
         run: lake build RHLean --wfail
 
-      # Saved even on failure: a partial build lets the next run resume
-      # instead of recompiling the whole library from scratch.
       - name: Save RHLean build cache
         if: always()
         uses: actions/cache/save@v5
@@ -74,21 +72,18 @@ jobs:
           EOF
           lake env lean /tmp/baseline_check.lean | tee /tmp/baseline_check.log
 
-      - name: Assert the theorem rests only on the standard Lean axioms
+      - name: Assert the synthesis theorem is axiom-clean
         run: |
           if grep -q 'sorryAx' /tmp/baseline_check.log; then
             echo 'Synthesis theorem depends on sorryAx: the proof is unfinished.' >&2
             exit 1
           fi
           if ! grep -qE 'depends on axioms|does not depend on any axioms' /tmp/baseline_check.log; then
-            echo 'No axiom report produced; the theorem did not elaborate.' >&2
+            echo 'No axiom report produced; the synthesis theorem did not elaborate.' >&2
             exit 1
           fi
-          echo 'Axiom audit passed.'
+          echo 'Synthesis axiom audit passed.'
 
-      # The point of this audit is that the theorem genuinely couples both
-      # architectures, so require an anchor from each family rather than just
-      # printing whatever turns up.
       - name: Assert the theorem couples square-block and prime-wheel machinery
         run: |
           echo 'square anchors found:'
@@ -106,3 +101,51 @@ jobs:
             exit 1
           fi
           echo 'Coupling audit passed.'
+
+      - name: Print the native prime-number-theorem endpoint and its axioms
+        run: |
+          set -o pipefail
+          cat > /tmp/pnt_endpoint_check.lean <<'EOF'
+          import RHLean.Analysis.NativePNTSquarePrefixTransfer
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
+
+          #print axioms RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
+          EOF
+          lake env lean /tmp/pnt_endpoint_check.lean | tee /tmp/pnt_endpoint_check.log
+          if grep -q 'sorryAx' /tmp/pnt_endpoint_check.log; then
+            echo 'Native PNT endpoint depends on sorryAx.' >&2
+            exit 1
+          fi
+          if ! grep -qE 'depends on axioms|does not depend on any axioms' /tmp/pnt_endpoint_check.log; then
+            echo 'No axiom report produced for the native PNT endpoint.' >&2
+            exit 1
+          fi
+
+      - name: Audit the quantitative status theorems
+        run: |
+          set -o pipefail
+          cat > /tmp/quantitative_status_check.lean <<'EOF'
+          import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
+          import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
+          #print axioms RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
+
+          set_option pp.fullNames true in
+          #print RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
+          #print axioms RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
+          EOF
+          lake env lean /tmp/quantitative_status_check.lean | tee /tmp/quantitative_status_check.log
+          if grep -q 'sorryAx' /tmp/quantitative_status_check.log; then
+            echo 'A quantitative status theorem depends on sorryAx.' >&2
+            exit 1
+          fi
+          reports=$(grep -Ec 'depends on axioms|does not depend on any axioms' /tmp/quantitative_status_check.log || true)
+          if [ "$reports" -lt 2 ]; then
+            echo 'Expected axiom reports for both quantitative status theorems.' >&2
+            exit 1
+          fi
+          echo 'Contraction and scale-bridge audit passed.'

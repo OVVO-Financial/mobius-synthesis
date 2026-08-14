@@ -11,7 +11,7 @@ The pointwise Dirichlet-ring identity
 
 is not yet Selberg's summatory formula.  This module performs that missing
 finite reindexing in the same reciprocal-fibre coordinates used throughout
-`RH_Lean`.
+the Möbius Synthesis library.
 
 No asymptotic prime-distribution theorem is used here.
 -/

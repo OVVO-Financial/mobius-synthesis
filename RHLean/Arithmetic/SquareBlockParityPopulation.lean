@@ -4,7 +4,7 @@ import RHLean.Arithmetic.FullPrimeFactorizationState
 /-!
 # Square-block parity populations and the exact identity `Δ_m = E_m − O_m`
 
-This is step 1 of the parity-balance ladder in issue #144.  On the square block
+This is the first step of the parity-balance ladder. On the square block
 `I_m = [m², (m+1)²)`, the block Möbius sum
 
 ```text
@@ -22,7 +22,7 @@ O_m = #{n ∈ I_m : Squarefree n ∧ Odd  (ω n)}
 ```
 
 Summing over `m ≤ N` gives `M((N+1)² − 1) = ∑_{m ≤ N} Δ_m`, so the governing
-open target `Δ_m = o(m)` implies `M(x) = o(x)`.  This module proves only the
+open target `Δ_m = o(m)` implies `M(x) = o(x)`. This module proves only the
 exact identity; the quantitative boundary bound is the remaining open theorem.
 -/
 
@@ -89,7 +89,7 @@ theorem moebius_negOne_of_mem_oddPopulation {m n : ℕ}
   rw [moebius_eq_negOnePow_stateOmega hn.2.1]
   exact hn.2.2.neg_one_pow
 
-/-- **Exact parity-population identity** (issue #144, ladder step 1):
+/-- **Exact parity-population identity**:
 `Δ_m = E_m − O_m`, with parity read from the complete factorization state. -/
 theorem squareBlockMoebius_eq_evenMinusOdd (m : ℕ) :
     squareBlockMoebius m = (evenDepthCount m : ℤ) - (oddDepthCount m : ℤ) := by

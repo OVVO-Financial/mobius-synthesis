@@ -1,173 +1,85 @@
 # Möbius Synthesis — Lean source map
 
-This repository intentionally contains the full import-audited `RHLean` library rather than a minimal transitive closure. `RHLean.lean` is the authoritative file-by-file inventory. The manifest currently imports **285 Lean modules**, and every imported `RHLean.*` module resolves to the corresponding path under `RHLean/`.
+This repository contains the complete import-audited `RHLean` library used by the current Möbius Synthesis research snapshot.
 
-## Elementary prime-sieve seam
+`RHLean.lean` is the authoritative inventory. It imports **366 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
 
-The synthesis now records an elementary seam beneath the later square-wheel Fourier bridge.
+This file groups the source by research function. For the exhaustive file-by-file list, read `RHLean.lean` itself.
 
-`RHLean.Proof.PrimeSievePostSqrtGap` defines the all-plus prime-comb state by reversing the seed orientation of the existing `seededPrimeComb`. After all primes through a cutoff `y` strictly above `sqrt x` have acted, it proves the exact identity
+## 1. Square-block architecture
 
-```text
-M_y^+(x) - M(x)
-  = 2 * sum_{y < q <= x, q prime} M(floor(x/q)).
-```
-
-The proof is finite bookkeeping only. Under square-root coverage, every unresolved squarefree source has one remaining prime factor `q > y`; applying that fresh prime changes its sign once. The module reindexes the unresolved sources by their unique canonical `(c,q)` pair and identifies the cofactor-first batch with the lower-scale Mertens prime tail.
-
-`RHLean.Proof.PrimeSieveSquareRootTransport` specializes this theorem to the complete square endpoint `x = R^2 - 1`, `y = R`, and identifies the two prime-sieve states with the original square-block smooth and transport variables:
+The square-block layer contains complete-square, cofactor, lifetime, death-shell, survivor, ancestry, and signed Gram geometry. Representative modules include:
 
 ```text
-before remaining large-prime flips = smooth + transport
-after all prime flips              = smooth - transport = M(R^2-1)
+RHLean.Analysis.ConcreteSquarePrefixGeometry
+RHLean.Analysis.SquarePrefixHeightPartition
+RHLean.Analysis.SquarePrefixMertensBridge
+RHLean.Analysis.SquareBlockDeathProcess
+RHLean.Analysis.SquareBlockSurvivorBridge
+RHLean.Analysis.SquareRootMatchedTransport
+RHLean.Analysis.SquareRootPositiveSmoothCollapse
+RHLean.Analysis.SquareRootTransportRealization
+RHLean.Proof.LifetimeActiveSet
+RHLean.Proof.LifetimeEndpointDecomposition
+RHLean.Proof.LifetimeEndpointDiscrepancyAttack
+RHLean.Proof.LifetimeOverlapGramCriterion
+RHLean.Proof.DeathProcessArithmetic
+RHLean.Proof.DeathProcessShellIdentity
+RHLean.Proof.SurvivorFarUpperRigidity
+RHLean.Proof.CanonicalGapAncestryQuadraticClosure
+RHLean.Proof.CanonicalGapAncestryZeroCutoff
+RHLean.Proof.SquareRootAncestryRoot
+RHLean.Proof.SquareRootAncestrySuccessor
 ```
 
-In particular it proves
+## 2. Prime-wheel architecture
+
+The prime-wheel layer contains finite Möbius recovery, partial-wheel error support, torus and conductor decompositions, Ramanujan reductions, finite-wheel quantitative statements, and exact boundary identities. Representative modules include:
 
 ```text
-before - M(R^2-1) = 2 * transport
-before + M(R^2-1) = 2 * smooth.
+RHLean.Arithmetic.PrimeWheelFiniteSystem
+RHLean.Arithmetic.PrimeWheelMobiusRecovery
+RHLean.Arithmetic.PrimeWheelPartialError
+RHLean.Arithmetic.PrimeWheelPartialErrorThreshold
+RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization
+RHLean.Arithmetic.PrimorialTruncatedWheelBoundary
+RHLean.Analysis.FiniteWheelRestrictedFloor
+RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
+RHLean.Analysis.PrimeWheelFourierReduction
+RHLean.Analysis.PrimeWheelConductorGram
+RHLean.Analysis.PrimeWheelPeriodicRawBridge
+RHLean.Analysis.PrimeWheelRawConductorMobiusReindex
+RHLean.Analysis.PrimeWheelRawBoundaryMobiusPairing
+RHLean.Analysis.PrimeWheelRawBoundaryExpansionCollapse
+RHLean.Analysis.PrimeWheelFullConductorMobiusReindexedResidual
+RHLean.Analysis.PrimeWheelRamanujanIdentification
+RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction
+RHLean.Analysis.RamanujanDivisorBoundaryBulk
 ```
 
-`RHLean.Analysis.PrimeSievePNTCentering` then separates the explicit prime tail into a deterministic logarithmic-integral density bulk and the exact prime-indicator discrepancy. Its singleton density uses the same Li convention as the existing exact-activity prime-density route:
+## 3. Square-wheel synthesis seam
+
+The canonical cross-track seam includes:
 
 ```text
-density(q) = Li(q) - Li(q-1).
+RHLean.Proof.PrimeSievePostSqrtGap
+RHLean.Proof.PrimeSieveSquareRootTransport
+RHLean.Analysis.PrimeSievePNTCentering
+RHLean.Analysis.PrimeSieveQuotientPNTError
+RHLean.Analysis.SquareWheelNesting
+RHLean.Analysis.SquareWheelQuadraticSampling
+RHLean.Analysis.SquareWheelZeroModeElimination
+RHLean.Analysis.SquareWheelQuantitativeBridge
+RHLean.Analysis.PrimorialWheelMertensTransfer
 ```
 
-The module proves the exact split
+These modules identify the canonical nonzero response `H_{k,n}`, eliminate its zero-mode feedback, realize the post-square-root prime-sieve state in square-block coordinates, and express the prime-distribution component as Mertens-weighted discrepancies over exact reciprocal intervals.
 
-```text
-prime tail = PNT bulk + prime-distribution error
-```
+The direct quantitative endpoint remains the open `NonzeroResponseRHScale` predicate in `RHLean.Analysis.MobiusSynthesisBoundary`.
 
-and pushes it through the **actual** square-wheel zero-mode centering coefficient `(X_n-L_k)/Q_k`. Thus the canonical nonzero response has the exact forms
+## 4. Native Selberg--Erdős prime number theorem
 
-```text
-H_{k,n} = centered PNT-corrected comb - 2 * centered prime error
-```
-
-and
-
-```text
-H_{k,n}
-  = centered all-plus comb
-    - 2 * centered PNT bulk
-    - 2 * centered prime error.
-```
-
-`RHLean.Analysis.PrimeSieveQuotientPNTError` reindexes that prime error by the exact quotient `d=floor(x/q)`. For every positive quotient the literal fibre is proved equal to
-
-```text
-max(y, floor(x/(d+1))) < q <= floor(x/d),
-```
-
-and the singleton Li masses telescope across this entire reciprocal interval. The resulting fibre discrepancy is therefore exactly
-
-```text
-prime count on the reciprocal interval - Li mass of that interval,
-```
-
-weighted by the lower-scale Mertens value `M(d)`. The module reindexes the deterministic bulk, exact prime tail, and PNT error in these coordinates, proves the Li bulk cancels algebraically in the corrected all-plus identity, and pushes the reciprocal-interval error through the same square-wheel centering used by `H_{k,n}`.
-
-These modules also prove the corresponding norm-transfer inequalities. They are exact interfaces, not prime-distribution estimates: no PNT error bound, Bombieri–Vinogradov estimate, large-sieve estimate, or RH-scale power saving is asserted. The centered PNT-corrected comb remains a separate analytic target from the reciprocal-interval prime-distribution error.
-
-## Square-block track
-
-The square-block side is centered on:
-
-- square-prefix Mertens endpoints and interpolation;
-- canonical largest-prime and cofactor decomposition;
-- low and high height partition and low occupancy;
-- squared-complex Fermat and cofactor geometry;
-- square-root transport and dyadic compression;
-- lifetime active sets, death shells, and survivor reduction;
-- canonical gap and ancestry, signed Gram, and terminal quadratic closure;
-- zero-cutoff ancestry and the square-root ancestry root and successor constructions.
-
-Representative entry modules include `SquarePrefixMertensBridge`, `CanonicalHighSectorCore`, `CanonicalLowOccupancy`, `SquareBlockSurvivorBridge`, `LifetimeEndpointDecomposition`, `CanonicalGapAncestryQuadraticClosure`, `CanonicalGapAncestryZeroCutoff`, `SquareRootAncestryRoot`, and `SquareRootAncestrySuccessor`.
-
-## Prime-wheel track
-
-The prime-wheel side is centered on:
-
-- deterministic Möbius reconstruction and primorial-wheel arithmetic;
-- finite torus Fourier pairing;
-- arithmetic and complete spectra;
-- reduced additive conductors and conductor Gram decomposition;
-- periodic raw response and coconductor subtraction;
-- Möbius reindexing of raw and smooth conductor families;
-- raw boundary pairing and expansion collapse;
-- full-conductor uniform packets and the reindexed residual;
-- classical Ramanujan identification;
-- boundary and bulk divisor-residue reductions;
-- Mertens transfer.
-
-Representative entry modules include `PrimeWheelFiniteSystem`, `PrimeWheelMobiusRecovery`, `PrimeWheelFourierReduction`, `PrimeWheelConductorGram`, `PrimeWheelPeriodicRawBridge`, `PrimeWheelRawConductorMobiusReindex`, `PrimeWheelRawBoundaryMobiusPairing`, `PrimeWheelRawBoundaryExpansionCollapse`, `PrimeWheelFullConductorMobiusReindexedResidual`, `PrimeWheelRamanujanIdentification`, `PrimeWheelRamanujanBoundaryBulkReduction`, and `RamanujanDivisorBoundaryBulk`.
-
-## Synthesis seam
-
-The modules most directly joining the two descriptions include:
-
-- `RHLean.Proof.PrimeSievePostSqrtGap`
-- `RHLean.Proof.PrimeSieveSquareRootTransport`
-- `RHLean.Analysis.PrimeSievePNTCentering`
-- `RHLean.Analysis.PrimeSieveQuotientPNTError`
-- `RHLean.Arithmetic.PrimorialWheelMinimalTorus`
-- `RHLean.Arithmetic.PrimeProductLowerBound`
-- `RHLean.Analysis.SquareWheelNesting`
-- `RHLean.Analysis.SquareWheelQuadraticSampling`
-- `RHLean.Analysis.SquareWheelZeroModeElimination`
-- `RHLean.Analysis.SquareWheelQuantitativeBridge`
-- `RHLean.Analysis.PrimeWheelRawConductorMobiusReindex`
-- `RHLean.Analysis.PrimeWheelRawBoundaryMobiusPairing`
-- `RHLean.Analysis.PrimeWheelRawBoundaryExpansionCollapse`
-- `RHLean.Analysis.PrimeWheelFullConductorMobiusReindexedResidual`
-- `RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex`
-- `RHLean.Analysis.PrimeWheelRamanujanIdentification`
-- `RHLean.Analysis.PrimeWheelRamanujanBoundaryReduction`
-- `RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction`
-- `RHLean.Analysis.RamanujanDivisorBoundary`
-- `RHLean.Analysis.RamanujanDivisorBoundaryBulk`
-- `RHLean.Analysis.PrimorialWheelMertensTransfer`
-
-The prime-sieve modules give the elementary seam: fresh-prime parity produces the square-root transport variable exactly, Li-density centering exposes its deterministic prime bulk and exact prime-count discrepancy, and quotient-fibre reindexing identifies that discrepancy with classical prime-count-minus-Li errors on explicit reciprocal intervals. `SquareWheelQuantitativeBridge` remains the synthesis-facing quantitative endpoint of the later spectral bridge: it proves the factor-six modulus separation, the uniform square-sample ratio bound below `1/6`, defines `primorialExpansionReindexedNumerator`, and identifies `squareWheelNonzeroSampleResponse` with the expansion-reindexed numerator after the zero mode is removed. The PNT modules prove that the same `H_{k,n}` can simultaneously be read through the actual wheel centering as a complementary centered arithmetic term plus the centered reciprocal-interval prime-distribution error.
-
-## Mertens and zeta bridge
-
-The library also contains the forward analytic chain needed around the terminal Mertens and zeta statements:
-
-- `RHLean.Analysis.DivisorUpperMobius`
-- `RHLean.Analysis.MertensStepFunction`
-- `RHLean.Analysis.MertensStepGrowth`
-- `RHLean.Analysis.MertensPowerGrowth`
-- `RHLean.Analysis.MertensEnergyRHForward`
-- `RHLean.Analysis.MertensMellinLSeriesBridge`
-- `RHLean.Analysis.MertensMellinContinuation`
-- `RHLean.Analysis.MertensZetaIdentityContinuation`
-- `RHLean.Proof.TerminalMertensForward`
-- `RHLean.Proof.TerminalMertensReduction`
-- `RHLean.Proof.MutablePNTClosure`
-- `RHLean.Proof.RiemannHypothesisBridge`
-- `RHLean.Proof.TerminalAxiomAudit`
-
-## Native Selberg--Erdős prime number theorem
-
-The manifest carries the complete elementary architecture whose endpoint is the
-ordinary prime-counting prime number theorem
-
-```text
-RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
-  : Tendsto (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N) atTop (𝓝 1)
-```
-
-The statement is unconditional: it carries no hypotheses, uses Mathlib's
-`Nat.primeCounting`, and its dependency closure contains no `sorry`, no
-project-local `axiom`, and no `native_decide`. No zero-free region, Perron
-formula, Tauberian theorem, or spectral input is used, and every error term in
-the chain carries an explicit numeric constant rather than an existential one.
-
-Shared elementary layer:
+The ordinary prime number theorem is proved by the native reciprocal-fibre route. Main layers include:
 
 ```text
 RHLean.Analysis.NativePNTLogSums
@@ -179,162 +91,230 @@ RHLean.Analysis.NativePNTMobiusSecondMoment
 RHLean.Analysis.NativePNTSummatorySelberg
 RHLean.Analysis.NativePNTErrorMass
 RHLean.Analysis.NativePNTErdosContraction
-RHLean.Analysis.NativePNTTransfer
-```
-
-Square-prefix reciprocal-fibre route and its endpoint:
-
-```text
 RHLean.Analysis.NativePNTSquarePrefixMobiusError
 RHLean.Analysis.NativePNTSquarePrefixGoodMass
 RHLean.Analysis.NativePNTSquarePrefixGoodMassRate
 RHLean.Analysis.NativePNTSquarePrefixCompensated
-RHLean.Analysis.NativePNTSquarePrefixCubic
 RHLean.Analysis.NativePNTSquarePrefixContraction
+RHLean.Analysis.NativePNTSquarePrefixCubic
 RHLean.Analysis.NativePNTSquarePrefixPNT
 RHLean.Analysis.NativePNTSquarePrefixTransfer
-```
-
-Möbius endpoint and quantitative target statements:
-
-```text
 RHLean.Analysis.NativePNTAxer
+RHLean.Analysis.NativePNTTransfer
 RHLean.Analysis.NativePNTQuantitativeStatements
 ```
 
-`NativePNTAxer` carries the Möbius-side endpoint `nativeMertensSummatory`, and
-`NativePNTQuantitativeStatements` states the RH-scale targets
-(`MertensRHScaleStatement`, `NativePNTChebyshevRHScaleStatement`,
-`MertensPowerBound r`) that the proved asymptotic does **not** establish. They
-are included because the distance between the two is the quantity this
-repository exists to close; see `CURRENT_PROOF_ROUTE.md`.
-
-## Finite primorial reciprocal Möbius factorization
-
-`RHLean.Arithmetic.PrimorialReciprocalMobiusFactorization` iterates the
-architecture's fresh-prime Möbius cancellation inside an explicit finite
-primorial Boolean wheel, and separates signed contraction from squarefree-support
-population:
+The endpoint is
 
 ```text
--- signed and unsigned reciprocal mass over the powerset of P, on prime P
-primorialSignedReciprocalCube_eq_factor
-  : primorialSignedReciprocalCube P   = prod_{p in P} (1 - 1/p)
-primorialUnsignedReciprocalCube_eq_factor
-  : primorialUnsignedReciprocalCube P = prod_{p in P} (1 + 1/p)
-
--- exact factorization and the signed-to-support ratio
-primorial_signed_mul_support_eq_squarefreeEuler
-  : signed * support = prod_{p in P} (1 - 1/p^2)
-primorial_signed_to_support_ratio
-  : signed = support * prod_{p in P} (p-1)/(p+1)
+RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem.
 ```
 
-Every identity is finite: the only cancellation input is Möbius sign reversal on
-fresh prime coordinates plus finite powerset algebra. No infinite Euler product,
-no `6/pi^2`, no Mertens product theorem, and no PNT input is used, so the module
-is an exact reduction in the sense of the status convention.
+## 5. Generalized PNT affine-envelope layer
 
-It is the first module to consume the native prime number theorem architecture
-from the arithmetic side, importing `NativePNTMertens` and
-`NativePNTSquarePrefixContraction`. The module also records that the existing
-reciprocal Mertens bound cannot be uniformly replaced by any constant below `1`
-across every positive prefix, since the `N = 1` value is exactly `1`.
-
-## Truncated primorial wheel boundary
-
-`RHLean.Arithmetic.PrimorialTruncatedWheelBoundary` builds the finite boundary
-object that the factorization above suggests: the signed reciprocal Boolean-cube
-profile, truncated at a cutoff `X`.
+The quantitative layer separates slope contraction from intercept growth:
 
 ```text
-primorialTruncatedSignedReciprocalCube P X
-  = sum over faces t of P.powerset, counting only faces with
-    primeFaceProduct t <= X, of booleanCubeSign t / primeFaceProduct t
+RHLean.Analysis.NativePNTBoundContraction
+RHLean.Analysis.NativePNTLowSlopeContraction
+RHLean.Analysis.NativePNTCubicContractionInequality
+RHLean.Analysis.NativePNTQuadraticBudget
+RHLean.Analysis.NativePNTReciprocalSquareCore
+RHLean.Analysis.NativePNTInterceptOnsetCore
+RHLean.Analysis.NativePNTInterceptOnset
+RHLean.Analysis.NativePNTInterceptExplicitStep
+RHLean.Analysis.NativePNTInterceptStep
+RHLean.Analysis.NativePNTInterceptPropagation
+RHLean.Analysis.NativePNTInterceptAbsorption
+RHLean.Analysis.NativePNTInterceptRecurrence
+RHLean.Analysis.NativePNTInterceptTail
+RHLean.Analysis.NativePNTInterceptGrowth
+RHLean.Analysis.NativePNTInterceptMildUpdates
+RHLean.Analysis.NativePNTOptimalInterceptCore
+RHLean.Analysis.NativePNTOptimalInterceptStep
+RHLean.Analysis.NativePNTOptimalInterceptGrowth
+RHLean.Analysis.NativePNTTailAffineEnvelope
+RHLean.Analysis.NativePNTTailOptimalIntercept
+RHLean.Analysis.NativePNTReciprocalInterceptPowerBound
 ```
 
-The cutoff is an `if` over the complete powerset rather than a restricted index
-set, which is what makes the fresh-prime update fall directly out of the
-powerset insertion split:
+The key bound-changing theorem
 
 ```text
-primorialTruncatedSignedReciprocalCube_insert   -- p prime, p not in P
-  : T (insert p P) X = T P X - (1/p) * T P (X / p)
-
-primorialTruncatedSignedReciprocalCube_eq_complete
-  : once X reaches the full wheel product, T P X is the complete signed profile
-
-primorialTruncatedSignedReciprocalCube_eq_factor
-  : and therefore equals prod_{p in P} (1 - 1/p)
-
-primorialTruncatedSignedReciprocalCube_empty   -- 1 <= X
-  : T empty X = 1        -- the unique face has product 1
+nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw
 ```
 
-The only arithmetic update is Möbius sign reversal on a fresh prime coordinate,
-so this is again an exact reduction: no PNT input, no Mertens product theorem,
-no infinite Euler product, no prime-distribution estimate.
+turns `D(alpha) <= K / alpha` into a `2 * sqrt(K*N)` Chebyshev error bound.
 
-`primorialTruncatedSignedReciprocalCube_complete_boundary` is presentational
-rather than substantive — it splits the profile as complete factor plus
-remainder and is proved by `ring`. It names the boundary term; it does not bound
-it.
+## 6. Moving-cutoff and state-dependent contraction layer
 
-## Modules added since the original 214-module inventory
+The physical onset of a contracted tail is recorded explicitly in:
 
-The current manifest contains **71** modules beyond the original 214-module inventory. The previous revision reached 284 modules; this change adds the truncated primorial wheel boundary module described above, while retaining the primorial reciprocal Möbius factorization, the native prime number theorem architecture, reciprocal-quotient PNT-error, PNT-centering, elementary prime-sieve bridge, and earlier survivor additions.
+```text
+RHLean.Analysis.NativePNTEvolvingRemainder
+RHLean.Analysis.NativePNTEvolvingTailState
+RHLean.Analysis.NativePNTEvolvingTailStep
+RHLean.Analysis.NativePNTEvolvingTailCompensation
+RHLean.Analysis.NativePNTEvolvingTailObstruction
+RHLean.Analysis.NativePNTRemainderProfileCore
+RHLean.Analysis.NativePNTRemainderProfileCompose
+RHLean.Analysis.NativePNTSquarePrefixQuadraticBudget
+RHLean.Analysis.NativePNTSquarePrefixSmallQuotient
+RHLean.Analysis.NativePNTSquarePrefixTailGeometry
+RHLean.Analysis.NativePNTSquarePrefixTailErrorPartition
+RHLean.Analysis.NativePNTSquarePrefixTailMass
+RHLean.Analysis.NativePNTSquarePrefixTailIntervalAbel
+RHLean.Analysis.NativePNTSquarePrefixTailIntervalUpper
+RHLean.Analysis.NativePNTSquarePrefixTailLogInterval
+RHLean.Analysis.NativePNTSquarePrefixTailGood
+RHLean.Analysis.NativePNTSquarePrefixTailBad
+RHLean.Analysis.NativePNTSquarePrefixTailGoodRetention
+RHLean.Analysis.NativePNTSquarePrefixTailReciprocalBound
+RHLean.Analysis.NativePNTSquarePrefixTailCompensation
+RHLean.Analysis.NativePNTSquarePrefixTailStep
+RHLean.Analysis.NativePNTSquarePrefixTailContraction
+```
 
-Previously synchronized 21-module delta:
+The state-dependent Selberg family is:
+
+```text
+RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainCore
+RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainTrajectoryCore
+RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainCubicBudget
+RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGainClosure
+RHLean.Analysis.PrimeSieveStateDependentSelbergPositiveGain
+RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
+```
+
+`PrimeSieveStateDependentSelbergScalePersistence` defines `NativePNTQuadraticTailScaleLaw` and proves
+
+```text
+nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
+nativePNTError_abs_le_sqrt_of_stateDependentCubicGain.
+```
+
+These are conditional square-root conversion theorems. The required quadratic physical cutoff law itself remains open.
+
+## 7. Formal obstruction to the sign-blind moving-tail state
+
+`RHLean.Analysis.NativePNTEvolvingTailObstruction` proves that the canonical absolute first remainder contains a linear factorial floor and the absolute second remainder contains an `N log N`-scale floor. Its theorem
+
+```text
+nativePNTEvolvingTailCost_ge_canonical_obstruction
+```
+
+applies to the whole evolving cost and rules out that specific sign-blind state as a mechanism for the required cubic gain at fixed polynomial physical scale as the slope tends to zero.
+
+## 8. Dyadic and reciprocal signed-packet investigations
+
+The many-fibre and dyadic packet layers include:
+
+```text
+RHLean.Analysis.PrimeSieveBaseEightShallowAttack
+RHLean.Analysis.PrimeSieveClassicalDyadicVariation
+RHLean.Analysis.PrimeSieveClassicalMobiusChord
+RHLean.Analysis.PrimeSieveDyadicAnalyticBridge
+RHLean.Analysis.PrimeSieveDyadicChordEnergy
+RHLean.Analysis.PrimeSieveDyadicCoherentAbel
+RHLean.Analysis.PrimeSieveDyadicPacketDissipation
+RHLean.Analysis.PrimeSieveDyadicPacketEnvelopeStep
+RHLean.Analysis.PrimeSieveDyadicPacketReverseCarleson
+RHLean.Analysis.PrimeSieveDyadicPacketShallowDeep
+RHLean.Analysis.PrimeSieveDyadicSignedPackets
+RHLean.Analysis.PrimeSieveReciprocalChildVariance
+RHLean.Analysis.PrimeSievePNTGoodMassAmplification
+RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
+RHLean.Analysis.PrimeSievePNTResidualEnvelope
+RHLean.Analysis.PRoughSquarePrefixEnergy
+RHLean.Analysis.PrimeAveragedCubeEnergy
+RHLean.Analysis.WheelRoughSquarePrefixEnergy
+```
+
+These modules retain exact decompositions, tested mechanisms, and structural obstructions. `boundary/dead_lanes.json` records the no-go conclusions.
+
+## 9. Signed local surplus and second Selberg layer
+
+The signed attack begins with
+
+```text
+RHLean.Analysis.NativePNTSignedLocalSurplus
+RHLean.Analysis.NativePNTSignedWheelRemainder
+```
+
+followed by the log-square cell layer
+
+```text
+RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
+RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
+RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
+RHLean.Analysis.NativePNTSignedLogSquareSquareStage
+```
+
+and the exact second-Selberg layer
+
+```text
+RHLean.Analysis.NativePNTSignedSecondSelberg
+RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
+RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
+```
+
+`NativePNTSignedSecondSelberg` proves the signed recurrence before a current-scale absolute remainder is inserted. `NativePNTSignedSecondSelbergWheelFrontier` classifies the unresolved partial-wheel support into signed prime-square and distinct-prime-pair faces. `NativePNTSignedSecondSelbergFrontierCharge` proves the square-root quotient collapse and contains the strengthened low-slope affine-envelope contraction.
+
+## 10. Current quantitative headline
+
+```text
+nativePNTSquarePrefixLowSlopeCubicConstant = 1 / 178200000.
+```
+
+For `0 < alpha <= 3/2`,
+
+```text
+nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
+```
+
+advances any proved affine envelope at slope `alpha` to one at
+
+```math
+alpha - alpha^3 / 178200000.
+```
+
+`nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter` also certifies that this update is strictly stronger than the previous square-prefix cubic step.
+
+This is the current proved generalized-PNT contraction. It does **not** prove the required physical cutoff law and therefore does not by itself yield an unconditional square-root error bound.
+
+## 11. Mertens and zeta transfer layer
 
 ```text
 RHLean.Analysis.DivisorUpperMobius
-RHLean.Analysis.MertensEnergyRHForward
-RHLean.Analysis.MertensMellinContinuation
-RHLean.Analysis.MertensMellinLSeriesBridge
-RHLean.Analysis.MertensPowerGrowth
 RHLean.Analysis.MertensStepFunction
 RHLean.Analysis.MertensStepGrowth
+RHLean.Analysis.MertensPowerGrowth
+RHLean.Analysis.MertensEnergyRHForward
+RHLean.Analysis.MertensMellinLSeriesBridge
+RHLean.Analysis.MertensMellinContinuation
 RHLean.Analysis.MertensZetaIdentityContinuation
-RHLean.Analysis.PrimeWheelFullConductorMobiusReindexedResidual
-RHLean.Analysis.PrimeWheelFullConductorUniformPacket
-RHLean.Analysis.PrimeWheelRamanujanBoundaryBulkReduction
-RHLean.Analysis.PrimeWheelRawBoundaryExpansionCollapse
-RHLean.Analysis.PrimeWheelRawBoundaryMobiusPairing
-RHLean.Analysis.PrimeWheelRawConductorMobiusReindex
-RHLean.Analysis.PrimeWheelSmoothConductorMobiusReindex
-RHLean.Analysis.RamanujanDivisorBoundaryBulk
-RHLean.Analysis.SquareWheelQuantitativeBridge
-RHLean.Proof.CanonicalGapAncestryZeroCutoff
-RHLean.Proof.SquareRootAncestryRoot
-RHLean.Proof.SquareRootAncestrySuccessor
 RHLean.Proof.TerminalMertensForward
+RHLean.Proof.TerminalMertensReduction
+RHLean.Proof.RiemannHypothesisBridge
+RHLean.Proof.TerminalAxiomAudit
 ```
 
-Subsequent 11-module synchronization:
+These modules formalize the forward analytic transfer once an appropriate RH-scale estimate is available.
+
+## 12. Status summary
 
 ```text
-RHLean.Proof.SurvivorDyadicStaticCancellation
-RHLean.Proof.SurvivorLargePrimeRootBoundary
-RHLean.Proof.SurvivorPairEffectiveModulus
-RHLean.Proof.SurvivorPrimeFaceFrontier
-RHLean.Proof.SurvivorPrimeFaceRealization
-RHLean.Proof.SurvivorResidueCollisionReindex
-RHLean.Proof.SurvivorResidueCovariance
-RHLean.Proof.SurvivorResidueCovarianceCriterion
-RHLean.Proof.SurvivorResiduePrimeToggle
-RHLean.Proof.PrimeSievePostSqrtGap
-RHLean.Proof.PrimeSieveSquareRootTransport
+ordinary PNT                                PROVED
+explicit generalized affine PNT bound       PROVED
+strict low-slope cubic contraction           PROVED
+quadratic-cutoff -> sqrt(N) bridge           PROVED CONDITIONALLY
+reciprocal-intercept -> 2 sqrt(N) bridge     PROVED CONDITIONALLY
+absolute moving-tail obstruction             PROVED
+signed second Selberg recurrence              PROVED EXACTLY
+signed square-root wheel frontier             PROVED EXACTLY
+RH-compatible physical cutoff law             OPEN
+canonical H_{k,n} exponent 1/2+epsilon        OPEN
+RH                                             OPEN
 ```
 
-PNT synchronization:
-
-```text
-RHLean.Analysis.PrimeSievePNTCentering
-RHLean.Analysis.PrimeSieveQuotientPNTError
-```
-
-## Scope policy
-
-For synthesis, dependency completeness is more important than keeping the tree small. Modules that look auxiliary, experimental, geometric, or intermediate are therefore retained whenever they are part of the audited root import manifest.
-
-The invariant is simple: every internal import in `RHLean.lean` must resolve to a corresponding file under `RHLean/`. When the manifest gains an imported module, the module and the manifest change together, so the formal statements never silently depend on a file that is not present here.
+The authoritative exhaustive module inventory is `RHLean.lean`.
