@@ -2,7 +2,7 @@
 
 This repository contains the complete import-audited `RHLean` library used by the current Möbius Synthesis research snapshot.
 
-`RHLean.lean` is the authoritative inventory. It imports **374 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
+`RHLean.lean` is the authoritative inventory. It imports **375 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
 
 This file groups the source by research function. For the exhaustive file-by-file list, read `RHLean.lean` itself.
 
@@ -71,6 +71,8 @@ RHLean.Analysis.SquareWheelQuadraticSampling
 RHLean.Analysis.SquareWheelZeroModeElimination
 RHLean.Analysis.SquareWheelQuantitativeBridge
 RHLean.Analysis.PrimorialWheelMertensTransfer
+RHLean.Analysis.MobiusRenewalTelescope
+RHLean.Analysis.MobiusRenewalSquareWheelSynthesis
 ```
 
 These modules identify the canonical nonzero response `H_{k,n}`, eliminate its zero-mode feedback, realize the post-square-root prime-sieve state in square-block coordinates, and express the prime-distribution component as Mertens-weighted discrepancies over exact reciprocal intervals.

@@ -28,6 +28,7 @@ import RHLean.Analysis.MertensPowerGrowth
 import RHLean.Analysis.MertensStepFunction
 import RHLean.Analysis.MertensStepGrowth
 import RHLean.Analysis.MertensZetaIdentityContinuation
+import RHLean.Analysis.MobiusRenewalSquareWheelSynthesis
 import RHLean.Analysis.MobiusRenewalTelescope
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
