@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": 2,
+  "revision": 3,
   "baseline": {
     "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
     "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",

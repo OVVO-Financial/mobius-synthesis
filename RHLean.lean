@@ -373,3 +373,16 @@ import RHLean.Proof.TwoAnchorSlackCoverage
 import RHLean.Proof.UniformResidualBound
 import RHLean.Proof.VanishingTransitionRelevance
 import RHLean.Verification.FiniteRangeCertificates
+import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
+import RHLean.Analysis.ThreeSlotDegreeOneSynthesis
+import RHLean.Analysis.ThreeSlotMertensDegreeOneProjection
+import RHLean.Arithmetic.PrimeCombFiniteDifference
+import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
+import RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery
+import RHLean.Arithmetic.PrimeSquareCollisionCRT
+import RHLean.Arithmetic.PrimeSquareCollisionInvolution
+import RHLean.Arithmetic.PrimeSquareCollisionKernel
+import RHLean.Arithmetic.PrimeSquareCollisionPairingFrontier
+import RHLean.Arithmetic.PrimeSquareCollisionPrefix
+import RHLean.Arithmetic.PrimeWheelCorrectedLocalFlip
+import RHLean.Arithmetic.PrimeWheelThreeSlotRecovery

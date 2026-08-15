@@ -1,393 +1,201 @@
-# Current Möbius Synthesis proof route
+# Current proof route
 
-**Status:** canonical wording for the active research route.
+## 1. What is already exact
 
-The direct RH-scale target for the square-wheel nonzero response remains open. In parallel, the repository now has a proved generalized affine PNT contraction together with formal square-root conversion theorems. The current bottleneck is therefore precise: **prove that the architecture realizes repeated contraction at RH-compatible physical scale.**
+The active architecture uses complete four-cells
 
-## 1. Preserve the square-block and prime-wheel coordinates
+\[
+(4k+1,4k+2,4k+3,4k+4).
+\]
 
-The architecture has two descriptions of the same Möbius cancellation problem.
-
-The square-block side organizes complete-square endpoints
-
-```math
-X_t=(t+1)^2-1,
-```
-
-reciprocal fibres, smooth and transport terms, good shells, and square-stage Selberg cells.
-
-The prime-wheel side organizes exact fresh-prime action, partial-wheel errors, unresolved square-root frontier faces, conductor structure, and the square-wheel nonzero response.
-
-A successful quantitative step must respect both facts:
-
-1. the arithmetic is organized by complete-square and reciprocal-fibre geometry;
-2. unresolved wheel error near square-root scale is a signed prime-face object, not a generic positive remainder.
-
-## 2. Retain the direct synthesis target
-
-For synchronized primorial blocks and complete-square samples,
-
-```math
-R_k(X_n)=H_{k,n}+\rho_{k,n}R_k(U_k),
-\qquad
-0\le\rho_{k,n}<\frac16.
-```
-
-The zero mode is eliminated exactly. The canonical direct target remains
-
-```math
-|H_{k,n}|\ll_\varepsilon (X_n+1)^{1/2+\varepsilon}.
-```
-
-`boundary/frontier.json` remains at `exact_reduction`: no nontrivial pointwise exponent for `H_{k,n}` has been certified.
-
-The exact PNT-centered coordinate is
-
-```math
-H_{k,n}=C_{k,n}^{PNT}-2E_{k,n}^{rec},
-```
-
-where `E^{rec}` is the centered Mertens-weighted reciprocal-interval prime-count discrepancy. A proof may attack this signed combined object directly. It is not the only live quantitative formulation.
-
-## 3. Start the second route from the proved generalized affine PNT envelope
-
-Write
-
-```text
-nativePNTError N = nativePsi N - N.
-```
-
-The quantitative PNT layer works with
-
-```text
-nativePNTHasAffineEnvelope alpha,
-```
-
-meaning that there exists a nonnegative intercept `D` such that
-
-```math
-|\psi(N)-N|\le\alpha N+D
-```
-
-for every `N`.
-
-This is a proved PNT bound. The repository has explicit canonical and optimal-intercept machinery for these envelopes.
-
-## 4. Use the strengthened cubic contraction
+The fourth slot vanishes because \(4\mid 4k+4\), so the signed problem is carried by the three active coordinates.
 
 For
 
-```math
-0<\alpha\le\frac32,
-```
+\[
+S_k=(\mu(4k+1),\mu(4k+2),\mu(4k+3))\in\{-1,0,1\}^3,
+\]
 
-`RHLean.Analysis.nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step` proves
+the formalization defines the 27 exact state counts \(C_i(K)\) and the three degree-one characters \(\chi_a,\chi_b,\chi_c\).  The finite-fiber regrouping theorem gives
 
-```math
-\alpha
-\longmapsto
-\alpha-\frac{\alpha^3}{178200000}.
-```
+\[
+W_j(K)=\sum_i\chi_j(i)C_i(K)
+\]
 
-The same module proves that this update is strictly tighter than the earlier fully rederived square-prefix update with constant
+for each active coordinate.  These are not probabilistic statements; they are finite identities.
 
-```text
-1 / 1140480000.
-```
+The three degree-one sums are
 
-The new constant is larger by the exact factor `32/5`, so the one-step decrement is 6.4 times stronger in the low-slope regime.
+\[
+W_a(K)=\sum_{k<K}\mu(4k+1),
+\]
 
-This is a quantitative contraction of an already-proved affine PNT envelope. It does not yet control where, in physical `N`, the newly contracted tail begins.
+\[
+W_b(K)=\sum_{k<K}\mu(4k+2),
+\]
 
-## 5. Separate slope depth from physical cutoff
+\[
+W_c(K)=\sum_{k<K}\mu(4k+3).
+\]
 
-A tail state at `(M,alpha)` means
+At complete-cell endpoints,
 
-```math
-|\psi(N)-N|\le\alpha N
-```
+\[
+M(4K)=W_a(K)+W_b(K)+W_c(K).
+\]
 
-for every `N >= M`.
+For the canonical prime set through the physical square-root cutoff, each coordinate is also exactly
 
-A finite cubic scale chain records
+\[
+W_j(K)=R_j(K)-2H_j(K).
+\]
 
-```text
-(M_0,a_0) -> (M_1,a_1) -> ... -> (M_n,a_n)
-```
+Consequently
 
-with
+\[
+M(4K)=\sum_{j=1}^3\bigl(R_j(K)-2H_j(K)\bigr).
+\]
 
-```math
-a_{j+1}=a_j-ca_j^3.
-```
+The same recovered signed field is proved equal to the ordinary Möbius prefix for arbitrary physical cutoffs.  Its squared energy criterion is formally equivalent to the global Mertens-energy criterion and to the square-prefix energy criterion.  The Mertens-energy criterion already implies the formal Riemann hypothesis.
 
-`PrimeSieveStateDependentSelbergScalePersistence` proves that if each contraction is available from the recorded old cutoff to the recorded new cutoff, then the true PNT tail persists through the entire chain.
+The exact bridge is therefore complete.  What remains is quantitative cancellation.
 
-The key separation is
+## 2. The theorem that matters
 
-```text
-scalar contraction depth        already controlled
-physical onset M_n              still needs arithmetic control.
-```
+The primary target is
 
-## 6. The square-root conversion theorem is already proved
+\[
+M(4K)\ll_\varepsilon K^{1/2+\varepsilon}.
+\]
 
-`NativePNTQuadraticTailScaleLaw K` requires that for each small target slope `eta` there exists a cutoff `M` such that
+A convenient formal form is a squared degree-one energy statement
 
-```math
-M\eta^2\le K
-```
+\[
+\left|W_a(K)+W_b(K)+W_c(K)\right|^2
+\ll_\varepsilon (K+1)^{1+\varepsilon}.
+\]
 
-and
+The corresponding recovered-wheel statement is already connected to the analytic RH route.
 
-```math
-|\psi(N)-N|\le\eta N
-```
+A first useful infrastructure theorem should transfer a complete-cell estimate to arbitrary \(X\).  Set
 
-for all `N >= M`.
+\[
+K=\left\lfloor X/4\right\rfloor.
+\]
 
-Then
+Then \(0\le X-4K\le3\), hence
 
-```text
-nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
-```
+\[
+|M(X)-M(4K)|\le3.
+\]
 
-proves
+Thus the complete-cell target and the global Mertens-energy target differ only by a bounded endpoint correction and harmless changes of constants.
 
-```math
-|\psi(N)-N|\le\sqrt{KN}.
-```
+## 3. Route A: physical prime-square sign-reversing pairing
 
-The wrapper
+The collision layer already provides the abstract and conditional pieces.
 
-```text
-nativePNTError_abs_le_sqrt_of_stateDependentCubicGain
-```
+For distinct odd primes \(p,q\), the joint \(p^2q^2\) collision system has nine labelled current-to-next slot classes.  A finite physical prefix is decomposed exactly into complete periods plus a remainder frontier of at most nine residue classes for that one prime pair.
 
-packages the same conclusion from a cubic scale law.
+A chosen involution on the nine slot labels splits every finite frontier into:
 
-There is also an affine-intercept route. `NativePNTReciprocalInterceptLaw K` requires
+1. pairable states whose mates are also inside the frontier;
+2. fixed states;
+3. a mate-crosses-cutoff defect.
 
-```math
-D(\alpha)\le\frac K\alpha,
-```
+For any weight that genuinely reverses sign under the involution, all pairable states cancel by a finite involution sum.
 
-and
+The corrected arithmetic field has the required local sign law under an actual exponent flip.  If one selected prime coordinate changes between exponent states 0 and 1, every other local prime-comb coordinate is unchanged, and smooth-core membership is preserved, then
 
-```text
-nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw
-```
+\[
+(R-2H)(m)=-(R-2H)(n).
+\]
 
-proves
+### Immediate arithmetic task
 
-```math
-|\psi(N)-N|\le2\sqrt{KN}.
-```
+Construct the actual residue-level site realization for the physical collision labels and prove the hypotheses of the existing corrected-field sign theorem:
 
-Therefore the missing result is a scale theorem.
+- the selected prime really performs the local exponent-state flip;
+- every other active prime-comb coordinate is preserved;
+- smooth-core membership is preserved;
+- both paired sites lie inside the pinned physical cutoff.
 
-## 7. State the open quantitative theorem correctly
+The three collision-slot labels and the three local exponent states must not be identified merely because both are represented by `Fin 3`.  Their arithmetic meanings and residue multiplicities differ.
 
-The primary current target is to prove, from the actual square-block and prime-wheel arithmetic, a physical cutoff law strong enough to feed one of the existing square-root bridges.
+### Fixed points
 
-The moving-cutoff target is essentially
+The chosen slot involution has three fixed labels.  The preferred next result is stronger than a bound: show that the physically realized fixed-point weight is exactly zero whenever the fixed label forces a square-kill state.  If this holds, the entire finite-frontier contribution reduces to the mate-crosses-cutoff defect.
 
-```math
-M(\eta)=O(\eta^{-2}).
-```
+### Global charging problem
 
-The reciprocal-intercept route asks for the stronger physical cutoff behavior needed to make the global affine intercept `O(1/alpha)`.
+A bound of nine remainder classes for each prime pair is not enough.  Summing a constant error independently over all \((p,q)\) would destroy the desired square-root scale.
 
-No such law is currently proved.
+The surviving defects must instead be assigned to a unique or bounded-multiplicity structural event, such as a first-failure prime coordinate, a fresh-prime transition, or a controlled square-sensitive frontier.  The target should be an energy estimate for the total signed defect, not a termwise absolute-value estimate.
 
-A proof that only improves the scalar cubic constant while leaving the cutoff growth uncontrolled is insufficient for the final step.
+## 4. Route B: finite-difference fibers
 
-## 8. Do not return to the absolute evolving-tail state
+If the literal physical pairing cannot preserve all other prime coordinates or smooth-core status, the exact finite-difference operator gives the preferred fallback.
 
-`RHLean.Analysis.NativePNTEvolvingTailObstruction` proves a structural obstruction for the canonical sign-blind evolving remainder.
+For a finite prime set \(S\), define
 
-The first absolute remainder contains the factorial defect at linear scale. Self-composition pushes that to an `N log N`-scale floor. The full evolving-tail cost satisfies a lower bound of the form
+\[
+D_S f(x)=\sum_{d\mid\prod_{p\in S}p}\mu(d)f(\lfloor x/d\rfloor).
+\]
 
-```math
-N\log N-\alpha N\log^2N
-```
+For a fresh prime \(p\notin S\), the formalized recurrence is
 
-up to the explicit lower-order terms in the theorem.
+\[
+D_{S\cup\{p\}}f
+=
+D_Sf-D_S(\operatorname{shift}_pf).
+\]
 
-At a fixed polynomial physical scale in `1/alpha`, that floor overwhelms the desired cubic `alpha^3 N log^2 N` budget as `alpha -> 0`.
+This representation freezes the remaining prime coordinates by construction.  It is therefore the natural place to move the sign flip if the residue-level pairing does not preserve the full wheel state.
 
-So the absolute evolving-tail state is not the route to the required cutoff law. A successor must preserve additional signs before taking norms.
+The recovered `R - 2H` prefix is already identified with the ordinary Möbius prefix through this finite-difference interface.  A successful fiberwise contraction can feed the same degree-one target without introducing a new analytic bridge.
 
-## 9. Keep the second Selberg layer signed
+## 5. Route C: square-sensitive transport and defect estimates
 
-`RHLean.Analysis.NativePNTSignedSecondSelberg` supplies the exact replacement coordinate.
+The square-block side supplies a second exact coordinate system for the same Mertens quantity: positive smooth mass, matched transport, zero-mode centering, nonzero square response, and the established energy criterion.
 
-Its kernel is
+Existing smooth-defect and cutoff estimates remain useful as a secondary route.  They should now be judged by a single acceptance test: do they contract the signed recovered field toward
 
-```math
-K_2(n)
-=(\Lambda*\Lambda)(n)-\Lambda(n)\log n
-=\Lambda_2(n)-2\Lambda(n)\log n.
-```
+\[
+K^{1/2+\varepsilon}
+\]
 
-The exact recurrence is
+without splitting away the cancellation that is visible in \(R-2H\)?
 
-```text
-E(N) log(N)^2
-  = signed Selberg remainder * log(N)
-    - Lambda signed remainder mass
-    + signed second-kernel error mass
-    - floor-log signed defect mass.
-```
+The square-sensitive machinery is especially useful for organizing the global cutoff defects from Route A or the fiberwise remainder from Route B.
 
-The cell-exposed form refines the signed second-kernel term to
+## 6. What is not the target
 
-```text
-+ dyadic Lambda_2 cell mass
-+ top boundary mass
-- 2 * Lambda-log signed error mass.
-```
+The 27-state transition matrix is a diagnostic, not the quantity to bound.  It is expected to be nonuniform because square divisibility creates a large zero sector.
 
-Nothing is replaced by an auxiliary current-scale absolute remainder. This is the acceptance coordinate for a future scale-improving theorem.
+Likewise, approximate uniformity of the eight all-nonzero sign states does not prove the required estimate.  It is finite numerical evidence about one conditional statistic.
 
-## 10. Use square-stage log-square cells
+No proof route should require:
 
-The modules
+- uniformity of all 27 states;
+- a Markov assumption for successive three-slot states;
+- independence of neighboring Möbius values;
+- separate absolute bounds on `R` and `H` that discard their signed cancellation.
 
-```text
-NativePNTSignedLogSquarePrimeCells
-NativePNTSignedLogSquarePositiveDyadicKernel
-NativePNTSignedLogSquareDyadicCell
-NativePNTSignedLogSquareSquareStage
-```
+The exact target is the degree-one signed projection
 
-reindex `Lambda_2` into finite Möbius log-square fibres, identify fresh-prime two-endpoint atoms, split the odd-Möbius kernel from its even correction, and place the surviving mass on complete-square exact-activity bands.
+\[
+W_a+W_b+W_c=M(4K).
+\]
 
-A future gain must be owned by the actual square-stage cells. A free many-`d` packet not tied back to square-block geometry does not satisfy the proof architecture.
+## 7. Recommended order of work
 
-## 11. Use the exact signed prime-wheel frontier
+1. Prove the bounded three-term endpoint transfer from \(M(4K)\) to arbitrary \(M(X)\).
+2. Package the degree-one energy statement and prove it implies the existing recovered-wheel energy criterion.
+3. Attempt the canonical physical collision realization and discharge the exponent-flip, other-coordinate, and smooth-status hypotheses.
+4. Prove exact vanishing of physical fixed points if available.
+5. Express the remaining cutoff defect in a globally chargeable first-failure or fresh-prime form.
+6. If physical pairing cannot preserve the full wheel state, move immediately to the finite-difference fiber formulation rather than weakening the arithmetic hypotheses.
+7. Prove an \(L^2\) or energy bound for the total signed defect at exponent \(1+\varepsilon\).
+8. Feed that estimate through the already-formalized recovered-wheel and Mertens-energy bridge.
 
-At partial-wheel cutoff `y`, under
-
-```math
-N<2y^2,
-```
-
-every actual nonzero wheel-error site is one of exactly two faces.
-
-Prime square:
-
-```math
-n=q^2,
-\qquad
-K_2(n)=-(\log q)^2.
-```
-
-Distinct large-prime pair:
-
-```math
-n=qr,
-\qquad
-K_2(n)=2\log q\log r.
-```
-
-`NativePNTSignedSecondSelbergFrontierCharge` proves that every such site has reciprocal quotient
-
-```text
-N / n = 1
-```
-
-and therefore
-
-```text
-frontier error mass = - frontier charge.
-```
-
-This is exact. The total frontier charge is signed; no positivity theorem is available or claimed.
-
-A successor theorem must exploit the aggregate signed structure of these faces together with the remaining signed Selberg terms. Taking termwise absolute values would return to the obstruction already formalized.
-
-## 12. What a successful next quantitative theorem must do
-
-A useful theorem should satisfy both acceptance criteria.
-
-**Architecture criterion.** It must act on the actual square-stage, reciprocal-fibre, or partial-wheel frontier objects already identified, preserving the many-fibre or multi-prime signs that survive the exact reductions.
-
-**Contraction criterion.** It must improve the effective physical scale of the proved generalized PNT contraction. The target is not another representation theorem and not merely a better local constant.
-
-The decisive question is
-
-```text
-Can the signed square-stage and wheel-frontier ledger produce the next
-contracted tail before the cutoff grows faster than O(eta^-2)?
-```
-
-## 13. Relationship to the direct H route
-
-The direct square-wheel target and generalized-PNT scale target are compatible formulations of the desired square-root cancellation scale.
-
-The direct route asks for
-
-```math
-|H_{k,n}|\ll_\varepsilon X_n^{1/2+\varepsilon}
-```
-
-and then uses zero-mode elimination and Mertens-to-zeta transfer.
-
-The second route asks for RH-compatible physical persistence of the native PNT contraction and then invokes the proved square-root Chebyshev bridge.
-
-The second route is further advanced at the quantitative-inequality level because the slope contraction and square-root optimization are formalized; its unresolved part is the physical onset.
-
-## 14. Retained warnings
-
-- Bounding `C^{PNT}` and `E^{rec}` separately by triangle inequality discards the signed cancellation visible in their exact combination.
-- Fixed-`q` survivor pairing is a representation change, not a complete cancellation mechanism; any useful survivor theorem must act across prime fibres or against another signed frontier.
-- The single-prime dyadic Li-residual mechanism does not control its coherent mode and must not be revived by merely enlarging finite ranges.
-- The canonical absolute evolving-tail state is formally obstructed at polynomial physical scale.
-- Numerical correlations and envelopes are diagnostics only.
-
-See `boundary/dead_lanes.json` for the closed-lane record.
-
-## 15. Once a scale law is proved
-
-```text
-proved affine PNT envelope
-  -> proved cubic contraction
-  -> OPEN: RH-compatible moving cutoff law
-  -> proved sqrt(N) Chebyshev error bridge
-```
-
-In parallel, the direct synthesis chain remains
-
-```text
-square blocks + prime wheels
-  -> H_{k,n}
-  -> OPEN: direct RH-scale signed cancellation
-  -> M(x)=O_epsilon(x^(1/2+epsilon))
-  -> Mellin continuation of 1/zeta
-  -> zero-free half-plane
-  -> functional-equation reflection
-  -> RH.
-```
-
-The repository must keep the distinction between a **conditional conversion theorem** and the **unconditional hypothesis that still has to be supplied**.
-
-## Compressed current status
-
-```text
-ORDINARY PNT: PROVED
-
-GENERALIZED PNT ENVELOPE: PROVED
-  -> low-slope cubic contraction: PROVED, coefficient 1/178200000
-  -> physical cutoff law: OPEN
-  -> sqrt(N) conversion from that law: PROVED
-
-SIGNED SECOND SELBERG LEDGER: PROVED EXACTLY
-  -> square-stage cells: PROVED EXACTLY
-  -> signed wheel-frontier classification: PROVED EXACTLY
-  -> frontier error mass = -charge below 2 y^2: PROVED EXACTLY
-  -> aggregate scale-saving theorem: OPEN
-
-DIRECT H_{k,n} RH-SCALE BOUND: OPEN
-RH: OPEN
-```
+The mathematical bottleneck is therefore precise: **control the signed degree-one physical field at square-root scale.**
