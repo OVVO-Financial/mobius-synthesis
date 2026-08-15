@@ -15,8 +15,9 @@ far-prime reciprocal Mertens kernel
 g_n(d) = 1_{n+9 <= d <= X_n} * 1_{d prime} * M(floor (X_n / d)),
 ```
 
-produces exactly the reciprocal Mertens transform that global far-upper
-rigidity (`RHLean.Proof.survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform`)
+produces exactly the reciprocal Mertens transform whose negative global
+far-upper rigidity
+(`RHLean.Proof.survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform`)
 identifies with the far-upper survivor sector of the square-prefix
 decomposition.  Substituting that renewal realization through the matched
 square-prefix identity

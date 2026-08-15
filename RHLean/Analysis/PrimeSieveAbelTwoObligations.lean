@@ -30,11 +30,12 @@ not how they are proved.
    `primeSieveMoebiusDiscrepancySum` occurs in the kernel in exactly the
    Abel/excursion module family (`PrimeSieveAbelIdentity`,
    `PrimeSieveLipschitzExcursion`, `PrimeSieveBackwardAffineExcursion`, and
-   the affine repair modules importing them), none of which mention
-   `NonzeroResponseRHScale`, `MertensEnergyBoundedStatement`,
+   the affine repair modules importing them).  Outside this explanatory
+   note, no declaration in that module family has a type or proof depending
+   on `NonzeroResponseRHScale`, `MertensEnergyBoundedStatement`,
    `ProjectedRenewalQuadraticBoundedStatement`, or `RiemannHypothesis`.  Any
    claim that a kernel chain "reduces RH to the Abel face" is false at this
-   commit; the statement is verifiable by grepping the kernel import graph.
+   commit.
 
 3. **The boundary term is a second obligation of RH strength at `y ≍ √x`**:
    both factors then have *arguments* of order `√x` (`K = x/(y+1) ≍ √x` and
