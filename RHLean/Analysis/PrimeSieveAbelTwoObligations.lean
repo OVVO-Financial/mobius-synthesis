@@ -34,11 +34,13 @@ not how they are proved.
    `NonzeroResponseRHScale`, `MertensEnergyBoundedStatement`,
    `ProjectedRenewalQuadraticBoundedStatement`, or `RiemannHypothesis`.  Any
    claim that a kernel chain "reduces RH to the Abel face" is false at this
-   commit; see the record-029 audit.
+   commit; the statement is verifiable by grepping the kernel import graph.
 
 3. **The boundary term is a second obligation of RH strength at `y ≍ √x`**:
-   both factors are then of size `~√x`, and the best unconditional inputs give
-   only `|M(K)·R(y)| ≪ x^{1−o(1)}`.
+   both factors then have *arguments* of order `√x` (`K = x/(y+1) ≍ √x` and
+   `y ≍ √x`; the values `M(K)`, `R(y)` are of course not themselves
+   asymptotic to `√x`), and the best unconditional inputs give only
+   `|M(K)·R(y)| ≪ x^{1−o(1)}`.
 
 4. **The two halves of the merged development never compose.**  The
    collapse-identity domain (`Nat.sqrt x < y`, i.e. `x < y²`) and the

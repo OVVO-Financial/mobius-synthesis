@@ -18,7 +18,7 @@ where `(g * 1)(n) = sum_{d | n} g d` is the unit Dirichlet convolution and
 the hyperbola `{(a, b) : a·b ≤ X}` plus `μ * 1 = δ`.  It is recorded as a
 kernel identity because it is the exact substrate for renewal-type routes
 (Harman-schedule kernels `g d = λ_d·1_{d≤D}`, boundary operators), NOT as new
-leverage; see the record-025 audit.
+leverage and NOT as the closure of any route in `boundary/dead_lanes.json`.
 
 The development: `mertensSummatory` as an `Icc 1 x` sum (the `m = 0` term
 vanishes), the hyperbola swap (summing over divisor pairs by the product
@@ -163,7 +163,7 @@ theorem sum_mertensSummatory_div_eq_one {N : ℕ} (hN : 1 ≤ N) :
         Finset.sum_congr rfl hinner
     _ = 1 := by simp [h1mem]
 
-/-- **The record-025 telescope** (g-weighted renewal identity): for every
+/-- **The g-weighted renewal telescope**: for every
 `g : ℕ → ℂ` and `X : ℕ`,
 `Σ_{n ≤ X} (g*1)(n) · M(⌊X/n⌋) = Σ_{a ≤ X} g a`.
 Classical content: this is `Σ_{n≤X} M(⌊X/n⌋) = 1` Dirichlet-convolved with

@@ -2,7 +2,7 @@
 
 This repository contains the complete import-audited `RHLean` library used by the current Möbius Synthesis research snapshot.
 
-`RHLean.lean` is the authoritative inventory. It imports **366 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
+`RHLean.lean` is the authoritative inventory. It imports **374 Lean modules**, and every imported `RHLean.*` module resolves under `RHLean/`.
 
 This file groups the source by research function. For the exhaustive file-by-file list, read `RHLean.lean` itself.
 

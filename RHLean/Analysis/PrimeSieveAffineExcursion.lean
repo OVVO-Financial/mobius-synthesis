@@ -26,7 +26,7 @@ A = primeSieveAffineSlope y K     = 1 + H_K / log (y+1),
 B = primeSieveAffineIntercept y K = K / log (y+1),
 ```
 
-the record-023 constants: at the canonical pin `K = y`, so `A = 2 + o(1)`
+the sharp affine constants: at the canonical pin `K = y`, so `A = 2 + o(1)`
 (explicitly `A <= 2 + 1/log(y+1)`, `primeSieveAffineSlope_le`) while
 `B ~ 2 sqrt x / log x` remains of `sqrt x` scale.
 
@@ -63,8 +63,12 @@ inclusive convention `t <= W`.  Honesty notes:
   `H >= 2(A*n + B)`); the threshold is unchanged from the crude module — the
   gain is growth past the threshold (`W ~ min(sqrt x, H/4)` instead of
   `H log x / (4 sqrt x)`), not the threshold itself;
-* when `H >= x^(1/2+eps)` the cap `y` binds and the `2k`-th moment lower
-  bound is `(H/2)^(2k) * (y+1)`, not `H^(2k+1)`-scale.
+* the exact sufficient condition proved for `n <= W` is `H >= 2*(A*n + B)`;
+  taking `n = y` gives the exact condition under which the cap `y` binds.
+  Asymptotically — for fixed `eps > 0` and `y` sufficiently large — any
+  `H >= x^(1/2+eps)` satisfies it, but the theorems carry only the exact
+  inequality, not the asymptotic form.  When the cap binds, the `2k`-th
+  moment lower bound is `(H/2)^(2k) * (y+1)`, not `H^(2k+1)`-scale.
 
 Everything is unconditional arithmetic; no hypothesis on `pi`, `Li`, or the
 Moebius sum is used anywhere.
@@ -102,8 +106,8 @@ theorem harmonicWeight_eq_harmonic (K : ℕ) :
 def primeSieveAffineSlope (y K : ℕ) : ℝ :=
   1 + harmonicWeight K / Real.log ((y : ℝ) + 1)
 
-/-- The affine intercept `B = K / log (y+1)` (the record-023 constant; at
-`y ≍ √x` this is `≈ 2√x / log x`). -/
+/-- The affine intercept `B = K / log (y+1)` (at `y ≍ √x` this is
+`≈ 2√x / log x`). -/
 def primeSieveAffineIntercept (y K : ℕ) : ℝ :=
   (K : ℝ) / Real.log ((y : ℝ) + 1)
 
@@ -196,8 +200,8 @@ theorem primeSieveFloorIncrementSum_le_harmonic (x h K : ℕ) :
 /-! ## The affine increment bound, frozen support -/
 
 /-- **Affine increment bound, frozen support.**  `‖S(y,x+h) − S(y,x)‖ ≤ A·h + B`
-with `A = 1 + H_K/log(y+1)`, `B = K/log(y+1)`, `K = x/(y+1)` — the record-023
-constants. -/
+with `A = 1 + H_K/log(y+1)`, `B = K/log(y+1)`, `K = x/(y+1)` — the sharp
+affine constants defined above. -/
 theorem primeSieveMoebiusDiscrepancySum_increment_norm_le_affine
     (y x h : ℕ) (hy : 1 ≤ y) (hsq : x + h < (y + 1) ^ 2)
     (hsupp : (x + h) / (y + 1) = x / (y + 1)) :

@@ -222,7 +222,7 @@ theorem primeSieveMoebiusDiscrepancySum_backward_excursion (y : ℕ) (hy : 1 ≤
 
 /-- **The backward moment lower bound.**  For every `k`, the pinned height at
 the canonical pin produces a `2k`-th moment lower bound over the backward
-window — the record-020 transfer with the vacuous forward hypotheses removed
+window — the pinned-height transfer with the vacuous forward hypotheses removed
 (vacuous when the window is empty; cf. the nonemptiness certificate in
 `PrimeSieveAffineExcursion`). -/
 theorem primeSieveMoebiusDiscrepancySum_backward_excursion_moment

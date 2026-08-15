@@ -2,7 +2,7 @@
 
 **Möbius Synthesis** is a standalone research-status repository for the square-block and prime-wheel Möbius program. It joins the two coordinate systems, carries the native Selberg--Erdős prime number theorem, and records the strongest currently machine-checked quantitative PNT contraction without overstating the remaining RH-scale step.
 
-`RHLean.lean` is the authoritative source inventory and currently imports **366 Lean modules**. `MODULES.md` maps the source layers, `SEAMS.md` records their exact interfaces, and `CURRENT_PROOF_ROUTE.md` states what is proved, what remains open, and which mechanisms are currently live.
+`RHLean.lean` is the authoritative source inventory and currently imports **374 Lean modules**. `MODULES.md` maps the source layers, `SEAMS.md` records their exact interfaces, and `CURRENT_PROOF_ROUTE.md` states what is proved, what remains open, and which mechanisms are currently live.
 
 ## Current research status
 
@@ -316,7 +316,7 @@ RHLean.Proof.RiemannHypothesisBridge
 - `CURRENT_PROOF_ROUTE.md` — canonical live proof route and bottleneck;
 - `MODULES.md` — source-layer map;
 - `SEAMS.md` — exact interfaces between square-block, wheel, PNT, and scale layers;
-- `RHLean.lean` — authoritative 366-module import manifest;
+- `RHLean.lean` — authoritative 374-module import manifest;
 - `RHLean/` — Lean source tree;
 - `boundary/` — canonical direct-H frontier, cross-track synthesis ledger, and closed-lane record;
 - `.github/` and `scripts/` — CI, assumption audit, and research-scope gate;
