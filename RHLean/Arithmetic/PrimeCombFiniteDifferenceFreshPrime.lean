@@ -117,6 +117,35 @@ theorem finiteDifferenceOperator_insert
   rw [himage]
   simp only [Pi.sub_apply, sub_eq_add_neg]
 
+/-- The literal one-coordinate Boolean difference attached to a fresh prime. -/
+def freshPrimeDifference
+    {R : Type*} [CommRing R]
+    (p : ℕ) (f : ℕ → R) : ℕ → R :=
+  f - shift p f
+
+@[simp] theorem freshPrimeDifference_apply
+    {R : Type*} [CommRing R]
+    (p : ℕ) (f : ℕ → R) (x : ℕ) :
+    freshPrimeDifference p f x = f x - f (x / p) := by
+  rfl
+
+/-- **Fresh-prime parity is an internal fiber difference.**  Adjoining `p` to
+the selected prime coordinates is exactly the old-prime divisor operator
+applied to the pointwise pair `f(x) - f(floor(x/p))`.  Every old-prime
+coordinate therefore remains inside the same `D_S` fiber; no physical site
+matching or complete CRT period is required to preserve it. -/
+theorem finiteDifferenceOperator_insert_eq_freshPrimeDifference
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (p : ℕ)
+    (hp : Nat.Prime p) (hpS : p ∉ S)
+    (hprime : ∀ q ∈ S, Nat.Prime q)
+    (f : ℕ → R) :
+    finiteDifferenceOperator (insert p S) f =
+      finiteDifferenceOperator S (freshPrimeDifference p f) := by
+  rw [finiteDifferenceOperator_insert S p hp hpS hprime f]
+  rw [← finiteDifferenceOperator_sub]
+  rfl
+
 /-- Singleton specialization: the canonical divisor operator is exactly one
 multiplicative finite difference. -/
 theorem finiteDifferenceOperator_singleton

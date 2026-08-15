@@ -77,4 +77,22 @@ theorem finiteDifferenceOperator_apply
         (((μ d : ℤ) : R)) * f (x / d) := by
   rfl
 
+/-- The canonical divisor-difference operator preserves subtraction.  This is
+the algebraic fact that lets a fresh-prime parity pair be formed *inside* an
+old-prime fiber rather than by moving physical sites and hoping all other prime
+coordinates remain unchanged. -/
+theorem finiteDifferenceOperator_sub
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (f g : ℕ → R) :
+    finiteDifferenceOperator S (f - g) =
+      finiteDifferenceOperator S f - finiteDifferenceOperator S g := by
+  classical
+  funext x
+  unfold finiteDifferenceOperator
+  simp only [Pi.sub_apply, shift]
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro d hd
+  ring
+
 end RHLean.Arithmetic

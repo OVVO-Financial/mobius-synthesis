@@ -6,9 +6,9 @@ import RHLean.Proof.DeathShellSubpolynomial
 /-!
 # Exact survivor zero-mode realization
 
-The lifetime death process is discharged unconditionally. This module puts the
-remaining lifetime-active component on an explicit canonical cofactor/prime
-operator.
+PR #214 discharges the lifetime death process unconditionally. This module
+puts the remaining lifetime-active component on an explicit canonical
+cofactor/prime operator.
 
 At stage `t`, write
 
@@ -498,8 +498,8 @@ theorem survivorZeroModePowerSaving_iff_lifetimeActive
     rw [survivorZeroMode_localEnergy_eq_lifetimeActive hΛ]
     exact hbound N H hH hHN
 
-/-- After the unconditional death-process reduction, the explicit zero-mode
-power saving is exactly the remaining lifetime endpoint discrepancy premise. -/
+/-- After PR #214, the explicit zero-mode power saving is exactly the remaining
+lifetime endpoint discrepancy premise. -/
 theorem survivorZeroModePowerSaving_iff_endpointDiscrepancy
     {Λ : ℝ} (hΛ : 0 ≤ Λ) :
     SurvivorZeroModePowerSavingStatement Λ ↔

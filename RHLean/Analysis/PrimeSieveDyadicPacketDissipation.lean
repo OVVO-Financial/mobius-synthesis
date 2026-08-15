@@ -4,7 +4,7 @@ import RHLean.Analysis.PrimeSieveDyadicPacketEnvelopeStep
 /-!
 # Scale-by-scale dissipation for the signed dyadic packet energy
 
-the earlier development identifies cumulative deep packet energy as the correct monotone state:
+PR #326 identifies cumulative deep packet energy as the correct monotone state:
 
 `D_J = L_J + D_{J+1}`,
 
@@ -160,7 +160,7 @@ theorem primeSieveDyadicPacketShallowEnergy_nonneg
   simpa using hmono
 
 /-- Advancing the common cutoff by one adds exactly the deleted level energy to
-the shallow side.  Together with the earlier development this gives the two exact identities
+the shallow side.  Together with #326 this gives the two exact identities
 
 `S_{J+1} = S_J + L_J` and `D_J = L_J + D_{J+1}`. -/
 theorem primeSieveDyadicPacketShallowEnergy_succ_eq

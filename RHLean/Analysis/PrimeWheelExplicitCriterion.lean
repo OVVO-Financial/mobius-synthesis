@@ -21,7 +21,7 @@ def PrimorialWheelDirichletNonconcentration : Prop :=
             (((primorialBlockLower k + N) + 1 : ℕ) : ℝ) (1 + ε)
 
 /-- The explicit Dirichlet formulation is exactly the finite harmonic
-nonconcentration proposition. -/
+nonconcentration proposition from PR #167. -/
 theorem primorialWheelDirichletNonconcentration_iff_harmonic :
     PrimorialWheelDirichletNonconcentration ↔
       PrimeWheelHarmonicNonconcentration primorialWheelFamily := by

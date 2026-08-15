@@ -4,20 +4,20 @@ import RHLean.Analysis.PrimeSievePNTResidualEnvelope
 /-!
 # One-step structure of the deep packet residual envelope
 
-The preceding residual-envelope layer localizes every recursive packet residual
-into an arbitrarily small relative regime. Its deep state is nevertheless a tail
-maximum: advancing the cutoff by one level deletes only the current level, while
-a larger residual at a deeper level survives unchanged.
+PR #325 localizes every recursive packet residual into an arbitrarily small
+relative regime.  Its deep state is nevertheless a tail maximum: advancing the
+cutoff by one level deletes only the current level, while a larger residual at a
+deeper level survives unchanged.
 
-This module makes that point exact. It defines the maximum residual at one
+This module makes that point exact.  It defines the maximum residual at one
 specified tree level and proves the decomposition
 
 `deep(J) = max(level(J), deep(J+1))`.
 
 Consequently the deep envelope is monotone in the cutoff, but any strict cubic
 step with a positive state forces the current level itself to attain the entire
-tail maximum. Thus the existing cubic contraction statement contains a
-genuinely new arithmetic requirement: qualitative PNT smallness plus the
+tail maximum.  Thus the cubic contraction statement recorded in #325 contains
+a genuinely new arithmetic requirement: qualitative PNT smallness plus the
 recursive max identity do not by themselves rule out positive plateaus.
 -/
 
@@ -155,8 +155,8 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_eq_max_level_succ
               primeSieveDyadicPacketIntervalLevelRelativeEnvelope_succ_succ,
               hsplit]
 
-/-- Exact-level envelope on one dyadic block. The `min J j` convention matches
-the existing shallow/deep block wrapper. -/
+/-- Exact-level envelope on one #324 dyadic block.  The `min J j` convention
+matches the existing shallow/deep block wrapper. -/
 def primeSieveDyadicPacketBlockLevelRelativeEnvelope
     (y x j J : ℕ) : ℝ :=
   primeSieveDyadicPacketIntervalLevelRelativeEnvelope y x (min J j) j
@@ -248,8 +248,8 @@ def DyadicPacketDeepEnvelopeFrontierAttainmentStatement : Prop :=
           primeSieveDyadicPacketBlockDeepRelativeEnvelope y x j (J + 1) <
             primeSieveDyadicPacketBlockDeepRelativeEnvelope y x j J
 
-/-- The cubic contraction can hold only if the new frontier-attainment
-property holds. This property is not supplied by the PNT smallness theorem. -/
+/-- The #325 cubic contraction can hold only if the new frontier-attainment
+property holds.  This property is not supplied by the PNT smallness theorem. -/
 theorem dyadicPacketDeepEnvelopeFrontierAttainment_of_cubicContraction
     (hCubic : DyadicPacketDeepEnvelopeCubicContractionStatement) :
     DyadicPacketDeepEnvelopeFrontierAttainmentStatement := by
@@ -270,8 +270,8 @@ theorem dyadicPacketDeepEnvelopeFrontierAttainment_of_cubicContraction
 /-! ## The cumulative energy state has an exact one-step decrement -/
 
 /-- Packet energy added exactly at cutoff level `J`, summed over all occupied
-dyadic blocks. Equivalently, this is the amount removed from the deep energy
-when the cutoff advances from `J` to `J+1`. -/
+#324 dyadic blocks.  Equivalently, this is the amount removed from the deep
+energy when the cutoff advances from `J` to `J+1`. -/
 def primeSieveDyadicPacketLevelEnergy (y x J : ℕ) : ℝ :=
   ∑ j ∈ primeSieveDyadicBlockIndices y x,
     (primeSieveDyadicPacketTreeBlockEnergy y x j (min (J + 1) j) -

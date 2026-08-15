@@ -1,11 +1,12 @@
 import Mathlib
 
 /-!
-# Euler–CRT roughness recursion — first exact slice
+# Euler–CRT roughness recursion — first exact slice (Issue #171)
 
 This module formalizes the smallest exact slice of the Euler–CRT roughness
-recursion. Everything here is an identity; no analytic estimate is stated or
-claimed, and nothing here is imported by the protected RH theorem chain.
+recursion recorded in Issue #171.  Everything here is an identity; no analytic
+estimate is stated or claimed, and nothing here is imported by the protected RH
+theorem chain.
 
 Contents (this slice only):
 
@@ -25,8 +26,8 @@ Contents (this slice only):
 
 Later slices (iteration over divisors, telescope to `M`, the `ℤ[√−2]`
 isometries, the Boolean/Walsh layer) are added only once this slice is green in
-CI. The open analytic premises remain documented in the research registry, not
-encoded here.
+CI.  The open analytic premises remain documented in Issue #171 and the research
+registry, not encoded here.
 -/
 
 open scoped ArithmeticFunction.Moebius BigOperators

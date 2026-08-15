@@ -1,0 +1,24 @@
+name: Markdown math audit
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - 'scripts/check_markdown_math.py'
+      - '.github/workflows/markdown-math.yml'
+  pull_request:
+    paths:
+      - '**.md'
+      - 'scripts/check_markdown_math.py'
+      - '.github/workflows/markdown-math.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check GitHub Markdown math delimiters
+        run: python3 scripts/check_markdown_math.py

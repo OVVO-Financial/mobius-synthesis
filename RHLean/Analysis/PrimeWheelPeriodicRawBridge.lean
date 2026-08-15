@@ -109,8 +109,9 @@ theorem primorialPeriodicRawPrefixPairing_eq_minimalResidual
     (primorialMinimalWheelSystem k).canonicalTorusRealizationCertificate.pairing_eq_residual
       x hlower hupper
 
-/-- The same pairing is exactly the historical primorial-wheel residual. Thus
-the new torus changes only Fourier coordinates, not the arithmetic signal. -/
+/-- The same pairing is exactly the historical primorial-wheel residual used by
+#215 and #216.  Thus the new torus changes only Fourier coordinates, not the
+arithmetic signal. -/
 theorem primorialPeriodicRawPrefixPairing_eq_residual
     (k : ℕ) {x : ℕ}
     (hlower : primorialBlockLower k < x)

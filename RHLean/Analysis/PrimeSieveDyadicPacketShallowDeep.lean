@@ -5,12 +5,11 @@ import RHLean.Proof.DeathShellSubpolynomial
 /-!
 # Recursive midpoint packets and the shallow/deep analytic split
 
-The signed-packet layer exposed the signed sibling packet for the clipped prime
-discrepancy `D = pi - Li`. This module builds the deterministic recursive
-midpoint tree on that coordinate, proves the discrete Faber--Schauder frame
-inequality, and isolates the remaining analytic frontier as one shallow
-signed-mode estimate and one deep recursive-tail estimate taken at a shared
-cutoff.
+PR #323 exposed the signed sibling packet for the clipped prime discrepancy
+`D = pi - Li`.  This module builds the deterministic recursive midpoint tree on
+that coordinate, proves the discrete Faber--Schauder frame inequality, and
+isolates the remaining analytic frontier as one shallow signed-mode estimate and
+one deep recursive-tail estimate taken at a shared cutoff.
 
 For an interval `[a,b]`, recursively split at
 
@@ -627,7 +626,7 @@ theorem primeSieveDyadicPacketIntervalTreeEnergy_mono
   unfold primeSieveDyadicPacketIntervalTreeEnergy
   exact genericMidpointPacketTreeEnergy_mono _ hrs
 
-/-- Packet-tree energy of one occupied dyadic block. -/
+/-- Packet-tree energy of one occupied #322 dyadic block. -/
 def primeSieveDyadicPacketTreeBlockEnergy
     (y x j depth : ℕ) : ℝ :=
   primeSieveDyadicPacketIntervalTreeEnergy y x depth
@@ -851,7 +850,7 @@ private theorem weightedPacketTree_le_subpolynomial
           rw [Finset.mul_sum]
 
 /-- A critical estimate for the unweighted recursive tree deterministically
-implies the root-packet estimate: the depth loss costs only an epsilon. -/
+implies the #323 root-packet estimate: the depth loss costs only an epsilon. -/
 theorem dyadicSignedRootPacketEnergyBlockBounded_of_packetTree
     (hTree :
       ∀ ε : ℝ, 0 < ε →

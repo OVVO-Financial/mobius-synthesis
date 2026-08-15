@@ -432,7 +432,7 @@ theorem cofactorMobiusPrefixMass_eq_primeCofactorBoundaryMass
           primeFreeCofactorPrefix p (B / p), canonicalMoebiusWeight c := by
       exact (eq_sub_of_add_eq hpartition).symm
 
-/-- The complete-prefix arithmetic boundary is exactly the earlier development's arbitrary-prefix
+/-- The complete-prefix arithmetic boundary is exactly #303's arbitrary-prefix
 geometric reciprocal shell in every `q`-fiber. -/
 theorem primeCofactorBoundary_eq_primeDilatePrefixReciprocalShell
     (p x q : ℕ) :

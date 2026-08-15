@@ -54,7 +54,7 @@ open RHLean.Proof
 
 /-- **Additive descendant persistence.**  The tail remaining after level `J`
 is released may have a full ambient linear defect.  This is strictly weaker
-than the reverse-Carleson statement from the earlier development and the earlier development, but the additive term
+than the reverse-Carleson statement from #327 and #328, but the additive term
 is still critical-scale harmless. -/
 def DyadicPacketAdditiveDescendantPersistenceStatement
     (cutoff : DyadicPacketCutoff) : Prop :=

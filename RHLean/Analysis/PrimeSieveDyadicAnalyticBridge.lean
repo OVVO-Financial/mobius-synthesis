@@ -6,7 +6,7 @@ import RHLean.Proof.TerminalMertensForward
 /-!
 # Dyadic analytic package implies the canonical RH boundary
 
-the earlier development isolated the exact decomposition
+PR #320 isolated the exact decomposition
 
 `H = dyadicCoherentChannel - 2 * centeredDyadicWaveletError`
 
@@ -17,7 +17,7 @@ There is one centering issue to handle before those ideas can be used as a genui
 reduction: `primorialSquareZeroModeCenter` evaluates the wavelet not only at the
 complete-square sample `X_n`, but also at the arithmetic block endpoints `L_k` and
 `U_k`.  Those endpoints are not generally complete-square samples.  This module
-therefore introduces the minimal block-uniform strengthening of the the earlier development energy and
+therefore introduces the minimal block-uniform strengthening of the #320 energy and
 dispersion predicates, proves that it implies the original sample predicates, and
 then closes the exact implication chain.
 
@@ -50,10 +50,10 @@ namespace RHLean.Analysis
 open RHLean.Arithmetic
 open RHLean.Proof
 
-/-! ## Block-uniform versions of the the earlier development analytic targets -/
+/-! ## Block-uniform versions of the #320 analytic targets -/
 
 /-- Critical-scale `L2` energy bound for the boundary-free Abel coefficient field,
-uniformly at every integer point of every synchronized primorial block.  The the earlier development
+uniformly at every integer point of every synchronized primorial block.  The #320
 predicate is the restriction of this statement to complete-square samples. -/
 def DyadicAbelPotentialEnergyBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
@@ -81,7 +81,7 @@ def DyadicMobiusDispersionBlockBoundedStatement : Prop :=
             primeSieveDyadicAbelPotentialEnergy
               (primorialPNTPrimeSieveCutoff k) x
 
-/-- The block-uniform energy statement specializes to the sample-level the earlier development target. -/
+/-- The block-uniform energy statement specializes to the sample-level #320 target. -/
 theorem dyadicAbelPotentialEnergyBounded_of_blockBounded
     (hE : DyadicAbelPotentialEnergyBlockBoundedStatement) :
     DyadicAbelPotentialEnergyBoundedStatement := by
@@ -97,7 +97,7 @@ theorem dyadicAbelPotentialEnergyBounded_of_blockBounded
   rw [hcast]
   exact h
 
-/-- The block-uniform dispersion statement specializes to the sample-level the earlier development target. -/
+/-- The block-uniform dispersion statement specializes to the sample-level #320 target. -/
 theorem dyadicMobiusDispersionBounded_of_blockBounded
     (hD : DyadicMobiusDispersionBlockBoundedStatement) :
     DyadicMobiusDispersionBoundedStatement := by
@@ -481,7 +481,7 @@ theorem dyadicWaveletCenteredRHScale_of_blockRHScale
   exact htotal.trans (mul_le_mul_of_nonneg_left hraise (by positivity))
 
 /-- The block-uniform energy and dispersion hypotheses therefore imply the centered
-wavelet RH-scale target consumed by the canonical the earlier development decomposition. -/
+wavelet RH-scale target consumed by the canonical #320 decomposition. -/
 theorem dyadicWaveletCenteredRHScale_of_energy_dispersion
     (hE : DyadicAbelPotentialEnergyBlockBoundedStatement)
     (hD : DyadicMobiusDispersionBlockBoundedStatement) :
@@ -543,7 +543,7 @@ theorem projectedRenewalQuadraticBounded_of_dyadicAnalyticPackage
   MobiusSynthesisBoundaryBridge.projectedRenewalQuadraticBounded_of_nonzeroResponseRHScale
     (nonzeroResponseRHScale_of_dyadicAnalyticPackage hC hE hD)
 
-/-- **Terminal the earlier development bridge.**  Proving the coherent-channel RH-scale estimate and
+/-- **Terminal #321 bridge.**  Proving the coherent-channel RH-scale estimate and
 the block-uniform boundary-free energy plus Mobius-dispersion estimates is sufficient
 to prove Mathlib's Riemann Hypothesis through the repository's existing unconditional
 terminal chain. -/

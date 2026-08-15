@@ -5,9 +5,9 @@ import RHLean.Proof.CanonicalGapAncestryBridge
 /-!
 # Realize the original square-root transport term
 
-The prime-dilated transport layer exposed the transport expression and the
-matched born-smooth minus transport object. This module closes the remaining
-exact interface to the original dynamic identity
+PR #212 exposed the prime-dilated transport expression and the matched
+born-smooth minus transport object.  This module closes the remaining exact
+interface to the original dynamic identity
 
 `S = A - T`.
 
@@ -252,8 +252,8 @@ theorem squareRootTransportPairSourceMass_eq_cofactorFirst
         · simp [hprime, hmul]
       · simp [hprime]
 
-/-- The prime-dilated `T_R` is exactly the original dynamic transport term
-appearing in `squarePrefixMertens = smooth - transport`. -/
+/-- The prime-dilated `T_R` of PR #212 is exactly the original dynamic transport
+term appearing in `squarePrefixMertens = smooth - transport`. -/
 theorem squareRootTransportMass_pred_eq_cofactorFirst
     (R : ℕ) (hR : 1 ≤ R) :
     squareRootTransportMass (R - 1) =
@@ -271,8 +271,8 @@ theorem squareRootTransportMass_pred_eq_cofactorFirst
     _ = squareRootTransportCofactorFirst R :=
       squareRootTransportPairSourceMass_eq_cofactorFirst R
 
-/-- Consequently the matched decomposition is now literally the original
-square-prefix Mertens identity. -/
+/-- Consequently the PR #212 matched decomposition is now literally the
+original square-prefix Mertens identity. -/
 theorem squarePrefixMertens_eq_positiveSmooth_add_matched
     (R : ℕ) (hR : 1 ≤ R) :
     RHLean.Analysis.squarePrefixMertens (R - 1) =

@@ -16,14 +16,23 @@ x0 = (y+1)^2 - 1,
 because `x0 % (y+1) = y` forces the forward window to be empty.  This module
 supplies the backward counterpart: the quotient `x / (y+1)` is exactly stable
 on the whole backward interval `[x0 - y, x0]`, so the affine increment bound
-applies to every backward step `t <= y`, and the excursion and moment
-machinery runs on a window of full length at the canonical pin.
+applies to every backward step `t <= y`.  The excursion window certified in
+THIS module is `min (y+1) (floor (H/(2C)))` with the crude constant
+`C = primeSieveLipschitzConstant ~ 2 sqrt x / log x`, so the window is only
+`Theta(log x)` at `H ~ sqrt x`; the sharp affine window (slope `2 + o(1)`,
+intercept of `sqrt x` scale, window `~ min(sqrt x, H/4)`) is delivered in
+`RHLean.Analysis.PrimeSieveAffineExcursion`.
 
-The module also records two exact floor facts underlying the affine constant:
-the unit-step floor jump is precisely the divisor indicator of `x + 1`, and a
-general step obeys the sharp `h/d + 1` bound.  Finally it isolates the exact
-support-insertion identity: at the transition `x + 1 = (K+1)(y+1)` the quotient
-support grows by the single term `mu(K+1) * R(y+1)`.
+The module also records two exact floor facts
+(`floor_succ_div_sub_eq_divisor_indicator`, `floor_add_div_sub_le`): the
+unit-step floor jump is precisely the divisor indicator of `x + 1`, and a
+general step obeys the per-`d` bound `h/d + 1` (one above the exact maximum
+`ceil (h/d)` when `d` divides `h`).  Both are consumed in
+`PrimeSieveAffineExcursion`: the general bound by the sharp affine slope
+`1 + H_K/log(y+1)`, the unit-step fact by the divisor-count identity behind
+the intercept.  Finally the module isolates the exact support-insertion
+identity: at the transition `x + 1 = (K+1)(y+1)` the quotient support grows
+by the single term `mu(K+1) * R(y+1)`.
 
 Everything here is unconditional; no hypothesis on `pi`, `Li`, or the Moebius
 sum is used anywhere.
@@ -46,7 +55,7 @@ theorem floor_succ_div_sub_eq_divisor_indicator (x d : ℕ) :
   rw [Nat.succ_div]
   split <;> simp
 
-/-- The sharp per-`d` floor increment bound `h/d + 1`, refining the crude
+/-- The per-`d` floor increment bound `h/d + 1`, refining the crude
 `h + 1` bound used by the forward Lipschitz constant. -/
 theorem floor_add_div_sub_le (x h d : ℕ) (hd : 0 < d) :
     (x + h) / d - x / d ≤ h / d + 1 := by
@@ -153,8 +162,9 @@ theorem primeSieveMoebiusDiscrepancySum_backward_increment_norm_le
 
 /-! ## The backward excursion window -/
 
-/-- The backward excursion window at the canonical pin: the affine window
-length, capped by the exactly-stable backward range `y + 1`. -/
+/-- The backward excursion window at the canonical pin with the crude
+Lipschitz constant, capped by the exactly-stable backward range `y + 1`.
+For the genuine affine window see `primeSieveAffineBackwardWindow`. -/
 def primeSieveBackwardWindow (y : ℕ) : ℕ :=
   min (y + 1)
     ⌊‖primeSieveMoebiusDiscrepancySum y (primeSieveCanonicalPin y)‖ /
@@ -162,7 +172,11 @@ def primeSieveBackwardWindow (y : ℕ) : ℕ :=
 
 /-- **Backward excursion at the canonical pin.**  The pinned height persists at
 half strength on the whole backward window.  No stability hypothesis appears:
-the canonical pin supplies it for free. -/
+the canonical pin supplies it for free.  The window may be empty:
+`primeSieveBackwardWindow y = 0` whenever `H < 2C ~ 4 sqrt x / log x`, and
+this module certifies no lower bound on it; see
+`one_le_primeSieveAffineBackwardWindow` for a certificate under an explicit
+height hypothesis. -/
 theorem primeSieveMoebiusDiscrepancySum_backward_excursion (y : ℕ) (hy : 1 ≤ y) :
     ∀ t : ℕ, t < primeSieveBackwardWindow y →
       ‖primeSieveMoebiusDiscrepancySum y (primeSieveCanonicalPin y)‖ / 2
@@ -208,7 +222,9 @@ theorem primeSieveMoebiusDiscrepancySum_backward_excursion (y : ℕ) (hy : 1 ≤
 
 /-- **The backward moment lower bound.**  For every `k`, the pinned height at
 the canonical pin produces a `2k`-th moment lower bound over the backward
-window — the record-020 transfer with the vacuous forward hypotheses removed. -/
+window — the pinned-height transfer with the vacuous forward hypotheses removed
+(vacuous when the window is empty; cf. the nonemptiness certificate in
+`PrimeSieveAffineExcursion`). -/
 theorem primeSieveMoebiusDiscrepancySum_backward_excursion_moment
     (y k : ℕ) (hy : 1 ≤ y) :
     (‖primeSieveMoebiusDiscrepancySum y (primeSieveCanonicalPin y)‖ / 2) ^ (2 * k)

@@ -137,6 +137,62 @@ theorem collisionInvolution_pairable_fixed_disjoint_defect
     rw [hfix]
     exact hF
 
+/-- **The pairing defect has at most three labels.**  The six nonfixed labels
+form three two-cycles, one for each second collision-slot coordinate.  A finite
+frontier can strand at most one member of each two-cycle: if both members with
+the same second coordinate were present, neither could lie in the defect. -/
+theorem collisionInvolutionDefectPart_card_le_three
+    (F : Finset TwoPrimeCollisionState) :
+    (collisionInvolutionDefectPart F).card ≤ 3 := by
+  classical
+  have hinj : Set.InjOn
+      (fun s : TwoPrimeCollisionState => s.2)
+      (collisionInvolutionDefectPart F) := by
+    intro s hs t ht hsecond
+    rcases s with ⟨a, b⟩
+    rcases t with ⟨c, d⟩
+    change b = d at hsecond
+    subst d
+    unfold collisionInvolutionDefectPart at hs ht
+    have hsdata := Finset.mem_filter.mp hs
+    have htdata := Finset.mem_filter.mp ht
+    fin_cases a <;> fin_cases c <;>
+      simp_all [collisionExponentStateInvolution, collisionSlotFlip]
+  have hcard :
+      ((collisionInvolutionDefectPart F).image
+        (fun s : TwoPrimeCollisionState => s.2)).card =
+        (collisionInvolutionDefectPart F).card :=
+    Finset.card_image_iff.mpr hinj
+  calc
+    (collisionInvolutionDefectPart F).card =
+        ((collisionInvolutionDefectPart F).image
+          (fun s : TwoPrimeCollisionState => s.2)).card := hcard.symm
+    _ ≤ (Finset.univ : Finset CollisionSlotLabel).card := by
+      apply Finset.card_le_card
+      intro b hb
+      simp
+    _ = 3 := by simp [CollisionSlotLabel]
+
+/-- Consequently any integer weight bounded by one on the defect has total
+absolute defect mass at most three.  This is a signed-frontier bound, not a
+per-residue count of all nine CRT classes. -/
+theorem abs_sum_collisionInvolutionDefectPart_le_three
+    (F : Finset TwoPrimeCollisionState)
+    (w : TwoPrimeCollisionState → ℤ)
+    (hunit : ∀ s ∈ collisionInvolutionDefectPart F, |w s| ≤ 1) :
+    |∑ s ∈ collisionInvolutionDefectPart F, w s| ≤ 3 := by
+  calc
+    |∑ s ∈ collisionInvolutionDefectPart F, w s| ≤
+        ∑ s ∈ collisionInvolutionDefectPart F, |w s| := by
+      exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ _s ∈ collisionInvolutionDefectPart F, (1 : ℤ) := by
+      apply Finset.sum_le_sum
+      intro s hs
+      exact hunit s hs
+    _ = ((collisionInvolutionDefectPart F).card : ℤ) := by simp
+    _ ≤ 3 := by
+      exact_mod_cast collisionInvolutionDefectPart_card_le_three F
+
 /-- **Exact finite-frontier pairing reduction.**  A sign-reversing involution
 removes every pair whose two members remain in the physical finite set.  The
 whole sum is therefore the fixed-point sum plus the explicit mate-crosses-cutoff

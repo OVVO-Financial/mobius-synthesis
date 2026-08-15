@@ -2,7 +2,7 @@ import Mathlib
 import RHLean.Proof.FullFactorizationBridge
 
 /-!
-# Canonical signed-parent identity
+# Canonical signed-parent identity (issue #144, ladder step 2)
 
 For a squarefree `n > 1` the canonical largest-prime decomposition
 `n = c · q`, `q = P⁺(n)`, has `q ∤ c` automatically (squarefreeness), so the

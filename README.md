@@ -1,98 +1,77 @@
 # Möbius Synthesis
 
-This is a standalone Lean 4 formalization of a square-sensitive, prime-wheel approach to cancellation in the Möbius summatory function.
+This directory is the **canonical standalone export**. The public standalone repository is produced by mirroring the contents of `RH_Lean/export_mobius_synthesis` to repository root; mathematical or documentation updates should be made here first so the export remains the source of truth.
 
-The central quantity is the **joint signed field**
+The project is a Lean 4 formalization of square-sensitive and prime-wheel cancellation in the Möbius summatory function. Its central arithmetic object is the signed field
 
-\[
+$$
 R-2H,
-\]
+$$
 
-where `R` is the seeded prime-wheel mass and `H` is the smooth-core correction.  Under square-root prime coverage this field is proved exactly equal to the ordinary Möbius prefix.  The formal development keeps this signed object intact rather than bounding `R` and `H` separately.
+where `R` is the seeded prime-wheel mass and `H` is the smooth-core correction. Under square-root prime coverage this field is proved exactly equal to the ordinary Möbius prefix.
 
-## Current exact structure
+## Exact structure now exported
 
-For each complete four-cell, only three slots are active:
+For each complete four-cell, only the three positions
 
-\[
-4k+1,\qquad 4k+2,\qquad 4k+3,
-\]
+$$
+4k+1,\qquad 4k+2,\qquad 4k+3
+$$
 
-because the fourth position is divisible by \(4\) and has Möbius value zero.  The three-slot state
+are active. The degree-one state projection gives
 
-\[
-S_k=(\mu(4k+1),\mu(4k+2),\mu(4k+3))\in\{-1,0,1\}^3
-\]
+$$
+M(4K)=W_a(K)+W_b(K)+W_c(K)
+$$
 
-therefore has exactly 27 possible values.
+and each coordinate is the corresponding recovered prime-wheel field $R_j(K)-2H_j(K)$.
 
-The formalization now proves the exact degree-one projection.  If \(C_i(K)\) is the number of occurrences of state \(i\) among the first \(K\) cells and \(\chi_a,\chi_b,\chi_c\) select its three signed coordinates, then
+The endpoint transfer is now exact as well. With $K=\lfloor X/4\rfloor$,
 
-\[
-W_j(K)=\sum_i \chi_j(i)C_i(K),
-\]
+$$
+|M(X)-M(4K)|\le 3.
+$$
 
-with
+So a complete-cell estimate transfers to every physical cutoff with only a bounded additive correction.
 
-\[
-W_a(K)=\sum_{k<K}\mu(4k+1),\qquad
-W_b(K)=\sum_{k<K}\mu(4k+2),\qquad
-W_c(K)=\sum_{k<K}\mu(4k+3).
-\]
+The refreshed export also contains the merged collision, finite-difference, survivor-parity, dyadic, affine-excursion, and renewal layers:
 
-At every complete four-cell endpoint,
+- the corrected `R - 2H` field has the exact local sign law under a genuine selected-prime exponent flip;
+- square-hit fixed points have exactly zero corrected weight;
+- the mate-crosses-cutoff collision defect has at most three labels;
+- arbitrary Boolean-supported alternating mass has exact one-, two-, and three-coordinate finite-difference formulas;
+- for every prime survivor fibre $q\ge 7$, the actual survivor mass has an exact `2-3-5` eight-state third-difference representation;
+- the parity residue channels retain their exact signed Gram, and nonzero dyadic pair mass is confined to three explicit geometric shells;
+- the weighted renewal telescope is connected exactly to the far-upper survivor sector and the primorial square-wheel zero-mode center.
 
-\[
-M(4K)=W_a(K)+W_b(K)+W_c(K).
-\]
-
-Each coordinate sum is also proved exactly equal to the corresponding canonical square-root-wheel signed slot field \(R_j(K)-2H_j(K)\).  Thus the empirical three-slot diagnostic and the arithmetic prime-wheel field meet at the same kernel-checked object.
+The synthesis ledger is therefore at revision 3. These are exact identities and reductions; they do **not** assert a new asymptotic estimate.
 
 ## Quantitative target
 
-The missing theorem is the signed degree-one estimate
+The missing theorem remains square-root-scale cancellation, for example
 
-\[
-M(4K)\ll_\varepsilon K^{1/2+\varepsilon}.
-\]
+$$
+M(X)\ll_\varepsilon X^{1/2+\varepsilon},
+$$
 
-Equivalently, in the squared formulation used by the formal analytic bridge, the recovered square-root-wheel energy must satisfy a bound of size
+or equivalently the corresponding squared Mertens-energy bound at exponent $1+\varepsilon$.
 
-\[
-X^{1+\varepsilon}.
-\]
+The formal recovery layer identifies this target with the square-prefix energy criterion, and the existing forward analytic bridge carries that criterion to the formal Riemann hypothesis.
 
-The exact recovery layer proves that this recovered-wheel energy statement is equivalent to the Mertens-energy criterion already used by the square-prefix route, and that this criterion implies the formal Riemann hypothesis through the completed-zeta reflection argument.
+The strongest new collision reduction is conditional in exactly the right place: an exact bounded collision-defect chain for every square-prefix endpoint would give
 
-No RH-scale cancellation theorem is claimed here.  The exact reductions are proved; the quantitative cancellation remains open.
+$$
+|M((n+1)^2-1)|\le 3(n+1)
+$$
 
-## Current proof mechanisms
+and hence critical square-prefix energy with constant $9$. Constructing that globally chargeable chain, or proving an equivalent signed survivor-corner or covariance power saving, is the remaining arithmetic problem.
 
-The package includes three complementary mechanisms aimed at the missing estimate.
+## Documentation and GitHub math
 
-**Physical collision pairing.** Prime-square collision classes are organized by exact CRT residue frontiers.  A local exponent-state flip is proved to reverse the actual corrected `R - 2H` weight whenever the other local coordinates and smooth-core status are preserved.  Finite frontiers then split exactly into pairable states, fixed states, and mate-crosses-cutoff defects.
+See [CURRENT_PROOF_ROUTE.md](CURRENT_PROOF_ROUTE.md) for the active proof plan, [MODULES.md](MODULES.md) for principal entry points, [SEAMS.md](SEAMS.md) for the exact interfaces, and [EMPIRICAL_DIAGNOSTICS.md](EMPIRICAL_DIAGNOSTICS.md) for finite diagnostics that are not used as asymptotic evidence.
 
-**Canonical finite differences.** The multi-prime operator is defined as an unordered Möbius-weighted divisor sum.  For a fresh prime \(p\), it satisfies the exact recurrence
-
-\[
-D_{S\cup\{p\}}f=D_Sf-D_S(\operatorname{shift}_p f).
-\]
-
-This gives a fiberwise alternative when a literal physical pairing cannot freeze all other prime coordinates.
-
-**Square-sensitive transport and centering.** The complete square-block development remains available as a second exact representation of the same Mertens object, including the square-prefix transport decomposition and the zero-mode-centered nonzero response.
-
-See [CURRENT_PROOF_ROUTE.md](CURRENT_PROOF_ROUTE.md) for the active proof plan and [EMPIRICAL_DIAGNOSTICS.md](EMPIRICAL_DIAGNOSTICS.md) for finite computations that motivate, but do not prove, the target estimate.
-
-## Main formal entry points
-
-See [MODULES.md](MODULES.md) for the principal modules and [SEAMS.md](SEAMS.md) for the exact interfaces between the three-slot, prime-wheel, square-block, and analytic layers.
+All Markdown mathematics in this export uses GitHub-supported `$...$` and `$$...$$` delimiters. `scripts/check_markdown_math.py` rejects the unsupported `\(`, `\)`, `\[`, and `\]` delimiter forms outside code, and `.github/workflows/markdown-math.yml` carries that audit into the standalone repository when this directory is mirrored to repository root.
 
 ## Related public projects
 
-The two companion public projects are:
-
-- `prime-wheel-mobius`
-- `square-block-mobius`
-
-They develop the prime-wheel and square-block viewpoints separately.  This repository focuses on the exact synthesis and the remaining signed cancellation problem.
+The companion projects `prime-wheel-mobius` and `square-block-mobius` develop the two main coordinate systems separately. This package records their exact synthesis and the remaining signed cancellation frontier.

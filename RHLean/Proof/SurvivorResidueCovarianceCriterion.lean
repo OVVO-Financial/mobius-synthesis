@@ -27,6 +27,11 @@ Thus the exact remaining analytic target is a covariance-defect estimate: the
 negative cross-cofactor covariance must cancel the diagonal up to the desired
 RH-scale remainder after multiplication by the chosen residue modulus.
 
+For modulus `2` we also retain the exact signed two-channel Gram before applying
+Cauchy--Schwarz.  This is essential for the dyadic survivor route: the odd and
+even cofactor channels can have opposite signs, and replacing their signed
+square by twice the positive residue energy discards that cancellation.
+
 No covariance estimate is assumed inside an algebraic identity. The only new
 hypothesis below is isolated as a named power-saving statement for a prescribed
 positive modulus schedule.
@@ -97,6 +102,91 @@ private theorem survivor_norm_intCast_complex_sq (z : ℤ) :
     ‖((z : ℤ) : ℂ)‖ ^ 2 = ((z * z : ℤ) : ℝ) := by
   rw [Complex.sq_norm]
   norm_num [Complex.normSq_apply]
+
+/-! ## Exact signed parity-channel Gram -/
+
+private theorem sum_zmod_two
+    {A : Type*} [AddCommMonoid A] (f : ZMod 2 → A) :
+    (∑ u : ZMod 2, f u) = f 0 + f 1 := by
+  have huniv : (Finset.univ : Finset (ZMod 2)) = {0, 1} := by
+    native_decide
+  rw [huniv]
+  simp
+
+/-- Residue-0 signed mass at parity modulus.  The dyadic survivor module proves
+that for odd upper primes this is exactly the odd-cofactor channel. -/
+def survivorParityZeroMass (Λ : ℝ) (t : ℕ) : ℤ :=
+  survivorResidueSignedMass Λ t 2 0
+
+/-- Residue-1 signed mass at parity modulus.  For odd upper primes this is the
+even-cofactor channel. -/
+def survivorParityOneMass (Λ : ℝ) (t : ℕ) : ℤ :=
+  survivorResidueSignedMass Λ t 2 1
+
+/-- The signed two-channel square that is actually seen by the survivor zero
+mode.  Unlike the positive residue energy, this retains the cross-channel term. -/
+def survivorParitySignedGram (Λ : ℝ) (t : ℕ) : ℤ :=
+  (survivorParityZeroMass Λ t + survivorParityOneMass Λ t) ^ 2
+
+/-- Explicit cross-residue interaction between the two parity channels. -/
+def survivorParityCrossChannel (Λ : ℝ) (t : ℕ) : ℤ :=
+  2 * survivorParityZeroMass Λ t * survivorParityOneMass Λ t
+
+/-- At modulus `2`, the positive residue energy is just the sum of the two
+channel squares. -/
+theorem survivorResidueEnergy_two_eq_paritySquares
+    (Λ : ℝ) (t : ℕ) :
+    survivorResidueEnergy Λ t 2 =
+      survivorParityZeroMass Λ t ^ 2 + survivorParityOneMass Λ t ^ 2 := by
+  unfold survivorResidueEnergy survivorParityZeroMass survivorParityOneMass
+  rw [sum_zmod_two]
+  ring
+
+/-- **Signed parity Gram identity.**  The true square is the positive two-channel
+energy plus the cross-residue interaction.  A negative cross term is therefore
+real cancellation and must not be discarded by a positive-energy bound. -/
+theorem survivorParitySignedGram_eq_energy_add_cross
+    (Λ : ℝ) (t : ℕ) :
+    survivorParitySignedGram Λ t =
+      survivorResidueEnergy Λ t 2 + survivorParityCrossChannel Λ t := by
+  rw [survivorResidueEnergy_two_eq_paritySquares]
+  unfold survivorParitySignedGram survivorParityCrossChannel
+  ring
+
+/-- Exact Cauchy--Schwarz loss at modulus `2`: twice the positive residue energy
+minus the true signed square is the square of the channel difference.  Thus if
+the dyadic geometry makes the two channels nearly opposite, the generic
+Cauchy--Schwarz bridge can lose essentially the whole cancellation. -/
+theorem two_mul_residueEnergy_two_sub_signedGram_eq_channelDifference_sq
+    (Λ : ℝ) (t : ℕ) :
+    2 * survivorResidueEnergy Λ t 2 - survivorParitySignedGram Λ t =
+      (survivorParityZeroMass Λ t - survivorParityOneMass Λ t) ^ 2 := by
+  rw [survivorResidueEnergy_two_eq_paritySquares]
+  unfold survivorParitySignedGram
+  ring
+
+/-- The exact survivor zero mode is the complex cast of the signed sum of the
+two parity channels. -/
+theorem survivorZeroMode_eq_intCast_parityChannelSum
+    (Λ : ℝ) (t : ℕ) :
+    survivorZeroMode Λ t =
+      (((survivorParityZeroMass Λ t + survivorParityOneMass Λ t : ℤ)) : ℂ) := by
+  rw [survivorZeroMode_eq_intCast_sum_survivorResidueSignedMass Λ t 2]
+  congr 1
+  simpa [survivorParityZeroMass, survivorParityOneMass] using
+    (sum_zmod_two (fun u : ZMod 2 => survivorResidueSignedMass Λ t 2 u))
+
+/-- The true pointwise survivor energy is exactly the real cast of the signed
+parity Gram, with no Cauchy--Schwarz loss. -/
+theorem norm_sq_survivorZeroMode_eq_paritySignedGram
+    (Λ : ℝ) (t : ℕ) :
+    ‖survivorZeroMode Λ t‖ ^ 2 =
+      ((survivorParitySignedGram Λ t : ℤ) : ℝ) := by
+  rw [survivorZeroMode_eq_intCast_parityChannelSum]
+  rw [survivor_norm_intCast_complex_sq]
+  unfold survivorParitySignedGram
+  push_cast
+  ring
 
 /-- Unconditional pointwise residue-energy control of the survivor amplitude. -/
 theorem norm_sq_survivorZeroMode_le_modulus_mul_residueEnergy
