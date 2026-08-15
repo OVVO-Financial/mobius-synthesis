@@ -1,345 +1,98 @@
 # Möbius Synthesis
 
-**Möbius Synthesis** is a standalone research-status repository for the square-block and prime-wheel Möbius program. It joins the two coordinate systems, carries the native Selberg--Erdős prime number theorem, and records the strongest currently machine-checked quantitative PNT contraction without overstating the remaining RH-scale step.
+This is a standalone Lean 4 formalization of a square-sensitive, prime-wheel approach to cancellation in the Möbius summatory function.
 
-`RHLean.lean` is the authoritative source inventory and currently imports **366 Lean modules**. `MODULES.md` maps the source layers, `SEAMS.md` records their exact interfaces, and `CURRENT_PROOF_ROUTE.md` states what is proved, what remains open, and which mechanisms are currently live.
+The central quantity is the **joint signed field**
 
-## Current research status
+\[
+R-2H,
+\]
 
-There are four distinct machine-checked levels, and they must not be conflated.
+where `R` is the seeded prime-wheel mass and `H` is the smooth-core correction.  Under square-root prime coverage this field is proved exactly equal to the ordinary Möbius prefix.  The formal development keeps this signed object intact rather than bounding `R` and `H` separately.
 
-### 1. The ordinary prime number theorem is proved unconditionally
+## Current exact structure
 
-The repository contains an elementary Selberg--Erdős proof ending at
+For each complete four-cell, only three slots are active:
 
-```text
-RHLean.Analysis.nativePNTSquarePrefixPrimeNumberTheorem
-  : Tendsto
-      (fun N => (Nat.primeCounting N : ℝ) * Real.log N / N)
-      atTop (𝓝 1)
-```
+\[
+4k+1,\qquad 4k+2,\qquad 4k+3,
+\]
 
-The proof is built inside the reciprocal-fibre Möbius architecture. It does not import a zero-free region, Perron formula, Tauberian theorem, or an external PNT theorem.
+because the fourth position is divisible by \(4\) and has Möbius value zero.  The three-slot state
 
-### 2. A generalized affine PNT bound is proved and contracts strictly
+\[
+S_k=(\mu(4k+1),\mu(4k+2),\mu(4k+3))\in\{-1,0,1\}^3
+\]
 
-The quantitative layer works with
+therefore has exactly 27 possible values.
 
-```text
-nativePNTError N = nativePsi N - N.
-```
+The formalization now proves the exact degree-one projection.  If \(C_i(K)\) is the number of occurrences of state \(i\) among the first \(K\) cells and \(\chi_a,\chi_b,\chi_c\) select its three signed coordinates, then
 
-At slope `alpha`, `nativePNTHasAffineEnvelope alpha` means that some nonnegative intercept `D` satisfies
+\[
+W_j(K)=\sum_i \chi_j(i)C_i(K),
+\]
 
-```math
-|\psi(N)-N| \le \alpha N + D
-```
+with
 
-for every `N`.
+\[
+W_a(K)=\sum_{k<K}\mu(4k+1),\qquad
+W_b(K)=\sum_{k<K}\mu(4k+2),\qquad
+W_c(K)=\sum_{k<K}\mu(4k+3).
+\]
 
-For
+At every complete four-cell endpoint,
 
-```math
-0 < \alpha \le \frac32,
-```
+\[
+M(4K)=W_a(K)+W_b(K)+W_c(K).
+\]
 
-Lean proves that an affine envelope at slope `alpha` implies one at
+Each coordinate sum is also proved exactly equal to the corresponding canonical square-root-wheel signed slot field \(R_j(K)-2H_j(K)\).  Thus the empirical three-slot diagnostic and the arithmetic prime-wheel field meet at the same kernel-checked object.
 
-```math
-\alpha_{new}
-  = \alpha - \frac{\alpha^3}{178200000}.
-```
+## Quantitative target
 
-The key declarations are
+The missing theorem is the signed degree-one estimate
 
-```text
-RHLean.Analysis.nativePNTSquarePrefixHasAffineEnvelope_lowSlope_cubic_step
-RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter.
-```
+\[
+M(4K)\ll_\varepsilon K^{1/2+\varepsilon}.
+\]
 
-The low-slope cubic coefficient is
+Equivalently, in the squared formulation used by the formal analytic bridge, the recovered square-root-wheel energy must satisfy a bound of size
 
-```text
-1 / 178200000
-```
+\[
+X^{1+\varepsilon}.
+\]
 
-and is exactly `32/5` times the earlier fully rederived square-prefix coefficient `1 / 1140480000`. This is a genuine contraction of an already-proved generalized PNT error bound. It is not an RH-scale power bound.
+The exact recovery layer proves that this recovered-wheel energy statement is equivalent to the Mertens-energy criterion already used by the square-prefix route, and that this criterion implies the formal Riemann hypothesis through the completed-zeta reflection argument.
 
-### 3. The square-root conversion theorems are already formalized
+No RH-scale cancellation theorem is claimed here.  The exact reductions are proved; the quantitative cancellation remains open.
 
-The moving-cutoff route defines `NativePNTQuadraticTailScaleLaw K`: for each small target slope `eta`, a true tail begins at some cutoff `M` satisfying
+## Current proof mechanisms
 
-```math
-M\eta^2 \le K.
-```
+The package includes three complementary mechanisms aimed at the missing estimate.
 
-From that law Lean proves
+**Physical collision pairing.** Prime-square collision classes are organized by exact CRT residue frontiers.  A local exponent-state flip is proved to reverse the actual corrected `R - 2H` weight whenever the other local coordinates and smooth-core status are preserved.  Finite frontiers then split exactly into pairable states, fixed states, and mate-crosses-cutoff defects.
 
-```math
-|\psi(N)-N| \le \sqrt{KN}
-```
+**Canonical finite differences.** The multi-prime operator is defined as an unordered Möbius-weighted divisor sum.  For a fresh prime \(p\), it satisfies the exact recurrence
 
-through
+\[
+D_{S\cup\{p\}}f=D_Sf-D_S(\operatorname{shift}_p f).
+\]
 
-```text
-RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
-RHLean.Analysis.nativePNTError_abs_le_sqrt_of_stateDependentCubicGain.
-```
+This gives a fiberwise alternative when a literal physical pairing cannot freeze all other prime coordinates.
 
-The affine-intercept route defines `NativePNTReciprocalInterceptLaw K`. From
+**Square-sensitive transport and centering.** The complete square-block development remains available as a second exact representation of the same Mertens object, including the square-prefix transport decomposition and the zero-mode-centered nonzero response.
 
-```math
-D(\alpha) \le \frac K\alpha
-```
+See [CURRENT_PROOF_ROUTE.md](CURRENT_PROOF_ROUTE.md) for the active proof plan and [EMPIRICAL_DIAGNOSTICS.md](EMPIRICAL_DIAGNOSTICS.md) for finite computations that motivate, but do not prove, the target estimate.
 
-Lean proves
+## Main formal entry points
 
-```math
-|\psi(N)-N| \le 2\sqrt{KN}
-```
+See [MODULES.md](MODULES.md) for the principal modules and [SEAMS.md](SEAMS.md) for the exact interfaces between the three-slot, prime-wheel, square-block, and analytic layers.
 
-through
+## Related public projects
 
-```text
-RHLean.Analysis.nativePNTError_abs_le_two_sqrt_of_reciprocalInterceptLaw.
-```
+The two companion public projects are:
 
-Thus the missing result is not a square-root optimization lemma. The conversion machinery is already present.
+- `prime-wheel-mobius`
+- `square-block-mobius`
 
-### 4. The missing theorem is RH-compatible physical scale control
-
-What is **not** proved is the required cutoff law itself. In particular, the repository does not yet prove unconditionally that repeated architecture-native contractions reach target slope `eta` with terminal physical cutoff
-
-```math
-M(\eta)=O(\eta^{-2}),
-```
-
-nor the stronger reciprocal cutoff control sufficient for the affine-intercept route.
-
-This is the present quantitative bottleneck.
-
-`RHLean.Analysis.NativePNTEvolvingTailObstruction` proves that the canonical sign-blind evolving-tail state carries an unavoidable `N log N`-scale floor. The active route therefore keeps the second Selberg recurrence signed before taking norms.
-
-## Signed second Selberg architecture
-
-`RHLean.Analysis.NativePNTSignedSecondSelberg` opens the second Selberg layer before absolute values. Its exact kernel is
-
-```math
-K_2(n)
- = (\Lambda * \Lambda)(n)-\Lambda(n)\log n
- = \Lambda_2(n)-2\Lambda(n)\log n.
-```
-
-The exact recurrence exposes
-
-```text
-E(N) log(N)^2
-  = signed Selberg remainder * log(N)
-    - Lambda signed remainder mass
-    + dyadic Lambda_2 cell mass
-    + top boundary mass
-    - 2 * Lambda-log signed error mass
-    - floor-log signed defect mass.
-```
-
-No current-scale positive remainder is inserted and no `Lambda_2` contribution is replaced termwise by its absolute value.
-
-The supporting modules
-
-```text
-NativePNTSignedLogSquarePrimeCells
-NativePNTSignedLogSquarePositiveDyadicKernel
-NativePNTSignedLogSquareDyadicCell
-NativePNTSignedLogSquareSquareStage
-```
-
-place the log-square mass on complete-square cells and identify the exact dyadic ownership used by the signed recurrence.
-
-## Exact prime-wheel frontier at square-root scale
-
-`RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier` classifies the actual unresolved partial-wheel sites under
-
-```math
-N < 2y^2.
-```
-
-Every nonzero frontier site is exactly one of two signed faces:
-
-```text
-prime square q^2:
-  K_2(q^2) = -(log q)^2
-
-distinct prime product q r:
-  K_2(qr) = 2 log q log r.
-```
-
-`RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge` proves that every such site has reciprocal quotient `N / n = 1`, hence
-
-```text
-nativePNTSignedSecondSelbergWheelFrontierErrorMass y N
-  = - nativePNTSignedSecondSelbergWheelFrontierCharge y N.
-```
-
-This is an exact signed frontier statement. No positivity is asserted for the total frontier charge.
-
-## Two live quantitative fronts
-
-### A. Canonical square-wheel nonzero response
-
-For synchronized primorial blocks and complete-square samples,
-
-```math
-R_k(X_n)=H_{k,n}+\rho_{k,n}R_k(U_k),
-\qquad 0\le\rho_{k,n}<\frac16.
-```
-
-The zero mode is eliminated exactly, and the canonical direct RH target remains
-
-```math
-|H_{k,n}| \ll_\varepsilon (X_n+1)^{1/2+\varepsilon}.
-```
-
-That estimate is **not proved**. `boundary/frontier.json` therefore remains at `exact_reduction`.
-
-The exact reciprocal-interval coordinate is
-
-```math
-H_{k,n}
-  = C_{k,n}^{PNT}-2E_{k,n}^{rec},
-```
-
-where the second term is a centered Mertens-weighted family of prime-count-minus-Li discrepancies on explicit reciprocal intervals.
-
-### B. Generalized-PNT contraction with controlled physical scale
-
-The newer quantitative route starts from the proved affine PNT envelope, iterates a state-dependent cubic contraction, records the physical cutoff at every step, and asks for an RH-compatible terminal scale. The formal square-root conversion is already present. The live arithmetic task is to prove the scale law from the signed square-block and prime-wheel structure.
-
-```text
-proved affine PNT envelope
-  -> proved strict cubic slope contraction
-  -> OPEN: architecture-native cutoff law
-  -> proved conditional sqrt(N) Chebyshev bridge.
-```
-
-The signed second-Selberg and wheel-frontier modules target the open middle arrow.
-
-## Historical exact synthesis seam
-
-The exact square-wheel seam remains part of the current architecture.
-
-`RHLean.Proof.PrimeSievePostSqrtGap` proves, under `sqrt x < y`,
-
-```text
-M_y^+(x) - M(x)
-  = 2 * sum_{y < q <= x, q prime} M(floor(x/q)).
-```
-
-`RHLean.Proof.PrimeSieveSquareRootTransport` realizes that identity at complete square endpoints in square-block smooth and transport variables.
-
-`RHLean.Analysis.PrimeSievePNTCentering` and `PrimeSieveQuotientPNTError` reindex the prime error by
-
-```text
-d = floor(x/q),
-```
-
-with exact reciprocal interval
-
-```text
-max(y, floor(x/(d+1))) < q <= floor(x/d).
-```
-
-These are exact finite identities and do not independently supply the missing RH-scale cancellation.
-
-## What is proved versus open
-
-Machine checked:
-
-- exact square-block and prime-wheel Möbius architectures;
-- exact square-wheel zero-mode elimination and uniform `1/6` feedback contraction;
-- exact reciprocal-interval PNT centering of the canonical nonzero response;
-- unconditional native Selberg--Erdős prime number theorem;
-- generalized affine PNT envelopes and iteration infrastructure;
-- conditional square-root conversion from quadratic cutoff growth;
-- conditional square-root conversion from reciprocal affine-intercept growth;
-- a formal obstruction to the canonical absolute evolving-tail state;
-- exact signed second-Selberg recurrence on square-stage cells;
-- exact signed prime-square and mixed-prime wheel-frontier classification;
-- exact wheel-frontier error-mass collapse to the negative frontier charge;
-- strict low-slope cubic contraction with coefficient `1 / 178200000`.
-
-Still open:
-
-- the architecture-native cutoff law needed to keep repeated contraction at quadratic reciprocal physical scale;
-- the stronger reciprocal cutoff or intercept law;
-- the canonical `H_{k,n}` bound at exponent `1/2 + epsilon`;
-- an unconditional RH-scale Mertens or Chebyshev power bound;
-- the Riemann Hypothesis.
-
-## Direct current-status modules
-
-```text
-RHLean.Analysis.NativePNTCubicContractionInequality
-RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
-RHLean.Analysis.NativePNTTailAffineEnvelope
-RHLean.Analysis.NativePNTTailOptimalIntercept
-RHLean.Analysis.NativePNTReciprocalInterceptPowerBound
-RHLean.Analysis.NativePNTEvolvingTailObstruction
-RHLean.Analysis.NativePNTSignedLocalSurplus
-RHLean.Analysis.NativePNTSignedLogSquarePrimeCells
-RHLean.Analysis.NativePNTSignedLogSquarePositiveDyadicKernel
-RHLean.Analysis.NativePNTSignedLogSquareDyadicCell
-RHLean.Analysis.NativePNTSignedLogSquareSquareStage
-RHLean.Analysis.NativePNTSignedSecondSelberg
-RHLean.Analysis.NativePNTSignedWheelRemainder
-RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
-RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
-```
-
-The exact synthesis-facing modules remain important as well:
-
-```text
-RHLean.Proof.PrimeSievePostSqrtGap
-RHLean.Proof.PrimeSieveSquareRootTransport
-RHLean.Analysis.PrimeSievePNTCentering
-RHLean.Analysis.PrimeSieveQuotientPNTError
-RHLean.Analysis.SquareWheelZeroModeElimination
-RHLean.Analysis.SquareWheelQuantitativeBridge
-RHLean.Analysis.PrimorialWheelMertensTransfer
-RHLean.Analysis.MertensMellinContinuation
-RHLean.Analysis.MertensZetaIdentityContinuation
-RHLean.Proof.RiemannHypothesisBridge
-```
-
-## Repository layout
-
-- `README.md` — current research status;
-- `CURRENT_PROOF_ROUTE.md` — canonical live proof route and bottleneck;
-- `MODULES.md` — source-layer map;
-- `SEAMS.md` — exact interfaces between square-block, wheel, PNT, and scale layers;
-- `RHLean.lean` — authoritative 366-module import manifest;
-- `RHLean/` — Lean source tree;
-- `boundary/` — canonical direct-H frontier, cross-track synthesis ledger, and closed-lane record;
-- `.github/` and `scripts/` — CI, assumption audit, and research-scope gate;
-- `lakefile.lean`, `lean-toolchain`, and `lake-manifest.json` — pinned Lean project metadata.
-
-## Verification
-
-From the repository root:
-
-```bash
-bash scripts/local_ci.sh
-```
-
-The local and hosted baseline audits build `RHLean` with warnings fatal, audit unfinished proofs and project-local axioms, and print axiom dependencies for the headline synthesis theorem, the native PNT endpoint, the strengthened low-slope affine contraction, and the conditional square-root scale bridge.
-
-## Status convention
-
-- **Machine checked** means the statement is represented by a Lean theorem or definition in this repository.
-- **Exact reduction** means finite algebra, reindexing, centering, or transfer with no unproved asymptotic estimate hidden inside it.
-- **Conditional bound-changing theorem** means Lean proves the implication from an explicit scale or intercept law; it does not mean that law has been established.
-- **Open analytic target** means the required estimate or scale law is unresolved.
-- Numerical experiments are diagnostic evidence only.
-
-## License
-
-Licensed under the Apache License, Version 2.0; see `LICENSE`.
+They develop the prime-wheel and square-block viewpoints separately.  This repository focuses on the exact synthesis and the remaining signed cancellation problem.

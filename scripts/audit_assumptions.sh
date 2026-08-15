@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # Strip Lean line comments and nested block comments before looking for proof
-# escapes or opaque declarations. Grepping raw source produces false positives
-# on ordinary prose such as "constant coefficient" inside doc comments.
+# escapes or opaque declarations.  Grepping raw source creates false positives
+# in ordinary documentation comments.
 strip_lean_comments() {
   awk '
     BEGIN { depth = 0 }
@@ -68,32 +68,31 @@ if ! scan_pattern '^[[:space:]]*(axiom|constant)[[:space:]]'; then
   exit 1
 fi
 
-# Standalone-publication invariant. The repository may describe its own source,
-# theorem history, and CI, but must not carry provenance or navigation back to
-# another project repository. This also checks Lean doc comments: inherited
-# change numbers and source-repository prose are documentation once this tree
-# stands on its own.
-standalone_patterns=(
-  'RH_Lean'
-  'square-block-mobius'
-  'prime-wheel-mobius'
-  'github\.com/OVVO-Financial/'
-  'raw\.githubusercontent\.com/OVVO-Financial/'
-  'api\.github\.com/repos/OVVO-Financial/'
+# Standalone-publication invariant.  Public research text must not contain
+# provenance, navigation, or lineage pointers to a separate development
+# workspace.  The two named companion projects are the only project-level
+# cross-references permitted.
+lineage_patterns=(
   'parent_source_commit'
   'parent_lean_anchor'
   'development[ -]tree'
   'development repository'
   'parent repository'
   'source repository'
-  '#[0-9]+'
+  'sibling repository'
+  'private repository'
+  'private workspace'
+  'internal repository'
+  'internal workspace'
+  'monorepo'
+  '/home/oai/'
 )
 
 standalone_failed=0
-for pattern in "${standalone_patterns[@]}"; do
+for pattern in "${lineage_patterns[@]}"; do
   while IFS= read -r -d '' file; do
-    if grep -nE "$pattern" "$file"; then
-      printf 'Forbidden cross-repository reference in %s (pattern: %s)\n' "$file" "$pattern" >&2
+    if grep -nEi "$pattern" "$file"; then
+      printf 'Forbidden standalone-provenance text in %s (pattern: %s)\n' "$file" "$pattern" >&2
       standalone_failed=1
     fi
   done < <(
@@ -106,6 +105,31 @@ for pattern in "${standalone_patterns[@]}"; do
       -print0
   )
 done
+
+# Restrict project-level references within the OVVO-Financial organization to
+# the two public companion projects.  Workflow action dependencies from other
+# organizations are infrastructure dependencies and are outside this research-
+# provenance check.
+allowed_projects='^(prime-wheel-mobius|square-block-mobius)$'
+while IFS= read -r -d '' file; do
+  while IFS=: read -r line ref; do
+    [[ -z "${ref:-}" ]] && continue
+    project="${ref#OVVO-Financial/}"
+    if [[ ! "$project" =~ $allowed_projects ]]; then
+      printf '%s:%s: forbidden project reference OVVO-Financial/%s\n' \
+        "$file" "$line" "$project" >&2
+      standalone_failed=1
+    fi
+  done < <(grep -nEo 'OVVO-Financial/[A-Za-z0-9._-]+' "$file" || true)
+done < <(
+  find . -type f \
+    ! -path './.git/*' \
+    ! -path './.lake/*' \
+    ! -path './scripts/audit_assumptions.sh' \
+    \( -name '*.md' -o -name '*.json' -o -name '*.yml' -o -name '*.yaml' \
+       -o -name '*.lean' -o -name '*.sh' -o -name '*.py' -o -name 'CODEOWNERS' \) \
+    -print0
+)
 
 if [[ "$standalone_failed" -ne 0 ]]; then
   echo 'Standalone repository reference audit failed.' >&2
