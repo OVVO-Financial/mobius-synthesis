@@ -55,7 +55,7 @@ structure SpectralEndpointGramData {E : Type*}
     EndpointCubeUniformLocalBoundaryStatement
       (orthogonalPacketBoundary packet v u hv)
 
-/-- Spectral Gram data instantiate the projection bridge from #110. -/
+/-- Spectral Gram data instantiate the projection bridge. -/
 def endpointProjectionOfSpectralGram
     {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E]
     (packet : ℕ → E) (v u : E) (hv : v ≠ 0)

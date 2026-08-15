@@ -13,33 +13,32 @@
       "kind": "lossy",
       "closed_on": "2026-08-09",
       "claim": "Per-block bounds on Delta_j, summed, control the pinned wheel residual R_k.",
-      "obstruction": "Only the signed sum telescopes. sum_{j<=J} Delta_j = R_k(X_J) - R_k(X_0), so replacing it by sum_j |Delta_j| discards exactly the cancellation being sought. Measured loss over mu-sieved data: 29.7x at J=64, 660x at J=256, 67.5x at J=1024, against sqrt(J) = 8.0, 16.0, 32.0. Over a full primorial block J is astronomically larger.",
+      "obstruction": "Only the signed sum telescopes. Replacing the signed consecutive sum by a sum of absolute block increments discards exactly the cancellation being sought and loses the scale required by the terminal target.",
       "evidence": {
         "lean": "RHLean/Analysis/SquareWheelNesting.lean",
-        "lean_note": "The module header states this directly: an absolute-value sum over the blocks loses a full square-root factor.",
-        "numeric": "exploratory probe, mu sieve to 4e6"
+        "numeric": "exploratory mu-sieved block probes"
       },
-      "what_would_reopen": "A bound on the SIGNED consecutive sums that does not pass through per-block absolute values. Note that such a bound is the wheel residual bound itself, so this is circular unless it supplies independent correlation information about adjacent Delta_j."
+      "what_would_reopen": "A theorem controlling the signed consecutive sum from independent arithmetic correlation information rather than through per-block absolute values."
     },
     {
       "id": "at-derivative",
-      "title": "Differentiate the square-root smooth/transport prefix decomposition",
+      "title": "Differentiate the square-root smooth and transport prefix decomposition",
       "kind": "circular",
       "closed_on": "2026-08-09",
-      "claim": "Differencing M(X_n) = A_n - T_n exposes a new cross-n cancellation mechanism.",
-      "obstruction": "The decomposition is at the PREFIX level (squarePrefixMertens_eq_squareRootSmooth_sub_transport), so the increment is Delta A_n - Delta T_n. The reclassification term created when the square-root cutoff advances appears in both increments with the same sign and cancels identically, returning Delta A_n - Delta T_n = Delta_n. The derivative removes the moving-cutoff mechanism rather than exposing it.",
+      "claim": "Differencing the smooth-minus-transport prefix identity exposes a new cross-stage cancellation mechanism.",
+      "obstruction": "The moving-cutoff reclassification term appears in both increments with the same sign and cancels identically, returning the original square-block increment. The derivative removes the moving-cutoff mechanism instead of exposing a new one.",
       "evidence": {
         "lean": "RHLean/Analysis/TwoABScaleTransfer.lean"
       },
-      "what_would_reopen": "Nothing at the level of the raw (A,T) pair. The lifetime decomposition M(X_t) = L + Z + D is the productive replacement, since it discharges two of three terms unconditionally."
+      "what_would_reopen": "Nothing at the level of the raw smooth and transport pair. A successor must retain additional lifetime, prime-fibre, or signed frontier structure."
     },
     {
       "id": "survivor-residue-covariance-cauchy",
       "title": "Bound the survivor via residue energy and finite Cauchy-Schwarz",
       "kind": "lossy",
       "closed_on": "2026-08-09",
-      "claim": "|Z|^2 <= s (D + C) with negative cross-cofactor covariance C cancelling the diagonal D delivers an RH-scale survivor bound for some modulus schedule.",
-      "obstruction": "C is indeed negative at every modulus tested, but the fibre split and the prime-face toggle are governed by the same object: the square-unit subgroup mod s. For s | 24 every unit has q^2 = 1, so u = const - c^2 is a FUNCTION of c, the split is Z re-bucketed, and proving the energy small is proving the survivor bound. Raising s makes the fibres informative (30.6 fibres per cofactor at s=10080) but degrades V/D from 1e-4 to 0.61 while the factor s enters the bound. At t=600, |Z| = 27 against a target of t = 600, yet sqrt(sV) never falls below 1642 at any modulus tested.",
+      "claim": "Negative cross-cofactor covariance inside residue fibres offsets the diagonal strongly enough for an RH-scale survivor bound.",
+      "obstruction": "The fibre split and prime-face toggle are governed by the same square-unit structure. Small moduli merely rebucket the survivor, while larger moduli make fibres more informative but pay the modulus factor in Cauchy-Schwarz. Far-upper rigidity further proves that a fixed-q prime-face fibre is exactly -M(floor(X_t/q)), so fixed-q pairing is a representation change rather than a complete cancellation mechanism.",
       "evidence": {
         "lean": [
           "RHLean/Proof/SurvivorResidueCovarianceCriterion.lean",
@@ -47,13 +46,47 @@
           "RHLean/Proof/SurvivorResidueCollisionReindex.lean",
           "RHLean/Proof/SurvivorFarUpperRigidity.lean"
         ],
-        "numeric": "exploratory probe: t in {100..600}, Lambda in {2,8}, s in {12,24,60,120,360,840,2520,10080}"
+        "numeric": "exploratory residue probes"
       },
-      "caveats": "t <= 600 (X_t ~ 3.6e5) is small and sqrt(sV)/t IS falling with t at s=12 (4.68 -> 2.74 across t=200..600). The closure is on the residue/Cauchy STRUCTURE, not on the numerics alone. Far-upper rigidity further shows that a fixed-q prime-face pairing is only a representation change: the complete far-upper fibre is exactly -M(floor(X_t/q)). This does not close cancellation across q.",
-      "what_would_reopen": "A genuinely signed theorem that acts ACROSS distinct prime fibres q, or pairs the survivor against another signed frontier before any norm is taken. The former pairing-before-residues reopener is no longer sufficient at fixed q: SurvivorFarUpperRigidity proves that the far-upper fixed-q fibre remains the full -M(floor(X_t/q))."
+      "what_would_reopen": "A genuinely signed theorem acting across distinct prime fibres q, or pairing the survivor against another signed frontier before any norm is taken."
+    },
+    {
+      "id": "single-prime-dyadic-li-coherent-mode",
+      "title": "Use the single-prime c to 2c dyadic Li-residual pairing as the full RH mechanism",
+      "kind": "lossy",
+      "closed_on": "2026-07-27",
+      "claim": "Exact within-pair K and J cancellation, followed by random-like true-Mobius cancellation across cofactors and cleanup by the complementary main term and odd tail, yields the protected square-root bound.",
+      "obstruction": "The exact within-pair cancellation is strong, but the aggregate system develops a slow coherent mode. The true Mobius signs can reinforce that mode, and full recombination with the complementary main term and odd tail does not provide a universal exact cancellation identity. The route is therefore closed as a standalone RH mechanism, while its exact dyadic identities remain available as local coordinates.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/PrimeSieveDyadicAnalyticBridge.lean",
+          "RHLean/Analysis/PrimeSieveDyadicCoherentAbel.lean",
+          "RHLean/Analysis/PrimeSieveDyadicSignedPackets.lean",
+          "RHLean/Analysis/PrimeSieveDyadicPacketDissipation.lean"
+        ],
+        "numeric": "finite coherent-mode diagnostics"
+      },
+      "what_would_reopen": "A genuinely new arithmetic mechanism that controls the coherent mode itself, especially a many-d or multi-prime signed theorem. Merely enlarging the finite range, reweighting the same single-prime pair, or taking another sign-blind norm does not reopen it."
+    },
+    {
+      "id": "canonical-absolute-evolving-tail",
+      "title": "Use the canonical absolute evolving-tail remainder state to realize cubic contraction at polynomial physical scale",
+      "kind": "ceiling",
+      "closed_on": "2026-08-14",
+      "claim": "Self-compose the nonnegative one-log remainder, combine it with tail and small-quotient compensation, and obtain the cubic alpha^3 N log(N)^2 budget at a fixed polynomial cutoff in 1/alpha.",
+      "obstruction": "NativePNTEvolvingTailObstruction proves a structural lower bound for the entire canonical evolving cost. The first absolute remainder contains the linear factorial defect, the second contains an N log N-scale floor, and the exact tail/small partition leaves at most alpha N log(N)^2 of negative compensation. At every fixed polynomial scale N = alpha^(-r), the N log N floor divided by the desired cubic alpha^3 N log(N)^2 budget diverges as alpha tends to zero.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/NativePNTEvolvingTailObstruction.lean",
+          "RHLean/Analysis/NativePNTEvolvingTailState.lean",
+          "RHLean/Analysis/NativePNTEvolvingTailCompensation.lean"
+        ],
+        "theorem": "RHLean.Analysis.nativePNTEvolvingTailCost_ge_canonical_obstruction"
+      },
+      "what_would_reopen": "Not by changing the cutoff exponent inside the same absolute state. A successor must keep additional signs before norms are taken. The current replacement is the signed second-Selberg square-stage ledger and signed prime-wheel frontier."
     }
   ],
   "not_closed": {
-    "note": "Two distinctions are intentionally preserved. First, the added-prime contraction is real but its unweighted form has a ceiling: the observed per-prime ratios are exactly (p-1)/(p+1), the pure density factor, with no arithmetic gain, and prod_p (p-1)/(p+1) decays like 1/log^2 rather than like a power. In the k=20..40 band the residual runs up to 1.88x WORSE than independent behaviour. This constrains the mechanism to the centered object H_{k,n} rather than raw partial Moebius; it does not close a lane. Second, the positive-orientation square-root split now has the exact identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1), and exact numerics through R=536870912 show an envelope compatible with R^(3/2+o(1)). That numerical envelope is NOT an asymptotic theorem, so the standalone matched-transport bound is numerically disfavored but not registered here as a proved ceiling. A true asymptotic closure would require an independently proved lower bound such as positiveSmooth(R)=Omega(R^(3/2-o(1)))."
+    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture."
   }
 }

@@ -3,7 +3,7 @@ import RHLean.Arithmetic.SquareBlockParityPopulation
 import RHLean.Proof.CanonicalSignedParent
 
 /-!
-# One-block invariant architecture (issue #146)
+# One-block invariant architecture
 
 Square blocks `1` and `2` are the fixed seed. Their union is `{1, 2, 3}`:
 block `1 = [1,2)` contains no primes and block `2 = [2,4)` contains `2,3`.
@@ -19,7 +19,7 @@ namespace RHLean.Proof
 
 open RHLean.Arithmetic
 
-/-- Old frozen parent cutoff used by issue #146 for target square block `a`. -/
+/-- Old frozen parent cutoff used for target square block `a`. -/
 def oldParentCutoff (a : ℕ) : ℕ :=
   (a ^ 2 - 1) / 2
 

@@ -11,8 +11,8 @@ support `U n` is measured on the linear scale of the square block by
 card (U n) / n.
 ```
 
-If the settled complement has zero Möbius mass, PR #153 gives
-`|Δ_n| <= card (U n)`.  Dividing by `n` shows that vanishing transition relevance
+If the settled complement has zero Möbius mass, the mutable-support bound gives
+`|Δ_n| <= card (U n)`. Dividing by `n` shows that vanishing transition relevance
 forces the normalized square-block discrepancy to vanish as well.
 
 The arithmetic construction of the genuine severed transition support, and the
