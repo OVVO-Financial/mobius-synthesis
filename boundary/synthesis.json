@@ -1,17 +1,18 @@
 {
   "schema_version": 1,
-  "revision": 2,
+  "revision": 3,
   "baseline": {
     "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
     "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",
     "summary": "Initial mathematical baseline: the canonical square-wheel nonzero response is identified exactly with the centered PNT-corrected comb minus twice the centered Mertens-weighted reciprocal-interval prime-count discrepancy."
   },
   "last_witness": {
-    "module": "RHLean.Analysis.ThreeSlotDegreeOneSynthesis",
-    "theorem": "RHLean.Analysis.threeSlotDegreeOne_crossTrackCheckpoint",
-    "summary": "Packages the exact three-slot signed Mertens field together with the established square-prefix transport identity and the canonical square-wheel zero-mode centering of Mertens, exposing the signed degree-one field as the common quantitative target.",
+    "module": "RHLean.Analysis.MobiusRenewalSquareWheelSynthesis",
+    "theorem": "RHLean.Proof.primorialMinimalSquareWheelNonzeroResponse_eq_renewalFarSurvivorCenter",
+    "summary": "At a synchronized primorial-wheel sample, applies the new weighted renewal telescope to the established far-upper survivor Mertens transform inside the square-prefix decomposition, then substitutes the resulting identity into the existing wheel zero-mode center. This is an exact coordinate identity and asserts no new estimate.",
     "square_anchors": [
-      "RHLean.Proof.squarePrefixMertens_eq_positiveSmooth_add_matched"
+      "RHLean.Proof.squarePrefixMertens_eq_positiveSmooth_add_matched",
+      "RHLean.Proof.survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform"
     ],
     "prime_wheel_anchors": [
       "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter"
