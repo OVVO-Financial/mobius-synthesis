@@ -109,4 +109,4 @@ print_and_audit_axioms "$contraction_import" "$contraction_decl" "$contraction_l
 step 'Auditing the conditional quadratic-scale square-root bridge'
 print_and_audit_axioms "$scale_bridge_import" "$scale_bridge_decl" "$scale_bridge_log"
 
-printf '\nLocal CI mirror passed. The repository and all four status declarations elaborated cleanly.\n'
+printf '\nLocal CI mirror passed. The 366-module repository and all four status declarations elaborated cleanly.\n'

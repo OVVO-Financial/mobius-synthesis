@@ -80,12 +80,6 @@ The established square-prefix, transport, survivor, zero-mode, and square-wheel 
 - `RHLean.Analysis.PrimeSievePNTCentering`
   - identifies the canonical nonzero square-wheel response as the exact zero-mode centering of the Mertens summatory function.
 
-- `RHLean.Analysis.MobiusRenewalTelescope`
-  - proves the exact g-weighted renewal telescope `sum (g*1)(n) M(floor(X/n)) = sum g(a)`, the substrate for renewal-type reciprocal Mertens identities.
-
-- `RHLean.Analysis.MobiusRenewalSquareWheelSynthesis`
-  - realizes the far-upper survivor Mertens transform through the renewal telescope and substitutes it into the zero-mode-centered primorial wheel response (synthesis ledger revision 3).
-
 - `RHLean.Analysis.SquarePrefixMertensBridge`
   - provides the square-prefix energy criterion used by the recovered-wheel equivalence.
 
