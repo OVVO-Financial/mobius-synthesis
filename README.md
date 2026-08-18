@@ -1,6 +1,6 @@
 # Möbius Synthesis
 
-This directory is the **canonical standalone export**. The public standalone repository is produced by mirroring the contents of `RH_Lean/export_mobius_synthesis` to repository root; mathematical or documentation updates should be made here first so the export remains the source of truth.
+This is a self-contained Lake package. `RHLean.lean` imports every shipped module, so `lake build RHLean --wfail` builds the whole development.
 
 The project is a Lean 4 formalization of square-sensitive and prime-wheel cancellation in the Möbius summatory function. Its central arithmetic object is the signed field
 
@@ -44,7 +44,17 @@ The refreshed export also contains the merged collision, finite-difference, surv
 - the parity residue channels retain their exact signed Gram, and nonzero dyadic pair mass is confined to three explicit geometric shells;
 - the weighted renewal telescope is connected exactly to the far-upper survivor sector and the primorial square-wheel zero-mode center.
 
-The synthesis ledger is therefore at revision 3. These are exact identities and reductions; they do **not** assert a new asymptotic estimate.
+The export also carries the square-root orientation layer:
+
+- the smooth mass splits exactly by canonical orientation into a positive and a born-smooth part, and the matched object is the born-smooth mass minus the high transport mass;
+- the reciprocal-cutoff floor rounding and the prime-counting discrepancy are combined into a single signed residual $D_R$ *channel by channel*, before the cofactor sum, so neither is ever available alone;
+- the born-smooth mass is put into the same lower-scale Möbius/reciprocal form the transport already had, giving one signed sum over the whole prime range;
+- the smoothness cutoff is proved automatic on the born orientation;
+- the parity-class form of the complete smooth mass is exact, and the residual gap between the matched criterion and the square-prefix Mertens value is made explicit.
+
+Two structural obstructions are proved as ordinary theorems: the transport transform carries a top block equal to its own cardinality, admitting no internal cancellation, and complete CRT periods cannot fit the square clock unless the selected prime-square product stays below the block width.
+
+The synthesis ledger is therefore at revision 4. These are exact identities, reductions, and obstructions; they do **not** assert a new asymptotic estimate.
 
 ## Quantitative target
 
@@ -57,6 +67,14 @@ $$
 or equivalently the corresponding squared Mertens-energy bound at exponent $1+\varepsilon$.
 
 The formal recovery layer identifies this target with the square-prefix energy criterion, and the existing forward analytic bridge carries that criterion to the formal Riemann hypothesis.
+
+One caveat is now explicit rather than implicit. Because
+
+$$
+M(X)=A_R^{\mathrm{pos}}+\bigl(A_R^{\mathrm{born}}-T_R\bigr),
+$$
+
+a bound on the matched object alone does not reach the square-prefix Mertens value. It needs the positive-orientation mass at the same scale, and that mass is exactly $-\sum_{q\le R}M(q-1)$. Both statements are named propositions in the export, and the theorem combining them into a square-prefix Mertens Gram bound is proved as a hypothetical implication.
 
 The strongest new collision reduction is conditional in exactly the right place: an exact bounded collision-defect chain for every square-prefix endpoint would give
 

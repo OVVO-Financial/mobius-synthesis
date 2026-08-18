@@ -10,8 +10,8 @@ The pointwise Dirichlet-ring identity
 `Lambda_2 = D Lambda + Lambda * Lambda`
 
 is not yet Selberg's summatory formula.  This module performs that missing
-finite reindexing in the same reciprocal-fibre coordinates used throughout
-`RH_Lean`.
+finite reindexing in the same reciprocal-fibre coordinates used throughout this
+package.
 
 No asymptotic prime-distribution theorem is used here.
 -/

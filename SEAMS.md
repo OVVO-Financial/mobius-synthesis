@@ -146,7 +146,33 @@ No estimate is asserted at this seam; it provides exact coordinates for a future
 
 **Formal modules:** `RHLean.Analysis.MobiusRenewalTelescope` and `RHLean.Analysis.MobiusRenewalSquareWheelSynthesis`.
 
-## 12. Acceptance criterion for quantitative progress
+## 12. Combined-residual seam
+
+With $X=R^2-1$, centering the cofactor-first transport against the smooth logarithmic-integral main term produces two residuals: the reciprocal-cutoff floor rounding $Q_R$ and the prime-counting discrepancy $E_R$. The seam is that they are combined *before* the cofactor sum, as the single channel weight
+
+$$
+\big(\pi(\lfloor X/c\rfloor)-\pi(R)\big)-\big(\mathrm{Li}(X/c)-\mathrm{Li}(R)\big),
+$$
+
+so no later step can take a norm of one without the other. Crossing this seam in the other direction — bounding $Q_R$ and $E_R$ separately and recombining — discards the cancellation that carries the prime-count drift, and only the one-way triangle inequality survives.
+
+**Formal module:** `RHLean.Analysis.SquareRootCombinedSignedResidual`.
+
+## 13. Orientation seam
+
+The smooth mass splits by canonical orientation, and the two parts are at different scales from their sum. The matched object $A_R^{\mathrm{born}}-T_R$ is the one at square-root scale; the complete smooth mass $A_R=M(X)+T_R$ carries the whole transport drift. Any future decomposition must keep the orientation split rather than working with $A_R$.
+
+The gap this leaves is explicit: $M(X)=A_R^{\mathrm{pos}}+(A_R^{\mathrm{born}}-T_R)$, so a matched bound needs the positive orientation at the same scale before it reaches the square-prefix Mertens value.
+
+**Formal modules:** `RHLean.Analysis.SquareRootBornSmoothReciprocalForm` and `RHLean.Analysis.SquareRootSmoothParityClasses`.
+
+## 14. Reciprocal seam
+
+Both orientations and the transport term are expressible as rough Möbius prefixes at reciprocal cutoffs. This is the common coordinate system in which the matched difference is a single signed sum over the whole prime range, with no norm taken anywhere. A successor route should enter and leave through this form rather than introducing a fresh basis.
+
+**Formal module:** `RHLean.Analysis.SquareRootBornSmoothReciprocalForm`.
+
+## 15. Acceptance criterion for quantitative progress
 
 A proposed estimate should satisfy both conditions:
 
@@ -160,3 +186,5 @@ $$
 for the Mertens amplitude, equivalently exponent $1+\varepsilon$ for squared energy.
 
 Unsigned population improvements, local constant defects without bounded charging, or Cauchy--Schwarz steps that erase the signed parity cross term do not by themselves advance the RH-scale frontier.
+
+Three further filters follow from the recorded obstructions. A proposal whose saving is a product of local multipliers of the form $1-c/q$ is capped at a power of a logarithm and cannot reach a power of $R$. A proposal that decomposes the transport population into cancelling orbits plus a bounded boundary must say what happens to the same-sign top block, which equals its own cardinality. And a proposal that reaches the target through Cauchy--Schwarz on a coefficient family must show the family is arithmetically constructible, since the optimal coefficients already encode the answer.

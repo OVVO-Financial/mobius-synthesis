@@ -146,7 +146,7 @@ theorem sum_Ioc_if_mem_primeDilateCofactorWindow
       exact ⟨hsubset hq, hq⟩
   rw [← Finset.sum_filter, hfilter]
 
-/-- In one unresolved `q`-fibre, the #304 prime-dilate shell is exactly the
+/-- In one unresolved `q`-fibre, the prime-dilate shell is exactly the
 `p`-free cofactor support restricted by the reciprocal `q`-window. -/
 theorem primeDilatePrefixReciprocalShell_eq_support_filter_window
     (p y x q : ℕ) (hp : p.Prime) (hq : q ∈ Finset.Ioc y x) :
@@ -192,7 +192,7 @@ def primeDilateCofactorWindowTransform
       canonicalMoebiusWeight c
 
 /-- **Generic cofactor-first reindexing.**  For any weight on the unresolved
-prime coordinate, every lower-scale Mertens value can be compressed by #304 and
+prime coordinate, every lower-scale Mertens value can be compressed by an earlier layer and
 the resulting finite double sum can be transposed to the explicit cofactor
 windows. -/
 theorem sum_weight_mul_mertens_div_eq_primeDilateCofactorWindowTransform
@@ -399,7 +399,7 @@ def squarePrimeDilateCofactorWindowTransform
       canonicalMoebiusWeight c
 
 /-- In a complete-square unresolved prime fibre `R < q`, every cofactor in the
-#304 shell is strictly smaller than `R`. -/
+shell is strictly smaller than `R`. -/
 theorem primeDilatePrefixReciprocalShell_eq_squareSupport_filter_window
     (p R q : ℕ) (hp : p.Prime) (hR : 0 < R)
     (hq : q ∈ Finset.Ioc R (squareRootEndpoint R)) :

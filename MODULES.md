@@ -1,6 +1,6 @@
 # Principal modules
 
-The standalone source lives under `RHLean/`. The directory `RH_Lean/export_mobius_synthesis` is the canonical export source; the public standalone repository should mirror this tree rather than evolve independently.
+The standalone source lives under `RHLean/`, and the root module `RHLean.lean` imports every shipped module.
 
 ## Three-slot recovery and endpoint transfer
 
@@ -121,6 +121,43 @@ The standalone source lives under `RHLean/`. The directory `RH_Lean/export_mobiu
 - `RHLean.Analysis.PrimeSievePNTCentering`
   - identifies the canonical nonzero square-wheel response as exact zero-mode centering of the Mertens summatory function.
 
+## Square-root orientation, combined residual, and reciprocal form
+
+- `RHLean.Analysis.SquareRootCombinedSignedResidual`
+  - defines the combined signed residual $D_R$ channel by channel, before the cofactor sum, so the floor rounding and the prime-counting discrepancy are never separable;
+  - proves $D_R=Q_R+E_R$, the two-term centering $T_R=T_R^{\mathrm{sm}}+D_R$, and the matched form;
+  - proves the Gram identity, so centering changes no norm;
+  - proves the combined RH-scale statement equivalent to the square-prefix criterion;
+  - records the one-way triangle bound, to document what separating costs.
+
+- `RHLean.Analysis.SquareRootBornSmoothReciprocalForm`
+  - defines the rough lower-scale Möbius prefix $\mathrm{Rough}(q,B)$ and its window form;
+  - proves the smoothness cutoff automatic on the born orientation;
+  - proves the born-smooth reciprocal form and the unified signed sum for $A_R^{\mathrm{born}}-T_R$;
+  - proves the exact main-term match, with the combined residual carried whole;
+  - states the RH-scale target on the unified form and proves it equivalent to the square-prefix criterion.
+
+- `RHLean.Analysis.SquareRootSmoothParityClasses`
+  - proves the parity-class form of the complete smooth mass;
+  - names the positive-orientation RH-scale statement;
+  - proves that the matched criterion and the positive-orientation statement together bound the square-prefix Mertens Gram.
+
+## Proved structural obstructions
+
+- `RHLean.Analysis.SquareRootTransportTopFibreNoGo`
+  - proves the top block of the transport transform equals its own cardinality, so it admits no internal cancellation;
+  - proves the block nonempty by Bertrand, and exhibits it as an exact summand of the transport term.
+
+- `RHLean.Analysis.PhysicalSquareCRTTransfer`
+  - partitions the physical zero-free transition population into complete aligned CRT periods and the square-clock boundary, with the boundary defined as the literal incomplete-period cells.
+
+- `RHLean.Analysis.PhysicalSquareCRTPeriodNoGo`
+  - bounds the square-block transition window by $2R+2$ cells;
+  - proves the complete-period core empty whenever the selected prime-square product exceeds that width, so the interior mass vanishes and the whole physical mass is boundary.
+
+- `RHLean.Analysis.FinitePrimeTMixing`
+  - records the exact finite-prime local count law and the weight-one Walsh multiplier used by the recombination layer.
+
 ## Research boundary and export guards
 
 - `RHLean.Analysis.MobiusSynthesisBoundary`
@@ -130,7 +167,7 @@ The standalone source lives under `RHLean/`. The directory `RH_Lean/export_mobiu
   - records the monotone quantitative frontier.
 
 - `boundary/synthesis.json`
-  - records exact cross-track synthesis advances; the refreshed export is at revision 3.
+  - records exact cross-track synthesis advances; the refreshed export is at revision 4.
 
 - `scripts/check_markdown_math.py`
   - rejects unsupported GitHub Markdown TeX delimiter forms outside code.
@@ -138,4 +175,4 @@ The standalone source lives under `RHLean/`. The directory `RH_Lean/export_mobiu
 - `.github/workflows/markdown-math.yml`
   - runs that audit automatically after this canonical directory is mirrored to standalone repository root.
 
-The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field. The new modules sharpen the exact defect representation that must be bounded.
+The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field. The new modules sharpen the exact defect representation that must be bounded, make the residual gap to the square-prefix Mertens value explicit, and close three proposed routes with recorded obstructions.

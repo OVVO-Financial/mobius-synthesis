@@ -93,7 +93,7 @@ theorem primorialPrimeSquare_dvd_minimalTorusModulus
   exact dvd_trans hpRaw
     (primorialSquareSensitiveModulus_dvd_minimalTorusModulus k)
 
-/-- The actual untruncated periodic raw torus field from #217 is invariant under
+/-- The actual untruncated periodic raw torus field from an earlier layer is invariant under
 multiplication by every unit of its ambient torus. -/
 theorem primorialPeriodicRawTorusField_unit_mul
     (k : ℕ)

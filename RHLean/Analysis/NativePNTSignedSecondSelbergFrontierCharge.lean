@@ -120,7 +120,7 @@ theorem nativePNTSignedSecondSelbergWheelFrontierErrorMass_eq_neg_charge
   rw [hdiv, nativePNTError_one]
   ring
 
-/-- Re-expose PR #353 on the actual frontier-site finset.  Every site is exactly
+/-- Re-expose the frontier-charge identity on the actual frontier-site finset.  Every site is exactly
 one of the two signed prime-wheel faces, with no third case. -/
 theorem nativePNTSignedSecondSelbergWheelFrontierSite_classification
     {y N n : ℕ} (hscale : N < 2 * y ^ 2)

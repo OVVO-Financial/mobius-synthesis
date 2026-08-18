@@ -129,3 +129,53 @@ $$
 The formal development proves these identities exactly and also identifies each $W_j$ with the corresponding corrected prime-wheel slot field $R_j-2H_j$.
 
 Accordingly, future computation should be judged by how well it diagnoses cancellation in the signed degree-one field.  Uniformity of the complete 27-state transition matrix is neither expected nor required.
+
+## Orientation scales at the square endpoint
+
+With $X=R^2-1$, direct computation of the complete smooth mass, its two canonical orientations, and the high transport mass gives the following least-squares log-log exponents over $100\le R\le 2000$.
+
+| object | measured exponent |
+| --- | --- |
+| complete smooth mass $A_R$ | $R^{1.71}$ |
+| high transport mass $T_R$ | $R^{1.78}$ |
+| positive orientation $A_R^{\mathrm{pos}}$ | $R^{0.87}$ |
+| matched object $A_R^{\mathrm{born}}-T_R$ | $R^{0.55}$ |
+
+Local slopes for $A_R$ over consecutive sample points run $1.83,\,1.58,\,1.75,\,1.70,\,1.71,\,1.71,\,1.61,\,1.79,\,1.72$, with no downward drift across a factor of $20$ in $R$.
+
+The transport mass tracks $R^2/\log R$ rather than $R$: the ratio $|T_R|/(R^2/\log R)$ reads $0.047,\,0.048,\,0.047,\,0.044,\,0.042,\,0.041$ at $R=100,400,800,1200,1600,2000$.
+
+Two readings, neither of them asymptotic evidence. First, the complete smooth mass and the transport mass are individually far above square-root scale, while the matched difference is far below it, so the orientation split is doing essentially all of the observed cancellation. Second, the positive orientation sits comfortably inside the exponent $1$ needed by the residual-gap theorem.
+
+## Walsh multiplier product
+
+The finite-prime recombination terminates in the weight-one Walsh multiplier
+
+$$
+\lambda_q=\frac{q^2-2q-4}{q^2-6}=1-\frac{2q-2}{q^2-6}.
+$$
+
+Its product over primes $11\le q\le y$ is a Mertens product:
+
+| $y$ | primes | $\prod\lambda_q$ | $(\log y)^{-2}$ | ratio |
+| --- | --- | --- | --- | --- |
+| $10^2$ | 21 | 0.2795 | 0.0472 | 5.93 |
+| $10^3$ | 164 | 0.1268 | 0.0210 | 6.05 |
+| $10^4$ | 1225 | 0.0717 | 0.0118 | 6.08 |
+| $10^5$ | 9588 | 0.0460 | 0.0075 | 6.09 |
+| $10^6$ | 78494 | 0.0319 | 0.0052 | 6.10 |
+| $10^7$ | 664575 | 0.0235 | 0.0038 | 6.10 |
+
+The ratio stabilizes at about $6.10$, so the available contraction is of order $(\log y)^{-2}$. This is a diagnostic of the multiplier structure only; the classical statement behind it is Mertens' product theorem, which is not formalized in this package.
+
+## Row energy of the canonical endpoint operator
+
+Writing the endpoint as a lower-triangular combination of lower-scale Mertens values and scanning the normalized row energy
+
+$$
+Q_R=\frac1R\sum_{y<R}(y+1)\lvert a_R(y)\rvert^2
+$$
+
+for the canonical coefficients supplied by the prime-first transport transform gives $Q_R=8.5\times10^{3},\,3.1\times10^{5},\,6.0\times10^{6},\,7.3\times10^{7}$ at $R=100,400,1200,3000$, with log-log slopes $2.669,\,2.705,\,2.732$ rising toward $3$. The dominant contribution is the single fibre $\lfloor X/q\rfloor=1$, which is the same-sign top block proved to admit no internal cancellation.
+
+For comparison, the least-norm coefficient vector satisfying the same identity has $Q_R$ between $0.015$ and $0.89$ over the same range. That column is bounded because the target is true, not as evidence for it; the least-norm coefficients are proportional to $(M(y)-1)/(y+1)$ and are not arithmetically constructible.

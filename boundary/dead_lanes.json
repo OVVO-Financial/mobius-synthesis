@@ -4,7 +4,8 @@
   "closure_kinds": {
     "circular": "an exact identity that restates the target in other notation; proving it is proving the target",
     "lossy": "the route is sound but discards more than the target can afford",
-    "ceiling": "the mechanism is real but its best case is provably weaker than the target"
+    "ceiling": "the mechanism is real but its best case is provably weaker than the target",
+    "refuted": "the proposed target is not true at the stated scale, so no route to it can succeed"
   },
   "lanes": [
     {
@@ -84,9 +85,61 @@
         "theorem": "RHLean.Analysis.nativePNTEvolvingTailCost_ge_canonical_obstruction"
       },
       "what_would_reopen": "Not by changing the cutoff exponent inside the same absolute state. A successor must keep additional signs before norms are taken. The current replacement is the signed second-Selberg square-stage ledger and signed prime-wheel frontier."
+    },
+    {
+      "id": "complete-smooth-mass-target",
+      "title": "Bound the complete smooth mass as the square-root-scale residual",
+      "kind": "refuted",
+      "closed_on": "2026-08-17",
+      "claim": "The complete R-smooth Mobius mass A_R = sum over n < R^2 with P+(n) <= R of mu(n) satisfies |A_R| << R^(1+eps), so proving parity balance for the small-prime pool closes the argument.",
+      "obstruction": "A_R is not the RH residual. Because X = R^2 - 1, every source below R^2 has at most one prime factor above R, so A_R = M(X) + T_R exactly and A_R carries the entire transport drift. The transport term contains a same-sign top block: every prime q in (X/2, X] contributes the single source m = q with mu(m) = -1, and that block equals its own cardinality with no internal cancellation. Parity determines the sign of a smooth squarefree source, but it yields nothing where the number of prime factors is constant. Only the orientation-split object A_R^born - T_R is at square-root scale.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean",
+          "RHLean/Analysis/SquareRootSmoothParityClasses.lean"
+        ],
+        "theorem": "RHLean.Proof.squareRootTopFibreBlock_eq_card",
+        "numeric": "measured growth of the complete smooth mass, the positive orientation, and the matched object over 100 <= R <= 2000"
+      },
+      "what_would_reopen": "Nothing at the level of the complete smooth mass. A successor must keep the canonical orientation split, since the two orientations and their sum sit at different scales."
+    },
+    {
+      "id": "crt-square-clock-transfer",
+      "title": "Transport the finite-prime CRT independence law onto the physical square-prefix population",
+      "kind": "ceiling",
+      "closed_on": "2026-08-17",
+      "claim": "Identify the physical zero-free transition cells with the finite-prime CRT product law on complete aligned periods, leaving only a bounded square-clock boundary, and inherit the stationary Green-Kubo variance.",
+      "obstruction": "Two independent ceilings. Geometrically, the square-block transition window admits the injection k -> 4k+1 into Icc(R^2, (R+1)^2) and so holds at most 2R+2 cells, while an aligned CRT period holds exactly the product of p^2 over the selected primes; complete periods therefore exist only when that product stays below the window width. Strict Walsh contraction needs p >= 11, and already {11,13,17} has period 5909761 and needs R >= 2954880, with the period growing doubly exponentially in the number of selected primes while the window grows linearly in R. Spectrally, the recombination terminates in the weight-one Walsh multiplier (q^2 - 2q - 4)/(q^2 - 6); its product over primes up to y is a Mertens product of order (log y)^(-2). A product of local multipliers of the form 1 - c/q cannot beat a power of a logarithm, so the interior supplies a polylogarithmic factor against a power target.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/PhysicalSquareCRTPeriodNoGo.lean",
+          "RHLean/Analysis/PhysicalSquareCRTTransfer.lean",
+          "RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean",
+          "RHLean/Analysis/FinitePrimeTMixing.lean"
+        ],
+        "theorem": "RHLean.Analysis.physicalSquareCompleteCRTCells_eq_empty_of_period_gt",
+        "numeric": "product of the weight-one Walsh multipliers over primes up to 10^7, matching 6.1/(log y)^2"
+      },
+      "what_would_reopen": "A contraction that is not the local Walsh multiplier. Specifically a fixed factor below one per dyadic scale, which iterated over log R descents produces a power rather than a logarithm."
+    },
+    {
+      "id": "endpoint-row-energy-cauchy-schwarz",
+      "title": "Bound the square-prefix endpoint by a weighted row-energy estimate for a lower-triangular operator",
+      "kind": "circular",
+      "closed_on": "2026-08-18",
+      "claim": "Write the endpoint as a lower-triangular combination of lower-scale Mertens values and prove the weighted row-energy bound sum over y < R of (y+1)|a_R(y)|^2 at most A R; Cauchy-Schwarz against the lower envelope then gives the endpoint bound in one line.",
+      "obstruction": "Cauchy-Schwarz is an identity at the optimum, so it supplies nothing. The least-norm solution of the single linear constraint has minimum row energy |E_R|^2 divided by the sum over y < R of |M(y)-1|^2/(y+1); since the envelope bounds that denominator by R K_R, the existence of any admissible coefficient vector is a statement at least as strong as the conclusion. The optimal coefficients are proportional to (M(y)-1)/(y+1) and so require the data being bounded. With the canonical arithmetic coefficients supplied by the prime-first transport transform, the row energy is dominated by the same-sign top fibre and grows like R^3 / log(R)^2.",
+      "evidence": {
+        "lean": [
+          "RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean",
+          "RHLean/Analysis/SquareRootBornSmoothReciprocalForm.lean"
+        ],
+        "numeric": "row-energy scan for the canonical transport coefficients over 100 <= R <= 3000, measured log-log slope rising through 2.67, 2.71, 2.73"
+      },
+      "what_would_reopen": "An arithmetically defined coefficient family whose row energy is near optimal, which would have to approximate (M(y)-1)/(y+1) without reference to the Mertens data."
     }
   ],
   "not_closed": {
-    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture."
+    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture. Two successors remain explicitly live: a scale-descent contraction by a fixed factor per dyadic step, which is the only proposed mechanism whose success mode produces a power rather than a logarithm, and a global sign-reversing involution on factorization paths performed before absolute values, for which the same-sign top block is the sharp design constraint."
   }
 }

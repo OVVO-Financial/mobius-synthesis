@@ -4,8 +4,8 @@ import RHLean.Analysis.PrimeSieveDyadicAnalyticBridge
 /-!
 # Dyadic chord geometry of the reciprocal prime discrepancy
 
-PR #320 introduced a mean-zero dyadic decomposition of the reciprocal-quotient
-prime discrepancy and the boundary-free Abel potential.  PR #321 proved that a
+An earlier layer introduced a mean-zero dyadic decomposition of the reciprocal-quotient
+prime discrepancy and the boundary-free Abel potential.  An earlier layer proved that a
 critical block-uniform `L2` bound for those Abel potentials, together with
 Mobius dispersion and coherent-channel control, is sufficient for RH.
 
@@ -26,13 +26,13 @@ difference `D(d) - D(d+1)`.  A dyadic block is an honest integer interval
 `[2^j, min(K, 2^(j+1)-1)]`,  where `K = x/(y+1)`.
 
 Consequently the block mean is the secant slope of `D` across the block, and the
-#320 Abel potential at an index inside the block is exactly the deviation of
+Abel potential at an index inside the block is exactly the deviation of
 `D(d)` from that secant chord.  Outside the block the potential vanishes.
 Therefore the full Abel-potential energy is exactly a dyadic chord-deviation
 energy for the classical prime discrepancy.
 
 No prime-distribution estimate is proved here.  This is a finite exact change of
-coordinates which turns the #321 energy hypothesis into a concrete curvature
+coordinates which turns the energy hypothesis into a concrete curvature
 statement for `pi-Li` along the reciprocal lattice.
 -/
 
@@ -59,7 +59,7 @@ reciprocal-interval discrepancies. -/
 def primeSieveDyadicClippedDiscrepancy (y x d : ℕ) : ℂ :=
   primeSievePrimeDiscrepancy (max y (x / d))
 
-/-- The `Nat.log2` block used in #320 is literally an integer interval. -/
+/-- The `Nat.log2` block used in an earlier layer is literally an integer interval. -/
 theorem primeSieveDyadicBlock_eq_explicitIcc (y x j : ℕ) :
     primeSieveDyadicBlock y x j =
       Finset.Icc (primeSieveDyadicBlockLeft j)
@@ -287,7 +287,7 @@ def primeSieveDyadicChordResidual (y x j d : ℕ) : ℂ :=
     ((((d - primeSieveDyadicBlockLeft j : ℕ)) : ℂ) *
       primeSieveDyadicBlockMean y x j)
 
-/-- On its own dyadic block, the #320 Abel potential is exactly the chord
+/-- On its own dyadic block, the Abel potential is exactly the chord
 residual of the classical prime discrepancy. -/
 theorem primeSieveDyadicBlockAbelPotential_eq_chordResidual
     {y x j d : ℕ} (hdB : d ∈ primeSieveDyadicBlock y x j) :
@@ -397,7 +397,7 @@ def primeSieveDyadicChordEnergy (y x : ℕ) : ℝ :=
     ∑ d ∈ primeSieveDyadicBlock y x j,
       ‖primeSieveDyadicChordResidual y x j d‖ ^ 2
 
-/-- The #320 Abel-potential energy is exactly the prime-discrepancy chord energy. -/
+/-- The Abel-potential energy is exactly the prime-discrepancy chord energy. -/
 theorem primeSieveDyadicAbelPotentialEnergy_eq_chordEnergy
     (y x : ℕ) :
     primeSieveDyadicAbelPotentialEnergy y x =
@@ -448,7 +448,7 @@ def DyadicPrimeDiscrepancyChordEnergyBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- The #321 Abel-energy hypothesis is exactly the dyadic chord-energy
+/-- The Abel-energy hypothesis is exactly the dyadic chord-energy
 hypothesis. -/
 theorem dyadicAbelPotentialEnergyBlockBounded_iff_chordEnergyBlockBounded :
     DyadicAbelPotentialEnergyBlockBoundedStatement ↔
@@ -467,7 +467,7 @@ theorem dyadicAbelPotentialEnergyBlockBounded_iff_chordEnergyBlockBounded :
     rw [primeSieveDyadicAbelPotentialEnergy_eq_chordEnergy]
     exact hCb k x hk hlow hup
 
-/-- The full #321 RH reduction can therefore be stated directly in terms of a
+/-- The full RH reduction can therefore be stated directly in terms of a
 critical dyadic chord-energy estimate for `pi-Li`. -/
 theorem riemannHypothesis_of_dyadicChordAnalyticPackage
     (hC : DyadicCoherentChannelRHScale)

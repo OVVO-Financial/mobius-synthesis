@@ -111,7 +111,7 @@ theorem squarePrefixHighTransportFamily_energy_eq_jointGram
   exact RHLean.Analysis.actualResidual_energy_eq_jointGram skeleton M
     (squarePrefixHighTransportData skeleton.cutoff M hcutoff Λ n)
 
-/-- The PR #56 defect-minus-child-correction-plus-unpaired recombination has the
+/-- The defect-minus-child-correction-plus-unpaired recombination has the
 same exact full joint Gram energy. The norm is taken only after all three signed
 families have been recombined. -/
 theorem squarePrefixHighFullDecomposition_energy_eq_jointGram

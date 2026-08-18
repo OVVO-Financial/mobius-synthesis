@@ -11,7 +11,7 @@ support `U n` is measured on the linear scale of the square block by
 card (U n) / n.
 ```
 
-If the settled complement has zero Möbius mass, PR #153 gives
+If the settled complement has zero Möbius mass, an earlier layer gives
 `|Δ_n| <= card (U n)`.  Dividing by `n` shows that vanishing transition relevance
 forces the normalized square-block discrepancy to vanish as well.
 

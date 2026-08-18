@@ -98,7 +98,7 @@ theorem zmod_exists_unit_mul_of_reducedConductor_eq
   exact hcond
 
 /-- The actual periodic raw spectrum is constant on every reduced-conductor
-shell.  This discharges the shell-constancy hypothesis left explicit in #219. -/
+shell.  This discharges the shell-constancy hypothesis left explicit in an earlier layer. -/
 theorem primorialPeriodicRawSpectrum_eq_of_reducedConductor_eq
     (k : ℕ)
     (r s : ZMod (primorialMinimalWheelSystem k).modulus)

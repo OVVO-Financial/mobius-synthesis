@@ -5,7 +5,7 @@ import RHLean.Analysis.PrimeSievePNTGoodMassChargeAttack
 /-!
 # Base-eight shallow packet attack
 
-PR #330 made the deep packet tail unconditional at the base-eight cutoff.  The
+An earlier layer made the deep packet tail unconditional at the base-eight cutoff.  The
 remaining packet-side input is the successor-shallow estimate.  This module
 opens that shallow energy without separating `pi` and `Li`.
 
@@ -264,14 +264,14 @@ theorem primeSieveDyadicPacketShallowEnergy_mono
   | succ s hrs ih =>
       exact ih.trans (primeSieveDyadicPacketShallowEnergy_le_succ y x s)
 
-/-- Base-eight successor shallow square function selected by #330. -/
+/-- Base-eight successor shallow square function selected by an earlier layer. -/
 def primeSieveBaseEightShallowSquareFunction (k x : ℕ) : ℝ :=
   primeSieveReciprocalLowFrequencySquareFunction
     (primorialPNTPrimeSieveCutoff k) x
     (dyadicPacketBaseEightCutoff k x + 1)
 
 /-- The base-eight square function is literally the successor-shallow packet
-energy left open by #330. -/
+energy left open by an earlier layer. -/
 theorem primeSieveBaseEightShallowSquareFunction_eq_shallowEnergy
     (k x : ℕ) :
     primeSieveBaseEightShallowSquareFunction k x =
@@ -323,7 +323,7 @@ def DyadicPrimeReciprocalRootSiblingBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- The exact low-frequency arithmetic statement exposed by #331.  It asks for
+/-- The exact low-frequency arithmetic statement exposed by an earlier layer.  It asks for
 a critical block-uniform bound on the reciprocal-discrepancy Haar square
 function at the base-eight successor cutoff. -/
 def DyadicPrimeReciprocalLowFrequencySquareFunctionBlockBoundedStatement : Prop :=
@@ -371,7 +371,7 @@ theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_implies_root
     _ ≤ C * Real.rpow ((x : ℝ) + 1) (1 + ε) := hfull
 
 /-- The new arithmetic square-function statement is exactly equivalent to the
-remaining successor-shallow packet hypothesis in the #330 terminal package. -/
+remaining successor-shallow packet hypothesis in the terminal package. -/
 theorem dyadicPrimeReciprocalLowFrequencySquareFunctionBlockBounded_iff_baseEightShallow :
     DyadicPrimeReciprocalLowFrequencySquareFunctionBlockBoundedStatement ↔
       DyadicPacketShallowEnergyBlockBoundedStatement

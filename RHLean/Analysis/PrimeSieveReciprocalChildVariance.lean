@@ -4,7 +4,7 @@ import RHLean.Analysis.PrimeSieveBaseEightShallowAttack
 /-!
 # Reciprocal child-interval variance route for the base-eight shallow packet
 
-PR #331 identifies the remaining base-eight shallow packet with a finite
+An earlier layer identifies the remaining base-eight shallow packet with a finite
 low-frequency square function of signed reciprocal prime-minus-Li sibling
 contrasts.  This module removes one more layer of cancellation from the analytic
 input.
@@ -24,7 +24,7 @@ sign-blind child interval variance
 
 The same estimate iterates down the midpoint tree.  Hence a critical bound for
 the sign-blind reciprocal child-interval variance square function implies the
-entire successor-shallow packet estimate needed by #330 and #331.  The child
+entire successor-shallow packet estimate needed by earlier layers.  The child
 masses also telescope exactly to differences of the clipped classical
 prime discrepancy `pi - Li`, so this is a genuine local prime-variance target,
 not a reformulation involving the packet residual itself.
@@ -312,7 +312,7 @@ theorem primeSieveReciprocalLowFrequencySquareFunction_le_two_childIntervalVaria
 def primeSieveReciprocalRootChildIntervalVariance (y x : ℕ) : ℝ :=
   primeSieveReciprocalLowFrequencyChildIntervalVarianceSquareFunction y x 1
 
-/-- The level-zero sibling obstruction isolated in #331 is deterministically
+/-- The level-zero sibling obstruction isolated in an earlier layer is deterministically
 controlled by the corresponding sign-blind child-interval variance. -/
 theorem primeSieveReciprocalRootSiblingSquareFunction_le_two_childIntervalVariance
     (y x : ℕ) :
@@ -355,7 +355,7 @@ def DyadicPrimeReciprocalRootChildIntervalVarianceBlockBoundedStatement : Prop :
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
 /-- A root child-interval variance estimate resolves the first necessary
-low-frequency obstruction isolated by #331. -/
+low-frequency obstruction isolated by an earlier layer. -/
 theorem dyadicPrimeReciprocalRootChildIntervalVarianceBlockBounded_implies_rootSibling
     (h : DyadicPrimeReciprocalRootChildIntervalVarianceBlockBoundedStatement) :
     DyadicPrimeReciprocalRootSiblingBlockBoundedStatement := by
@@ -390,7 +390,7 @@ def DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement 
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
 /-- The sign-blind child-interval variance premise implies the exact signed
-low-frequency square-function premise of #331. -/
+low-frequency square-function premise of an earlier layer. -/
 theorem dyadicPrimeReciprocalChildIntervalVarianceBlockBounded_implies_lowFrequency
     (h : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
     DyadicPrimeReciprocalLowFrequencySquareFunctionBlockBoundedStatement := by
@@ -479,7 +479,7 @@ private theorem reciprocalChildVariance_log_succ_sq_le_subpolynomial
 
 /-- The successor of the base-eight cutoff has an unconditional critical deep
 tail estimate.  This is the direct public shallow/deep statement latent in the
-#330 hyperbolic bound. -/
+hyperbolic bound. -/
 theorem dyadicPacketSuccBaseEightCutoff_deepTailBlockBounded :
     DyadicPacketDeepTailBlockBoundedStatement
       (dyadicPacketSuccCutoff dyadicPacketBaseEightCutoff) := by
@@ -564,7 +564,7 @@ theorem dyadicPrimeDiscrepancyChordEnergyBlockBounded_of_baseEightReciprocalChil
   dyadicSignedRootPacketEnergyBlockBounded_iff_chordEnergyBlockBounded.mp
     (dyadicSignedRootPacketEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV)
 
-/-- Equivalently, the variance premise discharges the #321 Abel-potential energy
+/-- Equivalently, the variance premise discharges the Abel-potential energy
 input outright; only coherent-channel and Mobius-dispersion control remain. -/
 theorem dyadicAbelPotentialEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance
     (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement) :
@@ -573,8 +573,8 @@ theorem dyadicAbelPotentialEnergyBlockBounded_of_baseEightReciprocalChildInterva
     (dyadicPrimeDiscrepancyChordEnergyBlockBounded_of_baseEightReciprocalChildIntervalVariance hV)
 
 /-- Independent RH entrance through the older chord/Abel architecture.  The
-same sign-blind local prime-variance premise now feeds both the #330 base-eight
-packet route and the #321 chord-energy route. -/
+same sign-blind local prime-variance premise now feeds both the base-eight
+packet route and the chord-energy route. -/
 theorem riemannHypothesis_of_baseEightReciprocalChildIntervalVarianceChordPackage
     (hC : DyadicCoherentChannelRHScale)
     (hV : DyadicPrimeReciprocalLowFrequencyChildIntervalVarianceBlockBoundedStatement)

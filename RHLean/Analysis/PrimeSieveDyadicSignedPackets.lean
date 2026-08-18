@@ -4,7 +4,7 @@ import RHLean.Analysis.PrimeSieveDyadicChordEnergy
 /-!
 # Signed sibling packets for the dyadic prime-discrepancy chord
 
-PR #322 identified the boundary-free Abel coefficient field with the secant-chord
+An earlier layer identified the boundary-free Abel coefficient field with the secant-chord
 residual of the clipped classical discrepancy
 
 `D(d) = pi(max y (x / d)) - Li(max y (x / d))`.
@@ -21,9 +21,9 @@ it with a signed imbalance between the two child interval discrepancy masses:
 `B = (m-a) * sum_[m,b) Delta_d - (b-m) * sum_[a,m) Delta_d`.
 
 Thus no triangle split of `pi` and `Li` is introduced.  At the full occupied
-#322 dyadic block, normalizing this packet by the block width recovers the chord
+dyadic block, normalizing this packet by the block width recovers the chord
 residual pointwise.  Consequently the full root-packet energy is exactly the
-#322 chord energy, and the existing #321 RH reduction can be restated directly
+chord energy, and the existing RH reduction can be restated directly
 in this signed sibling-packet coordinate.
 
 The generic interval packet is deliberately defined for arbitrary `a <= m <= b`.
@@ -98,11 +98,11 @@ theorem primeSieveSignedSiblingPacket_eq_weighted_intervalDiscrepancies
   ring
 
 /-- Width-normalized sibling packet.  At the root interval of an occupied dyadic
-block this is exactly the #322 chord residual. -/
+block this is exactly the chord residual. -/
 def primeSieveSignedSiblingPacketResidual (y x a m b : ℕ) : ℂ :=
   (((b - a : ℕ) : ℂ)⁻¹) * primeSieveSignedSiblingPacket y x a m b
 
-/-- On an occupied #322 block, the unnormalized root packet is the block width
+/-- On an occupied block, the unnormalized root packet is the block width
 times the chord residual at the chosen reciprocal index. -/
 theorem primeSieveDyadicRootPacket_eq_width_mul_chordResidual
     {y x j d : ℕ}
@@ -150,7 +150,7 @@ theorem primeSieveDyadicRootPacket_eq_width_mul_chordResidual
         rw [← hsec]
         ring
 
-/-- Pointwise recovery of the #322 chord coordinate from the signed root packet. -/
+/-- Pointwise recovery of the chord coordinate from the signed root packet. -/
 theorem primeSieveDyadicRootPacketResidual_eq_chordResidual
     {y x j d : ℕ}
     (hj : j ∈ primeSieveDyadicBlockIndices y x)
@@ -171,7 +171,7 @@ theorem primeSieveDyadicRootPacketResidual_eq_chordResidual
   rw [primeSieveDyadicRootPacket_eq_width_mul_chordResidual hj hdB]
   simp [hwidth]
 
-/-- Energy of the width-normalized root sibling packets over all occupied #322
+/-- Energy of the width-normalized root sibling packets over all occupied
 dyadic reciprocal blocks. -/
 def primeSieveDyadicSignedRootPacketEnergy (y x : ℕ) : ℝ :=
   ∑ j ∈ primeSieveDyadicBlockIndices y x,
@@ -181,7 +181,7 @@ def primeSieveDyadicSignedRootPacketEnergy (y x : ℕ) : ℝ :=
           (primeSieveDyadicBlockRight y x j + 1)‖ ^ 2
 
 /-- Exact energy preservation: the signed root-packet energy is literally the
-#322 prime-discrepancy chord energy. -/
+prime-discrepancy chord energy. -/
 theorem primeSieveDyadicSignedRootPacketEnergy_eq_chordEnergy
     (y x : ℕ) :
     primeSieveDyadicSignedRootPacketEnergy y x =
@@ -195,7 +195,7 @@ theorem primeSieveDyadicSignedRootPacketEnergy_eq_chordEnergy
   rw [primeSieveDyadicRootPacketResidual_eq_chordResidual hj hdB]
 
 /-- Critical block-uniform energy target expressed entirely in the signed sibling
-packet coordinate.  It is equivalent to the #322 chord-energy target. -/
+packet coordinate.  It is equivalent to the chord-energy target. -/
 def DyadicSignedRootPacketEnergyBlockBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧
@@ -207,7 +207,7 @@ def DyadicSignedRootPacketEnergyBlockBoundedStatement : Prop :=
             (primorialPNTPrimeSieveCutoff k) x ≤
           C * Real.rpow ((x : ℝ) + 1) (1 + ε)
 
-/-- The signed packet target is exactly equivalent to the #322 chord target. -/
+/-- The signed packet target is exactly equivalent to the chord target. -/
 theorem dyadicSignedRootPacketEnergyBlockBounded_iff_chordEnergyBlockBounded :
     DyadicSignedRootPacketEnergyBlockBoundedStatement ↔
       DyadicPrimeDiscrepancyChordEnergyBlockBoundedStatement := by
@@ -225,7 +225,7 @@ theorem dyadicSignedRootPacketEnergyBlockBounded_iff_chordEnergyBlockBounded :
     rw [primeSieveDyadicSignedRootPacketEnergy_eq_chordEnergy]
     exact hEb k x hk hlow hup
 
-/-- The complete #321 reduction stated in the signed sibling-packet coordinate.
+/-- The complete reduction stated in the signed sibling-packet coordinate.
 Future multiscale refinements only need to prove the packet-energy hypothesis;
 the downstream RH architecture is unchanged. -/
 theorem riemannHypothesis_of_dyadicSignedPacketAnalyticPackage

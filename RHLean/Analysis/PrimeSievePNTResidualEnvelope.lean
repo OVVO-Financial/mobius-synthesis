@@ -545,15 +545,15 @@ theorem primeSieveDyadicPacketIntervalDeepRelativeEnvelope_le_four
           · simp [hsplit]
             positivity
 
-/-- The deep residual envelope attached to one occupied #324 block.  It skips
-exactly the same `min J j` shallow levels used by the #324 deep-energy split. -/
+/-- The deep residual envelope attached to one occupied block.  It skips
+exactly the same `min J j` shallow levels used by the deep-energy split. -/
 def primeSieveDyadicPacketBlockDeepRelativeEnvelope
     (y x j J : ℕ) : ℝ :=
   primeSieveDyadicPacketIntervalDeepRelativeEnvelope y x (min J j) j
     (primeSieveDyadicBlockLeft j)
     (primeSieveDyadicBlockRight y x j + 1)
 
-/-- **PNT localization in the exact #324 deep coordinate.**  For every target
+/-- **PNT localization in the exact deep coordinate.**  For every target
 `eta`, one cutoff in the prime variable makes every remaining deep packet
 residual at every block, tree depth, and shallow cutoff at most `eta` in the
 global relative normalization. -/

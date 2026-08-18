@@ -357,7 +357,7 @@ def primorialDyadicCoherentChannel (k n : ℕ) : ℂ :=
   primorialPNTCorrectedCombCenteredResponse k n -
     2 * primorialDyadicCoherentPNTErrorCenteredResponse k n
 
-/-- **Canonical #320 decomposition.**  The live nonzero wheel response is the
+/-- **Canonical decomposition.**  The live nonzero wheel response is the
 coherent channel minus twice the centered mean-zero reciprocal wavelet. -/
 theorem primorialMinimalSquareWheelNonzeroResponse_eq_dyadicCoherent_sub_two_wavelet
     (k n : ℕ)

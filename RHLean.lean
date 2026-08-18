@@ -11,6 +11,7 @@ import RHLean.Analysis.DyadicTransportCompression
 import RHLean.Analysis.DynamicVioleBaseline
 import RHLean.Analysis.EulerCRTRoughnessRecursion
 import RHLean.Analysis.ExactActivityPrimeIntervals
+import RHLean.Analysis.FinitePrimeTMixing
 import RHLean.Analysis.FiniteTorusFourierPairing
 import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
 import RHLean.Analysis.FiniteWheelRestrictedFloor
@@ -108,6 +109,8 @@ import RHLean.Analysis.NativePNTTransfer
 import RHLean.Analysis.OptimalLogBase
 import RHLean.Analysis.OriginalVioleFunction
 import RHLean.Analysis.PRoughSquarePrefixEnergy
+import RHLean.Analysis.PhysicalSquareCRTPeriodNoGo
+import RHLean.Analysis.PhysicalSquareCRTTransfer
 import RHLean.Analysis.PrimeAveragedCubeEnergy
 import RHLean.Analysis.PrimeBoundaryDefectBridge
 import RHLean.Analysis.PrimeDilateCofactorPrimeWindows
@@ -192,9 +195,13 @@ import RHLean.Analysis.SquareBlockDeathProcess
 import RHLean.Analysis.SquareBlockSurvivorBridge
 import RHLean.Analysis.SquarePrefixHeightPartition
 import RHLean.Analysis.SquarePrefixMertensBridge
+import RHLean.Analysis.SquareRootBornSmoothReciprocalForm
+import RHLean.Analysis.SquareRootCombinedSignedResidual
 import RHLean.Analysis.SquareRootMatchedTransport
 import RHLean.Analysis.SquareRootPositiveSmoothCollapse
+import RHLean.Analysis.SquareRootSmoothParityClasses
 import RHLean.Analysis.SquareRootTransportRealization
+import RHLean.Analysis.SquareRootTransportTopFibreNoGo
 import RHLean.Analysis.SquareWheelCenteredIncrement
 import RHLean.Analysis.SquareWheelEndpointCofactorFibres
 import RHLean.Analysis.SquareWheelNesting
@@ -224,6 +231,7 @@ import RHLean.Arithmetic.MobiusFourCellEndpointTransfer
 import RHLean.Arithmetic.MoebiusDoubling
 import RHLean.Arithmetic.MoebiusPrefixFrontierIdentity
 import RHLean.Arithmetic.PrimeAveragedFrontierIdentity
+import RHLean.Arithmetic.PrimeCombComplementSmoothInversion
 import RHLean.Arithmetic.PrimeCombFiniteDifference
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceRecovery

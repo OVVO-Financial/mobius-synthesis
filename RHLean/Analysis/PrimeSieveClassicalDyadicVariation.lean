@@ -145,7 +145,7 @@ def primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction
     (dyadicPacketBaseEightCutoff k x + 1)
 
 /-- At the base-eight successor cutoff the classical quadratic variation is
-literally the sign-blind child-interval variance square function from #332. -/
+literally the sign-blind child-interval variance square function from an earlier layer. -/
 theorem primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction_eq_childIntervalVariance
     (k x : ℕ) :
     primeSieveBaseEightClippedDiscrepancyQuadraticVariationSquareFunction k x =

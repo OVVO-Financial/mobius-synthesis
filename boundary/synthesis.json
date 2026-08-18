@@ -1,22 +1,45 @@
 {
   "schema_version": 1,
-  "revision": 3,
+  "revision": 4,
   "baseline": {
     "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
     "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",
     "summary": "Initial mathematical baseline: the canonical square-wheel nonzero response is identified exactly with the centered PNT-corrected comb minus twice the centered Mertens-weighted reciprocal-interval prime-count discrepancy."
   },
   "last_witness": {
-    "module": "RHLean.Analysis.MobiusRenewalSquareWheelSynthesis",
-    "theorem": "RHLean.Proof.primorialMinimalSquareWheelNonzeroResponse_eq_renewalFarSurvivorCenter",
-    "summary": "At a synchronized primorial-wheel sample, applies the weighted renewal telescope to the established far-upper survivor Mertens transform inside the square-prefix decomposition, then substitutes the resulting identity into the existing wheel zero-mode center. This is an exact coordinate identity and asserts no new estimate.",
+    "module": "RHLean.Analysis.SquareRootBornSmoothReciprocalForm",
+    "theorem": "RHLean.Proof.squareRootMatchedBornSmoothTransport_eq_unifiedReciprocalForm",
+    "summary": "Puts the born-smooth mass into the same lower-scale Mobius/reciprocal form the high transport term already had, so the matched difference becomes one signed sum of rough Mobius prefixes at reciprocal cutoffs over the whole prime range, plus the prime-indexed Mertens prefix transform isolated by the positive-orientation collapse. The smoothness cutoff is proved automatic on the born orientation. This is an exact coordinate identity and asserts no estimate.",
     "square_anchors": [
-      "RHLean.Proof.squarePrefixMertens_eq_positiveSmooth_add_matched",
-      "RHLean.Proof.survivorSixteenFarUpperPrimeMass_eq_neg_mertensTransform"
+      "RHLean.Proof.squareRootSmoothMass_eq_positive_add_bornSmooth",
+      "RHLean.Proof.squareRootPositiveSmoothMass_eq_neg_primeMertensTransform",
+      "RHLean.Proof.squareRootTransportPrimeFirst_eq_mertensTransform"
     ],
     "prime_wheel_anchors": [
       "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter"
     ]
   },
-  "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once."
+  "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once.",
+  "companion_witnesses": [
+    {
+      "module": "RHLean.Analysis.SquareRootCombinedSignedResidual",
+      "theorem": "RHLean.Proof.squareRootMatchedBornSmoothTransport_eq_pntMain_sub_combinedResidual",
+      "summary": "Forms the combined signed residual channel by channel, before the cofactor sum, so the reciprocal-cutoff floor rounding and the prime-counting discrepancy are never separable, and proves the resulting Gram identity and criterion equivalence."
+    },
+    {
+      "module": "RHLean.Analysis.SquareRootSmoothParityClasses",
+      "theorem": "RHLean.Proof.squarePrefixMertensGram_bounded_of_matched_and_positiveSmooth",
+      "summary": "Makes the residual gap explicit: the matched criterion alone does not bound the square-prefix Mertens value, and together with the positive-orientation statement it does."
+    },
+    {
+      "module": "RHLean.Analysis.SquareRootTransportTopFibreNoGo",
+      "theorem": "RHLean.Proof.squareRootTopFibreBlock_eq_card",
+      "summary": "Proves the top block of the transport transform equals its own cardinality, so it admits no internal cancellation and no bounded-boundary decomposition can absorb it."
+    },
+    {
+      "module": "RHLean.Analysis.PhysicalSquareCRTPeriodNoGo",
+      "theorem": "RHLean.Analysis.physicalSquareCompleteCRTCells_eq_empty_of_period_gt",
+      "summary": "Proves the complete-period CRT core empty whenever the selected prime-square product exceeds the square-block window width, so the interior mass vanishes and the whole physical mass is boundary."
+    }
+  ]
 }

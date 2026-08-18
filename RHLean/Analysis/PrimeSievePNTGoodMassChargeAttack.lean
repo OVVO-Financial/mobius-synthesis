@@ -4,7 +4,7 @@ import RHLean.Analysis.PrimeSievePNTGoodMassAmplification
 /-!
 # First attack on the PNT good-mass packet charge
 
-The #329 amplification theorem makes the scalar Selberg good mass
+The amplification theorem makes the scalar Selberg good mass
 `nativeLambdaTwoGoodRecipMass N 1` an explicit positive coefficient in the
 route to the critical packet estimate.  Before trying to exploit individual
 good fibres, it is important to calibrate exactly how much strength is hidden
@@ -14,8 +14,8 @@ This file proves two deterministic facts.
 
 * The good reciprocal `Lambda_2` mass is bounded above by the total reciprocal
   `Lambda_2` mass.
-* Consequently the additive descendant-persistence statement from #329 already
-  implies the factorized PNT good-mass charge.  Together with #329's converse,
+* Consequently the additive descendant-persistence statement from an earlier layer already
+  implies the factorized PNT good-mass charge.  Together with its converse,
   the two statements are equivalent at the level of block-uniform
   subpolynomial estimates.
 
@@ -95,7 +95,7 @@ theorem nativeLambdaTwoGoodRecipMass_le_const_mul_log_sq
     _ = (1 + 1000 / Real.log 2 + 2000 / (Real.log 2) ^ 2) *
         (Real.log (N : ℝ)) ^ 2 := by rfl
 
-/-- **Calibration of the factorized #329 charge.**  Additive descendant
+/-- **Calibration of the factorized charge.**  Additive descendant
 persistence already implies the PNT good-mass charge.  The proof only uses the
 upper bound for total reciprocal `Lambda_2` mass; it does not use the PNT lower
 bound.
@@ -145,7 +145,7 @@ theorem dyadicPacketPNTGoodMassCharge_of_additiveDescendantPersistence
       mul_le_mul_of_nonneg_left hpersist hKQ0
     _ = (K * CA) * Q * P * A := by ring
 
-/-- The two #329 packet statements are therefore equivalent. -/
+/-- The two packet statements are therefore equivalent. -/
 theorem dyadicPacketPNTGoodMassCharge_iff_additiveDescendantPersistence
     (cutoff : DyadicPacketCutoff) :
     DyadicPacketPNTGoodMassChargeStatement cutoff ↔
@@ -1126,7 +1126,7 @@ theorem dyadicPacketBaseEightCutoff_additiveDescendantPersistence :
     _ ≤ (K * C) * P * (E + B) :=
       mul_le_mul_of_nonneg_left hparent hcoeff0
 
-/-- Consequently the factorized #329 PNT good-mass charge holds
+/-- Consequently the factorized PNT good-mass charge holds
 unconditionally at the base-eight cutoff. -/
 theorem dyadicPacketBaseEightCutoff_pntGoodMassCharge :
     DyadicPacketPNTGoodMassChargeStatement dyadicPacketBaseEightCutoff :=
@@ -1134,7 +1134,7 @@ theorem dyadicPacketBaseEightCutoff_pntGoodMassCharge :
     dyadicPacketBaseEightCutoff
     dyadicPacketBaseEightCutoff_additiveDescendantPersistence
 
-/-- The #329 good-mass hypothesis can therefore be deleted from the terminal
+/-- The good-mass hypothesis can therefore be deleted from the terminal
 amplification package at the base-eight cutoff.  Only the coherent channel,
 successor-shallow packet bound, and Mobius dispersion remain as inputs. -/
 theorem riemannHypothesis_of_baseEightPacketAnalyticPackage
