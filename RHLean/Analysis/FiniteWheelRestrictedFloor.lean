@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.FiniteWheelReciprocalMertensImprovement
+import RHLean.Arithmetic.SignedBuchstabRecursion
 
 /-!
 # Restricted finite-wheel Möbius floor identity
@@ -8,6 +9,10 @@ This module proves the exact finite convolution behind the rough reciprocal
 Möbius sum. A divisor survives precisely when it avoids every wheel prime;
 the remaining divisor sum is the indicator that the ambient integer is smooth
 with respect to the fixed finite prime set.
+
+It also records the local one-prime mechanism used by the canonical frontier:
+convolving the indicator of factors rough at `p` with Möbius restricted to
+factors rough strictly above `p` leaves exactly the pure `p`-power channel.
 -/
 
 noncomputable section
@@ -79,6 +84,131 @@ theorem finiteWheelRoughMoebius_mul_zeta_apply
       simp only [Finset.union_subset_iff]
       by_cases haS : a.primeFactors ⊆ P <;>
         by_cases hbS : b.primeFactors ⊆ P <;> simp [ha0, hb0, haS, hbS]
+
+/-- Divisor-level form of the local canonical-frontier convolution.  The first
+factor is rough at the pivot (`>= p`), while the Möbius-weighted divisor is
+rough strictly above the pivot (`> p`). -/
+def roughGEMobiusGTConvolution (p n : ℕ) : ℤ :=
+  ∑ c ∈ n.divisors,
+    if RoughAbove p c ∧ RoughAbove (p - 1) (n / c) then
+      ArithmeticFunction.moebius c
+    else 0
+
+/-- **Exact local one-prime mechanism.**  For prime `p`,
+`1_{rough >= p} * (mu * 1_{rough > p})` leaves exactly the pure `p`-power
+channel.  The right-hand side uses `primeFactors ⊆ {p}` as the finite exact
+indicator of that channel (with the zero input separated explicitly). -/
+theorem roughGE_convolution_roughGT_moebius_eq_primePowers
+    {p : ℕ} (hp : p.Prime) (n : ℕ) :
+    roughGEMobiusGTConvolution p n =
+      if n = 0 then 0 else if n.primeFactors ⊆ ({p} : Finset ℕ) then 1 else 0 := by
+  classical
+  by_cases hn0 : n = 0
+  · subst n
+    simp [roughGEMobiusGTConvolution]
+  by_cases hglobal : RoughAbove (p - 1) n
+  · have hsum :
+        roughGEMobiusGTConvolution p n =
+          ((finiteWheelRoughMoebius ({p} : Finset ℕ)) *
+            (ζ : ArithmeticFunction ℤ)) n := by
+      unfold roughGEMobiusGTConvolution
+      rw [ArithmeticFunction.coe_mul_zeta_apply]
+      apply Finset.sum_congr rfl
+      intro c hc
+      have hcData := Nat.mem_divisors.mp hc
+      have hnpos : 0 < n := Nat.pos_of_ne_zero hn0
+      have hcpos : 0 < c := Nat.pos_of_dvd_of_pos hcData.1 hnpos
+      have hc0 : c ≠ 0 := Nat.ne_of_gt hcpos
+      have hcLe : c ≤ n := Nat.le_of_dvd hnpos hcData.1
+      have hquot1 : 1 ≤ n / c := (Nat.one_le_div_iff hcpos).2 hcLe
+      have hquot0 : n / c ≠ 0 := by omega
+      have hprod : c * (n / c) = n := Nat.mul_div_cancel' hcData.1
+      have hpf :
+          n.primeFactors = c.primeFactors ∪ (n / c).primeFactors := by
+        calc
+          n.primeFactors = (c * (n / c)).primeFactors := by rw [hprod]
+          _ = c.primeFactors ∪ (n / c).primeFactors :=
+            Nat.primeFactors_mul hc0 hquot0
+      have hcGE : RoughAbove (p - 1) c := by
+        intro q hq
+        apply hglobal q
+        rw [hpf]
+        exact Finset.mem_union_left _ hq
+      have hquotGE : RoughAbove (p - 1) (n / c) := by
+        intro q hq
+        apply hglobal q
+        rw [hpf]
+        exact Finset.mem_union_right _ hq
+      have hgtIff : RoughAbove p c ↔ ¬ p ∣ c := by
+        constructor
+        · intro hgt
+          exact RoughAbove.not_dvd hp (by omega) hgt
+        · intro hnd q hq
+          have hge := hcGE q hq
+          have hqdvd : q ∣ c := Nat.dvd_of_mem_primeFactors hq
+          have hne : q ≠ p := by
+            intro hqp
+            subst q
+            exact hnd hqdvd
+          omega
+      have hcopIff : Nat.Coprime c p ↔ ¬ p ∣ c := by
+        simpa [Nat.coprime_comm] using (hp.coprime_iff_not_dvd (n := c))
+      have hwheel : primorialWheelProduct ({p} : Finset ℕ) = p := by
+        simp [primorialWheelProduct]
+      rw [finiteWheelRoughMoebius_apply, hwheel]
+      by_cases hgt : RoughAbove p c
+      · have hcop : Nat.Coprime c p := hcopIff.2 (hgtIff.1 hgt)
+        simp [hgt, hquotGE, hcop]
+      · have hnotcop : ¬ Nat.Coprime c p := by
+          intro hcop
+          exact hgt (hgtIff.2 (hcopIff.1 hcop))
+        simp [hgt, hquotGE, hnotcop]
+    have hprimeSingleton : ∀ q ∈ ({p} : Finset ℕ), q.Prime := by
+      intro q hq
+      have hqp : q = p := Finset.mem_singleton.mp hq
+      subst q
+      exact hp
+    rw [hsum, finiteWheelRoughMoebius_mul_zeta_apply
+      ({p} : Finset ℕ) hprimeSingleton n]
+  · have hzero : roughGEMobiusGTConvolution p n = 0 := by
+      unfold roughGEMobiusGTConvolution
+      apply Finset.sum_eq_zero
+      intro c hc
+      have hcData := Nat.mem_divisors.mp hc
+      have hnpos : 0 < n := Nat.pos_of_ne_zero hn0
+      have hcpos : 0 < c := Nat.pos_of_dvd_of_pos hcData.1 hnpos
+      have hc0 : c ≠ 0 := Nat.ne_of_gt hcpos
+      have hcLe : c ≤ n := Nat.le_of_dvd hnpos hcData.1
+      have hquot1 : 1 ≤ n / c := (Nat.one_le_div_iff hcpos).2 hcLe
+      have hquot0 : n / c ≠ 0 := by omega
+      have hprod : c * (n / c) = n := Nat.mul_div_cancel' hcData.1
+      have hpf :
+          n.primeFactors = c.primeFactors ∪ (n / c).primeFactors := by
+        calc
+          n.primeFactors = (c * (n / c)).primeFactors := by rw [hprod]
+          _ = c.primeFactors ∪ (n / c).primeFactors :=
+            Nat.primeFactors_mul hc0 hquot0
+      have hcond :
+          ¬ (RoughAbove p c ∧ RoughAbove (p - 1) (n / c)) := by
+        rintro ⟨hcGT, hquotGE⟩
+        apply hglobal
+        intro q hq
+        rw [hpf] at hq
+        rcases Finset.mem_union.mp hq with hqc | hqq
+        · have := hcGT q hqc
+          omega
+        · exact hquotGE q hqq
+      simp [hcond]
+    have hnotSubset : ¬ n.primeFactors ⊆ ({p} : Finset ℕ) := by
+      intro hs
+      apply hglobal
+      intro q hq
+      have hqp : q = p := Finset.mem_singleton.mp (hs hq)
+      subst q
+      have hp2 := hp.two_le
+      omega
+    rw [hzero]
+    simp [hn0, hnotSubset]
 
 /-- Exact restricted floor identity: summing Möbius only over divisors coprime
 to the wheel leaves exactly the number of wheel-smooth integers. -/

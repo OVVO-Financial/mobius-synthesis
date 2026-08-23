@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.CanonicalLowOccupancy
+import RHLean.Analysis.LargePrimeTTransport
 
 /-!
 # Extreme largest-prime support below a finite endpoint
@@ -89,5 +90,62 @@ theorem canonicalCofactor_le_half_of_le_endpoint
       _ = m := hprod
       _ ≤ x := hmx
   omega
+
+/-- An actual canonical source in square block `j` whose largest prime lies above the
+square-root cutoff `j + 1` automatically supplies native `LargePrimeTransportData`.
+This is the first exact bridge from the square-block population to the large-prime
+`T` transport layer. -/
+theorem canonicalSquareBlock_largePrimeTransportData
+    {j m : ℕ}
+    (hm : m ∈ canonicalSquareBlock j)
+    (hmgt : 1 < m)
+    (hlarge : j + 1 < canonicalLargestPrimeFactor m) :
+    LargePrimeTransportData (j + 1)
+      (canonicalCofactor m) (canonicalLargestPrimeFactor m) := by
+  have hprod := canonicalCofactor_mul_largestPrimeFactor hmgt
+  have hc1 : 1 ≤ canonicalCofactor m := by
+    by_contra hnot
+    have hc0 : canonicalCofactor m = 0 := by omega
+    have hprod0 := hprod
+    rw [hc0] at hprod0
+    simp at hprod0
+    omega
+  have hmBlock : j ^ 2 ≤ m ∧ m < (j + 1) ^ 2 := by
+    simpa [canonicalSquareBlock, Finset.mem_Ico] using hm
+  have hcLt : canonicalCofactor m < j + 1 := by
+    by_contra hnot
+    have hcut : j + 1 ≤ canonicalCofactor m := by omega
+    have hmul :
+        (j + 1) * (j + 1) ≤
+          canonicalCofactor m * canonicalLargestPrimeFactor m :=
+      Nat.mul_le_mul hcut (Nat.le_of_lt hlarge)
+    rw [hprod] at hmul
+    have hsquare : (j + 1) * (j + 1) = (j + 1) ^ 2 := by ring
+    rw [hsquare] at hmul
+    omega
+  exact
+    { c_pos := hc1
+      c_lt_cutoff := hcLt
+      q_prime := canonicalLargestPrimeFactor_prime hmgt
+      cutoff_lt_q := hlarge }
+
+/-- The bridge immediately transfers the native large-prime Mobius sign law to the
+actual canonical source in the square block. -/
+theorem canonicalSquareBlock_largePrime_moebius_flip
+    {j m : ℕ}
+    (hm : m ∈ canonicalSquareBlock j)
+    (hmgt : 1 < m)
+    (hlarge : j + 1 < canonicalLargestPrimeFactor m) :
+    (ArithmeticFunction.moebius m : ℤ) =
+      -(ArithmeticFunction.moebius (canonicalCofactor m) : ℤ) := by
+  have hdata :=
+    canonicalSquareBlock_largePrimeTransportData hm hmgt hlarge
+  calc
+    (ArithmeticFunction.moebius m : ℤ) =
+        (ArithmeticFunction.moebius
+          (canonicalLargestPrimeFactor m * canonicalCofactor m) : ℤ) := by
+      rw [mul_comm, canonicalCofactor_mul_largestPrimeFactor hmgt]
+    _ = -(ArithmeticFunction.moebius (canonicalCofactor m) : ℤ) :=
+      hdata.moebius_mul_eq_neg
 
 end RHLean.Analysis

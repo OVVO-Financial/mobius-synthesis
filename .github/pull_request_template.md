@@ -6,10 +6,13 @@
 
 ## Current-status accuracy
 
-The current baseline contains a proved generalized affine PNT contraction and conditional square-root conversion theorems, while the physical cutoff law and the canonical `H_{k,n}` RH-scale exponent remain open.
+The current baseline contains a proved generalized affine PNT contraction, an unconditional eventual shallow reciprocal-packet crossing, a prime-count-free transport reduction, an unconditional signed second-Selberg reciprocal cancellation, and conditional square-root conversion theorems, while the physical cutoff law, the coupled-tail estimate, and the canonical `H_{k,n}` RH-scale exponent remain open.
 
 - [ ] I have not described the improved affine PNT contraction as an unconditional square-root bound.
 - [ ] I have not described a conditional cutoff or intercept bridge as proving its hypothesis.
+- [ ] I have not described the eventual crossing theorem as supplying the coupled-tail estimate; it supplies only the shallow residual.
+- [ ] I have not conflated the raw transport tail with the coupled tail, which differs from it by the complete square-root-smooth population.
+- [ ] I have not presented a sharpened amplification constant as progress; the open endpoint input already allows an arbitrary fixed constant.
 - [ ] I have not advanced `boundary/frontier.json` unless the witness proves the canonical `MobiusSynthesisBoundary` predicate.
 - [ ] If this PR concerns physical cutoff control, I have stated explicitly whether it is one-sided infrastructure, a cross-track synthesis theorem, or a canonical `H_{k,n}` advance.
 
@@ -48,4 +51,4 @@ Exact bridge identities, transfer results, shared residual statements, sampling 
 - [ ] The research witness type-checks.
 - [ ] `#print axioms` reports only standard logical axioms.
 - [ ] For the synthesis lane, the witness directly invokes both track anchors.
-- [ ] The strict low-slope affine contraction and conditional square-root scale bridge still elaborate.
+- [ ] The four status declarations still elaborate: the strict low-slope affine contraction, the conditional square-root scale bridge, the post-crossing coupled-tail route to the Riemann hypothesis statement, and the fixed square-root endpoint amplification closure.

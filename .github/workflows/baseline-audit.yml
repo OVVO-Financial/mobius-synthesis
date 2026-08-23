@@ -129,6 +129,8 @@ jobs:
           cat > /tmp/quantitative_status_check.lean <<'EOF'
           import RHLean.Analysis.NativePNTSignedSecondSelbergFrontierCharge
           import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
+          import RHLean.Analysis.SquareRootPostCrossingTail
+          import RHLean.Proof.SquareRootAmplificationClosure
 
           set_option pp.fullNames true in
           #print RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_strictly_tighter
@@ -137,6 +139,14 @@ jobs:
           set_option pp.fullNames true in
           #print RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
           #print axioms RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw
+
+          set_option pp.fullNames true in
+          #print RHLean.Proof.riemannHypothesis_of_postCrossingCoupledTailBounded_18800
+          #print axioms RHLean.Proof.riemannHypothesis_of_postCrossingCoupledTailBounded_18800
+
+          set_option pp.fullNames true in
+          #print RHLean.Proof.mertensEnergyBounded_of_squareRootEndpointAmplification
+          #print axioms RHLean.Proof.mertensEnergyBounded_of_squareRootEndpointAmplification
           EOF
           lake env lean /tmp/quantitative_status_check.lean | tee /tmp/quantitative_status_check.log
           if grep -q 'sorryAx' /tmp/quantitative_status_check.log; then
@@ -144,8 +154,8 @@ jobs:
             exit 1
           fi
           reports=$(grep -Ec 'depends on axioms|does not depend on any axioms' /tmp/quantitative_status_check.log || true)
-          if [ "$reports" -lt 2 ]; then
-            echo 'Expected axiom reports for both quantitative status theorems.' >&2
+          if [ "$reports" -lt 4 ]; then
+            echo 'Expected axiom reports for all four quantitative status theorems.' >&2
             exit 1
           fi
-          echo 'Contraction and scale-bridge audit passed.'
+          echo 'Contraction, scale-bridge, coupled-tail, and amplification audit passed.'

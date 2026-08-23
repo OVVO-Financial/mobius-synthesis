@@ -1,26 +1,51 @@
 {
   "schema_version": 1,
-  "revision": 4,
+  "revision": 5,
   "baseline": {
     "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
     "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",
     "summary": "Initial mathematical baseline: the canonical square-wheel nonzero response is identified exactly with the centered PNT-corrected comb minus twice the centered Mertens-weighted reciprocal-interval prime-count discrepancy."
   },
   "last_witness": {
-    "module": "RHLean.Analysis.SquareRootBornSmoothReciprocalForm",
-    "theorem": "RHLean.Proof.squareRootMatchedBornSmoothTransport_eq_unifiedReciprocalForm",
-    "summary": "Puts the born-smooth mass into the same lower-scale Mobius/reciprocal form the high transport term already had, so the matched difference becomes one signed sum of rough Mobius prefixes at reciprocal cutoffs over the whole prime range, plus the prime-indexed Mertens prefix transform isolated by the positive-orientation collapse. The smoothness cutoff is proved automatic on the born orientation. This is an exact coordinate identity and asserts no estimate.",
+    "module": "RHLean.Analysis.SquareRootCanonicalRoughCovariance",
+    "theorem": "RHLean.Proof.squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance",
+    "summary": "Pushes the complete post-crossing renewal row back from reciprocal depth onto the cofactor coordinate. The coupled tail after a shallow reciprocal-packet crossing equals an explicit packet baseline minus the signed Moebius pairing with one intact rough-prime cofactor response, and the same object is re-expressed through its centered mean and covariance. The remaining nonlocal cancellation is therefore a literal finite correlation between the Moebius parity field and one rough-prime response field. This is an exact coordinate identity: no mean-zero assertion, norm split, independence hypothesis, or estimate is used.",
     "square_anchors": [
-      "RHLean.Proof.squareRootSmoothMass_eq_positive_add_bornSmooth",
-      "RHLean.Proof.squareRootPositiveSmoothMass_eq_neg_primeMertensTransform",
-      "RHLean.Proof.squareRootTransportPrimeFirst_eq_mertensTransform"
+      "RHLean.Proof.squarePrefixMertensGram_bounded_of_matched_and_positiveSmooth",
+      "RHLean.Proof.canonicalTotalIncrement_eq_low_add_survivorDiff_add_deathDiff"
     ],
     "prime_wheel_anchors": [
-      "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter"
+      "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_mertensCenter",
+      "RHLean.Arithmetic.correctedPrimeWheelSite_eq_zero_of_square_hit"
     ]
   },
   "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once.",
   "companion_witnesses": [
+    {
+      "module": "RHLean.Analysis.SquareRootShallowReciprocalCrossing",
+      "theorem": "RHLean.Proof.squareRootPacket_eventual_log_endpoint_crossing",
+      "summary": "Unconditional endpoint-form crossing theorem: for every positive logarithmic constant, the intact upper-middle reciprocal packet eventually crosses at a depth below that multiple of the log endpoint. The mechanism is endpoint-parametric; the exact rational witness at depth 18800 is used only internally and is checked by native_decide."
+    },
+    {
+      "module": "RHLean.Analysis.SquareRootPostCrossingTail",
+      "theorem": "RHLean.Proof.postCrossingCoupledTailBounded_iff_squarePrefixEnergyBounded",
+      "summary": "Separates the raw transport tail from the coupled tail, which adds the complete square-root-smooth population, and proves a critical root-scale coupled-tail bound equivalent to the square-prefix Mertens energy criterion."
+    },
+    {
+      "module": "RHLean.Proof.LowWheelCanonicalDefectReduction",
+      "theorem": "RHLean.Proof.squarePrefixMertens_eq_mertens_sub_canonicalDowncross",
+      "summary": "Cancels every interior transport state by the canonical least-prime cofactor/quotient involution and leaves the endpoint identity M(R^2-1) = M(R) - canonicalDowncross, with every defect term on one adjacent multiplicative shell frontier and no prime-counting coefficient anywhere."
+    },
+    {
+      "module": "RHLean.Proof.SquareRootAmplificationClosure",
+      "theorem": "RHLean.Proof.mertensEnergyBounded_of_squareRootEndpointAmplification",
+      "summary": "Shows an arbitrary fixed absolute amplification constant in the square-root endpoint statement already closes the standard Mertens energy criterion; no subunit contraction is required."
+    },
+    {
+      "module": "RHLean.Analysis.CorrectedConductorSmallSectorBound",
+      "theorem": "RHLean.Analysis.norm_primorialPeriodicRawJointConductorResponse_le_six_mul_cube",
+      "summary": "First uniform quantitative bound on a corrected-conductor packet, 6*q^3, from one incomplete conductor period. The companion sector theorem in the same module sums it to O(R^4) over all nontrivial conductors up to R, uniformly in the prefix length."
+    },
     {
       "module": "RHLean.Analysis.SquareRootCombinedSignedResidual",
       "theorem": "RHLean.Proof.squareRootMatchedBornSmoothTransport_eq_pntMain_sub_combinedResidual",
@@ -37,9 +62,19 @@
       "summary": "Proves the top block of the transport transform equals its own cardinality, so it admits no internal cancellation and no bounded-boundary decomposition can absorb it."
     },
     {
+      "module": "RHLean.Analysis.SquareRootPrimeCountGap",
+      "theorem": "RHLean.Proof.squareRootMiddleTopPrimeCountGap_eq_card_sub",
+      "summary": "Identifies the middle-minus-top fibre population difference with the exact PNT coordinate 2*pi(X/2) - pi(X) - pi(R). The identity is unconditional and its sign is not decided by first-order PNT, because the leading X/log X terms cancel."
+    },
+    {
       "module": "RHLean.Analysis.PhysicalSquareCRTPeriodNoGo",
       "theorem": "RHLean.Analysis.physicalSquareCompleteCRTCells_eq_empty_of_period_gt",
       "summary": "Proves the complete-period CRT core empty whenever the selected prime-square product exceeds the square-block window width, so the interior mass vanishes and the whole physical mass is boundary."
+    },
+    {
+      "module": "RHLean.Analysis.PrimeBoundaryCollisionQuotientNoGo",
+      "theorem": "RHLean.Analysis.not_literalSquarePrefixCollisionDefectQuotientStatement",
+      "summary": "Refutes the literal same-site bounded collision-defect quotient: every corrected weight vanishes at the square hit, so every bounded chain mass is zero, contradicting the first nontrivial square prefix."
     }
   ]
 }

@@ -137,9 +137,48 @@
         "numeric": "row-energy scan for the canonical transport coefficients over 100 <= R <= 3000, measured log-log slope rising through 2.67, 2.71, 2.73"
       },
       "what_would_reopen": "An arithmetically defined coefficient family whose row energy is near optimal, which would have to approximate (M(y)-1)/(y+1) without reference to the Mertens data."
+    },
+    {
+      "id": "literal-same-site-collision-quotient",
+      "title": "Charge the bounded collision defect on the same physical square-hit site",
+      "kind": "refuted",
+      "closed_on": "2026-08-22",
+      "claim": "The square-prefix value M((n+1)^2-1) is represented by a chain of at most n+1 collision defects, each label weighted by the corrected prime-wheel field on the same physical site that realizes its selected-prime square collision.",
+      "obstruction": "The corrected field vanishes identically at a selected-prime square hit, so every such step mass is zero and every finite bounded chain mass is zero. The first nontrivial square prefix is -1, giving a kernel-checked contradiction. The adjacent-cell escape fails too: for p >= 7 a p^2 hit leaves only exponent states 0 and 2 across the current and next active cells, and the exponent flip exchanges 0 and 1 while fixing 2, so any realized flip there is the trivial square state where both corrected weights vanish.",
+      "evidence": {
+        "lean": "RHLean/Analysis/PrimeBoundaryCollisionQuotientNoGo.lean, RHLean/Arithmetic/PrimeSquareCollisionPhysicalFibreNoGo.lean",
+        "numeric": "none required; the contradiction is exact"
+      },
+      "what_would_reopen": "A transport carrying a collision label off its own square-hit site to a different arithmetic fibre before its corrected weight is read, together with separate proofs that the transport preserves square-block mass and has bounded global multiplicity."
+    },
+    {
+      "id": "top-block-one-for-one-middle-cancellation",
+      "title": "Cancel the inert top prime block one-for-one against the middle prime fibres",
+      "kind": "ceiling",
+      "closed_on": "2026-08-22",
+      "claim": "The same-sign top block, whose reciprocal quotient is exactly 1, is absorbed by pairing each of its primes against a middle-prime fibre.",
+      "obstruction": "The exact signed population gap is 2*pi(X_R/2) - pi(X_R) - pi(R). Its sign is a second-order prime-counting question: the leading X/log X terms cancel, so the repository's qualitative pi(N) log N / N -> 1 does not determine it. The pairing is therefore not available from first-order PNT, and no bound in the package supplies the stronger input.",
+      "evidence": {
+        "lean": "RHLean/Analysis/SquareRootPrimeCountGap.lean, RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean",
+        "numeric": "none"
+      },
+      "what_would_reopen": "A proved second-order prime-counting statement forcing the gap to be non-offset at the relevant scale, or a pairing that does not depend on the sign of that gap."
+    },
+    {
+      "id": "doubled-proper-multiple-transport-normalization",
+      "title": "Identify the square-root transport with the doubled proper-multiple prime-wheel mass",
+      "kind": "refuted",
+      "closed_on": "2026-08-21",
+      "claim": "At X_t = (t+1)^2 - 1 the original square-root transport equals twice the proper-multiple prime-wheel comb mass, giving a second RH-equivalent energy criterion.",
+      "obstruction": "The transport is exactly one copy of the strict upper-prime Mertens transform: it equals the full renewal with only the possible boundary prime t+1 removed, and is not in general the doubled proper-multiple mass. Only the exact normalization and its obstruction are recorded; no separate criterion follows.",
+      "evidence": {
+        "lean": "RHLean/Analysis/SquareRootSmoothRenewalInstantiation.lean",
+        "numeric": "none"
+      },
+      "what_would_reopen": "A distinct comb normalization for which the doubling is exact rather than off by the boundary prime, together with a reason the resulting criterion is not a restatement of the existing one."
     }
   ],
   "not_closed": {
-    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction above applies to the canonical absolute evolving-tail state, not to every possible signed contraction architecture. Two successors remain explicitly live: a scale-descent contraction by a fixed factor per dyadic step, which is the only proposed mechanism whose success mode produces a power rather than a logarithm, and a global sign-reversing involution on factorization paths performed before absolute values, for which the same-sign top block is the sharp design constraint."
+    "note": "Several mechanisms remain intentionally distinct from the closed lanes. The direct centered square-wheel object H_{k,n} is still open. Signed cancellation across many reciprocal fibres or distinct prime-wheel faces is still open. The positive-orientation identity positiveSmooth(R) = -sum_{q<=R, q prime} M(q-1) is exact, but its observed large-scale envelope is diagnostic only and no asymptotic lower bound has been proved. The generalized affine PNT contraction is also live: the proved low-slope cubic step is alpha - alpha^3/178200000. What remains open is the physical cutoff law needed to realize repeated contraction at RH-compatible scale. The formal obstruction on the canonical absolute evolving-tail state applies to that state, not to every possible signed contraction architecture. Two successors remain explicitly live from the earlier analysis: a scale-descent contraction by a fixed factor per dyadic step, which is the only proposed mechanism whose success mode produces a power rather than a logarithm, and a global sign-reversing involution on factorization paths performed before absolute values, for which the same-sign top block is the sharp design constraint. Two newer targets are now the most concrete open statements in the package, and neither is closed. The first is the canonical rough-prime correlation left by the post-crossing renewal: the coupled tail is an explicit packet baseline minus the signed Moebius pairing with one intact rough-prime cofactor response, so a root-scale bound on that single finite correlation suffices. The second is the canonical least-prime transport defect left by the double-cube involution, a signed estimate on one first-failure frontier whose states form an explicit adjacent multiplicative shell. Both are prime-count-free and reached without a triangle inequality. Note also that the required endpoint input is a fixed amplification constant, not a subunit contraction: sharpening an already-fixed constant is not progress."
   }
 }

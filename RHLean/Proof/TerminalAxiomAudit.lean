@@ -1,4 +1,5 @@
 import RHLean.Proof.CanonicalGapAncestryQuadraticClosure
+import RHLean.Proof.SquareRootAncestryParentFibres
 
 /-!
 # Axiom footprint of the terminal reduction
@@ -28,6 +29,11 @@ an open analytic proposition; nothing in the project proves it. Likewise,
 `ClassicalMertensRHCriterion` is a structure taken as an ordinary theorem argument,
 not an axiom, so it does not appear in these lists. The RH endpoint remains conditional
 on supplying that classical criterion.
+
+The square-root legal-ancestry Gram reduction is imported here as well so the ordinary
+root build type-checks its exact endpoint and parent-fibre identities. Its new analytic
+amplification statement remains an explicitly open proposition and is not added to the
+axiom guards below.
 -/
 
 namespace RHLean.Proof

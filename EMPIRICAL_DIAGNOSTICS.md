@@ -2,6 +2,8 @@
 
 This note records finite computations used to choose the formal target.  None of the observations below is used as a proof of an asymptotic statement.
 
+A separate category, described in the last section, must not be confused with these: a handful of finite constants in the package are *certified* inside Lean rather than measured, and those do carry theorem status.
+
 ## Three-slot sample at $x=10^7$
 
 Take
@@ -179,3 +181,41 @@ $$
 for the canonical coefficients supplied by the prime-first transport transform gives $Q_R=8.5\times10^{3},\,3.1\times10^{5},\,6.0\times10^{6},\,7.3\times10^{7}$ at $R=100,400,1200,3000$, with log-log slopes $2.669,\,2.705,\,2.732$ rising toward $3$. The dominant contribution is the single fibre $\lfloor X/q\rfloor=1$, which is the same-sign top block proved to admit no internal cancellation.
 
 For comparison, the least-norm coefficient vector satisfying the same identity has $Q_R$ between $0.015$ and $0.89$ over the same range. That column is bounded because the target is true, not as evidence for it; the least-norm coefficients are proportional to $(M(y)-1)/(y+1)$ and are not arithmetically constructible.
+
+## Certified finite constants are not diagnostics
+
+Three finite quantities appear in the package with proof status rather than diagnostic status. They are listed here only so that they are not mistaken for the measurements above.
+
+**The shallow-crossing coefficient at depth $18800$.** The weighted reciprocal coefficient
+
+$$
+\sum_{1\le d\le K}M(d)\Bigl(\frac1d-\frac1{d+1}\Bigr)
+$$
+
+is first identified by exact rational summation by parts with its Möbius-boundary form, and that rational value at $K=18800$ is proved negative by `native_decide`. No decimal approximation and no externally generated table enters the argument. The number then appears in exactly one place: as a witness for the general negative-coefficient hypothesis. The public crossing theorem is stated in the endpoint variable, holds for every positive logarithmic constant, and does not expose the certificate.
+
+**The corrected-conductor packet bound $6q^3$.** Each ingredient is an elementary counting step: a divisor boundary on an interval shorter than the conductor is bounded by $2q^2$, at most $q$ divisors occur, the periodic raw spectrum is bounded by the torus modulus, and the smooth-site carrier has at most the same cardinality. Summing over $q\le R$ gives $6(R+1)R^3$. These constants are deliberately crude and use no cancellation between distinct conductors; they are proved, not fitted.
+
+**The low-slope cubic step.** The proved affine-envelope contraction step is $\alpha-\alpha^3/178200000$. The denominator is a proof artifact of the elementary route taken, not a measured optimum. What remains open is the physical cutoff law required to iterate the step at RH-compatible scale, and no measurement in this note bears on that.
+
+## What a future measurement should target
+
+The two most concrete open statements in the package are both finite objects, so both admit direct finite probing.
+
+The first is the canonical rough-prime correlation after the shallow crossing. Once the packet has stopped, the coupled tail is an explicit baseline minus
+
+$$
+\sum_c\mu(c)\,\mathrm{Resp}(c),
+$$
+
+where each cofactor response carries its diagonal reciprocal-prime multiplicity together with every strict quotient descendant. A useful diagnostic measures the *signed* correlation and its centered covariance directly, at fixed $R$, rather than the size of either field. Measuring $\lVert\mu\rVert$ and $\lVert\mathrm{Resp}\rVert$ separately answers a question the package has already closed.
+
+The second is the canonical least-prime transport defect. Its states form an explicit adjacent multiplicative shell,
+
+$$
+P(t)\,(k/p)\le R<P(t)\,p\,(k/p),
+$$
+
+so its population and signed mass are directly enumerable at moderate $R$. The informative statistic is again the signed mass against $R$, not the raw shell cardinality.
+
+In both cases the same standard applies as to every table above: a finite trend is motivation for a formal target, never evidence for an asymptotic bound.

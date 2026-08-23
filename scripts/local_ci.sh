@@ -4,10 +4,12 @@ set -euo pipefail
 # Local mirror of the hosted "Baseline coupling audit" job.
 # It builds the complete repository, audits unfinished proofs and local axioms,
 # checks the cross-track synthesis theorem, checks the native PNT endpoint, and
-# checks the two quantitative status theorems:
+# checks the four quantitative status theorems:
 #
 #   * strict low-slope affine-envelope contraction;
-#   * quadratic-tail-scale-law -> sqrt(N) Chebyshev bridge.
+#   * quadratic-tail-scale-law -> sqrt(N) Chebyshev bridge;
+#   * post-crossing coupled tail -> Riemann hypothesis statement;
+#   * fixed square-root endpoint amplification -> Mertens energy criterion.
 #
 # Usage, from anywhere inside the project:
 #
@@ -29,6 +31,12 @@ contraction_decl='RHLean.Analysis.nativePNTSquarePrefixLowSlope_affineEnvelope_s
 
 scale_bridge_import='RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence'
 scale_bridge_decl='RHLean.Analysis.nativePNTError_abs_le_sqrt_of_quadraticTailScaleLaw'
+
+coupled_tail_import='RHLean.Analysis.SquareRootPostCrossingTail'
+coupled_tail_decl='RHLean.Proof.riemannHypothesis_of_postCrossingCoupledTailBounded_18800'
+
+amplification_import='RHLean.Proof.SquareRootAmplificationClosure'
+amplification_decl='RHLean.Proof.mertensEnergyBounded_of_squareRootEndpointAmplification'
 
 anchor_checks=(
   'square-block=squareprefix|squareblock|survivor|lifetime|deathshell|ancestry'
@@ -83,6 +91,8 @@ synthesis_log="$tmp_dir/synthesis.log"
 pnt_log="$tmp_dir/pnt.log"
 contraction_log="$tmp_dir/contraction.log"
 scale_bridge_log="$tmp_dir/scale_bridge.log"
+coupled_tail_log="$tmp_dir/coupled_tail.log"
+amplification_log="$tmp_dir/amplification.log"
 
 step 'Auditing the cross-track synthesis theorem'
 print_and_audit_axioms "$synthesis_import" "$synthesis_decl" "$synthesis_log"
@@ -109,4 +119,11 @@ print_and_audit_axioms "$contraction_import" "$contraction_decl" "$contraction_l
 step 'Auditing the conditional quadratic-scale square-root bridge'
 print_and_audit_axioms "$scale_bridge_import" "$scale_bridge_decl" "$scale_bridge_log"
 
-printf '\nLocal CI mirror passed. The 366-module repository and all four status declarations elaborated cleanly.\n'
+step 'Auditing the post-crossing coupled-tail route to the Riemann hypothesis statement'
+print_and_audit_axioms "$coupled_tail_import" "$coupled_tail_decl" "$coupled_tail_log"
+
+step 'Auditing the fixed square-root endpoint amplification closure'
+print_and_audit_axioms "$amplification_import" "$amplification_decl" "$amplification_log"
+
+module_count="$(find RHLean RHLean.lean -type f -name '*.lean' | wc -l | tr -d ' ')"
+printf '\nLocal CI mirror passed. All %s modules and all six status declarations elaborated cleanly.\n' "$module_count"

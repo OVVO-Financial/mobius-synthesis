@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
+import RHLean.Proof.PrimeCombVisualizationRecurrence
 
 /-!
 # Complete-wheel and boundary decomposition for prime-comb updates
