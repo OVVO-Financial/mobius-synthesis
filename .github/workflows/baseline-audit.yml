@@ -7,12 +7,16 @@ on:
       - '**.lean'
       - 'lean-toolchain'
       - 'lake-manifest.json'
+      - 'scripts/strongpnt_424/**'
+      - 'scripts/lean_diagnostic_inventory.py'
       - '.github/workflows/baseline-audit.yml'
   pull_request:
     paths:
       - '**.lean'
       - 'lean-toolchain'
       - 'lake-manifest.json'
+      - 'scripts/strongpnt_424/**'
+      - 'scripts/lean_diagnostic_inventory.py'
       - '.github/workflows/baseline-audit.yml'
   workflow_dispatch:
 
@@ -33,6 +37,17 @@ jobs:
       - name: Audit unfinished proofs and project-local axioms
         run: bash scripts/audit_assumptions.sh
 
+      # Mathlib, PNT+ and StrongPNT oleans live under .lake/packages. Restore
+      # that directory before lean-action runs, and save it immediately after
+      # setup rather than in a post-job hook, so a later Lean failure cannot
+      # stop the expensive dependency cache from being populated.
+      - name: Restore dependency sources and builds
+        id: lakepackages
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
       - uses: leanprover/lean-action@v1
         with:
           use-github-cache: false
@@ -41,23 +56,119 @@ jobs:
           test: false
           lint: false
 
+      - name: Save dependency sources and builds
+        if: >-
+          !cancelled()
+          && steps.lakepackages.outcome == 'success'
+          && steps.lakepackages.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/packages
+          key: lake-packages-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      # StrongPNT is pinned at its completed upstream revision, and that source
+      # predates Mathlib 4.24: it does not elaborate against the Mathlib this
+      # package builds on. Apply the package-owned, exact-match compatibility
+      # patches to the restored pristine dependency sources. The patches fail
+      # loudly rather than guessing if the pinned upstream source ever changes.
+      - name: Apply StrongPNT 4.24 compatibility patch
+        run: |
+          python3 scripts/strongpnt_424/apply.py
+          python3 scripts/strongpnt_424/apply_post.py
+          python3 scripts/strongpnt_424/apply_pnt5_mid.py
+          python3 scripts/strongpnt_424/apply_pnt5_strong.py
+          python3 scripts/strongpnt_424/apply_lint.py
+
+      - name: Restore StrongPNT port build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+          restore-keys: |
+            strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+
+      # Build the external theorem boundary first, and without --wfail, so
+      # upstream linter warnings do not become this package's policy failures.
+      - name: Prebuild the StrongPNT dependency
+        run: lake build StrongPNT.PNT5_Strong
+
+      - name: Save StrongPNT port build cache
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            .lake/packages/PrimeNumberTheoremAnd/.lake/build
+            .lake/packages/StrongPNT/.lake/build
+          key: strongpnt-port-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ hashFiles('scripts/strongpnt_424/*.py') }}
+
       - name: Restore RHLean build cache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ github.sha }}
           restore-keys: |
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-
 
+      # No global --wfail. Lake re-emits dependency warnings while building
+      # RHLean, so a global warning-as-error makes upstream linter churn fail
+      # this package. The two gates below scope warning-as-error to the sources
+      # this package actually owns: RHLean itself, and the StrongPNT port.
       - name: Build the synthesis library
-        run: lake build RHLean --wfail
+        id: directbuild
+        continue-on-error: true
+        run: lake build RHLean > lean-build.log 2>&1
 
       - name: Save RHLean build cache
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/cache/save@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ github.sha }}
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'scripts/strongpnt_424/*.py') }}-${{ github.sha }}
+
+      - name: Print the Lean build log
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        run: cat lean-build.log
+
+      - name: Fail on RHLean-owned Lean warnings
+        id: owned_warnings
+        if: steps.directbuild.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
+          owned = [
+              line for line in lines
+              if "warning:" in line.lower() and owned_path.search(line)
+          ]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
+
+      # The StrongPNT 4.24 port is package-owned: scripts/strongpnt_424/
+      # rewrites those sources, so a diagnostic there is ours to fix rather
+      # than upstream churn we merely tolerate.
+      - name: Fail on StrongPNT port diagnostics
+        id: port_noise
+        if: ${{ always() && hashFiles('lean-build.log') != '' }}
+        continue-on-error: true
+        run: python3 scripts/lean_diagnostic_inventory.py --gate StrongPNT lean-build.log
+
+      - name: Fail if the build failed or owned sources emitted warnings
+        if: >-
+          steps.directbuild.outcome == 'failure' ||
+          steps.owned_warnings.outcome == 'failure' ||
+          steps.port_noise.outcome == 'failure'
+        run: exit 1
 
       - name: Print the synthesis theorem and its axioms
         run: |

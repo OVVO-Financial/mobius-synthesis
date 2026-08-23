@@ -197,14 +197,31 @@ All Markdown mathematics in this package uses GitHub-supported `$...$` and `$$..
 
 ## Building
 
+Use the mirror rather than a bare `lake build`:
+
 ```bash
-lake exe cache get
-lake build RHLean --wfail
+bash scripts/local_ci.sh
 ```
 
-`scripts/local_ci.sh` mirrors the hosted baseline job: it audits the sources, restores the Mathlib cache, builds the library with warnings fatal, and prints the axiom dependencies of the six status declarations, including the post-crossing coupled-tail route and the fixed-amplification closure.
+It audits the sources, restores the Mathlib cache, applies the StrongPNT compatibility patch, prebuilds the external theorem boundary, builds the library, gates warnings on the sources this package owns, and prints the axiom dependencies of the six status declarations — including the post-crossing coupled-tail route and the fixed-amplification closure.
 
-Besides Mathlib, the package requires `PrimeNumberTheoremAnd` and `StrongPNT`. The strong-Mertens corridor consumes the completed StrongPNT theorem source; `StrongPNT` pins an older `PrimeNumberTheoremAnd` snapshot built against Mathlib 4.21, so `lakefile.lean` overrides that transitive dependency with the upstream snapshot bumped to Mathlib 4.24 while leaving the StrongPNT source fixed. Every other module depends on Mathlib alone.
+Two details make a bare `lake build RHLean --wfail` the wrong command here.
+
+**The StrongPNT dependency needs a compatibility patch.** Besides Mathlib, the package requires `PrimeNumberTheoremAnd` and `StrongPNT`, because the strong-Mertens corridor consumes the completed StrongPNT theorem source. `StrongPNT` is pinned at its finished upstream revision, and that revision predates Mathlib 4.24: its own sources do not elaborate against the Mathlib this package builds on. `lakefile.lean` already overrides the transitive `PrimeNumberTheoremAnd` snapshot with the one bumped to 4.24, but the StrongPNT source itself also has to be adjusted. `scripts/strongpnt_424/` holds that adjustment as five exact-match patch scripts, applied to the restored dependency sources before the build:
+
+```bash
+python3 scripts/strongpnt_424/apply.py
+python3 scripts/strongpnt_424/apply_post.py
+python3 scripts/strongpnt_424/apply_pnt5_mid.py
+python3 scripts/strongpnt_424/apply_pnt5_strong.py
+python3 scripts/strongpnt_424/apply_lint.py
+```
+
+They are exact-match by design: if the pinned upstream source ever changes, they fail loudly instead of guessing at a repair. Reapplying them to already-patched sources is a no-op. Every module outside the strong-Mertens layer depends on Mathlib alone.
+
+**Warning-as-error has to be scoped.** Lake re-emits dependency warnings while building `RHLean`, so a global `--wfail` turns upstream linter churn in Mathlib, PNT+, or StrongPNT into a failure of this package. The build therefore runs without `--wfail`, and two gates apply warning-as-error to the sources this package actually owns: any warning pointing into `RHLean/`, and any diagnostic pointing into the patched StrongPNT port, which `scripts/strongpnt_424/` makes ours to keep silent.
+
+One upstream scope note. StrongPNT's own `PNT1_ComplexAnalysis` contains an unfinished proof, so declarations downstream of it carry `sorryAx`. Nothing in `RHLean/` does, and `scripts/audit_assumptions.sh` enforces that for this package's sources; the status audits additionally print the kernel's axiom list for each headline declaration and fail on `sorryAx`, so an inherited one is reported rather than hidden.
 
 ## Related public projects
 

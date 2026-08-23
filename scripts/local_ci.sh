@@ -2,7 +2,8 @@
 set -euo pipefail
 
 # Local mirror of the hosted "Baseline coupling audit" job.
-# It builds the complete repository, audits unfinished proofs and local axioms,
+# It applies the StrongPNT 4.24 compatibility patch, builds the complete
+# repository, audits unfinished proofs and local axioms,
 # checks the cross-track synthesis theorem, checks the native PNT endpoint, and
 # checks the four quantitative status theorems:
 #
@@ -49,6 +50,14 @@ fail() { printf 'ERROR: %s\n' "$1" >&2; exit 1; }
 command -v lake >/dev/null 2>&1 || fail 'lake is not on PATH.
 Install elan and reopen the terminal before running validation.'
 
+# Windows installs frequently expose `python` or the `py` launcher but no
+# `python3`, so resolve whichever exists rather than hard-coding one.
+python_bin=''
+for candidate in python3 python py; do
+  if command -v "$candidate" >/dev/null 2>&1; then python_bin="$candidate"; break; fi
+done
+[[ -n "$python_bin" ]] || fail 'no Python interpreter on PATH (tried python3, python, py).'
+
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 check_lean="$tmp_dir/status_check.lean"
@@ -61,8 +70,41 @@ if ! lake exe cache get; then
   fail 'could not restore the Mathlib build cache. Continuing would compile Mathlib from source.'
 fi
 
-step "Building $lean_lib with warnings fatal"
-lake build "$lean_lib" --wfail
+# StrongPNT is pinned at its completed upstream revision, and that source
+# predates Mathlib 4.24: it does not elaborate against the Mathlib this package
+# builds on. The patches below are package-owned exact-match replacements; they
+# fail loudly rather than guessing if the pinned upstream source ever changes.
+# Reapplying them to already-patched sources is a no-op.
+step 'Applying the StrongPNT 4.24 compatibility patch'
+"$python_bin" scripts/strongpnt_424/apply.py
+"$python_bin" scripts/strongpnt_424/apply_post.py
+"$python_bin" scripts/strongpnt_424/apply_pnt5_mid.py
+"$python_bin" scripts/strongpnt_424/apply_pnt5_strong.py
+"$python_bin" scripts/strongpnt_424/apply_lint.py
+
+# Build the external theorem boundary first, and without --wfail, so upstream
+# linter warnings never become this package's policy failures.
+step 'Prebuilding the StrongPNT dependency'
+lake build StrongPNT.PNT5_Strong
+
+# No global --wfail here either: Lake re-emits dependency warnings while
+# building RHLean. Warning-as-error is scoped below to the sources this package
+# owns -- RHLean itself, and the StrongPNT port.
+build_log="$tmp_dir/lean-build.log"
+step "Building $lean_lib"
+if ! lake build "$lean_lib" > "$build_log" 2>&1; then
+  cat "$build_log"
+  fail "$lean_lib did not build."
+fi
+
+step 'Checking for RHLean-owned Lean warnings'
+if grep -inE '(^|[[:space:]:])(\./)*RHLean(\.lean|/)' "$build_log" | grep -i 'warning:'; then
+  fail 'RHLean-owned Lean warnings found.'
+fi
+echo 'No RHLean-owned Lean warnings found.'
+
+step 'Checking the StrongPNT port for diagnostics'
+"$python_bin" scripts/lean_diagnostic_inventory.py --gate StrongPNT "$build_log"
 
 print_and_audit_axioms() {
   local decl_import="$1" decl="$2" log="$3"
