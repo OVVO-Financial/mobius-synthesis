@@ -149,6 +149,10 @@ The standalone source lives under `RHLean/`, and the root module `RHLean.lean` i
   - proves that depth is eventually below $C\log x_n$ for every $C>0$;
   - recovers the square geometry as the instance $x_R=R^2-1$, $y_R=R$, with the single numeric witness checked by `native_decide`.
 
+- `RHLean.Analysis.SquareRootFixedCrossing18349`
+  - records the exact finite sign change of the reciprocal coefficient between depths $18348$ and $18349$;
+  - combines it with the proved fixed-depth limit to pin the crossing at the single depth $18349$ for every sufficiently large endpoint, so every fresh prime processed after the crossing exceeds $18349$.
+
 - `RHLean.Analysis.SquareRootPostCrossingTail`
   - separates the raw transport tail from the coupled tail, which adds the complete square-root-smooth population;
   - proves the terminal identity $M(R^2-1)=\text{crossing residual}+\text{coupled tail}$;
@@ -311,6 +315,116 @@ The standalone source lives under `RHLean/`, and the root module `RHLean.lean` i
 - `RHLean.Analysis.SquareRootSmoothRenewalInstantiation`
   - proves the original square-root transport is one copy of the strict upper-prime Mertens transform, not the doubled proper-multiple prime-wheel mass, and records only that normalization and its obstruction.
 
+## Finite Othello parity and matching primitives
+
+- `RHLean.Proof.FiniteOthelloMatching`
+  - proves that a matching involution with at most one stable state bounds the signed mass of a finite region by one;
+  - proves that two sign-reversing involutions on the same signed region have stable sets of equal signed mass, so the move order may be chosen freely;
+  - contains no arithmetic, no asymptotic estimate, and no RH input.
+
+- `RHLean.Proof.AlternatingSignMatchingParity`
+  - supplies the alternating sign-matching parity invariant used by the Othello layer.
+
+- `RHLean.Proof.FiniteLeastToggleDuality`
+  - proves the least-coordinate toggle duality behind the canonical cofactor/quotient involutions.
+
+## Processed-seat carrier and the two matchings
+
+- `RHLean.Proof.SquareRootLowPrimeProcessedSeatCarrier` and `RHLean.Proof.SquareRootLowPrimeProcessedSeatMatching`
+  - define the complete processed low-prime seat carrier and the sequential fresh-prime matching on it.
+
+- `RHLean.Proof.SquareRootLowPrimeProcessedMatchingInvolution`
+  - packages the entire fresh-prime chronology as one involution, pairing each state at the first stage that removes it and fixing the rest;
+  - proves carrier preservation, involutivity, sign reversal on every moved state, and that the fixed set is exactly the iterated matching frontier.
+
+- `RHLean.Proof.SquareRootLowPrimeDescendingPivotStability` and `RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification`
+  - play the same legal edges in descending fresh-prime order;
+  - prove carrier preservation, involutivity, sign reversal, that the stable set is the descending processed-seat frontier, and that the stable mass is `squareRootLowPrimeRunningImbalanceReal` by finite cancellation on the full carrier.
+
+- `RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome`
+  - assigns canonical homes to the terminal no-liberty boundary and defines its signed weight.
+
+- `RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv`
+  - states the weight-preserving finite equivalence interface `SquareRootLowPrimeNoLibertyWeightEquiv` at the seam between the stable processed-seat population and the tagged endpoint boundary;
+  - proves that any such equivalence transfers the whole signed sum, hence identifies tagged boundary mass with the running imbalance;
+  - leaves the arithmetic construction of the equivalence itself as the open obstruction, over the four endpoint classes head, partial packet, born no-successor, and Go root equality.
+
+## Low-prime running state, telescopes, and the matched frontier
+
+- `RHLean.Proof.SquareRootLowPrimeRunningTelescope`
+  - proves the exact real telescope for the low-prime running state and that composite cutoffs contribute no change.
+
+- `RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope`
+  - proves the exact quadratic energy telescope over a whole fresh-prime interval;
+  - records that a global energy decrement bound is *equivalent* to the terminal square bound, so assuming terminal control does not supply a dissipation proof.
+
+- `RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound`
+  - bounds the real deep increments by the cardinality of the remaining owned response-matching frontier, with no raw response weight and no number-of-fresh-primes factor left.
+
+- `RHLean.Proof.SquareRootLowPrimeMatchingFrontierSaturation` and `RHLean.Proof.SquareRootLowPrimeMatchingFrontierRootCharge`
+  - prove fresh-prime saturation of the complete response matching frontier and its root-seat charge.
+
+- `RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling`
+  - proves the terminal state equals $M(R^2-1)+\sum_{q\le R}M(q-1)$ minus the partial crossing packet and the near-root rectangle, whose combined norm is at most $R+K$;
+  - proves conditionally that $\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt K$ gives $T(P_R)^2\le 25R^2K$ and hence the signed response-child energy decrement;
+  - does not assert that matched bound, and so introduces no new low-prime analytic obligation.
+
+## Canonical low-wheel downcross and repeated-parent layers
+
+- `RHLean.Proof.LowWheelOthelloDowncrossGeometry`, `RHLean.Proof.LowWheelOthelloOppositeMove`, and `RHLean.Proof.LowWheelOthelloRepeatedInvolution`
+  - carry the canonical downcross Othello on a lightweight carrier, with the opposite move and the repeated-parent involution.
+
+- `RHLean.Proof.LowWheelCanonicalDowncrossParentFibers`, `RHLean.Proof.LowWheelCanonicalDowncrossLatePairing`, and `RHLean.Proof.LowWheelCanonicalDowncrossLateCancellation`
+  - fibre the canonical root-downcross frontier by parent and cancel the late-parent multiplicity exactly.
+
+- `RHLean.Proof.LowWheelCanonicalRepeatedParentClassification`, `RHLean.Proof.LowWheelCanonicalRepeatedTerminalCutoff`, and `RHLean.Proof.LowWheelCanonicalRepeatedTerminalInternalMate`
+  - classify repeated parents, split the terminal boundary exactly at the cutoff, and supply an existing physical mate for the internal part.
+
+- `RHLean.Proof.LowWheelExternalTerminalParentSplit`, `RHLean.Proof.LowWheelExternalTerminalFaceLedger`, and `RHLean.Proof.LowWheelExternalTerminalEightRootBound`
+  - partition the external high-prime grid by canonical downcross parent and reach square-root-scale external cancellation.
+
+- `RHLean.Proof.LowWheelFullFaceQuotientOthello` and `RHLean.Proof.LowWheelLeastLargestOthello`
+  - realize the full face/quotient involution and the least-prime/largest-prime Othello on the same physical transport carrier.
+
+## The Go boundary layer
+
+- `RHLean.Proof.SquareRootLowPrimeGoRecursiveDescent`, `RHLean.Proof.SquareRootLowPrimeGoTwoBoundaryShell`, and `RHLean.Proof.SquareRootLowPrimeGoBirthBoundary`
+  - descend through the unique smaller prime owner and prove the stopping set is a genuine two-boundary shell terminating on the born first-failure boundary.
+
+- `RHLean.Proof.SquareRootLowPrimeGoGlobalPartner`
+  - embeds every strict crossing incidence $R<rq$ as a literal state of the global low-wheel transport carrier with weight $\mu(qd)$;
+  - proves the canonical least-prime pivot lies in the parent, so the canonical toggle supplies an opposite-sign partner inside the transport identity without any estimate.
+
+- `RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary`
+  - isolates the single uncovered incidence $rq=R$, charges it injectively to its parent coordinate $d<R$, and bounds its cardinality and signed Möbius mass by $R$.
+
+- `RHLean.Proof.SquareRootLowPrimeGoCrossingMateLedger`, `RHLean.Proof.SquareRootLowPrimeGoFourthPowerCutoff`, and `RHLean.Proof.SquareRootLowPrimeGoWallPartnerReassembly`
+  - record the strict crossing mates as an existing transport subledger, confine the second-boundary defect to the fourth-power owner band, and reassemble the literal first-owner wall with its partner.
+
+## Creation-to-response energy
+
+- `RHLean.Proof.SquareRootLowPrimeCreationResponseCarriers` and `RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseMap`
+  - define the literal shallow-creation and deep-response carriers and the canonical fresh-prime map between them.
+
+- `RHLean.Proof.CreationResponseFrontierCancellation` and `RHLean.Proof.CreationResponseOthelloInvolution`
+  - prove exact creation-to-response frontier cancellation and present the matching as a finite Othello involution.
+
+- `RHLean.Proof.SquareRootLowPrimeCanonicalCreationResponseEnergy`, `RHLean.Proof.SquareRootLowPrimeCreationResponseEnergyGate`, and the Eulerian and native gate variants
+  - reduce the creation-to-response energy and state the dissipation gates it has to pass.
+
+- `RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms` and `RHLean.Proof.SquareRootLowPrimeResponseSeatAtomEquiv`
+  - identify deep response weights as uniquely owned prime-extension atoms and the abstract unit seats as a literal enumeration of the born/post-root prime partners.
+
+## Retired experiments
+
+These modules are kept because a published research record should say which routes were tried and abandoned, not only which ones worked. Each is exact and compiles; none is load-bearing.
+
+- `RHLean.Proof.LowWheelCanonicalRepeatedExternalTerminalMassBridge`, `RHLean.Proof.LowWheelCanonicalRepeatedMassReduction`, and `RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation`
+  - retired external-terminal mass, canonical repeated-mass, and movable-cancellation experiments.
+
+- `RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution` and `RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution`
+  - retired response-forest and response-matching Othello experiments, superseded by the processed-seat carrier.
+
 ## Research boundary and export guards
 
 - `RHLean.Analysis.MobiusSynthesisBoundary`
@@ -332,3 +446,5 @@ The standalone source lives under `RHLean/`, and the root module `RHLean.lean` i
   - runs that audit automatically on every push and pull request.
 
 The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field. The new modules sharpen the exact defect representation that must be bounded, remove the prime-counting function from the transport entirely, reduce the post-crossing obligation to one finite Möbius/rough-prime correlation, show that a fixed amplification constant already suffices, and close a further proposed route with a kernel-checked refutation.
+
+The processed-seat layer adds a second kind of open item. Alongside the outstanding inequalities there is now one outstanding *construction*: the weight-preserving equivalence at the no-liberty seam, whose interface, four target classes, and weight-preservation requirement are already stated in Lean. Everything below that seam — the carrier, both Othello matchings, the stable-set identification, and the transfer of the signed sum — is compiled.

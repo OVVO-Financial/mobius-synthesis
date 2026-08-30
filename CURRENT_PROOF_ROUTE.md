@@ -344,7 +344,103 @@ $$
 
 Hence all nontrivial conductors $q\le R$ contribute at most $6(R+1)R^3$, that is $O(R^4)$, uniformly in the prefix length. Choosing a cutoff on the order of the eighth root of the arithmetic scale places that entire growing conductor sector at square-root size, restricting the remaining Gram problem to conductor one and conductors above the cutoff. No cancellation between distinct conductors is used to get there.
 
-## 17. What is not sufficient
+## 17. The processed-seat low-prime coordinate
+
+The low-prime layer now sits on one finite object rather than on a sequence of ad hoc populations. `squareRootLowPrimeProcessedSeatCarrier` is the complete processed seat carrier: every state a fresh low prime can still act on, carrying its cofactor and its channel tag.
+
+Two exact telescopes live on it, and neither is an estimate.
+
+The running telescope evaluates the low-prime running state $T$ at every cutoff and proves that composite cutoffs contribute no change, so the state moves only at fresh primes. The global energy telescope then gives, for the ordered increments $\Delta_p$,
+
+$$
+\sum_{K<p\le U,\ p\ \text{prime}}\bigl(2\,T(p-1)\,\Delta_p-\Delta_p^{2}\bigr)=T(K)^{2}-T(U)^{2}.
+$$
+
+It is worth being explicit about what that identity does not do. A global energy decrement lower bound is *equivalent* to the terminal square bound, so a dissipation argument has to establish the decrement independently. Rewriting the telescope after assuming terminal control does not cross the quantitative gate.
+
+The reciprocal crossing depth is also pinned exactly. The finite coefficient changes sign between the adjacent depths $18348$ and $18349$, and combined with the already-proved fixed-depth limit the square-root packet crosses at the single fixed depth $18349$ for every sufficiently large endpoint. Every fresh prime processed after the crossing is therefore strictly larger than $18349$.
+
+## 18. Two Othello matchings on one carrier
+
+The Othello principle used here is a finite parity statement, not a heuristic about local flips.
+
+`RHLean.Proof.FiniteOthelloMatching` proves it in two forms. First, a matching involution on a finite signed region pairs every moving state with a state of opposite weight, so if at most one stable state remains the whole region has signed mass of absolute value at most one. Second — the form the canonical-liberty argument needs — if two different sign-reversing involutions act on the same signed region, the signed mass of the stable set of one equals the signed mass of the stable set of the other.
+
+That second statement is what makes the move order a free choice. A large exposed frontier under one legal order may be replaced by the stable set of a quieter order without ever estimating the alternating paths between them.
+
+Both matchings are then built on the processed-seat carrier.
+
+The first plays the sequential fresh-prime edges in chronological order. `squareRootLowPrimeProcessedSeatMatchingInvolution` packages the entire chronology as a single involution: each state is paired at the first stage that removes it, and states never paired are fixed. Carrier preservation, involutivity, sign reversal on every moved state, and the identification of its fixed set with the iterated matching frontier are all proved.
+
+The second plays the same legal edges in descending fresh-prime order. Its compiled legality layer proves carrier preservation, involutivity, sign reversal for every moved state, that the stable set is exactly the descending processed-seat frontier, and that the stable mass is `squareRootLowPrimeRunningImbalanceReal` by finite cancellation on the full carrier.
+
+## 19. The no-liberty seam and the remaining rematching theorem
+
+The two populations at the seam do not have the same element type. The true stable population of the descending matching is indexed by processed seats; the four-class endpoint boundary is indexed by tagged endpoints. Literal Finset equality between them is therefore not merely unproved, it is not the meaningful statement.
+
+The correct closure object is a weight-preserving finite equivalence
+
+$$
+\mathrm{Stable}(\mathrm{match}_2)\;\simeq\;\texttt{squareRootLowPrimeProcessedSeatNoLibertyBoundary}\ R\ K\ j\ U,
+$$
+
+together with pointwise preservation of signed weight,
+
+$$
+\texttt{squareRootLowPrimeNoLibertyBoundaryWeight}(\varphi\,x)=\texttt{squareRootLowPrimeProcessedSeatWeightReal}(x).
+$$
+
+`RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv` packages exactly that interface as `SquareRootLowPrimeNoLibertyWeightEquiv` and proves that any such equivalence transfers the entire signed sum. Combined with the compiled Othello cancellation theorem, that identifies tagged boundary mass with the running imbalance immediately.
+
+So the arithmetic construction of $\varphi$ is the sole remaining carrier-specific obstruction at this seam. It has to classify every stable processed seat into exactly one of four endpoint coordinates — head, partial packet, born no-successor, and Go root equality — and prove inverse recovery together with native weight preservation.
+
+No cardinality estimate is accepted as a substitute for that rematching theorem. Matching cardinalities on the two sides would not produce the signed identity, and the interface is deliberately written so that the missing step cannot be papered over by a counting argument.
+
+## 20. The Go boundary layer
+
+The hyperbolic Go recursion isolates a crossing population indexed by ordered primes $r<q$ and a squarefree parent $d$. At the square endpoint a strict crossing satisfies $R<rq$, while the proved first-contact geometry gives $q(rd)\le X_R$.
+
+The strict part of that population needs no new estimate. The same incidence is already a literal state $(t,x)=(\{r\},(d,q))$ of the global low-wheel transport carrier, with transport weight exactly the Go source weight $\mu(qd)$, and it is not a canonical transport defect: the birth boundary forces $d>1$ and every prime factor of $d$ is strictly below $r<q$, so the canonical least-prime pivot of $dq$ lies in $d$. The canonical cofactor/quotient toggle removes that pivot, stays inside the physical transport carrier, and reverses the sign. Every strict Go crossing therefore already has its opposite-sign partner inside the global transport identity, before the canonical downcross frontier is formed.
+
+What is left is the single arithmetic equality $rq=R$, where the transport root inequality is not strict. That is a root-boundary population rather than unfinished Euler recursion. It is packaged as one literal finite carrier and charged injectively to its parent coordinate $d<R$, so the resulting global boundary has cardinality at most $R$ with no remaining prime-owner multiplicity, and its signed Möbius mass is bounded by $R$ using only $\lvert\mu\rvert\le1$.
+
+No estimate is made on the isolated Go crossing kernel. Strict crossings are returned to their transport partners first, and only the exact root-equality boundary is counted.
+
+## 21. Recoupling to the smooth/transport residual
+
+The low-prime sequential construction is a finite coordinate system for the historical signed interaction $S_R=A_R-T_R$. It must not introduce a new independent low-prime analytic obligation, and the recoupling layer proves that it does not.
+
+At $P_R=R-\lfloor\sqrt R\rfloor$ the terminal state is exactly
+
+$$
+\text{terminal}=M(R^{2}-1)-A_R^{\mathrm{pos}}-\text{Packet}-\text{NearRoot},
+$$
+
+or, after the positive-orientation collapse,
+
+$$
+\text{terminal}=M(R^{2}-1)+\sum_{q\le R\ \text{prime}}M(q-1)-\text{Packet}-\text{NearRoot}.
+$$
+
+The two terminal boundary terms have total norm at most $R+K$. The only non-elementary amplitude left in the terminal state is therefore the old matched $A-T$ core.
+
+The quantitative consequence is recorded conditionally. A bound
+
+$$
+\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt{K}
+$$
+
+implies the exact endpoint estimate $T(P_R)^{2}\le 25R^{2}K$, and hence, through the proved global telescope, the desired signed response-child energy decrement. Those final theorems are hypothetical implications: they do not assert the matched-core bound, and this package does not claim the remaining arithmetic cancellation is solved. Their purpose is to make rigorous that the remaining quantitative input is the historical signed smooth/transport correlation rather than a separate low-prime frontier estimate.
+
+One further reduction sharpens where a counting theorem would land. After every available fresh-prime matching has been played on the complete signed response-child carrier,
+
+$$
+\Bigl\lvert\sum_{K<p\le U}\Delta_p\Bigr\rvert\le\#\bigl(\mathrm{OwnedResponseMatchingFrontier}\ R\ K\ U\bigr),
+$$
+
+with no raw response weight and no number-of-fresh-primes factor left on the right. A cardinality theorem for that frontier at scale $R\sqrt K$ would give the deep processed-response estimate immediately.
+
+## 22. What is not sufficient
 
 The following do not advance the quantitative frontier by themselves:
 
@@ -361,7 +457,11 @@ The following do not advance the quantitative frontier by themselves:
 - a diagonal estimate or triangle inequality applied to the post-crossing renewal row, which is the object built to keep the cancellation;
 - a reintroduction of prime-counting coefficients into the transport after they have been removed;
 - a one-for-one cancellation of the inert top block against the middle prime fibres without deciding the sign of the exact count gap;
-- a subunit contraction where a fixed amplification constant already suffices — sharpening the constant is not progress toward the missing inequality.
+- a subunit contraction where a fixed amplification constant already suffices — sharpening the constant is not progress toward the missing inequality;
+- a cardinality match between the stable processed-seat population and the tagged no-liberty boundary in place of the weight-preserving equivalence, since equal counts do not produce the signed identity;
+- a fresh estimate on the isolated Go crossing kernel, when every strict crossing already has an opposite-sign partner inside the global transport identity and only the exact root-equality face remains;
+- a global energy decrement asserted from terminal control, which the exact telescope makes equivalent to the conclusion rather than a route to it;
+- a low-prime frontier estimate presented as new analytic content, when the recoupling identity shows the only non-elementary amplitude in the terminal state is the historical matched $A-T$ core.
 
 The target remains the signed object itself.
 
@@ -379,7 +479,7 @@ so the existence of any admissible coefficient vector is a statement at least as
 
 4. **The literal same-site collision-defect quotient.** The strongest literal realization of the section-4 chain weights every defect label by the corrected prime-wheel field on the same physical site that realizes its selected-prime square collision. Every such weight vanishes at the square hit, so every step mass and hence every finite bounded chain mass is zero, contradicting the first nontrivial square prefix $-1$; this is a kernel-checked contradiction, not an estimate. The adjacent-cell escape fails too: for $p\ge7$ a $p^2$ hit leaves only exponent states $0$ and $2$ across the current and next active cells, and the exponent flip exchanges $0$ and $1$ while fixing $2$, so any realized flip in those two cells is the trivial square state where both corrected weights vanish. A viable quotient must transport a collision label to a different arithmetic fibre before reading its corrected weight, and must then separately prove that the transport preserves square-block mass and has bounded global multiplicity.
 
-## 18. Recommended order of work
+## 23. Recommended order of work
 
 The exact layers above are complete, and further identities are not the bottleneck. What is missing is one genuine inequality on a single signed state. Ordered by whether the success mode can produce a power saving at all:
 
@@ -387,9 +487,13 @@ The exact layers above are complete, and further identities are not the bottlene
 2. **A global sign-reversing involution on factorization paths**, performed before absolute values, turning the observed anti-alignment of the born-smooth and transport populations into an exact combinatorial symmetry. The same-sign top block of section 10 is the sharp design constraint: it admits no internal pairing, so any such involution must move it wholesale against smooth partners and cannot be local in the prime coordinates.
 3. **The canonical rough-prime correlation** of section 12. This is now the most concrete open statement in this package: one finite correlation between the Möbius parity field and one intact rough-prime response field, with the packet baseline explicit and no norm taken anywhere on the way to it.
 4. **The canonical transport defect** of section 13, a signed estimate on a single first-failure frontier ledger whose states are an explicit adjacent multiplicative shell.
-5. **The collision-defect chain** of section 4, still the sharpest conditional route packaged in Lean, but now restricted by the refutation in section 17 to realizations that transport a label off its own square-hit site.
-6. Transfer any resulting complete-cell or square-prefix estimate to arbitrary cutoffs using the proved additive-$3$ endpoint theorem and the nearest-square endpoint domination of section 14, then feed it through the existing recovered-wheel, Mertens-energy, and completed-zeta bridge.
+5. **The collision-defect chain** of section 4, still the sharpest conditional route packaged in Lean, but now restricted by the refutation in section 22 to realizations that transport a label off its own square-hit site.
+6. **The no-liberty rematching theorem** of section 19. This is not an inequality but a construction, and it is the only step separating the compiled processed-seat Othello cancellation from the tagged endpoint boundary. It is also the most sharply specified open item in this package: the interface, the four target classes, and the weight-preservation requirement are all already stated in Lean.
+7. **The matched-core bound** of section 21, $\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt K$, or equivalently a cardinality theorem at scale $R\sqrt K$ for the owned response-matching frontier. Both forms are conditional theorems already in the package, so either one closes the endpoint estimate without further coordinate work.
+8. Transfer any resulting complete-cell or square-prefix estimate to arbitrary cutoffs using the proved additive-$3$ endpoint theorem and the nearest-square endpoint domination of section 14, then feed it through the existing recovered-wheel, Mertens-energy, and completed-zeta bridge.
 
 The bottleneck is no longer an unspecified local pairing theorem, and no longer a missing coordinate identity. It is the **global bounded-multiplicity control of the exact signed defects that remain after the proved local cancellations**.
 
-Stated in the newest coordinates, that is one inequality on one of two explicit finite objects: the Möbius/rough-prime correlation left by the post-crossing renewal, or the canonical least-prime transport defect left by the double-cube involution. Both are signed, both are prime-count-free, and both are reached without a single triangle inequality.
+Stated in the newest coordinates, that is one inequality on one of three explicit finite objects: the Möbius/rough-prime correlation left by the post-crossing renewal, the canonical least-prime transport defect left by the double-cube involution, or the owned response-matching frontier left after every fresh-prime matching on the processed-seat carrier. All three are signed, all three are prime-count-free, and all three are reached without a single triangle inequality.
+
+Separately from those inequalities, one exact construction is outstanding: the weight-preserving equivalence of section 19. It is the only place in this package where a compiled cancellation theorem is waiting on a rematching map rather than on an estimate.

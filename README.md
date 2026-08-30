@@ -65,7 +65,7 @@ The square-root orientation layer is unchanged in substance:
 
 ## What is new in this revision
 
-Five layers have been added since the previous publication, and they change where the remaining work sits.
+Six layers have been added since the previous publication, and they change where the remaining work sits.
 
 ### 1. The shallow crossing and the post-crossing tail
 
@@ -147,7 +147,17 @@ The corrected-conductor sector is now handled without packetwise absolute values
 
 The first uniform quantitative consequence is elementary and deliberately crude: a corrected conductor packet is $q$-periodic, one incomplete period gives $\lVert J_q(k,x)\rVert\le 6q^3$, and hence all nontrivial conductors $q\le R$ contribute $O(R^4)$ uniformly in the prefix length. Choosing a cutoff on the order of the eighth root of the arithmetic scale puts that entire growing sector at square-root size, restricting the remaining Gram problem to conductor one and conductors above the cutoff.
 
-The synthesis ledger is therefore at revision 5. These are exact identities, reductions, obstructions, and one uniform elementary bound; they do **not** assert a new asymptotic estimate at the target scale.
+### 6. The processed-seat coordinate and its two Othello matchings
+
+The low-prime layer has been rebuilt on a single finite object. `squareRootLowPrimeProcessedSeatCarrier` holds every state a fresh low prime can still act on, and both the running telescope and the quadratic energy telescope are exact identities on it. The reciprocal crossing depth is pinned exactly as well: the finite coefficient changes sign between the adjacent depths $18348$ and $18349$, so for every sufficiently large endpoint the packet crosses at that single depth, and every fresh prime processed afterwards exceeds it.
+
+Two sign-reversing involutions are then played on that carrier — the fresh-prime chronology, and the same legal edges in descending order. The finite Othello principle behind them is a parity statement rather than a heuristic about local flips: two sign-reversing involutions on the same signed region have stable sets of equal signed mass. The move order is therefore a free choice, and a large exposed frontier under one order may be replaced by the quieter stable set of another without estimating the alternating paths between them. For the descending matching the compiled legality layer proves carrier preservation, involutivity, sign reversal on every moved state, that the stable set is exactly the descending processed-seat frontier, and that the stable mass is the running imbalance.
+
+What that leaves is unusually sharp, and it is a construction rather than an estimate. The stable population and the four-class tagged endpoint boundary are indexed by different types, so the closure object is a weight-preserving finite equivalence, not a Finset equality. This package states that interface and proves that any such equivalence transfers the entire signed sum; the arithmetic classifier over the four classes — head, partial packet, born no-successor, and Go root equality — is open. A cardinality match between the two sides is explicitly not accepted as a substitute, because equal counts do not produce the signed identity.
+
+Two further results keep the layer honest about what it is worth. The Go layer shows that every strict crossing incidence $R<rq$ is already a state of the global transport carrier whose canonical toggle supplies an opposite-sign partner, leaving only the exact equality $rq=R$ as a root-boundary population of cardinality at most $R$. And the recoupling identity puts the terminal state back into the historical architecture as $M(R^2-1)+\sum_{q\le R}M(q-1)$ minus two boundary terms of total norm at most $R+K$, so the only non-elementary amplitude left is the old matched $A-T$ core and this coordinate change introduces no new low-prime analytic obligation. The endpoint theorems above it are conditional on $\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt K$ and assert nothing about whether that bound holds.
+
+The synthesis ledger is unchanged at revision 5. These six layers are exact identities, reductions, obstructions, one uniform elementary bound, and one compiled cancellation still waiting on a rematching map; they do **not** assert a new asymptotic estimate at the target scale. The sixth is one-sided low-prime structure rather than a certified cross-track advance, which is why it does not move the ledger.
 
 ## Quantitative target
 

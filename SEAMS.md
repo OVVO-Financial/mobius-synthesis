@@ -294,7 +294,39 @@ Every integer inside a complete square block lies within distance $R$ of one of 
 
 **Formal module:** `RHLean.Analysis.NearestSquareEndpointDomination`.
 
-## 28. Acceptance criterion for quantitative progress
+## 28. Processed-seat carrier seam
+
+The low-prime sequential layer and the fresh-prime matching meet on `squareRootLowPrimeProcessedSeatCarrier`, the complete processed seat carrier. Every state a fresh low prime can still act on appears exactly once, tagged by cofactor and channel, so the matching is a map on one finite object rather than a relation between successively redefined populations. Both the running telescope and the quadratic energy telescope are stated on this carrier, and both are exact.
+
+**Formal modules:** `RHLean.Proof.SquareRootLowPrimeProcessedSeatCarrier`, `RHLean.Proof.SquareRootLowPrimeProcessedSeatMatching`, `RHLean.Proof.SquareRootLowPrimeRunningTelescope`, and `RHLean.Proof.SquareRootLowPrimeGlobalEnergyTelescope`.
+
+## 29. Move-order seam
+
+Two sign-reversing involutions on the same finite signed region have stable sets of equal signed mass. This is the seam that makes the fresh-prime move order a free choice: a large exposed frontier under the chronological order may be replaced by the stable set of the descending order without estimating any alternating path between them. The statement is finite parity and carries no arithmetic.
+
+**Formal module:** `RHLean.Proof.FiniteOthelloMatching`.
+
+## 30. No-liberty seam
+
+The stable population of the descending processed-seat matching and the tagged four-class endpoint boundary are indexed by different types, so literal Finset equality is not the target. The seam is a weight-preserving finite equivalence together with pointwise agreement of signed weight; given one, the whole signed sum transfers and tagged boundary mass is the running imbalance.
+
+This is the one seam in the package whose crossing map is not yet constructed. The interface, the four endpoint classes — head, partial packet, born no-successor, and Go root equality — and the weight-preservation requirement are stated; the arithmetic classifier is open. A cardinality match between the two sides does not cross it.
+
+**Formal modules:** `RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification`, `RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome`, and `RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv`.
+
+## 31. Go transport seam
+
+The Go crossing population and the global low-wheel transport carrier meet on the incidence $(t,x)=(\{r\},(d,q))$. A strict crossing $R<rq$ is already a transport state of weight $\mu(qd)$, and because the birth boundary forces $d>1$ with every prime factor of $d$ below $r$, the canonical least-prime pivot lies in the parent, so the canonical toggle supplies the opposite-sign partner inside the transport identity. Only the exact equality $rq=R$ fails to cross this seam, and it is a root-boundary population of cardinality at most $R$, not unfinished recursion.
+
+**Formal modules:** `RHLean.Proof.SquareRootLowPrimeGoGlobalPartner` and `RHLean.Proof.SquareRootLowPrimeGoRootEqualityBoundary`.
+
+## 32. Recoupling seam
+
+The processed-seat terminal state and the historical $A_R-T_R$ architecture meet at $P_R=R-\lfloor\sqrt R\rfloor$. The terminal state is $M(R^2-1)+\sum_{q\le R}M(q-1)$ minus the partial crossing packet and the near-root rectangle, whose combined norm is at most $R+K$. Crossing this seam in the other direction is what guarantees the low-prime coordinate system introduces no new analytic obligation: the only non-elementary amplitude left is the old matched core, and the conditional endpoint theorems above it assert nothing about that core's size.
+
+**Formal modules:** `RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling` and `RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound`.
+
+## 33. Acceptance criterion for quantitative progress
 
 A proposed estimate should satisfy both conditions:
 
@@ -312,3 +344,5 @@ Unsigned population improvements, local constant defects without bounded chargin
 Three further filters follow from the recorded obstructions. A proposal whose saving is a product of local multipliers of the form $1-c/q$ is capped at a power of a logarithm and cannot reach a power of $R$. A proposal that decomposes the transport population into cancelling orbits plus a bounded boundary must say what happens to the same-sign top block, which equals its own cardinality. And a proposal that reaches the target through Cauchy--Schwarz on a coefficient family must show the family is arithmetically constructible, since the optimal coefficients already encode the answer.
 
 Three further filters follow from the newer obstructions. A proposal that cancels the inert top block one-for-one against the middle prime fibres must decide the sign of $2\pi(X_R/2)-\pi(X_R)-\pi(R)$, which first-order PNT does not determine because the leading $X/\log X$ terms cancel. A proposal that charges a bounded collision defect must transport the label to a different arithmetic fibre before reading its corrected weight, because the literal same-site realization is refuted. And a proposal built on fresh-prime equivariance between the wheel and the ancestry ledger must restrict to the ordered extension, since the unrestricted move is false.
+
+One filter is specific to the no-liberty seam. A proposal that closes the processed-seat route must produce the weight-preserving equivalence itself. Equal cardinalities on the two sides, a bijection that does not preserve signed weight, or an estimate on either population separately all leave the seam uncrossed, because what transfers the signed sum is the weight-preservation hypothesis and nothing weaker.

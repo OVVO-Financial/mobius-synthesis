@@ -131,6 +131,27 @@ done < <(
     -print0
 )
 
+# Tracker references belong to a development workflow, not to a published
+# research package.  Issue and pull-request numbers are rewritten to name the
+# layer they actually refer to before a module is published here, and the
+# originating workspace is never named.  This check keeps that from regressing:
+# a '#' followed by digits is the tracker-reference form, and the workspace name
+# is matched in both spellings.
+while IFS= read -r -d '' file; do
+  if grep -nEi '(^|[^A-Za-z0-9_])#[0-9]{1,5}([^0-9]|$)|RH[_-]Lean' "$file"; then
+    printf 'Forbidden tracker or workspace reference in %s\n' "$file" >&2
+    standalone_failed=1
+  fi
+done < <(
+  find . -type f \
+    ! -path './.git/*' \
+    ! -path './.lake/*' \
+    ! -path './scripts/audit_assumptions.sh' \
+    \( -name '*.md' -o -name '*.json' -o -name '*.yml' -o -name '*.yaml' \
+       -o -name '*.lean' -o -name '*.sh' -o -name '*.py' -o -name 'CODEOWNERS' \) \
+    -print0
+)
+
 if [[ "$standalone_failed" -ne 0 ]]; then
   echo 'Standalone repository reference audit failed.' >&2
   exit 1
