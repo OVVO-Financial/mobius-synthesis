@@ -221,6 +221,102 @@ theorem moebius_sum_eq_resolved_add_smooth
     Finset.sum_union (W.squareFactorSites_disjoint_combResolvedSites x),
     hzero, zero_add]
 
+/-! ## Exact finite `+ / 0 / -` population algebra
+
+The limiting `30/40/30` law must not be used as if it were an independent local
+sampling model.  At every finite prefix the two nonzero populations are tied
+exactly to the squarefree mass and the signed Möbius residual.  In particular,
+the local deviation of the positive and negative counts from equality *is* the
+Möbius sum itself.
+-/
+
+/-- Integer indicator of a positive Möbius site. -/
+def moebiusPositiveIndicator (n : ℕ) : ℤ :=
+  if μ n = 1 then 1 else 0
+
+/-- Integer indicator of a negative Möbius site. -/
+def moebiusNegativeIndicator (n : ℕ) : ℤ :=
+  if μ n = -1 then 1 else 0
+
+/-- Positive Möbius population in a pinned prefix, represented as an integer count. -/
+def moebiusPositiveCount (W : PrimeWheelFiniteSystem) (x : ℕ) : ℤ :=
+  ∑ n ∈ W.prefixInterval x, moebiusPositiveIndicator n
+
+/-- Negative Möbius population in a pinned prefix, represented as an integer count. -/
+def moebiusNegativeCount (W : PrimeWheelFiniteSystem) (x : ℕ) : ℤ :=
+  ∑ n ∈ W.prefixInterval x, moebiusNegativeIndicator n
+
+/-- Exact squarefree population mass, since `μ(n)^2` is `1` exactly on squarefree sites. -/
+def moebiusSquarefreeMass (W : PrimeWheelFiniteSystem) (x : ℕ) : ℤ :=
+  ∑ n ∈ W.prefixInterval x, (μ n) ^ 2
+
+/-- Pointwise positive-count identity `2*1_{μ=1} = μ^2 + μ`. -/
+theorem two_mul_moebiusPositiveIndicator_eq (n : ℕ) :
+    2 * moebiusPositiveIndicator n = (μ n) ^ 2 + μ n := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [moebiusPositiveIndicator, h]
+
+/-- Pointwise negative-count identity `2*1_{μ=-1} = μ^2 - μ`. -/
+theorem two_mul_moebiusNegativeIndicator_eq (n : ℕ) :
+    2 * moebiusNegativeIndicator n = (μ n) ^ 2 - μ n := by
+  rcases ArithmeticFunction.moebius_eq_or n with h | h | h <;>
+    simp [moebiusNegativeIndicator, h]
+
+/-- Exact finite positive-population identity. -/
+theorem two_mul_moebiusPositiveCount_eq_squarefree_add_sum
+    (W : PrimeWheelFiniteSystem) (x : ℕ) :
+    2 * W.moebiusPositiveCount x =
+      W.moebiusSquarefreeMass x + ∑ n ∈ W.prefixInterval x, μ n := by
+  unfold moebiusPositiveCount moebiusSquarefreeMass
+  calc
+    2 * (∑ n ∈ W.prefixInterval x, moebiusPositiveIndicator n) =
+        ∑ n ∈ W.prefixInterval x, 2 * moebiusPositiveIndicator n := by
+      rw [Finset.mul_sum]
+    _ = ∑ n ∈ W.prefixInterval x, ((μ n) ^ 2 + μ n) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      exact two_mul_moebiusPositiveIndicator_eq n
+    _ = (∑ n ∈ W.prefixInterval x, (μ n) ^ 2) +
+        ∑ n ∈ W.prefixInterval x, μ n := by
+      rw [Finset.sum_add_distrib]
+
+/-- Exact finite negative-population identity. -/
+theorem two_mul_moebiusNegativeCount_eq_squarefree_sub_sum
+    (W : PrimeWheelFiniteSystem) (x : ℕ) :
+    2 * W.moebiusNegativeCount x =
+      W.moebiusSquarefreeMass x - ∑ n ∈ W.prefixInterval x, μ n := by
+  unfold moebiusNegativeCount moebiusSquarefreeMass
+  calc
+    2 * (∑ n ∈ W.prefixInterval x, moebiusNegativeIndicator n) =
+        ∑ n ∈ W.prefixInterval x, 2 * moebiusNegativeIndicator n := by
+      rw [Finset.mul_sum]
+    _ = ∑ n ∈ W.prefixInterval x, ((μ n) ^ 2 - μ n) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      exact two_mul_moebiusNegativeIndicator_eq n
+    _ = (∑ n ∈ W.prefixInterval x, (μ n) ^ 2) -
+        ∑ n ∈ W.prefixInterval x, μ n := by
+      rw [Finset.sum_sub_distrib]
+
+/-- **Finite nonzero-count balance.**  The positive-minus-negative population is
+exactly the signed Möbius residual on the same prefix. -/
+theorem moebiusPositiveCount_sub_negativeCount_eq_sum
+    (W : PrimeWheelFiniteSystem) (x : ℕ) :
+    W.moebiusPositiveCount x - W.moebiusNegativeCount x =
+      ∑ n ∈ W.prefixInterval x, μ n := by
+  have hp := W.two_mul_moebiusPositiveCount_eq_squarefree_add_sum x
+  have hn := W.two_mul_moebiusNegativeCount_eq_squarefree_sub_sum x
+  omega
+
+/-- The squarefree population is exactly the sum of the two nonzero sign counts. -/
+theorem moebiusPositiveCount_add_negativeCount_eq_squarefree
+    (W : PrimeWheelFiniteSystem) (x : ℕ) :
+    W.moebiusPositiveCount x + W.moebiusNegativeCount x =
+      W.moebiusSquarefreeMass x := by
+  have hp := W.two_mul_moebiusPositiveCount_eq_squarefree_add_sum x
+  have hn := W.two_mul_moebiusNegativeCount_eq_squarefree_sub_sum x
+  omega
+
 end PrimeWheelFiniteSystem
 
 end RHLean.Arithmetic

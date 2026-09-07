@@ -149,4 +149,102 @@ theorem abs_parity_channelRate_sub_le_two_mul
       parentsPlus parentsMinus mass phase α ε ε
       hplus hminus hdiscPlus hdiscMinus
 
+/--
+The fractional square-root phase attached to an integer.  If
+`r = Nat.sqrt n`, then this is `sqrt(n) - r`; for a prime lying in the
+square block `[r^2, (r+1)^2)` it is exactly the normalized root coordinate
+used to discuss where that prime lies inside the block.
+-/
+def squareRootPrimePhase (n : ℕ) : ℝ :=
+  Real.sqrt (n : ℝ) - (Nat.sqrt n : ℝ)
+
+/-- Number of primes in the closed integer range `[2, X]`. -/
+def primeCountUpTo (X : ℕ) : ℕ := by
+  classical
+  exact ((Finset.Icc 2 X).filter Nat.Prime).card
+
+/--
+Number of primes `p ≤ X` whose square-root phase lies in the half-open
+window `[a,b)`.
+-/
+def squareRootPrimePhaseWindowCount (X : ℕ) (a b : ℝ) : ℕ := by
+  classical
+  exact ((Finset.Icc 2 X).filter fun p =>
+    Nat.Prime p ∧
+      a ≤ squareRootPrimePhase p ∧
+      squareRootPrimePhase p < b).card
+
+/--
+The classical square-root prime phase equidistribution statement, packaged in
+an epsilon/counting form that is directly usable by the finite phase machinery
+in this repository.
+
+For every fixed phase window `[a,b) ⊆ [0,1]`, the number of primes in that
+window is `(b-a) * pi(X)` up to relative error `ε * pi(X)` for all sufficiently
+large `X`.
+
+This declaration is deliberately a proposition, not a project axiom.  The
+classical analytic theorem that `{sqrt p}` is uniformly distributed modulo one
+is not presently formalized in Mathlib, so any theorem consuming this input
+must receive a proof of this proposition as an explicit argument.  This keeps
+the terminal axiom audit clean while fixing the exact theorem interface needed
+for square-block prime-phase arguments.
+-/
+def SquareRootPrimePhaseEquidistributionStatement : Prop :=
+  ∀ a b ε : ℝ,
+    0 ≤ a →
+    a ≤ b →
+    b ≤ 1 →
+    0 < ε →
+    ∃ X0 : ℕ, ∀ X : ℕ, X0 ≤ X →
+      |(squareRootPrimePhaseWindowCount X a b : ℝ) -
+          (b - a) * (primeCountUpTo X : ℝ)| ≤
+        ε * (primeCountUpTo X : ℝ)
+
+/--
+A square-root prime phase equidistribution input immediately gives the finite
+two-sided count estimate for every fixed macroscopic phase window.  In
+particular, no such window can carry a persistent positive proportion of
+primes above its geometric length.
+-/
+theorem squareRootPrimePhaseWindowCount_two_sided
+    (hphase : SquareRootPrimePhaseEquidistributionStatement)
+    {a b ε : ℝ}
+    (ha : 0 ≤ a)
+    (hab : a ≤ b)
+    (hb : b ≤ 1)
+    (hε : 0 < ε) :
+    ∃ X0 : ℕ, ∀ X : ℕ, X0 ≤ X →
+      (b - a - ε) * (primeCountUpTo X : ℝ) ≤
+          (squareRootPrimePhaseWindowCount X a b : ℝ) ∧
+        (squareRootPrimePhaseWindowCount X a b : ℝ) ≤
+          (b - a + ε) * (primeCountUpTo X : ℝ) := by
+  rcases hphase a b ε ha hab hb hε with ⟨X0, hX0⟩
+  refine ⟨X0, ?_⟩
+  intro X hX
+  have hbound := hX0 X hX
+  rcases (abs_le.mp hbound) with ⟨hlower, hupper⟩
+  constructor <;> nlinarith
+
+/--
+Explicit no-bunching corollary: under square-root prime phase equidistribution,
+every fixed phase window eventually contains at most its geometric proportion
+plus an arbitrary positive tolerance.
+-/
+theorem squareRootPrimePhase_no_fixed_window_bunching
+    (hphase : SquareRootPrimePhaseEquidistributionStatement)
+    {a b ε : ℝ}
+    (ha : 0 ≤ a)
+    (hab : a ≤ b)
+    (hb : b ≤ 1)
+    (hε : 0 < ε) :
+    ∃ X0 : ℕ, ∀ X : ℕ, X0 ≤ X →
+      (squareRootPrimePhaseWindowCount X a b : ℝ) ≤
+        (b - a + ε) * (primeCountUpTo X : ℝ) := by
+  rcases squareRootPrimePhaseWindowCount_two_sided
+      hphase ha hab hb hε with ⟨X0, hX0⟩
+  refine ⟨X0, ?_⟩
+  intro X hX
+  exact (hX0 X hX).2
+
 end RHLean.Analysis

@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "revision": 5,
+  "revision": 6,
   "baseline": {
     "module": "RHLean.Analysis.PrimeSieveQuotientPNTError",
     "representative_theorem": "RHLean.Analysis.primorialMinimalSquareWheelNonzeroResponse_eq_pntCorrected_sub_two_reciprocalError",
     "summary": "Initial mathematical baseline: the canonical square-wheel nonzero response is identified exactly with the centered PNT-corrected comb minus twice the centered Mertens-weighted reciprocal-interval prime-count discrepancy."
   },
   "last_witness": {
-    "module": "RHLean.Analysis.SquareRootCanonicalRoughCovariance",
-    "theorem": "RHLean.Proof.squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance",
-    "summary": "Pushes the complete post-crossing renewal row back from reciprocal depth onto the cofactor coordinate. The coupled tail after a shallow reciprocal-packet crossing equals an explicit packet baseline minus the signed Moebius pairing with one intact rough-prime cofactor response, and the same object is re-expressed through its centered mean and covariance. The remaining nonlocal cancellation is therefore a literal finite correlation between the Moebius parity field and one rough-prime response field. This is an exact coordinate identity: no mean-zero assertion, norm split, independence hypothesis, or estimate is used.",
+    "module": "RHLean.Analysis.FrozenSquareRunDowncrossBridge",
+    "theorem": "RHLean.Analysis.canonicalDowncrossRunDifferenceEnergyBounded_iff_primorialResidualBounded",
+    "summary": "Closes the square-run track and the prime-wheel track onto one seam. Admitting a fresh Euler prime to a finite old universe acts on a signed window by W_{S+p}(A,B) = W_S(A,B) - W_S(A/p,B/p), so a new prime contributes one compressed predecessor-cube window rather than an independent copy of a parent. Combining that with the frozen square-run kernel K(a,b) = M(a^2-1) - M((b+1)^2-1) and the canonical low-wheel endpoint involution M(R^2-1) = M(R) - D_R gives K(a,b) = (M(a)-M(b+1)) + (D_{b+1}-D_a), whose Mertens gap costs at most the root interval length. The energy of the change in the canonical downcross frontier is therefore equivalent, with no loss, to the frozen square-run criterion, the global Mertens-energy criterion, the maximal signed square-run criterion, and the synchronized primorial-wheel residual criterion. Exact late-parent cancellation at both endpoints makes D_{b+1}-D_a literally the difference of canonically oriented Euler first-crossing ledgers. No pointwise bound on D_R, prime-gap estimate, PNT input, or asymptotic estimate is used.",
     "square_anchors": [
       "RHLean.Proof.squarePrefixMertensGram_bounded_of_matched_and_positiveSmooth",
       "RHLean.Proof.canonicalTotalIncrement_eq_low_add_survivorDiff_add_deathDiff"
@@ -21,6 +21,71 @@
   },
   "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once.",
   "companion_witnesses": [
+    {
+      "module": "RHLean.Analysis.SquareRootCanonicalRoughCovariance",
+      "theorem": "RHLean.Proof.squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance",
+      "summary": "Pushes the complete post-crossing renewal row back from reciprocal depth onto the cofactor coordinate. The coupled tail after a shallow reciprocal-packet crossing equals an explicit packet baseline minus the signed Moebius pairing with one intact rough-prime cofactor response, and the same object is re-expressed through its centered mean and covariance. The remaining nonlocal cancellation is therefore a literal finite correlation between the Moebius parity field and one rough-prime response field. This is an exact coordinate identity: no mean-zero assertion, norm split, independence hypothesis, or estimate is used."
+    },
+    {
+      "module": "RHLean.Proof.ComplexVerticalIntervalEulerBridge",
+      "theorem": "RHLean.Proof.signedVerticalIntervalMass_eq_orientedEulerLedger",
+      "summary": "Reindexes the signed mass of the squared vertical factor strip onto the ordered Euler cut atoms and proves it exactly equal to the canonical oriented Euler run ledger, before any norm. The companion identities send the same run to the canonical defect ledger and to the signed prefix lifetime residual, so the complex/Fermat, ordered Euler, oriented downcross, lifetime and canonical defect coordinates are one analytic problem, not five. The energy proposition stated there is proved equal to the pre-existing oriented-run seam, so the coordinate change hides no estimate."
+    },
+    {
+      "module": "RHLean.Proof.ComplexVerticalLineGreenKubo",
+      "theorem": "RHLean.Proof.norm_signedVerticalIntervalMass_sq_eq_lineDiagonal_add_two_mul_covariance",
+      "summary": "Squares the whole signed birth/death population on physical squared-Fermat child lines before any absolute value, giving the finite Green--Kubo identity ||V||^2 = D_line + 2 C_line with event(n) = mu(n) * chi(n). The diagonal is already at root-square scale, so the only quantity able to produce supercritical growth is the positive aggregate covariance among distinct physical birth/death lines."
+    },
+    {
+      "module": "RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal",
+      "theorem": "RHLean.Proof.signedVerticalLineEventStep_sq_le_moebius_sq",
+      "summary": "Sharpens the line-event diagonal from the pointwise envelope 1 to the exact squarefree diagonal mu(n)^2, so the limiting 40/30/30 law is used only in the safe direction: the zero population sharpens the diagonal, and no sign balance is asserted on the arithmetically selected birth/death set."
+    },
+    {
+      "module": "RHLean.Proof.CanonicalRoughReciprocalCompression",
+      "theorem": "RHLean.Proof.squareRootCanonicalRoughResponseCenteredReciprocalSummand_add_mul_freshPrime",
+      "summary": "Transports the native square-prefix PNT mechanism onto the RH-critical canonical rough covariance carrier: a fresh-prime parent/child pair is compressed back onto the parent with the exact Euler factor 1 - 1/p, and every failure of exact contraction is confined to the threshold-loss, top-escape and lower-root birth channels, suppressed by the reciprocal child cofactor. The two-prime Boolean square accumulates the factors exactly."
+    },
+    {
+      "module": "RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction",
+      "theorem": "RHLean.Proof.squareRootCanonicalRoughFreshThresholdLossBoundary_eq_empty_of_completeWheel",
+      "summary": "On a complete sub-root Euler cube the threshold-loss channel is literally empty, top escapes are forced strictly beyond the root and births stay strictly below it. The critical signed boundary is exactly post-root top escape minus lower-root birth, with one whole defect channel removed before any norm is taken."
+    },
+    {
+      "module": "RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope",
+      "theorem": "RHLean.Proof.primorialTruncatedTransportedShellLedger_eq_truncated_sub_eulerProduct",
+      "summary": "Identifies each physical defect shell, with its native 1/p restored, as the discrepancy between the true next truncated Euler cube and the uniform Euler contraction, and telescopes those discrepancies over an arbitrary duplicate-free descending prime list to the single final truncated-wheel boundary T_L(N) - EulerProduct(L). This replaces the (1-P)*Delta majorant by a structural identity taken before absolute values."
+    },
+    {
+      "module": "RHLean.Proof.CanonicalRoughBoundaryProfileAbelReturn",
+      "theorem": "RHLean.Proof.primorialTruncatedBoundary_primeWeightedDrops_eq_abelPrimitive",
+      "summary": "Closes the prime-weighted discrete boundary variation left by the unweighted physical columns. Because the boundary profile is stationary off the primes, finite summation by parts returns the Abel primitive sum_{n<K} B_n(X) - K * B_K(X). The RH-critical object attached to the physical columns is therefore that combination, not the endpoint boundary alone."
+    },
+    {
+      "module": "RHLean.Analysis.BlockCovarianceRefinement",
+      "theorem": "RHLean.Analysis.largePrimeFamilyPairSum_postRoot",
+      "summary": "A post-root prime family is an isometric copy of a lower-scale prefix for pair covariance: mu(pc)mu(pd) = mu(c)mu(d) reverses family mass but preserves family covariance, so the covariance strictly inside the p-family is the global Moebius covariance at the reduced scale. The companion refinement identity moves square-block energy into children plus an explicit signed cross term, with the leaf energy exactly the linear squarefree diagonal."
+    },
+    {
+      "module": "RHLean.Analysis.MertensCovarianceDescent",
+      "theorem": "RHLean.Analysis.mertensEnergyBounded_of_covarianceDescent",
+      "summary": "States the one-sided positive-lag frontier as a descent on the signed aggregate covariance itself: every supercritical normalized excursion is forced by a strictly smaller supercritical scale, which on the naturals forbids a minimal one and hence any. The same module records, with a measurement, that support-only frontier capacity cannot close the argument, because the minimising pivot has linear frontier and the F^2 term stays a full power above target."
+    },
+    {
+      "module": "RHLean.Proof.GlobalPrefixCarrierOthello",
+      "theorem": "RHLean.Proof.sum_moebius_eq_sum_iteratedPrimeEscapePart",
+      "summary": "Plays the two sitewise Othello laws on a whole cumulative region at once. The carrier toggle is an involution whose moving states carry reversed Moebius sign and whose frozen states carry none, so the signed mass of any finite region is exactly the signed mass of its escape part, and peeling a list of distinguished primes preserves that equality on the iterated boundary."
+    },
+    {
+      "module": "RHLean.Proof.LifetimeRunCancellation",
+      "theorem": "RHLean.Proof.sum_lifetimeActiveAtomMass_increment_Ico_eq_birthDeath_endpoints",
+      "summary": "The genuinely trajectory-based cancellation: an atom born after a run starts and captured before it ends costs the run exactly nothing, whatever its lifetime. Death is proved permanent on the actual active predicate, so the half-open interval model is faithful, and the aggregate run identity holds in the existing Active = Birth - Death endpoint coordinates."
+    },
+    {
+      "module": "RHLean.Proof.TerminalMertensForward",
+      "theorem": "RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy",
+      "summary": "Constructs internally the one direction of the classical Mertens criterion the terminal route consumes, from the Dirichlet series for 1/zeta, partial summation, the identity theorem and the completed-zeta reflection. The resulting implication from the square-prefix energy estimate to Mathlib's Riemann hypothesis carries no criterion hypothesis at all, so the reduction is unconditional down to the arithmetic estimate itself."
+    },
     {
       "module": "RHLean.Analysis.SquareRootShallowReciprocalCrossing",
       "theorem": "RHLean.Proof.squareRootPacket_eventual_log_endpoint_crossing",

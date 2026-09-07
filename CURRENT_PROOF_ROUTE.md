@@ -440,7 +440,166 @@ $$
 
 with no raw response weight and no number-of-fresh-primes factor left on the right. A cardinality theorem for that frontier at scale $R\sqrt K$ would give the deep processed-response estimate immediately.
 
-## 22. What is not sufficient
+## 22. The cumulative reduction: a prefix is two walls
+
+The sitewise Othello laws say what one move does to one site. Applied term by term they describe the distribution of individual Möbius values, which is not the question a cumulative sum asks, and a term-by-term estimate discards the coherence the moment an absolute value is taken.
+
+Playing the same two laws on a whole region at once removes that loss. For a prime $p$ the carrier toggle
+
+$$
+\tau_p(n)=\begin{cases} np & p\nmid n\\ n/p & p\mid n,\ p^2\nmid n\\ n & p^2\mid n\end{cases}
+$$
+
+is an involution of $\mathbb{N}$ whose moving states are exactly the $p^2$-free sites, where $\mu(\tau_p n)=-\mu n$, and whose frozen states are exactly the square hits, which carry no Möbius mass at all. Hence for any finite region
+
+$$
+\sum_{n\in S}\mu(n)=\sum_{n\in\partial_p S}\mu(n),
+$$
+
+where $\partial_p S$ is the escape part, the sites whose mate has left $S$. This is an equality: the whole interior has cancelled in mated pairs, and nothing is estimated.
+
+For the region that actually carries a Mertens increment — the ordered prefix carrier $(L,x]$ — the escape part is completely explicit and consists of exactly two walls. The **anchor wall** is the set of sites carrying one factor $p$ whose quotient falls back past $L$, characterized by $n\le pL$; the **cutoff wall** is the set of $p$-free sites whose $p$-multiple overshoots $x$, characterized by $x<np$. Peeling a list of distinguished primes iterates the construction and preserves the equality on the iterated boundary.
+
+The same transport applies to the pinned primorial-wheel residual and to a whole consecutive run of complete square blocks, where the known square telescope removes the block count and the fixed-prime pairing then reduces the resulting cumulative interval to its two walls. If some finite peel leaves an iterated boundary of RH-scale population, the Mertens energy criterion follows.
+
+Two scope statements belong with this. First, for one fixed $p$ every orbit is a two cycle or a fixed point, so this is a global *pairing* of a cumulative region, not a statement about long alternating components, and it contains no birth-to-capture cancellation. Second, the single-prime wall cardinalities are honest but are not yet a saving: they are the quantity a later multiplicity theorem has to bound. The measured behaviour is unambiguous — the fixed-prime peel bottoms out at $2/\pi^2$ of $x$ in every prime order, and even a maximum state-dependent matching leaves a positive proportion exposed.
+
+That measurement is now a theorem. On the raw prefix carrier every squarefree site has a legal prime move, so the true no-liberty boundary consists of square hits only and carries no mass; a liberty-exhausting mate would therefore force $M(x)=0$. And every prime $p$ with $x<2p$ has the single legal move $p\mapsto1$, so all top-half primes compete for one neighbour and any adaptive involution has a fixed set of at least $\pi(x)-\pi(x/2)-1$ states. The carrier, not the matching, is what has to change — which is exactly why the processed-seat carrier of section 17 records multiplicities instead of bare integers.
+
+## 23. Lifetime cancellation across square time
+
+A prime-toggle pairing has no trajectory in it; the Go statement does. An atom of the square-time process has a birth stage and a capture stage, and its activity indicator is the indicator of the half-open lifetime, so activity increments telescope over a run and an atom born after the run starts and captured before it ends contributes
+
+$$
+0-0=0
+$$
+
+whatever its lifetime was. A stone that lived one stage and a stone that lived ten thousand stages cost the run exactly the same: nothing. The length of the lifetime appears nowhere in the statement or in the proof, which is the property a cumulative run needs and which a fixed-prime pairing does not provide.
+
+The model is proved faithful rather than assumed. For a nonnegative cutoff slope the moving-high threshold is nondecreasing, so an atom alive at $t$ and already born at $s\le t$ is alive at $s$: death is permanent, and there is no resurrection between birth and capture. What is established is interval structure plus endpoint telescope, and the aggregate run identity in the existing $\mathrm{Active}=\mathrm{Birth}-\mathrm{Death}$ coordinates; explicit birth and capture times are not constructed, and the package says so.
+
+## 24. The frozen square run and the canonical downcross frontier
+
+On a subdoubling run $[a^2,(b+1)^2)$ with $(b+1)^2\le 2a^2$, every proper divisor consulted by any new site lies strictly below $a^2$. So the signed frozen kernel
+
+$$
+K(a,b)=\sum_{1\le d<a^2}\mu(d)\,w_{a,b}(d),\qquad w_{a,b}(d)=\Bigl\lfloor\frac{(b+1)^2-1}{d}\Bigr\rfloor-\Bigl\lfloor\frac{a^2-1}{d}\Bigr\rfloor,
+$$
+
+is exactly the negative new Möbius mass, and no value of $\mu$ created inside the run appears in it. The energy premise squares the *whole signed divisor sum*, not any term of it.
+
+The bridge to the wheel side is a single algebraic law. Admitting one fresh Euler prime $p$ to a finite old universe $S$ acts on a signed window by
+
+$$
+W_{S\cup\{p\}}(A,B)=W_S(A,B)-W_S(\lfloor A/p\rfloor,\lfloor B/p\rfloor),
+$$
+
+so a new prime leaves one compressed predecessor-cube window rather than another independent copy of an old parent. This is the finite replacement for the prime-gap lifetime picture. Combining it with the canonical low-wheel involution $M(R^2-1)=M(R)-D_R$ gives
+
+$$
+K(a,b)=(M(a)-M(b+1))+(D_{b+1}-D_a),
+$$
+
+whose Mertens gap costs at most the root interval length. Hence the energy of the *change* in the canonical downcross frontier is equivalent, with no loss, to the frozen-square-run criterion, the global Mertens-energy criterion, the maximal signed square-run criterion, and the synchronized primorial-wheel residual criterion.
+
+After exact late-parent cancellation the downcross ledger *is* the canonically oriented Euler first-crossing ledger, and on one oriented state the Boolean faces that charge it are exactly the frozen faces of the old universe below its canonical pivot. Both run endpoints then extend to a common state carrier on which each state keeps the same owner and only its two window endpoints move with the root, which is the representation a run difference needs before it is squared.
+
+The counting route stops here, provably. The faces charging one boundary state are carried injectively into a single state-dependent interval, at most $R$ of the $2^{\pi(R)}$ faces carry any downcross mass, and the resulting unconditional bound $\lVert D_R\rVert\le R^4$ is worse than the trivial $O(R^2)$. That is not a lossy step: the unsigned ledger mass already dominates $\pi(R^2-1)-\pi(R)$ at the empty face alone, since $k\mapsto(1,k)$ embeds every prime of $(R,R^2-1]$ with weight $+1$ and face sign $+1$. No bound of the shape $\lVert D_R\rVert\le CR$ is reachable by discarding signs.
+
+A scope note belongs with the seam itself. The linear form $\lVert D_R\rVert\le CR$ would give $\lvert M(R^2-1)\rvert\le(C+1)R$ and hence $M(x)=O(\sqrt x)$, the strong Mertens bound, which is open and widely believed false. The energy bridge only ever consumes the square-prefix energy statement, so the correct seam is the $1+\varepsilon$ form, and the base of that statement is exactly the root $R$: no off-square interpolation is duplicated.
+
+## 25. Squaring first: Green--Kubo on the physical line
+
+The vertical-line layer squares the whole signed birth/death population before taking any absolute value. At each physical child integer $n$ define one real event variable: $0$ if the child has the same endpoint status, $-\mu(n)$ if it is born into the active set, $+\mu(n)$ if it dies out of it. Their sum is exactly the vertical-interval mass, so
+
+$$
+\lVert V(a,b)\rVert^2=D_{\text{line}}+2\,C_{\text{line}},
+$$
+
+with $C_{\text{line}}$ a masked Möbius pair sum, not a probabilistic covariance.
+
+The diagonal is then bounded twice, and the second time exactly. Every event lies in $\{-1,0,1\}$ and every active child at root $R$ is below $R^2$, which already gives $D\le(b+1)^2$ and, under strict subdoubling, $D\le 2a^2$. Sharpening the pointwise envelope to $\mathrm{event}(n)^2\le\mu(n)^2$ replaces that by the exact finite squarefree population $K-1-Z(K-1)$. So the limiting $40/30/30$ law is used only in the safe direction — the zero population sharpens the diagonal — and no $30/30$ sign balance is asserted on the arithmetically selected birth/death set.
+
+What remains is therefore one quantity and nothing else:
+
+$$
+\lVert V(a,b)\rVert^2\le 2a^2+2\max(0,C_{\text{line}}).
+$$
+
+The carrier underneath it is completely normalized. The active-child set is exactly the squarefree shell $\{n:\ R<n<R^2\}$, with a constructive converse; fresh-prime membership instability is exactly birth or top escape, so there is no residual mysterious population; and a completely stable prime family has exactly the lower-prefix covariance, so prime-stable covariance is recursive rather than new. Failure of that descent is owned by one of the two physical walls.
+
+This layer also fixes the discipline for coordinate changes. The complex/Fermat strip, the ordered Euler cut, the oriented downcross ledger, the signed prefix lifetime residual, and the canonical defect ledger are proved to be one signed object, and each new energy proposition is stated as an open `Prop` and then proved *equal* to the pre-existing canonical oriented-run seam. Exact equality among coordinates removes duplicate seams and supplies no quantitative cancellation; the package records that explicitly rather than presenting a coordinate change as progress.
+
+## 26. The Euler contraction on the critical reciprocal carrier
+
+The native square-prefix argument does not delete a fresh-prime parent/child pair. It compresses the pair back onto the parent with the exact Euler factor $1-1/p$, and transporting that mechanism to the RH-critical rough covariance carrier gives
+
+$$
+v_R(c)+v_R(cp)=\Bigl(1-\frac1p\Bigr)v_R(c)+\frac{\mu(c)}{cp}\bigl(T+E-B\bigr),
+$$
+
+with $T$, $E$, $B$ the exact order-threshold, top-escape and lower-root birth cardinalities. No norm, independence assumption, or analytic estimate enters, and the factors accumulate exactly on the Boolean square, which is the finite model for a chronological descending compression.
+
+Four things then sharpen it.
+
+- **The zero mode is recoupled.** The protected object is the *uncentered* correlation $\mathrm{Corr}_R=M(R-1)-M(X_R)$, whose critical control is equivalent to the square-prefix energy criterion. The reciprocal parity zero mode obeys the same pure Euler factor with no defect, so adding back the response mean gives the uncentered coordinate with exactly the same defect law. The many-prime theorem is then iterated on the *actual* compressed parent carriers, with unpaired states retained in an explicit transported survivor ledger rather than pretending an arbitrary carrier is uniformly multiplied by the Euler product.
+- **One channel is eliminated.** On a complete sub-root Euler cube — full wheel product through $p$ still below $R$ — the threshold-loss channel is literally empty, top escapes are forced strictly beyond the root, and births stay strictly below it. The critical signed boundary is exactly post-root top escape minus lower-root birth. Beyond the root a fresh prime supplies no new contraction at all, so useful contraction has to be earned on sub-root primes.
+- **The defects telescope.** With its native $1/p$ restored, one physical defect shell is exactly $T_{P\cup\{p\}}(N)-(1-1/p)T_P(N)$: the discrepancy between the true next truncated Euler cube and the uniform contraction. Transporting these over a descending prime list is a telescope closing on the single boundary $T_L(N)-\prod_{q\in L}(1-1/q)$, which replaces the earlier majorant by a structural identity taken before absolute values.
+- **The return is exact.** The reciprocal-weighted upper column telescopes to one terminal boundary, while the literal physical columns carry no $1/q$ and therefore produce a prime-weighted discrete boundary variation. Finite summation by parts closes that into the primitive $\sum_{n<K}B_n(X)-K\,B_K(X)$, so the RH-critical object attached to the physical columns is that combination and not the endpoint boundary alone. Returning from reciprocal prefixes to the unweighted numerator is likewise an exact Abel transform, costing only an absolute constant.
+
+An adaptive variant of the same descent deletes only the paired child copy, so no survivor mass is frozen and every still-unpaired state stays available to later prime coordinates. There a descending schedule provably leaves no nontrivial squarefree survivor, the unweighted correlation annihilates with coefficient *zero* rather than an Euler factor, and the only obstruction to transporting an accumulated coefficient is a mismatch created when a commuting-square corner is missing from the physical carrier. Iterating gives a chronological formula with two explicit signed ledgers and nothing frozen.
+
+One honest negative belongs here. Injecting the three channels into explicit reciprocal windows does give the development's first global estimate on $T$, $E$ and $B$, but the step from three window cardinalities to one ledger is a triangle inequality, and it discards precisely the sign structure the compression was built to keep. The package states that, declines the same step on the critical windows, and records the route in `boundary/dead_lanes.json`.
+
+## 27. Block covariance, refinement, and family descent
+
+The Green--Kubo expansion is an identity about *pairs*, so partitioning the index range partitions the pairs. For signed blocks,
+
+$$
+S_K^2=E_K+2X_K,\qquad\text{hence}\qquad 2X_K=S_K^2-E_K,
+$$
+
+which says cross-block coherence is not a free adversary: it is pinned by the total mass and the block energy. A route that replaces the signed blocks by magnitudes and only then squares is allowing every block to align independently, and the identity above measures exactly what that discards.
+
+Instantiated at the literal square blocks this gives the partition of the global integer-order covariance into within-block and cross-block parts, on one carrier, with no domination hypothesis anywhere. Two exact consequences follow, and they pull in opposite directions.
+
+The square-block energy exceeds the exact squarefree diagonal by *precisely* twice the aggregate within-block covariance, $E-Q=2\sum_j C_j$. So proving $E\ll N^{1+\varepsilon}$ *is* proving that aggregate is of RH scale; the linear behaviour that finite measurement shows must not be promoted to a theorem. The way forward is not to bound $E$ but to refine it: each refinement of the blocks into signed children moves energy into the children and leaves an explicit signed cross term, and iterating to singletons makes the leaf energy exactly the squarefree diagonal, which is linear with no conjecture at all. Every unordered Möbius pair is then charged to the unique node at which its two entries first separate — the Green--Kubo identity rewritten as an Euler covariance tree, with every signed cross term preserved on the way down.
+
+The second consequence is a genuine descent. For a prime $p$ and cofactors below it, $\mu(pc)=-\mu(c)$ but $\mu(pc)\mu(pd)=\mu(c)\mu(d)$: multiplication by $p$ *reverses* family mass and *preserves* family pair covariance. A post-root prime family is therefore an isometric copy of a lower-scale prefix as far as covariance is concerned, and summing over post-root primes turns a supercritical scale into a sum of strictly lower-scale covariances. Stated as a descent on the signed aggregate covariance itself, this forbids a *minimal* supercritical excursion and hence any, which gives the one-sided frontier statement and the Mertens energy criterion.
+
+The same section records what the support-only route still owes, and the answer is a full power. Keeping the lag-zero diagonal sharpens the frontier capacity to $(F^2-Q)/2$, but the minimising pivot is $\ell=2$, whose frontier is the squarefree part of $(X/2,X]$ with density $2/\pi^2$, so $F$ is linear and $F^2$ stays quadratic. Two thresholds must also not be conflated: crossing the literal $\sqrt x$ line is the threshold of the *false* Mertens conjecture, whereas the RH threshold is the strictly weaker $C(x)\le x^{1+o(1)}$, and an RH-violating excursion of exponent $\varepsilon$ needs $C$ of order $x^{1+2\varepsilon}$ — a fixed power above target, not a constant factor.
+
+At run level the same algebra gives the seam its final form. The window identity splits the run covariance into a descended part and an escape remainder, *exactly*, for any proposed descended part; a nonpositive descended part together with RH-scale escape covariance gives the global criterion. What that escape must contain is stated rather than hidden: it holds the cross-square-block pairs any narrower descended part leaves behind. And the obvious candidate for the descended part is closed — on a subdoubling run, stripping a prime from a physical endpoint sends it below the run anchor, so the same-prime negative leaf is empty exactly where the frozen-prefix mechanism applies, the escape is literally the whole covariance, and the unique fresh-prime owner cube always straddles both run boundaries. Four-corner cancellation is genuinely nonlocal in square time.
+
+## 28. The first-jump residual and its recombination
+
+Ordered dense divisibility becomes quantitative at the root scale. With $s=\lfloor\sqrt R\rfloor$, a face of product at most $R$ that is triply predecessor-dense above $s$ has every prime coordinate at most $s$, since a coordinate $p>s$ would satisfy $p^4\le sR<(s+1)^4\le p^4$. So the dense part of every frozen predecessor window collapses *exactly* onto the smaller Boolean cube, leaving the complementary first-jump mass signed:
+
+$$
+F_{q^-}=F_{\sqrt R}+J_{q,\sqrt R}.
+$$
+
+The first jump is then one-dimensional: at the same physical cutoff, a jump $p>\sqrt R$ can have no later prime coordinate at all, because two primes above $\sqrt R$ already multiply past $R$. The residual is an exact high-prime ledger with a completed lower-scale Mertens gap at each prime, and no fixed-prime absolute value is taken.
+
+Estimating that ledger one first-jump prime at a time does not work, and the reason is now compiled. For a post-root prime with $R/2<p$ the packing factor $R/p$ is $1$, yet the same prime stays live under every later oriented owner $p<k\le(R^2-1)/p$; once the owner window is below $2p$ the whole canonical $p$-slice is the singleton Boolean face $\{p\}$ with signed mass $-1$, so the fixed-$p$ aggregate is exactly the negative cardinality of that owner interval — prime-count size. Expanding instead on a common low-cofactor carrier and swapping to global cofactor columns gives a cleaner object but not a smaller one: the proposed column estimate $\lVert G_R(d)\rVert\le R/d$ fails on direct finite tests for the same reason, and is retained only as a diagnostic conditional.
+
+The exact correction is recombination. The first-jump aggregate has to be joined with the square-root-dense piece *before* a critical norm is taken, and the recombined scalar is exactly the canonical defect ledger — through the vertical-line normalization, the signed squarefree shell between $R$ and $R^2$. On that object the canonical rough correlation differs by only the single root Möbius atom, and its reciprocal prefixes are precisely the coordinate on which the Euler factor $1-1/p$ of section 26 acts. A uniform reciprocal-prefix bound of size $(\log R+1)/R$ then gives the root-scale bound on the recombined defect, with no first-jump-prime or cofactor-column norm inserted anywhere in the argument.
+
+The same bridge carries the post-root subtraction. Grouping post-root primes by reciprocal band gives a family covariance that is exactly a band cardinality times a lower-scale covariance, the total family covariance is an energy difference, and what is left over is exactly the Bessel defect — so "the post-root remainder is linear" and "the Bessel defect is linear" are one hypothesis, not two. That subtraction is a genuine partition rather than an inclusion--exclusion estimate: two distinct post-root primes cannot divide a common physical site below the endpoint, so the literal family pair carriers are pairwise disjoint.
+
+Underneath both sits an exact signed descent on the quadratic carrier. Every nonzero physical pair has a unique first differing Euler prime; that owner strictly decreases under stripping, the parent’s fresh-prime set is the child’s with the owner erased, and the pair is one *mixed* corner of the owner’s fresh-prime square. Stripping the owner therefore reverses the pair weight exactly, which is what makes owner promotion a finite signed descent rather than a re-indexing.
+
+## 29. The forward analytic consumer is unconditional
+
+Two statements about conditionality have to be kept apart, and this section is the one that changed.
+
+The reduction from the projected-renewal Gram form down to $\lVert M(x)\rVert^2\le C(x+1)^{1+\varepsilon}$ is proved outright: no criterion, realization, partition, or low-increment control is supplied by the caller, and the only hypothesis is nonnegativity of the slope. Above it, the classical Mertens criterion used to be accepted as an ordinary theorem argument — visible in the signature, absent from `#print axioms`, and never constructed here.
+
+The direction the route actually consumes is now constructed. From $\sum\mu(n)n^{-s}=1/\zeta(s)$, partial summation gives convergence on $\mathrm{Re}\,s>1/2$; the limit is analytic there and agrees with $1/\zeta$ on $\mathrm{Re}\,s>1$; the identity theorem forces $\zeta\ne0$ on $\mathrm{Re}\,s>1/2$; and the functional equation reflects that to the left half. No contour shifting and no zero-free region is used. The reverse implication needs the harder contour argument, is not needed by this route, and is not asserted.
+
+Consequently `RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy` has the square-prefix energy estimate as its *only* hypothesis, and it is guarded by `#print axioms` with the same three standard axioms as the rest. The historical equivalence theorems still take the full classical criterion as an argument, and that conditionality remains visible in their signatures; the forward route no longer does.
+
+## 30. What is not sufficient
 
 The following do not advance the quantitative frontier by themselves:
 
@@ -461,7 +620,14 @@ The following do not advance the quantitative frontier by themselves:
 - a cardinality match between the stable processed-seat population and the tagged no-liberty boundary in place of the weight-preserving equivalence, since equal counts do not produce the signed identity;
 - a fresh estimate on the isolated Go crossing kernel, when every strict crossing already has an opposite-sign partner inside the global transport identity and only the exact root-equality face remains;
 - a global energy decrement asserted from terminal control, which the exact telescope makes equivalent to the conclusion rather than a route to it;
-- a low-prime frontier estimate presented as new analytic content, when the recoupling identity shows the only non-elementary amplitude in the terminal state is the historical matched $A-T$ core.
+- a low-prime frontier estimate presented as new analytic content, when the recoupling identity shows the only non-elementary amplitude in the terminal state is the historical matched $A-T$ core;
+- a bound on the square-block energy $E$ presented as an independent linear fact, when $E-Q=2\sum_j C_j$ makes it exactly the aggregate within-block covariance;
+- an estimate on the surviving support of an Euler peel, or on the unsigned mass of the downcross ledger, since both are provably superlinear and leave a full power;
+- a matching that restores state-dependent freedom on a raw interval carrier, which the top-half primes obstruct outright;
+- a fixed first-jump-prime or fixed cofactor-column norm, in place of recombining the first-jump aggregate with the square-root-dense piece before any norm;
+- a square-run split whose descended part is the fixed-prime leaf, which is empty on exactly the subdoubling windows where the mechanism applies;
+- a linear seam $\lVert D_R\rVert\le CR$, which is strictly stronger than RH needs and would give the strong Mertens bound;
+- a further coordinate identification of the vertical, ordered Euler, oriented, lifetime and canonical defect ledgers, which are already proved equal, with their energy statements proved equal too.
 
 The target remains the signed object itself.
 
@@ -479,21 +645,37 @@ so the existence of any admissible coefficient vector is a statement at least as
 
 4. **The literal same-site collision-defect quotient.** The strongest literal realization of the section-4 chain weights every defect label by the corrected prime-wheel field on the same physical site that realizes its selected-prime square collision. Every such weight vanishes at the square hit, so every step mass and hence every finite bounded chain mass is zero, contradicting the first nontrivial square prefix $-1$; this is a kernel-checked contradiction, not an estimate. The adjacent-cell escape fails too: for $p\ge7$ a $p^2$ hit leaves only exponent states $0$ and $2$ across the current and next active cells, and the exponent flip exchanges $0$ and $1$ while fixing $2$, so any realized flip in those two cells is the trivial square state where both corrected weights vanish. A viable quotient must transport a collision label to a different arithmetic fibre before reading its corrected weight, and must then separately prove that the transport preserves square-block mass and has bounded global multiplicity.
 
-## 23. Recommended order of work
+5. **Unsigned support capacity.** Bounding the covariance by a count of surviving support fails by a full power, in three separate places. The minimising Euler pivot is $\ell=2$, whose first-failure frontier is the squarefree part of $(X/2,X]$ with density $2/\pi^2$, so $F$ is linear and even the sharpened capacity $(F^2-Q)/2$ stays quadratic against an $x^{1+\varepsilon}$ target. The triangle inequality $\lVert T+E-B\rVert\le T+E+B$ on the reciprocal defect ledger discards exactly the Euler sign structure the compression was built to preserve. And the canonical downcross ledger has superlinear unsigned mass, since $k\mapsto(1,k)$ embeds every prime of $(R,R^2-1]$ at the empty face with weight $+1$, so no bound of the shape $CR$ survives discarding signs there either. A capacity theorem has to be a signed identity or recurrence taken *before* absolute values.
+6. **Adaptive matching on the raw prefix carrier.** Allowing the matching prime to depend on the state does not rescue $(0,x]$. Every squarefree site has a legal move, so the true no-liberty boundary is square hits only and carries no mass; a liberty-exhausting mate would force $M(x)=0$. Independently, every prime $p$ with $x<2p$ has the single legal move $p\mapsto1$, so all top-half primes compete for one neighbour and any adaptive involution has fixed set of size at least $\pi(x)-\pi(x/2)-1$. This is a negative control, and it is what makes the processed-seat multiplicity load-bearing rather than cosmetic.
+7. **A fixed first-jump-prime seat bound.** For $R/2<p$ the numerical packing factor is $1$, yet the canonical $p$-slice stays live under every later oriented owner in $(p,(R^2-1)/p]$ and aggregates to the negative cardinality of that interval. The proposed global cofactor-column replacement $\lVert G_R(d)\rVert\le R/d$ fails on direct finite tests for the same reason. The correction is recombination with the square-root-dense piece, and the recombined scalar is the canonical defect ledger.
+8. **The fixed-prime descended leaf on subdoubling runs.** Splitting a square-run covariance into a same-prime negative leaf and a top-escape remainder is circular where it applies: stripping any prime from a physical endpoint of a subdoubling run sends it strictly below the run anchor, so the leaf is empty and the escape is literally the whole covariance, whose RH-scale bound is equivalent to the global criterion. The unique fresh-prime owner cube always straddles both run boundaries, so four-corner cancellation is genuinely nonlocal in square time.
 
-The exact layers above are complete, and further identities are not the bottleneck. What is missing is one genuine inequality on a single signed state. Ordered by whether the success mode can produce a power saving at all:
+## 31. Recommended order of work
 
-1. **Scale-descent contraction.** A fixed contraction factor $\rho<1$ per dyadic scale, iterated over $\log R/\log 2$ descents, yields $\rho^{\log R}=R^{-c}$ — a power. This is the only proposal on the table whose success mode is dimensionally capable of reaching the target, and it requires a contraction that is *not* the local Walsh multiplier, since that one is capped at $(\log y)^{-2}$.
-2. **A global sign-reversing involution on factorization paths**, performed before absolute values, turning the observed anti-alignment of the born-smooth and transport populations into an exact combinatorial symmetry. The same-sign top block of section 10 is the sharp design constraint: it admits no internal pairing, so any such involution must move it wholesale against smooth partners and cannot be local in the prime coordinates.
-3. **The canonical rough-prime correlation** of section 12. This is now the most concrete open statement in this package: one finite correlation between the Möbius parity field and one intact rough-prime response field, with the packet baseline explicit and no norm taken anywhere on the way to it.
-4. **The canonical transport defect** of section 13, a signed estimate on a single first-failure frontier ledger whose states are an explicit adjacent multiplicative shell.
-5. **The collision-defect chain** of section 4, still the sharpest conditional route packaged in Lean, but now restricted by the refutation in section 22 to realizations that transport a label off its own square-hit site.
-6. **The no-liberty rematching theorem** of section 19. This is not an inequality but a construction, and it is the only step separating the compiled processed-seat Othello cancellation from the tagged endpoint boundary. It is also the most sharply specified open item in this package: the interface, the four target classes, and the weight-preservation requirement are all already stated in Lean.
-7. **The matched-core bound** of section 21, $\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt K$, or equivalently a cardinality theorem at scale $R\sqrt K$ for the owned response-matching frontier. Both forms are conditional theorems already in the package, so either one closes the endpoint estimate without further coordinate work.
-8. Transfer any resulting complete-cell or square-prefix estimate to arbitrary cutoffs using the proved additive-$3$ endpoint theorem and the nearest-square endpoint domination of section 14, then feed it through the existing recovered-wheel, Mertens-energy, and completed-zeta bridge.
+The exact layers above are complete, and further identities are not the bottleneck. What is missing is one genuine inequality on a single signed state. This revision changed which state that should be: five coordinate systems were proved to be one object, the pair sum is now squared before any absolute value on three different carriers, and an exact Euler contraction acts on the critical one. Ordered by whether the success mode can produce a power saving at all:
 
-The bottleneck is no longer an unspecified local pairing theorem, and no longer a missing coordinate identity. It is the **global bounded-multiplicity control of the exact signed defects that remain after the proved local cancellations**.
+1. **The positive line covariance.** After the squarefree diagonal sharpening, the entire vertical-line energy is $\lVert V(a,b)\rVert^2\le 2a^2+2\max(0,C_{\text{line}})$ on strict subdoubling runs. The diagonal is already at the required scale, the carrier is exactly the squarefree shell $\{n:R<n<R^2\}$, and every failure of prime-family descent is one of two named physical walls. This is the sharpest statement of the remaining problem in the package, and it is a statement about a signed covariance, not about a population.
+2. **A contractive recursion for that covariance.** The exact reciprocal Euler contraction $1-1/p$ of section 26 acts on the critical coordinate, with the threshold channel empty on a complete sub-root wheel and the defect shells telescoping to one truncated-wheel boundary. The open question is whether that contraction can be transported onto the now-identified vertical/canonical-defect increment while birth and top escape remain a signed physical defect, so that the positive covariance obeys a genuinely contractive recursion of the shape
+   $$
+   C_{\text{current}}=\text{contracted lower-prefix covariance}+\text{signed boundary defect}.
+   $$
+   Every stable prime family must be reindexed to a strictly lower prefix, the contraction coefficient must come from an exact Euler factor rather than an assumed density, every failure of descent must be explicitly a wall crossing, and no triangle inequality may be applied until all cross-family signed cancellation has been exposed. If such a recursion exists, iterate it before estimating the remaining boundary.
+3. **Refinement rather than a bound on the block energy.** $E-Q=2\sum_j C_j$ makes bounding $E$ the same problem, but each refinement step moves energy into children plus an explicit signed cross term and terminates at the linear squarefree diagonal. Combined with the post-root family isometry, this is the descent formulation, and it is the one route in the package whose intermediate quantities are allowed to oscillate arbitrarily.
+4. **Global bounded multiplicity on a peel boundary.** A cumulative prefix is exactly two walls, and the construction iterates. The single-prime wall cardinalities are honest but not yet a saving; the missing theorem is a multiplicity bound on the iterated boundary, which is a statement about a boundary rather than about individual Möbius seats.
+5. **The canonical rough-prime correlation** of section 12, one finite correlation between the Möbius parity field and one intact rough-prime response field, with the packet baseline explicit and no norm taken on the way to it.
+6. **The canonical transport defect** of section 13, a signed estimate on a single first-failure frontier ledger whose states are an explicit adjacent multiplicative shell.
+7. **The collision-defect chain** of section 4, still the sharpest conditional route packaged in Lean, restricted by the refutation in section 30 to realizations that transport a label off its own square-hit site.
+8. **The no-liberty rematching theorem** of section 19. This is a construction rather than an inequality, and its four branches are now built individually with membership, injectivity and exact weight preservation; what remains is the classifier that routes every source state to a branch, plus the one named `Partial` budget.
+9. **The matched-core bound** of section 21, $\lVert\mathrm{Matched}_R\rVert\le 3R\sqrt K$, or the sharper Mertens tracking form. Because $M(R^2-1)-A_{\mathrm{pos}}(R)$ is *exactly* the matched channel, the tracking hypothesis is literally the matched-channel bound and reaches the terminal imbalance at $CR+R+K$ rather than $(C+8)R+K$. Bounding $M(R^2-1)$ and the middle population separately would not help: it would force $M(x)=O(\sqrt x)$, so the content is entirely in the correlation between them.
+10. Transfer any resulting complete-cell or square-prefix estimate to arbitrary cutoffs using the proved additive-$3$ endpoint theorem and the nearest-square endpoint domination of section 14, then feed it through the recovered-wheel and Mertens-energy bridges into the forward analytic consumer, which now carries no criterion hypothesis of its own.
 
-Stated in the newest coordinates, that is one inequality on one of three explicit finite objects: the Möbius/rough-prime correlation left by the post-crossing renewal, the canonical least-prime transport defect left by the double-cube involution, or the owned response-matching frontier left after every fresh-prime matching on the processed-seat carrier. All three are signed, all three are prime-count-free, and all three are reached without a single triangle inequality.
+The bottleneck is no longer an unspecified local pairing theorem, no longer a missing coordinate identity, and no longer a choice of carrier. It is the **signed cancellation of a positive aggregate covariance on a carrier that is already normalized, already squared before absolute values, and already equipped with an exact Euler contraction**.
 
-Separately from those inequalities, one exact construction is outstanding: the weight-preserving equivalence of section 19. It is the only place in this package where a compiled cancellation theorem is waiting on a rematching map rather than on an estimate.
+Any candidate closure must survive four checks the package can already apply to it.
+
+1. **Support-only no-go.** Support and capacity control is a full power too weak, in every coordinate where it has been tried. A proof that ultimately bounds the critical signed defect by its cardinality is not the missing argument.
+2. **Top-escape no-go.** On strict subdoubling runs the natural same-prime nonpositive leaf can be empty and its top escape can equal the whole square-run covariance. "Top escape is thin" is not by itself a gain.
+3. **No selected-carrier sign balance.** The limiting $40/30/30$ Möbius density cannot be transferred to the birth/death/escape carrier without proof. The safe use of squarefree density is the diagonal sharpening already compiled.
+4. **No hidden RH-strength input.** If an intermediate lemma would itself imply the terminal energy estimate by a trivial bridge, it is the hard theorem rather than an elementary auxiliary fact — and the linear downcross seam is exactly such a case, since it would give the strong Mertens bound.
+
+Separately from those inequalities, one exact construction is outstanding: the weight-preserving classifier of section 19. It remains the only place in this package where a compiled cancellation theorem is waiting on a rematching map rather than on an estimate.

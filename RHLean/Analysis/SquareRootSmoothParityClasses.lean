@@ -89,6 +89,35 @@ theorem squareRootSmoothMass_eq_one_sub_smallPrimeReciprocalTransform
   unfold squareRootSmallPrimeReciprocalTransform
   ring
 
+/-- **Whole-endpoint collapse.**  Once the positive-orientation and matched
+channels are recombined before taking norms, their prime-indexed Mertens modes
+cancel identically.  The complete square-prefix Mertens value is therefore the
+unit source minus the single unified reciprocal Euler transform over the entire
+prime range through `R^2-1`. -/
+theorem squarePrefixMertens_eq_one_sub_unifiedReciprocalTransform
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.squarePrefixMertens (R - 1) =
+      1 - squareRootUnifiedReciprocalTransform R := by
+  rw [squarePrefixMertens_eq_neg_positivePrimeTransform_add_matched R (by omega),
+    squareRootMatchedBornSmoothTransport_eq_unifiedReciprocalForm R hR]
+  ring
+
+/-- The same collapse on the physical completed-square endpoint
+`X_R = R^2-1`.  This is the exact whole-endpoint target to differentiate in
+prime chronology; no separate positive-smooth or matched estimate remains in
+this coordinate system. -/
+theorem mertensSummatory_squareRootEndpoint_eq_one_sub_unifiedReciprocalTransform
+    (R : ℕ) (hR : 2 ≤ R) :
+    RHLean.Analysis.mertensSummatory (squareRootEndpoint R) =
+      1 - squareRootUnifiedReciprocalTransform R := by
+  have h := squarePrefixMertens_eq_one_sub_unifiedReciprocalTransform R hR
+  unfold RHLean.Analysis.squarePrefixMertens at h
+  have hend :
+      RHLean.Analysis.squarePrefixEndpoint (R - 1) = squareRootEndpoint R := by
+    unfold RHLean.Analysis.squarePrefixEndpoint squareRootEndpoint
+    rw [Nat.sub_add_cancel (by omega : 1 ≤ R)]
+  rwa [hend] at h
+
 /-- The RH-scale statement for the positive-orientation mass, i.e. for the
 parity-class balance of the small-prime pool on its own.  Named proposition
 only; nothing here asserts or assumes it. -/

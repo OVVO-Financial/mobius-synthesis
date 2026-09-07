@@ -176,6 +176,58 @@
         "numeric": "none"
       },
       "what_would_reopen": "A distinct comb normalization for which the doubling is exact rather than off by the boundary prime, together with a reason the resulting criterion is not a restatement of the existing one."
+    },
+    {
+      "id": "unsigned-support-capacity",
+      "title": "Reach the critical scale by counting the surviving support of an Euler peel",
+      "kind": "ceiling",
+      "closed_on": "2026-09-02",
+      "claim": "Exposing the first-failure frontier of an Euler pivot, or the surviving population of a signed defect ledger, bounds the covariance well enough for RH scale.",
+      "obstruction": "The bound produced is a cardinality, so it costs the sign structure the compression was built to keep. The minimising pivot is ell = 2, whose frontier is the squarefree part of the top-half window (X/2, X] and therefore linear in X with density 2/pi^2. A linear frontier still leaves a quadratic F^2 capacity, a full power above the x^(1+eps) target, and restoring the exact squarefree diagonal only replaces F(F-1)/2 by the still-quadratic (F^2-Q)/2. The same objection closes the triangle inequality on the threshold/top-escape/birth ledger, and the downcross ledger has superlinear unsigned mass, so no bound of the shape C*R survives discarding signs there either.",
+      "evidence": {
+        "lean": "RHLean/Analysis/MertensCovarianceDescent.lean, RHLean/Proof/CanonicalRoughDefectLedgerBound.lean, RHLean/Proof/LowWheelCanonicalDowncrossBoundaryMultiplicity.lean",
+        "numeric": "frontier capacity and peel measurements recorded in EMPIRICAL_DIAGNOSTICS.md"
+      },
+      "what_would_reopen": "A capacity theorem stated as a signed identity or recurrence taken before absolute values, of the kind the many-prime cube identity and the covariance descent supply."
+    },
+    {
+      "id": "raw-prefix-adaptive-matching",
+      "title": "Cancel a cumulative prefix by allowing the prime toggle to depend on the state",
+      "kind": "refuted",
+      "closed_on": "2026-09-02",
+      "claim": "State-dependent freedom in choosing which prime edge to match along is enough to exhaust the liberties of the raw prefix carrier (0, x] and expose only a small boundary.",
+      "obstruction": "Two independent obstructions. Every squarefree site of (0, x] has a legal move, so a liberty-exhausting mate would force M(x) = 0. And every prime p with x < 2p has the single legal move p -> 1, so all top-half primes compete for one neighbour and any adaptive involution has a fixed set of at least pi(x) - pi(x/2) - 1 states. The carrier, not the matching, is what has to change.",
+      "evidence": {
+        "lean": "RHLean/Proof/AdaptivePrimeMatching.lean",
+        "numeric": "maximum adaptive matching still leaves ~0.166 x exposed; see EMPIRICAL_DIAGNOSTICS.md"
+      },
+      "what_would_reopen": "Nothing on the raw integer carrier. A carrier that already records the relevant multiplicities, such as the processed-seat response population, does not have the star bottleneck and is where the no-liberty architecture is developed."
+    },
+    {
+      "id": "fixed-first-jump-prime-seat-bound",
+      "title": "Bound the first-jump residual one first-jump prime at a time",
+      "kind": "refuted",
+      "closed_on": "2026-09-06",
+      "claim": "A fixed post-root first-jump prime p contributes a residual of size at most R/p, so summing over p reaches the root-scale target.",
+      "obstruction": "For R/2 < p the packing factor R/p is 1, yet the same first-jump prime stays live under every later oriented owner k with p < k <= (R^2-1)/p. Once the owner window is below 2p the whole canonical p-slice is the singleton Boolean face {p} with signed mass -1, so the fixed-p aggregate is exactly the negative cardinality of that owner interval, which is of prime-count size. The proposed cofactor-column replacement ||G_R(d)|| <= R/d fails on finite tests for the same reason.",
+      "evidence": {
+        "lean": "RHLean/Proof/FirstJumpPrimeSliceObstruction.lean, RHLean/Proof/GlobalFirstJumpCofactorCompression.lean",
+        "numeric": "direct finite evaluation of the cofactor columns"
+      },
+      "what_would_reopen": "Nothing at fixed first-jump prime or fixed cofactor column. The first-jump aggregate has to be recombined with the square-root-dense piece before any norm; that recombined scalar is the canonical defect ledger."
+    },
+    {
+      "id": "fixed-prime-descended-leaf-on-subdoubling-runs",
+      "title": "Use the same-prime negative covariance leaf as the descended part of a square-run split",
+      "kind": "circular",
+      "closed_on": "2026-09-03",
+      "claim": "Splitting the square-run covariance into a fixed-prime descended leaf and a top-escape remainder makes the remainder the small object.",
+      "obstruction": "On a subdoubling run, stripping any prime from a physical endpoint sends it strictly below the run anchor, so the same-prime leaf (m, p*m) is empty exactly on the windows where the frozen-prefix mechanism applies. The descended part is therefore identically zero there and the top escape is literally the whole square-run covariance, whose RH-scale bound is equivalent to the global Mertens energy criterion.",
+      "evidence": {
+        "lean": "RHLean/Analysis/SquareRunTopEscapeClassification.lean, RHLean/Analysis/SquareRunFreshPrimeCubeBoundary.lean",
+        "numeric": "none required; the emptiness is exact"
+      },
+      "what_would_reopen": "A descended part built from genuinely nonlocal four-corner cancellation across square time, rather than from a fixed-prime leaf inside one window."
     }
   ],
   "not_closed": {

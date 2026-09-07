@@ -6,12 +6,15 @@ The gate is a **scope gate**, not a mathematical novelty oracle. It prevents the
 
 ## Current research-status note
 
-The repository has two quantitative descriptions that must be kept distinct.
+The repository has three quantitative descriptions that must be kept distinct.
 
 1. `boundary/frontier.json` certifies the **canonical square-wheel nonzero-response frontier** `H_{k,n}`. Its certified kind remains `exact_reduction`, because no pointwise power exponent below `1` has been proved for that object.
 2. The native PNT layer has a **proved generalized affine envelope and strict low-slope cubic contraction**, plus conditional square-root conversion theorems from explicit cutoff or intercept laws. The missing theorem there is RH-compatible physical cutoff control.
+3. The covariance layer now has **unconditional inequalities** — the exact squarefree line-event diagonal, the frozen-run root-interval gap, the reciprocal defect ledger, and the quartic downcross ledger bound — none of which is at the critical scale. Several are deliberately recorded as being *worse* than the trivial bound, and the modules say so.
 
-The second fact is genuine quantitative progress, but it does **not** mutate the first certificate. A PR must never change `boundary/frontier.json` merely because it improves an affine PNT contraction constant or proves another conditional conversion theorem. The canonical `H_{k,n}` certificate advances only when the canonical predicate itself is strengthened.
+The second and third facts are genuine quantitative progress, but neither mutates the first certificate. A PR must never change `boundary/frontier.json` merely because it improves an affine PNT contraction constant, proves another conditional conversion theorem, or adds an unconditional but supercritical covariance inequality. The canonical `H_{k,n}` certificate advances only when the canonical predicate itself is strengthened.
+
+A fourth distinction now matters for Lane B. An exact identification of two coordinate systems is admissible only together with the theorem that their energy statements coincide. The package proves five descriptions of the signed endpoint object equal, and in every case the accompanying energy proposition is proved equal to the pre-existing canonical oriented-run seam. A synthesis candidate that identifies a new coordinate without that companion theorem is a renaming, and the gate should be read as rejecting it under the "new basis, reindexing, or equivalent energy" clause below.
 
 `CURRENT_PROOF_ROUTE.md` records both live quantitative fronts and their relationship.
 
@@ -72,7 +75,10 @@ The gate rejects a Lean research PR if it satisfies neither lane. In particular,
 - newly invented anchor declarations used to self-certify the same PR;
 - a quantitative frontier edit that does not strictly strengthen the certified canonical bound;
 - relabeling a conditional square-root conversion theorem as an unconditional RH-scale result;
-- relabeling the improved affine PNT contraction as a certified `H_{k,n}` exponent.
+- relabeling the improved affine PNT contraction as a certified `H_{k,n}` exponent;
+- an unconditional inequality that is supercritical, or weaker than the trivial bound, presented as frontier movement;
+- a new coordinate for the signed endpoint object without the companion theorem that its energy statement equals the existing seam;
+- a bound obtained by discarding signs — a support count, a capacity, or a triangle inequality over separately counted channels — where `boundary/dead_lanes.json` already records the route as closed.
 
 ## Maintenance changes
 

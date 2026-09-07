@@ -345,9 +345,10 @@ The standalone source lives under `RHLean/`, and the root module `RHLean.lean` i
   - assigns canonical homes to the terminal no-liberty boundary and defines its signed weight.
 
 - `RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv`
-  - states the weight-preserving finite equivalence interface `SquareRootLowPrimeNoLibertyWeightEquiv` at the seam between the stable processed-seat population and the tagged endpoint boundary;
-  - proves that any such equivalence transfers the whole signed sum, hence identifies tagged boundary mass with the running imbalance;
-  - leaves the arithmetic construction of the equivalence itself as the open obstruction, over the four endpoint classes head, partial packet, born no-successor, and Go root equality.
+  - states the weight-preserving interface at the seam between the stable processed-seat population and the tagged endpoint boundary, as a pointwise map between finite subtypes rather than a Finset equality, since the two live in different coordinate types;
+  - packages the already-proved equality of the stable set with the descending processed frontier as a value-preserving subtype equivalence;
+  - proves that any such equivalence transfers the whole signed sum, hence identifies tagged boundary mass with the running imbalance, and records that an injective weight-preserving classifier is enough for quantitative closure, the full equivalence being needed only when surjectivity is also available;
+  - leaves the arithmetic construction itself as the open obstruction, over the four endpoint classes head, partial packet, born no-successor, and Go root equality. The individual branches are built in the processed-seat classifier section below.
 
 ## Low-prime running state, telescopes, and the matched frontier
 
@@ -415,15 +416,283 @@ The standalone source lives under `RHLean/`, and the root module `RHLean.lean` i
 - `RHLean.Proof.SquareRootLowPrimeDeepResponseAtoms` and `RHLean.Proof.SquareRootLowPrimeResponseSeatAtomEquiv`
   - identify deep response weights as uniquely owned prime-extension atoms and the abstract unit seats as a literal enumeration of the born/post-root prime partners.
 
-## Retired experiments
+## Global Othello cancellation on a cumulative carrier
 
-These modules are kept because a published research record should say which routes were tried and abandoned, not only which ones worked. Each is exact and compiles; none is load-bearing.
+The sitewise Othello laws describe what one move does to one site. A cumulative
+sum asks a different question, and these modules play the same laws on a whole
+region at once, before any absolute value is taken.
+
+- `RHLean.Proof.GlobalPrefixCarrierOthello`
+  - defines the carrier toggle `tau_p`, an involution of the naturals whose moving states are exactly the `p^2`-free sites, where `mu (tau_p n) = -mu n`, and whose frozen states are exactly the square hits, which carry no Möbius mass;
+  - proves that the signed mass of any finite region equals the signed mass of its escape part, so the whole interior cancels in mated pairs;
+  - proves the same equality survives peeling a list of distinguished primes, leaving the iterated boundary;
+  - states the scope honestly: this is a global *pairing* by two cycles of one fixed prime, not an alternating-component argument, and it contains no birth-to-capture cancellation.
+
+- `RHLean.Proof.PrefixCarrierOthelloWalls`
+  - identifies the escape part of the ordered prefix carrier `(L, x]` with exactly two walls, the anchor wall `n <= p*L` and the cutoff wall `x < n*p`;
+  - records the honest single-prime population bounds for both walls, which are the quantities an iterated multiplicity theorem has to control rather than a saving in themselves.
+
+- `RHLean.Proof.AdaptivePrimeMatching`
+  - isolates the state-dependent notion the no-liberty architecture actually uses, in which the matching prime may depend on the state, and derives sign reversal rather than assuming it;
+  - proves the raw prefix carrier `(0, x]` admits no liberty-exhausting mate, since every squarefree site has a legal move and such a mate would force `M(x)=0`;
+  - proves every adaptive mate on `(0, x]` has fixed set of size at least `pi(x) - pi(x/2) - 1`, because all top-half primes compete for the single neighbour `1`;
+  - is a negative control, not a template: it shows the processed-seat multiplicity is mathematically load-bearing.
+
+- `RHLean.Proof.LifetimeRunCancellation`
+  - proves the genuinely trajectory-based statement: an atom born after a run starts and captured before it ends contributes zero whatever its lifetime, since the activity increments telescope;
+  - proves death is permanent on the actual active predicate, so the half-open interval model is faithful;
+  - states the aggregate run identity in the existing `Active = Birth - Death` endpoint coordinates, and records that explicit birth and capture times are not constructed.
+
+- `RHLean.Analysis.PrimeWheelRunOthelloBoundary`
+  - rewrites the pinned primorial-wheel residual as the anchor wall plus the cutoff wall of its prefix carrier;
+  - does the same for a whole consecutive run of complete square blocks, composing the known square telescope with the fixed-prime wall reduction;
+  - proves that an iterated boundary of RH-scale population gives the Mertens energy criterion, so the remaining problem is a multiplicity bound on a run boundary rather than a statement about individual Möbius seats.
+
+## Signed block covariance and the descent formulation
+
+- `RHLean.Analysis.BlockCovarianceDecomposition`
+  - proves `S^2 = E + 2X` for signed blocks, so cross-block coherence is pinned by the total mass and the block energy rather than free;
+  - measures exactly what a magnitude-first step discards, namely twice the cross-covariance defect;
+  - instantiates at the literal square blocks, giving the partition of the global integer-order covariance into within-block and cross-block parts on one carrier.
+
+- `RHLean.Analysis.BlockCovarianceRefinement`
+  - proves `E - Q = 2 sum_j C_j`, so proving the square-block energy is of RH scale *is* proving the aggregate within-block covariance is, and the measured linearity must not be promoted;
+  - proves each refinement step moves energy into children plus an explicit signed cross term, with the leaf energy exactly the linear squarefree diagonal;
+  - proves a post-root prime family is an isometric copy of a lower-scale prefix for pair covariance, since multiplication by `p` reverses family mass but preserves `mu(pc)mu(pd) = mu(c)mu(d)`.
+
+- `RHLean.Analysis.MertensCovarianceDescent`
+  - states the one-sided positive-lag frontier as a descent on the signed aggregate covariance itself, and proves that forbidding a minimal supercritical excursion gives the Mertens energy criterion;
+  - proves the sharper support bound `C <= (F^2-Q)/2` once the lag-zero diagonal is kept, and records that it is still quadratic;
+  - separates the false Mertens threshold `C > Z/2` from the RH threshold `C <= x^(1+o(1))`, and records that support exhaustion alone cannot close the argument.
+
+- `RHLean.Analysis.SquareRunEscapeCovariance`
+  - states the seam at run level, where a uniform bound on every consecutive complete-square run finishes the wheel by deterministic bookkeeping;
+  - proves the exact window Green--Kubo identity and splits the covariance into a descended part and an escape remainder, exactly for any proposed descended part;
+  - proves that a nonpositive descended part together with RH-scale escape covariance gives the global Mertens energy criterion;
+  - records what the escape part must contain, in particular the cross-square-block pairs any narrower descended part leaves behind.
+
+- `RHLean.Analysis.SquareRunTopEscapeClassification`
+  - proves that on a subdoubling run, stripping a prime from a physical endpoint sends it strictly below the run anchor, so a first-owner pair is necessarily a boundary cube and the same-prime negative leaf is empty;
+  - concludes that the natural fixed-prime descended leaf contributes exactly zero on precisely the windows where the frozen-prefix mechanism applies, and that an RH-scale bound on the resulting top escape is equivalent to the Mertens energy criterion.
+
+- `RHLean.Analysis.SquareRunFreshPrimeCubeBoundary`
+  - proves the unique fresh-prime owner cube of a subdoubling run always straddles both run boundaries, so four-corner cancellation is genuinely nonlocal in square time and the run does not decompose into complete interior cubes.
+
+## Frozen square runs and the canonical downcross frontier
+
+- `RHLean.Arithmetic.DyadicFrozenPrefix` and `RHLean.Analysis.FrozenSquareRunKernel`
+  - package the subdoubling identity in the divisor coordinate: on a run with `(b+1)^2 <= 2a^2`, the signed frozen kernel $K(a,b)=\sum_{d<a^2}\mu(d)\,w_{a,b}(d)$ is exactly the negative new Möbius mass, and no value of `mu` created inside the run appears in it;
+  - square the whole signed divisor sum rather than any term of it, and prove the resulting criterion equivalent to the global Mertens and wheel criteria through a three-quarter anchor recurrence.
+
+- `RHLean.Analysis.FrozenSquareRunDowncrossBridge`
+  - proves the fresh-prime window law `W_{S+p}(A,B) = W_S(A,B) - W_S(A/p, B/p)`, so a new Euler prime contributes one compressed predecessor-cube window rather than an independent copy of a parent;
+  - combines the frozen kernel with the canonical endpoint involution `M(R^2-1) = M(R) - D_R` to give `K(a,b) = (M(a)-M(b+1)) + (D_{b+1}-D_a)`, whose Mertens gap costs at most the root interval length;
+  - proves the resulting difference-only statement equivalent to the frozen-square-run, global Mertens-energy, signed square-run, and primorial-residual criteria;
+  - applies exact late-parent cancellation at both endpoints, so the difference is literally that of the canonically oriented Euler first-crossing ledgers.
+
+- `RHLean.Proof.LowWheelCanonicalOrientedFrozenFibres` and `RHLean.Proof.LowWheelCanonicalOrientedRunFibres`
+  - identify the Boolean faces charging one oriented state with the frozen faces of the old prime universe below its canonical pivot, so a state's signed face mass is one frozen predecessor-window mass;
+  - regroup both run endpoints onto a common state carrier in which each state keeps the same canonical owner and only its two window endpoints move with the root.
+
+- `RHLean.Proof.LowWheelCanonicalSqrtDenseContraction`
+  - proves that a face of product at most `R` that is triply predecessor-dense above `sqrt R` has every coordinate at most `sqrt R`, so the dense part of a frozen window collapses exactly onto the smaller Boolean cube;
+  - proves a first jump above `sqrt R` admits no later prime coordinate at all, so the first-jump residual is an exact one-dimensional high-prime ledger with a completed lower-scale Mertens gap at each prime.
+
+- `RHLean.Proof.LowWheelCanonicalDowncrossBoundaryMultiplicity`
+  - proves boundary multiplicity: the faces charging one boundary state are carried injectively into a single state-dependent integer window, so a state's whole ownership set is one interval;
+  - proves at most `R` of the $2^{\pi(R)}$ faces carry any downcross mass, and gives the first unconditional inequality on the ledger norm;
+  - proves the unsigned ledger mass already dominates `pi(R^2-1) - pi(R)` at the empty face alone, so no bound of the shape `C*R` can be reached by discarding signs.
+
+- `RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam` and `RHLean.Proof.SquareRootCanonicalOrientedEpsilonBound`
+  - name the quantitative proposition at the seam and prove it implies the square-prefix energy criterion and the native formal Riemann hypothesis theorem;
+  - record that the linear form $\lVert D_R\rVert\le CR$ is strictly stronger than RH needs, since it would give the strong Mertens bound, and state the correct $1+\varepsilon$ seam instead;
+  - reindex the faces charging one physical state by the squarefree integers of a single interval, which is the dependence-aware replacement for treating limiting Möbius frequencies as independent local probabilities.
+
+## Reciprocal Euler compression on the canonical rough carrier
 
 - `RHLean.Proof.LowWheelCanonicalRepeatedExternalTerminalMassBridge`, `RHLean.Proof.LowWheelCanonicalRepeatedMassReduction`, and `RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation`
-  - retired external-terminal mass, canonical repeated-mass, and movable-cancellation experiments.
+  - record the prime-deletion Hall obstruction, put the centered rough covariance numerator on a sequential Euler-prime carrier, and open the parent/child difference into the loss, order-threshold and birth channels;
+  - prove the late-parent downcross ledger vanishes exactly, leaving only the canonically oriented first-crossing ledger.
 
-- `RHLean.Proof.SquareRootLowPrimeResponseForestOthelloInvolution` and `RHLean.Proof.SquareRootLowPrimeResponseMatchingOthelloInvolution`
-  - retired response-forest and response-matching Othello experiments, superseded by the processed-seat carrier.
+- `RHLean.Proof.CanonicalRoughReciprocalCompression`
+  - transports the native square-prefix mechanism onto the RH-critical carrier: $v_R(c) + v_R(cp) = (1-1/p)\,v_R(c) + \mu(c)/(cp)\,(T+E-B)$;
+  - proves the Euler factors accumulate exactly on the two-prime Boolean square, the finite model for a chronological descending compression.
+
+- `RHLean.Proof.CanonicalRoughDefectLedgerBound`, `RHLean.Proof.CanonicalRoughManyPrimeContraction`, `RHLean.Proof.CanonicalRoughQuantitativeContraction`, and `RHLean.Proof.CanonicalRoughFiniteAbelReturn`
+  - inject each of the three signed channels into an explicit reciprocal window, giving the first global estimate on `T`, `E` and `B`, and say plainly that the triangle inequality it uses is the step the record advises against;
+  - iterate the same law over an arbitrary ascending chain, collapsing the Boolean cube onto its base with the complete Euler product attached and the defect bounded by an explicitly summed ledger;
+  - return from reciprocal prefixes to the unweighted numerator by exact finite summation by parts, so the reciprocal weight costs only an absolute constant.
+
+- `RHLean.Proof.CanonicalRoughCriticalCorrelationContraction` and `RHLean.Proof.CanonicalRoughCriticalDefectWindows`
+  - recouple the zero mode, so the *uncentered* correlation `Corr_R = M(R-1) - M(X_R)` obeys the same defect law, and iterate on the actual compressed parent carriers with an explicit transported survivor ledger;
+  - sharpen the scaled defect floor to the norm of one signed reciprocal Möbius boundary sum, keeping the `T/E/B` signs coupled, and prove a post-root fresh prime supplies no new contraction.
+
+- `RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction`
+  - proves the threshold-loss channel literally empty on a complete sub-root Euler cube, sending top escapes strictly beyond the root and births strictly below it, so the critical signed boundary is exactly post-root top escape minus lower-root birth.
+
+- `RHLean.Proof.CanonicalRoughTruncatedWheelDefectTelescope` and `RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope`
+  - identify one physical defect shell, with its native `1/p` restored, as the discrepancy between the true next truncated Euler cube and the uniform Euler contraction;
+  - telescope those discrepancies over an arbitrary descending prime list to the single final truncated-wheel boundary, a structural identity in place of the earlier majorant.
+
+- `RHLean.Proof.CanonicalRoughBoundaryProfileAbelReturn` and `RHLean.Proof.CanonicalRoughColumnAbelBridge`
+  - prove the unweighted physical columns produce a prime-weighted discrete boundary variation, not one terminal boundary, and close it by finite Abel summation into the primitive $\sum_{n<K} B_n(X) - K\,B_K(X)$;
+  - identify the column aggregate with that primitive over both a full prime prefix and a half-open band, and state precisely why these columns are still canonical rather than physical.
+
+- `RHLean.Proof.CanonicalRoughAdaptiveCriticalCompression`, `RHLean.Proof.CanonicalRoughAdaptiveLargestPrimeElimination`, `RHLean.Proof.CanonicalRoughAdaptiveRawAnnihilation`, `RHLean.Proof.CanonicalRoughAdaptiveWeightedEulerCompression`, and `RHLean.Proof.CanonicalRoughAdaptiveWeightedIteration`
+  - delete only the paired child copy, so no survivor mass is frozen and every still-unpaired state stays available to later prime coordinates;
+  - prove a descending schedule leaves no nontrivial squarefree survivor, and that the unweighted critical correlation annihilates with coefficient zero rather than an Euler factor;
+  - isolate the coefficient mismatch created by a missing commuting-square corner as the only obstruction to transporting an Euler coefficient, and iterate to a chronological formula with two signed ledgers and no frozen survivor.
+
+## The complex vertical line and its Green--Kubo coordinate
+
+- `RHLean.Proof.OrderedEulerCutProjection`
+  - keeps one tagged occurrence intact and projects it simultaneously to its low face product, crossing prime, rough cofactor, parent and child integers, and half-open root lifetime;
+  - proves membership in the oriented tagged boundary at root `R` is exactly one interval condition, so an atom can be followed through all roots without rebuilding its sign or factor coordinates.
+
+- `RHLean.Proof.ComplexVerticalIntervalEulerBridge`
+  - reindexes the signed mass of the squared vertical factor strip and proves it exactly equal to the canonical oriented Euler run ledger, to the canonical defect ledger, and to the signed prefix lifetime residual;
+  - states the energy proposition as an open `Prop` and proves it equal to the pre-existing oriented-run seam, so the coordinate change introduces and hides no estimate.
+
+- `RHLean.Proof.ComplexVerticalFiberSpacing`
+  - formalizes the arithmetic geometry of one squared Fermat vertical fibre: terminal residue classes, the quadratic finite-difference law, quadratically growing Euler displacement, uniqueness of the active cut at one root, charge agreement between two representations, and the impossibility of two successive pivot transitions on a subdoubling run.
+
+- `RHLean.Proof.ComplexVerticalLineGreenKubo`
+  - defines one real event variable per physical child integer, zero for unchanged status and $\mp\mu(n)$ for birth and death, whose sum is the vertical-interval mass;
+  - proves the finite Green--Kubo identity $\lVert V\rVert^2 = D + 2C$ and the unconditional one-sided inequality, so the diagonal is already at root-square scale and only the positive aggregate line covariance can be supercritical;
+  - proves a completely stable prime family has exactly the lower-prefix covariance, so prime-stable covariance is recursive rather than new.
+
+- `RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal`
+  - proves the active-child carrier is exactly the squarefree shell $\{n : R < n < R^2\}$, with a constructive converse;
+  - identifies fresh-prime membership instability with exactly two physical walls, birth and top escape, so the line-event mask carries no further instability population;
+  - sharpens the diagonal from the envelope `1` to `mu(n)^2`, using the limiting zero density only in the safe direction.
+
+- `RHLean.Proof.SignedPrefixEventLifetime`
+  - puts arrival and completion on the common physical-state carrier and telescopes the run one root at a time through the lifetime theorem;
+  - proves the resulting residual is exactly the canonical oriented run difference, and states the corresponding energy bound as an open `Prop` equal to the already-exposed seam.
+
+## First-jump residual and its recombination
+
+- `RHLean.Proof.FirstJumpPrimeSliceObstruction`
+  - proves the fixed first-jump-prime input is too strong: for `R/2 < p` the packing factor is `1`, yet the canonical `p`-slice stays live under every later owner in `(p, (R^2-1)/p]` and aggregates to the negative cardinality of that interval.
+
+- `RHLean.Proof.GlobalFirstJumpCofactorCompression`
+  - expands every statewise first-jump residual on one common low-cofactor carrier by choosing the fresh coordinate `2`, then swaps to global cofactor columns by finite Fubini;
+  - retains the proposed column estimate only as a diagnostic conditional, and proves the exact correction instead: the first-jump aggregate must be recombined with the square-root-dense piece before any norm, and the recombined scalar is the canonical defect ledger.
+
+- `RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge`
+  - proves a uniform reciprocal-prefix bound of size $(\log R + 1)/R$ gives the root-scale bound on the recombined canonical defect, with no first-jump-prime or cofactor-column norm inserted anywhere;
+  - subtracts the post-root prime families from the global positive-lag pair sum on a reciprocal-band carrier, identifies the total family covariance with an energy difference, and shows the exact remainder is the Bessel defect, so a linear remainder statement and a linear Bessel bound are the same hypothesis;
+  - promotes the first-separation owner on the quadratic carrier: the owner of a pair strictly decreases under stripping, the parent's fresh-prime set is the owner erased from the child's, and a physical pair is one mixed corner of its owner's fresh-prime square, so stripping the owner reverses the pair weight exactly.
+
+- `RHLean.Proof.EndpointCubeAnalyticClosure`
+  - carries the endpoint-cube product packing down to the lower scales verbatim;
+  - realizes the post-root family subtraction on literal pair carriers, proving that two distinct post-root primes cannot divide a common physical site and hence that distinct family pair carriers are disjoint, so the scalar subtraction is a genuine partition rather than an inclusion-exclusion estimate.
+
+- `RHLean.Proof.PrimeCombReciprocalBandCancellation`
+  - packages the one-prime post-root score law on the reciprocal quotient bands, on which every prime shares a quotient, a seat set, a signed cofactor channel and a score correction;
+  - proves a complete post-root prime family is an exact sign-reversed copy of the completed lower prefix, and computes the adjacent-band finite difference $D(z+1)-D(z) = -2\mu(z+1)$.
+
+- `RHLean.Proof.VanishingTransitionRelevanceBase`
+  - measures a transition support on the linear scale of the square block and proves that vanishing relevance forces the normalized square-block discrepancy to vanish, leaving the construction of the genuine severed support as a separate input.
+
+## Viole clock and sequential Euler closure
+
+- `RHLean.Analysis.VioleClockSignedHistoryBudget`
+  - packages the exact propagation budget in which strong induction supplies the new slope on proper reciprocal quotients, the old tail supplies the transition strip, and only the finite history remains signed;
+  - analyses the subdoubling seed, where the recursive and transition ledgers vanish and the seed clause is therefore equivalent to the desired endpoint contraction, so the new arithmetic input has to enter before this consumer.
+
+- `RHLean.Analysis.VioleSequentialEulerClosure`
+  - proves that when one wheel cutoff resolves both endpoints the signed Selberg remainder disappears and the whole discrepancy is one explicit Euler forcing;
+  - gives the direct block form `D = -(protected block correlation + (L-M))`, so the endpoint update is `E(L) = E(M) - P` with complete energy change `P^2 - 2E(M)P`;
+  - expands the shared reciprocal drift atom by atom, where adjoining one fresh prime obeys the same Möbius cancellation law with an exact positive absolute surplus.
+
+## Survivor and processed-response bridges
+
+- `RHLean.Proof.SquareWheelSurvivorProcessedResponseBridge`
+  - partitions the endpoint survivor population before any norm into the matched orientation and the complementary positive orientation, and maps the matched part with owner in the processed window into the processed-seat atoms, preserving cofactor, partner and signed weight pointwise.
+
+- `RHLean.Proof.SquareWheelSurvivorOwnerResidual`
+  - splits the survivor carrier into the processed-compatible sector, the owner-window residual and the positive orientation, so the signed mass of the positive orientation is a dependent coordinate rather than a carrier needing its own bridge;
+  - proves the above-cutoff sector has cardinality at most `R` by the near-root rectangle.
+
+- `RHLean.Proof.SquareWheelSurvivorShallowBridge`
+  - transports the shallow sector with `K < c` into the creation carrier through the existing equivalences, and proves that on the bounded core `c <= K` the correct bridge is a signed mass identity whose only discrepancy is the already-existing partial crossing packet.
+
+## Processed-seat classifier branches
+
+The no-liberty seam has one outstanding *construction*, and these modules build
+it branch by branch. Each proves membership, injectivity and exact weight
+preservation for one target class, or removes one branch of the source
+dichotomy outright.
+
+- `RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseInvolution`, `RHLean.Proof.SquareRootLowPrimeProcessedCreationResponseFixedClassification`, and `RHLean.Proof.SquareRootLowPrimeCanonicalMatchingInvolution`
+  - conjugate the canonical creation-to-response matching onto the exact processed-seat universe, so both Othello moves act on the same carrier;
+  - classify the three kinds of fixed state of the first involution, and package the quantitative canonical matcher as the second involution whose fixed set is the canonical Euler terminal frontier.
+
+- `RHLean.Proof.SquareRootLowPrimeStructuralKey` and `RHLean.Proof.SquareRootLowPrimeCreationResponseStructuralKey`
+  - isolate the key $(\gcd(c,K!),\ \text{seat})$ preserved by every fresh-prime extension, hence by both involutions, so every alternating component lies in one key fibre.
+
+- `RHLean.Proof.SquareRootLowPrimeShallowProcessedCreationEquiv` and `RHLean.Proof.SquareRootLowPrimeDeepProcessedSeatBridge`
+  - prove the shallow non-head processed carrier is canonically the tagged creation carrier and the deep non-head part is definitionally the owned response-seat universe, with no finite-cardinality choice used.
+
+- `RHLean.Proof.SquareRootLowPrimeHeadClassifierBranch`, `RHLean.Proof.SquareRootLowPrimePartialEndpointCarrier`, `RHLean.Proof.SquareRootLowPrimeBornSeatPartnerEmbedding`, and `RHLean.Proof.SquareRootLowPrimeBornExitClassifierBranch`
+  - record the Head branch outright; isolate the `Partial` branch on the sign-homogeneous compressed carrier, proving the `mu(c)=1` side condition rather than assuming it and reducing the branch to one named budget stated so no downstream file can discharge it by an arithmetic encoding;
+  - build the seat-index to prime-partner coordinate change for the born home and prove it exactly weight preserving, then supply the `BornExit` membership, injectivity and weight preservation from the literal response atom.
+
+- `RHLean.Proof.SquareRootLowPrimeNonBornFalloutResponseTail` and `RHLean.Proof.SquareRootLowPrimeResponseReentryBirthWitness`
+  - remove the product-wall branch of the first-owner fallout entirely by the arithmetic of the schedule cutoff, so the unclassified seats are the parent/child response-window difference the tree already decomposes;
+  - prove a non-born seat can evade its first owner only by forcing a strictly larger newly born prime, so the owner prime strictly increases and the ascent cannot cycle, with the re-entry window bounded by the birth boundary it creates.
+
+- `RHLean.Proof.SquareRootLowPrimeSquareDefectCarrierCause` and `RHLean.Proof.SquareRootLowPrimeStructuralEndpointNormalization`
+  - reduce the outward four-corner square defect on this carrier to exactly two boundary events, a hyperbolic endpoint crossing or a seat-count crossing, with no interior residual;
+  - turn the displacement-owner obstruction into a well-founded normalization that shortens the schedule and preserves the canonical key.
+
+- `RHLean.Proof.SquareRootLowPrimeFixedPartialPacketResidual` and `RHLean.Proof.SquareRootLowPrimeFixedBoundaryBudget`
+  - certify that at the fixed reciprocal depth the compressed partial packet has fewer than $21$ unit cells uniformly in `R`, and assemble the target-side budget $3R+21$ over the four homes;
+  - improve only the target side, and neither assume nor manufacture the still-open source-to-boundary classifier.
+
+## Mertens tracking: the terminal obstruction
+
+- `RHLean.Proof.SquareRootLowPrimeNearRootRemainder` and `RHLean.Proof.SquareRootLowPrimePacketFreeMassTransfer`
+  - prove the above-cutoff response collapses to the negative near-root remainder, a nonnegative sum of post-root prime prefix counts over the near-root primes;
+  - prove the partial packet occurs once on each side of the mass-transfer identity with the same sign, so it cancels and the remaining statement is packet-free.
+
+- `RHLean.Proof.SquareRootLowPrimeMatchedCoreBound` and `RHLean.Proof.SquareRootLowPrimeMatchedCoreMertensObstruction`
+  - state the branch target with no fixed constant, in a full-norm and a real-part form, the second being the minimal hypothesis for the terminal imbalance;
+  - identify the matched core exactly as `M(R^2-1)` minus one literal positive-orientation middle source mass, reindexed to a canonical source carrier, and decline to assert that bounding it is equivalent to a standalone bound on `M(R^2-1)`.
+
+- `RHLean.Proof.SquareRootMertensMiddleTracking`, `RHLean.Proof.SquareRootMertensPositiveTracking`, and `RHLean.Proof.SquareRootMertensAncestralTracking`
+  - state the terminal proposition in literal real and integer coordinates and compose it in one theorem to the terminal real imbalance;
+  - record that $M(R^2-1) - A_{\mathrm{pos}}(R)$ is *exactly* the matched channel, so the tracking hypothesis is literally the matched-channel bound and reaches the terminal imbalance at $CR + R + K$ rather than $(C+8)R + K$;
+  - record why bounding the two terms separately would not help: it would force $M(x) = O(\sqrt x)$, so the content is entirely in the correlation between them.
+
+## The unconditional forward consumer
+
+- `RHLean.Proof.TerminalMertensReduction`
+  - proves the reduction from the projected-renewal Gram form down to $\lVert M(x)\rVert^2 \le C(x+1)^{1+\varepsilon}$ outright, with no criterion, realization, partition or low-increment control supplied by the caller;
+  - separates the two directions of the classical criterion by their analytic requirements, and records that only the forward direction is used.
+
+- `RHLean.Proof.TerminalMertensForward`
+  - constructs that forward direction internally from the Dirichlet series for $1/\zeta$, partial summation, the identity theorem and the completed-zeta reflection, with no contour shifting or zero-free region;
+  - records the resulting unconditional implication from the square-prefix energy estimate to Mathlib's Riemann hypothesis, which is the terminal analytic consumer for the arithmetic project;
+  - proves the first global consequence of the fresh-prime rough-partner boundary law: along one ancestry chain signed boundaries telescope to endpoint capacities, and after root crossing the positive loss mass telescopes on its own.
+
+## Closed routes
+
+A published research record should say which routes were tried and abandoned,
+not only which ones worked. `boundary/dead_lanes.json` is that record: each
+entry names the claim, the obstruction that closes it, the Lean or numerical
+evidence, and what new information would reopen it. Four entries were added with
+this revision -- unsigned support capacity, adaptive matching on the raw prefix
+carrier, the fixed first-jump-prime seat bound, and the fixed-prime descended
+leaf on subdoubling runs -- and every one of them is closed by a compiled
+theorem in this package rather than by a failed attempt.
+
+The modules that carried the earlier response-forest, response-matching,
+external-terminal-mass and repeated-mass experiments are no longer retired. They
+are listed above under the reciprocal Euler compression and processed-seat
+sections, where they now carry the canonical rough covariance carrier, the exact
+late-parent cancellation, and the two Othello wrappers the classifier uses.
 
 ## Research boundary and export guards
 
@@ -437,7 +706,7 @@ These modules are kept because a published research record should say which rout
   - records the monotone quantitative frontier.
 
 - `boundary/synthesis.json`
-  - records exact cross-track synthesis advances; the refreshed export is at revision 5.
+  - records exact cross-track synthesis advances; the refreshed export is at revision 6.
 
 - `scripts/check_markdown_math.py`
   - rejects unsupported GitHub Markdown TeX delimiter forms outside code.
@@ -445,6 +714,24 @@ These modules are kept because a published research record should say which rout
 - `.github/workflows/markdown-math.yml`
   - runs that audit automatically on every push and pull request.
 
-The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field. The new modules sharpen the exact defect representation that must be bounded, remove the prime-counting function from the transport entirely, reduce the post-crossing obligation to one finite Möbius/rough-prime correlation, show that a fixed amplification constant already suffices, and close a further proposed route with a kernel-checked refutation.
+- `boundary/dead_lanes.json`
+  - records the routes that are closed, with the obstruction that closes each one and what would reopen it.
 
-The processed-seat layer adds a second kind of open item. Alongside the outstanding inequalities there is now one outstanding *construction*: the weight-preserving equivalence at the no-liberty seam, whose interface, four target classes, and weight-preservation requirement are already stated in Lean. Everything below that seam — the carrier, both Othello matchings, the stable-set identification, and the transfer of the signed sum — is compiled.
+- `boundary/BOUNDARY_POLICY.md`
+  - states the scope gate the two lanes above enforce.
+
+The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field, and `boundary/frontier.json` therefore still certifies `exact_reduction`. What has changed is where that control has to be earned.
+
+Five things are new in this revision.
+
+1. **One carrier, not five.** The complex/Fermat vertical strip, the ordered Euler cut, the oriented downcross ledger, the signed prefix lifetime, and the canonical defect ledger are now proved to be the same signed object, before any norm. Their energy propositions are proved equal to the pre-existing oriented-run seam, so none of these coordinate changes hides or introduces an estimate.
+
+2. **The pair sum is squared before any absolute value.** The Green--Kubo identity is now available on the physical birth/death lines, on square-block partitions, and on whole square runs. In every case the diagonal is at root-square scale or below — sharpened to the exact squarefree diagonal — so the only quantity capable of supercritical growth is the positive aggregate covariance.
+
+3. **An exact Euler contraction acts on the critical carrier.** The native factor `1 - 1/p` compresses a fresh-prime parent/child pair on the RH-critical reciprocal coordinate, with every failure confined to three named physical channels; the threshold channel is empty on a complete sub-root wheel, the defect shells telescope to one truncated-wheel boundary, and finite Abel summation returns the result to the unweighted numerator for the cost of an absolute constant.
+
+4. **The route by counting is closed, in this package, by theorem.** Unsigned support capacity, adaptive matching on the raw prefix carrier, a fixed first-jump-prime seat bound, and the fixed-prime descended leaf on subdoubling runs each fail for a compiled reason, and each reason is recorded in `boundary/dead_lanes.json`. Every surviving route has to cancel signs before taking absolute values.
+
+5. **The analytic consumer is unconditional.** `RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy` constructs internally the one direction of the classical Mertens criterion the reduction uses, so its only hypothesis is the square-prefix energy estimate itself. That theorem is guarded by `#print axioms` alongside the others.
+
+The processed-seat layer still adds a second kind of open item. Alongside the outstanding inequalities there remains one outstanding *construction*: the weight-preserving classifier at the no-liberty seam. Its Head, Partial, BornExit and RootEquality branches are now built individually, with membership, injectivity and exact weight preservation proved for each; the product-wall branch of the source dichotomy is removed outright; and the target-side budget is `3R+21`. What is not yet assembled is the source-to-boundary classifier itself, and the `Partial` branch still rests on one named budget, stated so that no downstream file can discharge it by an arithmetic encoding of the seat index.

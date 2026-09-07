@@ -159,4 +159,21 @@ theorem squareRootLowPrimeCanonicalToggleStates_card_le_bound
     _ ≤ (Finset.Icc 1 B).card := Finset.card_le_card hsubset
     _ = B := by simp
 
+/-- **Alternating root-fibre compression.**  Canonical no-toggle and unstable
+residuals together have at most one surviving unit over any fixed root.  This
+is the pointwise form of the combined root-charge injectivity theorem. -/
+theorem squareRootLowPrimeAlternatingRootFiber_card_le_one
+    {K U B r : ℕ}
+    (S : Finset SquareRootLowPrimeCanonicalToggleState)
+    (hdata : ∀ z ∈ S,
+      SquareRootLowPrimeCanonicalToggleData K U B z) :
+    (S.filter fun z => squareRootLowPrimeCanonicalToggleRootCharge z = r).card ≤ 1 := by
+  rw [Finset.card_le_one]
+  intro x hx y hy
+  have hxData := Finset.mem_filter.mp hx
+  have hyData := Finset.mem_filter.mp hy
+  apply squareRootLowPrimeCanonicalToggleRootCharge_injective
+    (hdata x hxData.1) (hdata y hyData.1)
+  exact hxData.2.trans hyData.2.symm
+
 end RHLean.Proof

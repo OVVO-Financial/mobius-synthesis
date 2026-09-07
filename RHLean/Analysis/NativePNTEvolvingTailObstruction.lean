@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Analysis.NativePNTLogSums
 import RHLean.Analysis.NativePNTEvolvingTailState
+import RHLean.Analysis.PrimeSieveStateDependentSelbergScalePersistence
 
 /-!
 # Structural obstruction for the absolute evolving-tail state
@@ -151,5 +152,81 @@ theorem nativePNTEvolvingTailCost_ge_canonical_obstruction
     nativeLambdaTwoRecipDefect
   rw [← hsplit]
   nlinarith
+
+/-! ## Subdoubling obstruction for moving cutoffs -/
+
+/-- The second von Mangoldt kernel has zero mass at the trivial reciprocal
+fibre. -/
+theorem nativeLambdaTwo_one : nativeLambdaTwo 1 = 0 := by
+  rw [nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution]
+  simp [arithmeticLogWeight_apply]
+
+/-- If the new endpoint has not even doubled the old tail cutoff, the only
+possible reciprocal tail fibre at that endpoint is `n = 1`, whose `Lambda_2`
+weight is zero.  Hence the entire good-tail reciprocal mass vanishes, for every
+candidate contracted slope `beta`.
+
+This is exactly the geometry of consecutive square cutoffs: their ratio tends
+to one, not two. -/
+theorem nativeLambdaTwoGoodTailRecipMass_eq_zero_of_lt_two_mul
+    (N M : ℕ) (beta : ℝ) (hNM : N < 2 * M) :
+    nativeLambdaTwoGoodTailRecipMass N M beta = 0 := by
+  classical
+  unfold nativeLambdaTwoGoodTailRecipMass
+    nativePNTSquarePrefixGoodTailFiberSet nativePNTSquarePrefixTailFiberSet
+  apply Finset.sum_eq_zero
+  intro n hn
+  rcases Finset.mem_filter.mp hn with ⟨hnTail, _hnGood⟩
+  rcases Finset.mem_filter.mp hnTail with ⟨hnI, hMdiv⟩
+  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hnI).1
+  have hnEq : n = 1 := by
+    by_contra hne
+    have hn2 : 2 ≤ n := by omega
+    have hMn : M * n ≤ N :=
+      (Nat.le_div_iff_mul_le (by omega : 0 < n)).1 hMdiv
+    have h2Mn : 2 * M ≤ M * n := by
+      have h := Nat.mul_le_mul_left M hn2
+      simpa [Nat.mul_comm] using h
+    omega
+  subst n
+  simp [nativeLambdaTwo_one]
+
+/-- **Exact obstruction to using the current one-step cubic consumer across a
+subdoubling cutoff move.**  At the mandatory first endpoint `N = L`, the
+positive good-tail term is identically zero whenever `L < 2*M`.  If the
+already-proved canonical absolute-remainder floor is positive there, the net
+gain is negative, so no positive cubic coefficient can satisfy
+`CubicGainFromTo M L alpha c`.
+
+No asymptotic estimate and no affine/onset argument is used. -/
+theorem primeSieveStateDependentSelberg_no_positive_cubicGainFromTo_of_subdoubling
+    (M L : ℕ) (alpha c : ℝ)
+    (hL : 3 ≤ L) (hLM : L < 2 * M)
+    (halpha : 0 < alpha) (hc : 0 < c)
+    (hobs :
+      alpha * (L : ℝ) * (Real.log (L : ℝ)) ^ 2 <
+        ((L : ℝ) - 1 - Real.log (L : ℝ)) * Real.log (L : ℝ)) :
+    ¬ PrimeSieveStateDependentSelbergCubicGainFromTo M L alpha c := by
+  intro hgain
+  rcases hgain with ⟨_hML, hgain⟩
+  rcases hgain L le_rfl with ⟨beta, _hbeta0, _hbeta, hpower⟩
+  have hgood0 :=
+    nativeLambdaTwoGoodTailRecipMass_eq_zero_of_lt_two_mul L M beta hLM
+  have hcost := nativePNTEvolvingTailCost_ge_canonical_obstruction
+    L M alpha (by omega) halpha.le
+  have hnetNeg :
+      primeSieveStateDependentSelbergNetGain L M alpha beta < 0 := by
+    rw [primeSieveStateDependentSelbergNetGain_eq, hgood0]
+    nlinarith
+  have hLR : 0 < (L : ℝ) := by
+    exact_mod_cast (show 0 < L by omega)
+  have hlog : 0 < Real.log (L : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < L by omega)
+  have hlhs :
+      0 < c * alpha ^ 3 * (L : ℝ) * (Real.log (L : ℝ)) ^ 2 := by
+    positivity
+  unfold PrimeSieveStateDependentSelbergStateHasPowerGain at hpower
+  linarith
 
 end RHLean.Analysis

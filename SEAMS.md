@@ -310,9 +310,9 @@ Two sign-reversing involutions on the same finite signed region have stable sets
 
 The stable population of the descending processed-seat matching and the tagged four-class endpoint boundary are indexed by different types, so literal Finset equality is not the target. The seam is a weight-preserving finite equivalence together with pointwise agreement of signed weight; given one, the whole signed sum transfers and tagged boundary mass is the running imbalance.
 
-This is the one seam in the package whose crossing map is not yet constructed. The interface, the four endpoint classes — head, partial packet, born no-successor, and Go root equality — and the weight-preservation requirement are stated; the arithmetic classifier is open. A cardinality match between the two sides does not cross it.
+This is the one seam in the package whose crossing map is not yet assembled, and an injective weight-preserving classifier is enough for quantitative closure; the full equivalence is needed only when surjectivity is also available. Each of the four endpoint classes — head, partial packet, born no-successor, and Go root equality — now has its own branch with membership, injectivity and exact weight preservation proved, the product-wall branch of the source dichotomy is removed outright by the arithmetic of the schedule cutoff, and the target-side budget is $3R+21$. What is open is the classifier that routes every source state to a branch, together with the one named `Partial` budget. A cardinality match between the two sides still does not cross this seam.
 
-**Formal modules:** `RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification`, `RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome`, and `RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv`.
+**Formal modules:** `RHLean.Proof.SquareRootLowPrimeOppositeFixedClassification`, `RHLean.Proof.SquareRootLowPrimeNoLibertyBoundaryHome`, `RHLean.Proof.SquareRootLowPrimeNoLibertyFiniteEquiv`, and the branch modules `RHLean.Proof.SquareRootLowPrimeHeadClassifierBranch`, `RHLean.Proof.SquareRootLowPrimePartialEndpointCarrier`, `RHLean.Proof.SquareRootLowPrimeBornSeatPartnerEmbedding`, and `RHLean.Proof.SquareRootLowPrimeBornExitClassifierBranch`.
 
 ## 31. Go transport seam
 
@@ -326,7 +326,121 @@ The processed-seat terminal state and the historical $A_R-T_R$ architecture meet
 
 **Formal modules:** `RHLean.Proof.SquareRootLowPrimeSmoothTransportRecoupling` and `RHLean.Proof.SquareRootLowPrimeMatchedFrontierBound`.
 
-## 33. Acceptance criterion for quantitative progress
+## 33. Cumulative Othello wall seam
+
+The sitewise Othello laws are played on a whole region rather than site by site. The carrier toggle $\tau_p$ is an involution whose moving states are exactly the $p^2$-free sites, where $\mu(\tau_p n)=-\mu n$, and whose frozen states are exactly the square hits, which carry no mass. Hence the signed mass of any finite region equals the signed mass of its escape part, and for the ordered prefix carrier $(L,x]$ that escape part is exactly two walls: the anchor wall $n\le pL$ and the cutoff wall $x<np$. This is an equality, and the whole interior has cancelled in mated pairs.
+
+The scope matters at this seam. It is a pairing by two cycles of one fixed prime, not an alternating-component argument, and it contains no birth-to-capture cancellation. Peeling a list of distinguished primes preserves the equality on the iterated boundary, so what remains to prove is a multiplicity bound on that boundary.
+
+**Formal modules:** `RHLean.Proof.GlobalPrefixCarrierOthello`, `RHLean.Proof.PrefixCarrierOthelloWalls`, and `RHLean.Analysis.PrimeWheelRunOthelloBoundary`.
+
+## 34. Lifetime run seam
+
+An atom of the square-time process has a birth stage and a capture stage, and its activity indicator is the indicator of the half-open lifetime. Activity increments telescope over a run, so an atom born after the run starts and captured before it ends contributes exactly zero, whatever its lifetime was. The length of the lifetime appears nowhere in the statement or the proof, which is the property a cumulative run needs and which a fixed-prime pairing does not supply.
+
+The seam is faithful because death is proved permanent on the actual active predicate: for a nonnegative cutoff slope the moving-high threshold is nondecreasing, so there is no resurrection between birth and capture. What is proved is interval structure plus endpoint telescope; explicit birth and capture times are not constructed, and the aggregate run identity is stated in the existing $\mathrm{Active}=\mathrm{Birth}-\mathrm{Death}$ coordinates.
+
+**Formal module:** `RHLean.Proof.LifetimeRunCancellation`.
+
+## 35. Frozen square-run seam
+
+Admitting one fresh Euler prime $p$ to a finite old universe $S$ acts on a signed window by
+
+$$
+W_{S\cup\{p\}}(A,B)=W_S(A,B)-W_S(\lfloor A/p\rfloor,\lfloor B/p\rfloor).
+$$
+
+A new prime therefore leaves one compressed predecessor-cube window, not another independent copy of an old parent. Combined with the frozen square-run kernel $K(a,b)=M(a^2-1)-M((b+1)^2-1)$ and the canonical endpoint involution $M(R^2-1)=M(R)-D_R$, this gives
+
+$$
+K(a,b)=(M(a)-M(b+1))+(D_{b+1}-D_a),
+$$
+
+whose Mertens gap costs at most the root interval length $b+1-a$. The energy of the *change* in the canonical downcross frontier is therefore equivalent, with no loss, to the frozen-square-run, global Mertens-energy, signed square-run, and primorial-residual criteria.
+
+**Formal modules:** `RHLean.Arithmetic.DyadicFrozenPrefix`, `RHLean.Analysis.FrozenSquareRunKernel`, and `RHLean.Analysis.FrozenSquareRunDowncrossBridge`.
+
+## 36. Common frozen-owner seam
+
+After exact late-parent cancellation the downcross ledger is the canonically oriented Euler first-crossing ledger, and on one oriented state the quotient coordinate is the canonical pivot. The Boolean faces charging that state are exactly the frozen faces of the old universe below the pivot whose products lie in the state's ownership window, so the state's signed face mass is one frozen predecessor-window mass.
+
+The seam is what makes a run difference safe to square. Both endpoint sums extend to the union of their state carriers, each state keeps the *same* canonical owner at both endpoints, and only its two window endpoints move with the root. Predecessor-cube cancellation is therefore preserved state by state before any norm is taken.
+
+**Formal modules:** `RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation`, `RHLean.Proof.LowWheelCanonicalOrientedFrozenFibres`, and `RHLean.Proof.LowWheelCanonicalOrientedRunFibres`.
+
+## 37. One-carrier seam
+
+Five descriptions of the same signed object are now proved equal, before any norm: the squared-Fermat vertical factor strip, the ordered Euler cut ledger, the canonically oriented downcross ledger, the signed prefix lifetime residual, and the canonical defect ledger. One tagged occurrence $(t,(c,p))$ carries its low face product, crossing prime, rough cofactor, parent and child integers, Möbius sign, and exact half-open root lifetime simultaneously, so an atom is followed through all roots without rebuilding its coordinates at each endpoint.
+
+The energy propositions on these coordinates are stated as open `Prop`s and then proved equal to the pre-existing canonical oriented-run seam. That is the discipline this seam enforces: a change of coordinates removes duplicate seams and supplies no quantitative cancellation, so a new coordinate is only admitted together with the theorem that its energy statement is the old one.
+
+**Formal modules:** `RHLean.Proof.OrderedEulerCutProjection`, `RHLean.Proof.ComplexVerticalIntervalEulerBridge`, `RHLean.Proof.ComplexVerticalFiberSpacing`, and `RHLean.Proof.SignedPrefixEventLifetime`.
+
+## 38. Line Green--Kubo seam
+
+On the physical child-line carrier the event variable is $\mathrm{event}(n)=\mu(n)\chi(n)$, zero when the child has the same status at both endpoints and $\mp\mu(n)$ on birth and death. Its sum is exactly the vertical-interval mass, so squaring the *whole signed population* before any absolute value gives the finite identity
+
+$$
+\lVert V(a,b)\rVert^2=D_{\text{line}}+2\,C_{\text{line}}.
+$$
+
+The diagonal is then bounded by the exact squarefree population rather than by the pointwise envelope $1$, and the active-child carrier is exactly the squarefree shell $\{n: R<n<R^2\}$, with fresh-prime membership instability exactly the two physical walls birth and top escape. The limiting $40/30/30$ law is therefore used only in the safe direction, to sharpen the diagonal; no sign balance is asserted on the arithmetically selected birth/death set. What is left is the positive aggregate covariance among distinct physical lines, and nothing else.
+
+**Formal modules:** `RHLean.Proof.ComplexVerticalLineGreenKubo` and `RHLean.Proof.ComplexVerticalLineSquarefreeDiagonal`.
+
+## 39. Reciprocal Euler compression seam
+
+On the RH-critical reciprocal covariance carrier a fresh-prime parent/child pair is not deleted but compressed back onto the parent:
+
+$$
+v_R(c)+v_R(cp)=\Bigl(1-\frac1p\Bigr)v_R(c)+\frac{\mu(c)}{cp}\,(T+E-B).
+$$
+
+The interior receives the same Euler contraction as the native reciprocal fibre, and every failure of exact contraction is confined to the order-threshold, top-escape and lower-root birth channels, suppressed by the reciprocal child cofactor. The factors accumulate exactly on the Boolean cube, and on a complete sub-root wheel the threshold channel is literally empty, so the critical signed boundary is exactly post-root top escape minus lower-root birth.
+
+The seam has a stated direction of travel. Recoupling the zero mode moves it from the centered coordinate to the uncentered correlation $\mathrm{Corr}_R=M(R-1)-M(X_R)$, which is the object whose critical control is equivalent to the square-prefix energy criterion; a post-root fresh prime gives no new contraction, so useful contraction has to be earned on sub-root primes.
+
+**Formal modules:** `RHLean.Proof.CanonicalRoughReciprocalCompression`, `RHLean.Proof.CanonicalRoughCompleteSubrootDefectReduction`, `RHLean.Proof.CanonicalRoughCriticalCorrelationContraction`, and `RHLean.Proof.CanonicalRoughCriticalDefectWindows`.
+
+## 40. Telescope and Abel-return seam
+
+One physical defect shell is not an independent error. With its native $1/p$ restored it is exactly
+
+$$
+T_{P\cup\{p\}}(N)-\Bigl(1-\frac1p\Bigr)T_P(N),
+$$
+
+the discrepancy between the true next truncated Euler cube and the uniform Euler contraction. Transporting these over a descending prime list is therefore a telescope, not a sum of absolute defect costs, and it closes on the single final boundary $T_L(N)-\prod_{q\in L}(1-1/q)$.
+
+The return trip is exact in both coordinates. The reciprocal-weighted upper column telescopes to one terminal boundary; the literal physical columns carry no $1/q$, so they produce a prime-weighted discrete boundary variation, which finite summation by parts closes into the primitive $\sum_{n<K}B_n(X)-K\,B_K(X)$. The RH-critical object attached to the physical columns is that combination, not the endpoint boundary alone, and the reciprocal weight that makes the compression work costs only an absolute constant on the way back to the unweighted numerator.
+
+**Formal modules:** `RHLean.Proof.CanonicalRoughTruncatedWheelDefectTelescope`, `RHLean.Proof.CanonicalRoughTruncatedWheelManyPrimeTelescope`, `RHLean.Proof.CanonicalRoughBoundaryProfileAbelReturn`, `RHLean.Proof.CanonicalRoughColumnAbelBridge`, and `RHLean.Proof.CanonicalRoughFiniteAbelReturn`.
+
+## 41. Block partition and family-descent seam
+
+For signed blocks, $S^2=E+2X$. Cross-block coherence is therefore pinned by the total mass and the block energy rather than free, and the magnitude-first step $|S|\le\sum_j|B_j|$ discards exactly twice the cross-covariance defect. Instantiated at the square blocks this partitions the global integer-order covariance into within-block and cross-block parts on one carrier, with no domination hypothesis anywhere.
+
+Two exact facts sit on this seam and pull in opposite directions. The square-block energy exceeds the exact squarefree diagonal by precisely twice the aggregate within-block covariance, so bounding $E$ *is* the RH-scale problem and its measured linearity must not be promoted; but every refinement step moves energy into children plus an explicit signed cross term, with the leaf energy exactly the linear squarefree diagonal. And a post-root prime family is an isometric copy of a lower-scale prefix for pair covariance, since $\mu(pc)\mu(pd)=\mu(c)\mu(d)$ reverses family mass while preserving family covariance. Refinement and descent, not a bound on $E$, are what this seam offers.
+
+**Formal modules:** `RHLean.Analysis.BlockCovarianceDecomposition`, `RHLean.Analysis.BlockCovarianceRefinement`, `RHLean.Analysis.MertensCovarianceDescent`, and `RHLean.Analysis.SquareRunEscapeCovariance`.
+
+## 42. First-jump recombination seam
+
+The first-jump residual does not cross this seam one first-jump prime at a time. For $R/2<p$ the packing factor is $1$, yet the canonical $p$-slice stays live under every later oriented owner in $(p,(R^2-1)/p]$ and aggregates to the negative cardinality of that interval; the proposed cofactor-column replacement fails on finite tests for the same reason.
+
+What does cross is the recombination. The first-jump aggregate must be joined with the square-root-dense piece before any norm is taken, and the recombined scalar is exactly `lowWheelCanonicalDefectLedger R` — through the vertical-line normalization, the signed squarefree shell between $R$ and $R^2$. From there a uniform reciprocal-prefix bound of size $(\log R+1)/R$ suffices, with no first-jump-prime or cofactor-column norm inserted anywhere.
+
+**Formal modules:** `RHLean.Proof.LowWheelCanonicalSqrtDenseContraction`, `RHLean.Proof.FirstJumpPrimeSliceObstruction`, `RHLean.Proof.GlobalFirstJumpCofactorCompression`, and `RHLean.Proof.GlobalFirstJumpCriticalCorrelationBridge`.
+
+## 43. Unconditional forward-consumer seam
+
+The reduction from the projected-renewal Gram form down to $\lVert M(x)\rVert^2\le C(x+1)^{1+\varepsilon}$ is proved outright: no criterion, realization, partition, or low-increment control is supplied by the caller. What used to sit above it was the classical Mertens criterion, accepted as an ordinary theorem argument.
+
+That argument is now constructed internally in the one direction the route uses. Partial summation on $\sum\mu(n)n^{-s}$ gives convergence on $\mathrm{Re}\,s>1/2$, the limit is analytic there and agrees with $1/\zeta$ on $\mathrm{Re}\,s>1$, the identity theorem forces $\zeta\ne0$ on $\mathrm{Re}\,s>1/2$, and the functional equation reflects this to the left half — with no contour shifting and no zero-free region. The reverse direction still needs the harder contour argument and is not asserted. Consequently the terminal consumer has the square-prefix energy estimate as its only hypothesis, and that theorem is guarded by `#print axioms` alongside the others.
+
+**Formal modules:** `RHLean.Proof.TerminalMertensReduction` and `RHLean.Proof.TerminalMertensForward`.
+
+## 44. Acceptance criterion for quantitative progress
 
 A proposed estimate should satisfy both conditions:
 
@@ -344,5 +458,7 @@ Unsigned population improvements, local constant defects without bounded chargin
 Three further filters follow from the recorded obstructions. A proposal whose saving is a product of local multipliers of the form $1-c/q$ is capped at a power of a logarithm and cannot reach a power of $R$. A proposal that decomposes the transport population into cancelling orbits plus a bounded boundary must say what happens to the same-sign top block, which equals its own cardinality. And a proposal that reaches the target through Cauchy--Schwarz on a coefficient family must show the family is arithmetically constructible, since the optimal coefficients already encode the answer.
 
 Three further filters follow from the newer obstructions. A proposal that cancels the inert top block one-for-one against the middle prime fibres must decide the sign of $2\pi(X_R/2)-\pi(X_R)-\pi(R)$, which first-order PNT does not determine because the leading $X/\log X$ terms cancel. A proposal that charges a bounded collision defect must transport the label to a different arithmetic fibre before reading its corrected weight, because the literal same-site realization is refuted. And a proposal built on fresh-prime equivariance between the wheel and the ancestry ledger must restrict to the ordered extension, since the unrestricted move is false.
+
+Four further filters follow from the routes closed in this revision. A proposal that bounds the covariance by a count of surviving support must say why it escapes the linear frontier: the minimising pivot has frontier density $2/\pi^2$, so the capacity term stays quadratic even after the exact squarefree diagonal is subtracted, and the canonical downcross ledger has superlinear unsigned mass. A proposal that matches along state-dependent prime edges on a raw interval carrier must say what happens to the top-half primes, all of which have the single legal move $p\mapsto1$ and therefore force a fixed set of size at least $\pi(x)-\pi(x/2)-1$. A proposal that estimates the first-jump residual one first-jump prime, or one cofactor column, at a time is already refuted; the aggregate has to be recombined with the square-root-dense piece before any norm. And a proposal that splits a square-run covariance into a fixed-prime descended leaf plus an escape remainder must note that on a subdoubling run the leaf is empty, so the escape is the whole covariance and the split is circular.
 
 One filter is specific to the no-liberty seam. A proposal that closes the processed-seat route must produce the weight-preserving equivalence itself. Equal cardinalities on the two sides, a bijection that does not preserve signed weight, or an estimate on either population separately all leave the seam uncrossed, because what transfers the signed sum is the weight-preservation hypothesis and nothing weaker.

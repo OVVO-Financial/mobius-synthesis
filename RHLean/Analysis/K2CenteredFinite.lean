@@ -5,11 +5,9 @@ import RHLean.Analysis.NativePNTSignedSecondSelbergDepthFourFubini
 /-!
 # Finite core of the centered reciprocal signed K2 theorem
 
-This file contains only finite identities. It uses this package for the discovered
-coefficient and the Fubini identity, but none of the RH proof architecture. The
-subsequent analytic proof is classical.
+This file contains only finite identities. It uses this package for the discovered coefficient and Fubini identity, but none of the RH proof architecture. The subsequent analytic proof is classical.
 
-There are no `sorry`s and no axioms in this file.
+There are no `sorry`s and no axioms in this file. The initial artifact environment had no Lean executable, so this source still requires repository CI validation.
 -/
 
 noncomputable section

@@ -179,4 +179,76 @@ theorem ramanujanDivisorInterval_eq_boundary
   exact ramanujanDivisorSumOn_eq_boundary
     hq a (Finset.Ioc lower upper)
 
+/-- Residue counting is literally the cardinality of the corresponding finite
+filter.  This form is useful for short-interval rigidity. -/
+theorem divisorResidueCount_eq_filterCard_sharp
+    (I : Finset ℕ) (d a : ℕ) :
+    divisorResidueCount I d a =
+      (((I.filter fun m => Nat.ModEq d m a).card : ℕ) : ℤ) := by
+  classical
+  unfold divisorResidueCount
+  calc
+    (∑ m ∈ I, if Nat.ModEq d m a then (1 : ℤ) else 0) =
+        ∑ m ∈ I with Nat.ModEq d m a, (1 : ℤ) := by
+      rw [Finset.sum_filter]
+    _ = (((I.filter fun m => Nat.ModEq d m a).card : ℕ) : ℤ) := by
+      simp
+
+/-- **Sharp short-interval boundary bound.**  An interval shorter than one
+positive modulus contains at most one point of any fixed residue class.  Hence
+the centered residue defect has absolute value at most one modulus, not the
+quadratic bound used by the earlier deliberately crude conductor estimate. -/
+theorem abs_divisorIntervalBoundary_le_modulus_of_short
+    (d a lower upper : ℕ)
+    (hlower : lower ≤ upper) (hshort : upper - lower < d) :
+    |divisorIntervalBoundary d a lower upper| ≤ (d : ℤ) := by
+  classical
+  let I : Finset ℕ := Finset.Ioc lower upper
+  let F : Finset ℕ := I.filter fun m => Nat.ModEq d m a
+  have hupperShort : upper < lower + d := by omega
+  have hcardF : F.card ≤ 1 := by
+    rw [Finset.card_le_one]
+    intro m hm n hn
+    have hmData := Finset.mem_filter.mp hm
+    have hnData := Finset.mem_filter.mp hn
+    have hmI : m ∈ Finset.Ioc lower upper := by simpa [I] using hmData.1
+    have hnI : n ∈ Finset.Ioc lower upper := by simpa [I] using hnData.1
+    have hmBounds := Finset.mem_Ioc.mp hmI
+    have hnBounds := Finset.mem_Ioc.mp hnI
+    have hmBig : m ∈ Finset.Ico (lower + 1) (lower + 1 + d) := by
+      apply Finset.mem_Ico.mpr
+      omega
+    have hnBig : n ∈ Finset.Ico (lower + 1) (lower + 1 + d) := by
+      apply Finset.mem_Ico.mpr
+      omega
+    have hmrem : m % d = a % d := by
+      simpa [Nat.ModEq] using hmData.2
+    have hnrem : n % d = a % d := by
+      simpa [Nat.ModEq] using hnData.2
+    have hrem : m % d = n % d := hmrem.trans hnrem.symm
+    have hinj : Set.InjOn (fun z : ℕ => z % d)
+        (↑(Finset.Ico (lower + 1) (lower + 1 + d))) := by
+      simpa using Nat.mod_injOn_Ico (lower + 1) d
+    exact hinj hmBig hnBig hrem
+  have hcount : divisorResidueCount I d a = (F.card : ℤ) := by
+    simpa [F] using divisorResidueCount_eq_filterCard_sharp I d a
+  have hc0 : (0 : ℤ) ≤ divisorResidueCount I d a := by
+    rw [hcount]
+    positivity
+  have hc1 : divisorResidueCount I d a ≤ 1 := by
+    rw [hcount]
+    exact_mod_cast hcardF
+  have hcardI : I.card = upper - lower := by
+    dsimp [I]
+    exact Nat.card_Ioc lower upper
+  have hrleNat : upper - lower ≤ d := Nat.le_of_lt hshort
+  have hrle : (((upper - lower : ℕ) : ℤ)) ≤ (d : ℤ) := by
+    exact_mod_cast hrleNat
+  unfold divisorIntervalBoundary divisorResidueBoundary
+  change
+    |(d : ℤ) * divisorResidueCount I d a - (I.card : ℤ)| ≤ (d : ℤ)
+  rw [hcardI]
+  apply (abs_le).2
+  constructor <;> nlinarith
+
 end RHLean.Analysis

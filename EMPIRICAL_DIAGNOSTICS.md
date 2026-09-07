@@ -182,9 +182,63 @@ for the canonical coefficients supplied by the prime-first transport transform g
 
 For comparison, the least-norm coefficient vector satisfying the same identity has $Q_R$ between $0.015$ and $0.89$ over the same range. That column is bounded because the target is true, not as evidence for it; the least-norm coefficients are proportional to $(M(y)-1)/(y+1)$ and are not arithmetically constructible.
 
+## Frontier capacity against the two thresholds
+
+The support-only route bounds $\lvert M(X)\rvert$ by the first-failure frontier of an Euler pivot $\ell$,
+
+$$
+F(X,\ell)=\#\{n\le X:\ n\ \text{squarefree},\ \ell\nmid n,\ X<\ell n\},
+$$
+
+which yields a covariance capacity $F(F-1)/2$, sharpened to $(F^{2}-Q)/2$ once the exact squarefree diagonal $Q$ is restored. The measurement below is what closed that route.
+
+| $x$ | $M(x)$ | actual $C(x+1)$ | $F(x,2)$ | $F/x$ | $F/\sqrt x$ | capacity $F(F-1)/2$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| $2\cdot10^{3}$ | $5$ | $-595$ | $407$ | $0.2035$ | $9.1$ | $41.3\,x$ |
+| $2\cdot10^{4}$ | $26$ | $-5742$ | $4048$ | $0.2024$ | $28.6$ | $409.6\,x$ |
+| $2\cdot10^{5}$ | $-1$ | $-60\,790$ | $40\,527$ | $0.2026$ | $90.6$ | $4106.0\,x$ |
+
+Three readings, and only the third is a conclusion about the route.
+
+The minimising pivot is $\ell=2$, whose frontier is the squarefree part of the top-half window $(x/2,x]$ — the same set as the $\ell=2$ cutoff wall of the prefix carrier — so $F/x$ tends to $2/\pi^{2}=0.20264$ and the capacity is of order $x^{2}$. That is a full power above the RH target $x^{1+\varepsilon}$, and subtracting the linear diagonal does not change the exponent. The pivots $\ell=3$ and $\ell=5$ are worse, at densities $0.304$ and $0.405$.
+
+$F/\sqrt x$ grows, so the exposed frontier is nowhere near square-root size. That is exactly the hypothesis the root-scale frontier statement asks for, and this measurement refutes it for the raw prime cube.
+
+The two thresholds must not be conflated. Crossing the literal $\sqrt x$ line is $C(x+1)>Z(x)/2\approx0.196\,x$, which is the threshold of the *false* Mertens conjecture and therefore not a provable target. The RH threshold is the strictly weaker $C(x)\le x^{1+o(1)}$, and an RH-violating excursion of exponent $\varepsilon$ needs $C$ of order $x^{1+2\varepsilon}$ — a fixed power above target, not a constant factor. The actual covariance in the range above is strongly negative, far below every threshold; the problem is not its true value but that no theorem yet bounds it.
+
+## What the fixed-prime peel leaves, in every order
+
+The cumulative Othello layer proves that peeling a distinguished prime leaves the signed Möbius mass unchanged and reduces a prefix to two walls. The measurement asks what those walls actually cost.
+
+| $x$ | $M(x)$ | ascending peel | descending peel | mixed order | maximum adaptive matching |
+| --- | --- | --- | --- | --- | --- |
+| $2\cdot10^{3}$ | $5$ | $407$ | $407$ | $407$ | $335$ |
+| $2\cdot10^{4}$ | $26$ | $4048$ | $4048$ | $4048$ | $3314$ |
+
+The signed mass never moves under any peel, at any scale, in any order: the exact layer holds. The surviving population bottoms out at $2/\pi^{2}$ of $x$ and is identical for ascending, descending and mixed prime orders, so the peel order is not the free parameter. Restoring full state-dependent freedom — allowing the matching prime to depend on the state — still leaves a positive proportion exposed, about $0.166\,x$.
+
+That last row is now a theorem rather than a measurement. At $x=2\cdot10^{3}$ there are $135$ primes with $x<2p$, and at $x=2\cdot10^{4}$ there are $1033$; each has the single legal move $p\mapsto1$, so they all compete for one neighbour and an involution can serve at most one of them. The fixed set of *any* adaptive mate on $(0,x]$ therefore has at least $\pi(x)-\pi(x/2)-1$ states. The carrier, not the matching, is what has to change.
+
+## Square-block covariance: the partition holds, the magnitude step does not
+
+The block decomposition proves $S^{2}=E+2X$ and $C_{\text{global}}(R^{2})=\sum_j C_j+X$. Both identities were checked exactly before being relied on, and the same run measures what a magnitude-first bound would discard.
+
+| $R$ | $N=R^{2}$ | $S=M(N-1)$ | block energy $E$ | cross $X$ | $\sum_j C_j$ | partition check | $\sum_j\lvert B_j\rvert$ | discarded |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| $200$ | $40\,000$ | $-10$ | $24\,406$ | $-12\,153$ | $48$ | exact | $1706$ | $72.8\,N$ |
+| $400$ | $160\,000$ | $-67$ | $99\,961$ | $-47\,736$ | $1347$ | exact | $4781$ | $142.8\,N$ |
+
+Three readings.
+
+The partition is exact at every scale, so the block decomposition is a refinement of the same pair sum rather than a second object needing a bridge.
+
+The discarded quantity $\bigl(\sum_j\lvert B_j\rvert\bigr)^{2}-S^{2}$ grows like $N^{3/2}$, because $\sum_j\lvert B_j\rvert$ grows like $N^{3/4}$ while $\lvert S\rvert$ stays near $N^{1/2}$. Bounding blocks separately and only then squaring therefore loses a half power, not a constant factor.
+
+The block energy $E$ *looks* linear here, close to the squarefree density $6N/\pi^{2}$. That reading must not be promoted. Exactly, $E-Q=2\sum_j C_j$, so proving $E\ll N^{1+\varepsilon}$ is proving the aggregate within-block covariance is of RH scale. The way out is refinement rather than a bound on $E$: each refinement step moves energy into the children and leaves an explicit signed cross term, and the leaf energy is exactly $Q$, which is linear with no conjecture at all.
+
 ## Certified finite constants are not diagnostics
 
-Three finite quantities appear in the package with proof status rather than diagnostic status. They are listed here only so that they are not mistaken for the measurements above.
+Four finite quantities appear in the package with proof status rather than diagnostic status. They are listed here only so that they are not mistaken for the measurements above.
 
 **The shallow-crossing coefficient at depth $18800$.** The weighted reciprocal coefficient
 
@@ -195,6 +249,8 @@ $$
 is first identified by exact rational summation by parts with its Möbius-boundary form, and that rational value at $K=18800$ is proved negative by `native_decide`. No decimal approximation and no externally generated table enters the argument. The number then appears in exactly one place: as a witness for the general negative-coefficient hypothesis. The public crossing theorem is stated in the endpoint variable, holds for every positive logarithmic constant, and does not expose the certificate.
 
 **The corrected-conductor packet bound $6q^3$.** Each ingredient is an elementary counting step: a divisor boundary on an interval shorter than the conductor is bounded by $2q^2$, at most $q$ divisors occur, the periodic raw spectrum is bounded by the torus modulus, and the smooth-site carrier has at most the same cardinality. Summing over $q\le R$ gives $6(R+1)R^3$. These constants are deliberately crude and use no cancellation between distinct conductors; they are proved, not fitted.
+
+**The Mertens prefix at the fixed crossing depth $18349$.** The finite value $M(18349)=-21$ is proved, not measured, and it is the reason the fixed-depth boundary budget is a theorem rather than an observation. Because the first crossing prime advances the reciprocal packet in steps of exactly that size, and the crossing theorem already gives a nonnegative overshoot strictly smaller than one step, the compressed partial packet has fewer than $21$ unit cells — uniformly in $R$. Combined with the other endpoint budgets this gives a tagged no-liberty boundary of cardinality at most $3R+21$: head $1$, partial at most $20$, born-exit at most $2R$, root equality at most $R$. That is a target-side improvement only; it neither assumes nor supplies the still-open source-to-boundary classifier.
 
 **The low-slope cubic step.** The proved affine-envelope contraction step is $\alpha-\alpha^3/178200000$. The denominator is a proof artifact of the elementary route taken, not a measured optimum. What remains open is the physical cutoff law required to iterate the step at RH-compatible scale, and no measurement in this note bears on that.
 
@@ -218,4 +274,12 @@ $$
 
 so its population and signed mass are directly enumerable at moderate $R$. The informative statistic is again the signed mass against $R$, not the raw shell cardinality.
 
-In both cases the same standard applies as to every table above: a finite trend is motivation for a formal target, never evidence for an asymptotic bound.
+A third object has joined them and is now the sharpest of the three. After the squarefree-diagonal sharpening, the whole vertical-line energy on a strict subdoubling run is
+
+$$
+\lVert V(a,b)\rVert^{2}\le 2a^{2}+2\max\bigl(0,C_{\text{line}}\bigr),
+$$
+
+and the carrier is exactly the squarefree shell $\{n:\ R<n<R^{2}\}$. So the informative measurement is the *positive part* of the aggregate line covariance against $a^{2}$, on that shell, with births and deaths kept signed. Because the shell is explicit and the event variable is $\mu(n)\chi(n)$, a candidate exact recursion can be tested directly: check equality over many roots and fresh primes, isolate each discrepancy by lower wall, upper square wall, stable family and cross-family term, and search for the smallest counterexample immediately.
+
+In all three cases the same standard applies as to every table above: a finite trend is motivation for a formal target, never evidence for an asymptotic bound. Two specific traps are worth naming, because both have already cost a route. Measuring the size of two fields separately answers a question the package has closed; and a quantity that looks linear over a decade of scales — the block energy is the live example — may be exactly equivalent to the conjecture being tested.

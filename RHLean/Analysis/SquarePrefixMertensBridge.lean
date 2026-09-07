@@ -65,6 +65,140 @@ theorem norm_mertensSummatory_sub_le (a b : ℕ) (hab : a ≤ b) :
             have hnat : b - a + 1 = (b + 1) - a := by omega
             exact_mod_cast hnat
 
+/-- Two-sided endpoint interpolation for Mertens.  This uses only `|mu| <= 1`:
+for any `a <= x <= b`, the value at `x` is controlled by either endpoint plus
+the corresponding integer distance. -/
+theorem norm_mertensSummatory_le_min_endpointInterpolation
+    {a x b : ℕ} (hax : a ≤ x) (hxb : x ≤ b) :
+    ‖mertensSummatory x‖ ≤
+      min (‖mertensSummatory a‖ + ((x - a : ℕ) : ℝ))
+        (‖mertensSummatory b‖ + ((b - x : ℕ) : ℝ)) := by
+  apply le_min
+  · calc
+      ‖mertensSummatory x‖ =
+          ‖mertensSummatory a +
+            (mertensSummatory x - mertensSummatory a)‖ := by
+        congr 1
+        ring
+      _ ≤ ‖mertensSummatory a‖ +
+          ‖mertensSummatory x - mertensSummatory a‖ := norm_add_le _ _
+      _ ≤ ‖mertensSummatory a‖ + ((x - a : ℕ) : ℝ) :=
+        add_le_add_left (norm_mertensSummatory_sub_le a x hax) _
+  · calc
+      ‖mertensSummatory x‖ =
+          ‖mertensSummatory b +
+            (mertensSummatory x - mertensSummatory b)‖ := by
+        congr 1
+        ring
+      _ ≤ ‖mertensSummatory b‖ +
+          ‖mertensSummatory x - mertensSummatory b‖ := norm_add_le _ _
+      _ ≤ ‖mertensSummatory b‖ + ((b - x : ℕ) : ℝ) := by
+        have hgap := norm_mertensSummatory_sub_le x b hxb
+        rw [norm_sub_rev] at hgap
+        exact add_le_add_left hgap _
+
+/-- Nearest-endpoint form of the preceding interpolation theorem.  The worst
+point between two endpoint states is the midpoint, so the interpolation cost is
+at most half the endpoint gap. -/
+theorem norm_mertensSummatory_le_max_endpoints_add_halfGap
+    {a x b : ℕ} (hax : a ≤ x) (hxb : x ≤ b) :
+    ‖mertensSummatory x‖ ≤
+      max ‖mertensSummatory a‖ ‖mertensSummatory b‖ +
+        ((b - a : ℕ) : ℝ) / 2 := by
+  have hinterp :=
+    norm_mertensSummatory_le_min_endpointInterpolation hax hxb
+  have hsumNat : (x - a) + (b - x) = b - a := by omega
+  have hsumReal :
+      ((x - a : ℕ) : ℝ) + ((b - x : ℕ) : ℝ) =
+        ((b - a : ℕ) : ℝ) := by
+    exact_mod_cast hsumNat
+  by_cases hnear : x - a ≤ b - x
+  · have hnearR : ((x - a : ℕ) : ℝ) ≤ ((b - x : ℕ) : ℝ) := by
+      exact_mod_cast hnear
+    have hhalf :
+        ((x - a : ℕ) : ℝ) ≤ ((b - a : ℕ) : ℝ) / 2 := by
+      nlinarith [hsumReal]
+    calc
+      ‖mertensSummatory x‖ ≤
+          min (‖mertensSummatory a‖ + ((x - a : ℕ) : ℝ))
+            (‖mertensSummatory b‖ + ((b - x : ℕ) : ℝ)) := hinterp
+      _ ≤ ‖mertensSummatory a‖ + ((x - a : ℕ) : ℝ) := min_le_left _ _
+      _ ≤ max ‖mertensSummatory a‖ ‖mertensSummatory b‖ +
+          ((b - a : ℕ) : ℝ) / 2 :=
+        add_le_add (le_max_left _ _) hhalf
+  · have hnearNat : b - x ≤ x - a := by omega
+    have hnearR : ((b - x : ℕ) : ℝ) ≤ ((x - a : ℕ) : ℝ) := by
+      exact_mod_cast hnearNat
+    have hhalf :
+        ((b - x : ℕ) : ℝ) ≤ ((b - a : ℕ) : ℝ) / 2 := by
+      nlinarith [hsumReal]
+    calc
+      ‖mertensSummatory x‖ ≤
+          min (‖mertensSummatory a‖ + ((x - a : ℕ) : ℝ))
+            (‖mertensSummatory b‖ + ((b - x : ℕ) : ℝ)) := hinterp
+      _ ≤ ‖mertensSummatory b‖ + ((b - x : ℕ) : ℝ) := min_le_right _ _
+      _ ≤ max ‖mertensSummatory a‖ ‖mertensSummatory b‖ +
+          ((b - a : ℕ) : ℝ) / 2 :=
+        add_le_add (le_max_right _ _) hhalf
+
+/-- **Parametric prime-state/gap interpolation theorem.**  No PNT, Cramer, or
+probabilistic spacing input is built into the theorem.  If Mertens is bounded by
+`B` at prime states and every consecutive prime gap is bounded by `G` at its
+lower endpoint, then every integer between that consecutive pair inherits the
+endpoint envelope plus half the gap bound. -/
+theorem mertensBound_between_consecutivePrimes_of_primeStateBound_and_primeGap
+    (B G : ℕ → ℝ)
+    (hprime : ∀ p : ℕ, p.Prime → ‖mertensSummatory p‖ ≤ B p)
+    (hgap : ∀ p q : ℕ,
+      p.Prime → q.Prime → p < q →
+      (∀ r : ℕ, p < r → r < q → ¬ r.Prime) →
+      ((q - p : ℕ) : ℝ) ≤ G p)
+    {pLo x pHi : ℕ}
+    (hpLo : pLo.Prime) (hpHi : pHi.Prime)
+    (hlt : pLo < pHi)
+    (hconsecutive : ∀ r : ℕ, pLo < r → r < pHi → ¬ r.Prime)
+    (hlo : pLo ≤ x) (hhi : x ≤ pHi) :
+    ‖mertensSummatory x‖ ≤
+      max (B pLo) (B pHi) + G pLo / 2 := by
+  have hinterp :=
+    norm_mertensSummatory_le_max_endpoints_add_halfGap hlo hhi
+  have hendpoint :
+      max ‖mertensSummatory pLo‖ ‖mertensSummatory pHi‖ ≤
+        max (B pLo) (B pHi) :=
+    max_le_max (hprime pLo hpLo) (hprime pHi hpHi)
+  have hgapBound := hgap pLo pHi hpLo hpHi hlt hconsecutive
+  calc
+    ‖mertensSummatory x‖ ≤
+        max ‖mertensSummatory pLo‖ ‖mertensSummatory pHi‖ +
+          ((pHi - pLo : ℕ) : ℝ) / 2 := hinterp
+    _ ≤ max (B pLo) (B pHi) + ((pHi - pLo : ℕ) : ℝ) / 2 :=
+      add_le_add_right hendpoint _
+    _ ≤ max (B pLo) (B pHi) + G pLo / 2 := by
+      nlinarith
+
+/-- If the gap envelope is monotone, the same theorem may be displayed using
+the upper prime endpoint, matching the common `G(pHi)` notation. -/
+theorem mertensBound_between_consecutivePrimes_of_primeStateBound_and_monotonePrimeGap
+    (B G : ℕ → ℝ)
+    (hG : Monotone G)
+    (hprime : ∀ p : ℕ, p.Prime → ‖mertensSummatory p‖ ≤ B p)
+    (hgap : ∀ p q : ℕ,
+      p.Prime → q.Prime → p < q →
+      (∀ r : ℕ, p < r → r < q → ¬ r.Prime) →
+      ((q - p : ℕ) : ℝ) ≤ G p)
+    {pLo x pHi : ℕ}
+    (hpLo : pLo.Prime) (hpHi : pHi.Prime)
+    (hlt : pLo < pHi)
+    (hconsecutive : ∀ r : ℕ, pLo < r → r < pHi → ¬ r.Prime)
+    (hlo : pLo ≤ x) (hhi : x ≤ pHi) :
+    ‖mertensSummatory x‖ ≤
+      max (B pLo) (B pHi) + G pHi / 2 := by
+  have h :=
+    mertensBound_between_consecutivePrimes_of_primeStateBound_and_primeGap
+      B G hprime hgap hpLo hpHi hlt hconsecutive hlo hhi
+  have hGmono : G pLo ≤ G pHi := hG hlt.le
+  nlinarith
+
 /-- The endpoint immediately precedes the next square. -/
 theorem squarePrefixEndpoint_add_one (n : ℕ) :
     squarePrefixEndpoint n + 1 = (n + 1) ^ 2 := by

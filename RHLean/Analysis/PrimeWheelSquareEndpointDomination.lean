@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Analysis.NearestSquareEndpointDomination
 import RHLean.Analysis.PrimeWheelRecoveredMertensCriterion
+import RHLean.Analysis.SquareRootCanonicalRoughCovariance
+import RHLean.Analysis.SquareRootFixedCrossing18349
 
 /-!
 # Prime-wheel square-endpoint domination
@@ -20,6 +22,15 @@ endpoints is proved equivalent to both the square-prefix Mertens criterion and
 the full all-cutoff recovered-wheel criterion. Thus arbitrary physical cutoffs
 carry no independent analytic obligation once the completed-square recovered
 wheel states are controlled.
+
+The final section records the consequence for the canonical rough covariance
+route.  The post-crossing covariance target already lives at the exact square
+endpoint `X_R = R^2 - 1`.  Once a fixed negative reciprocal coefficient supplies
+the shallow crossing, that endpoint-only covariance estimate is literally
+equivalent to the endpoint-only recovered-wheel criterion.  No separate
+prime-wheel run estimate and no estimate at the arbitrary final point of a wheel
+block is required: the final incomplete square is absorbed by the root-scale
+nearest-endpoint term above.
 
 No quantitative RH-scale estimate is introduced here: the module proves the
 lossless reduction to the endpoint-only recovered prime-wheel state.
@@ -144,5 +155,42 @@ theorem riemannHypothesis_of_sqrtWheelSquareEndpointEnergy
   apply riemannHypothesis_of_sqrtWheelRecoveredEnergy
   exact
     sqrtWheelSquareEndpointEnergyBounded_iff_sqrtWheelRecoveredEnergyBounded.mp h
+
+/-! ## Canonical rough covariance needs only the square samples -/
+
+open RHLean.Proof
+
+/-- **The hard canonical rough covariance estimate is already endpoint-only.**
+
+Any exact negative reciprocal coefficient certificate gives the eventual
+shallow crossing.  After that crossing, the canonical rough covariance bound at
+`X_R = R^2 - 1` is equivalent to the full Mertens-energy criterion, hence to the
+recovered prime wheel sampled only at complete-square endpoints.  Arbitrary
+points inside a wheel, including its upper endpoint, add only the deterministic
+root-scale edge controlled above. -/
+theorem squareRootCanonicalRoughCovarianceBounded_iff_sqrtWheelSquareEndpointEnergy_of_boundaryRat_neg
+    (K₀ : ℕ) (hK₀ : 1 ≤ K₀)
+    (hcoeff : squareRootPacketReciprocalBoundaryRat K₀ < 0) :
+    SquareRootCanonicalRoughCovarianceBoundedStatement K₀ ↔
+      SqrtWheelSquareEndpointEnergyBoundedStatement := by
+  calc
+    SquareRootCanonicalRoughCovarianceBoundedStatement K₀ ↔
+        SquareRootPostCrossingCoupledTailBoundedStatement K₀ :=
+      squareRootCanonicalRoughCovarianceBounded_iff_coupledTailBounded K₀
+    _ ↔ MertensEnergyBoundedStatement :=
+      postCrossingCoupledTailBounded_iff_mertensEnergyBounded_of_boundaryRat_neg
+        K₀ hK₀ hcoeff
+    _ ↔ SqrtWheelSquareEndpointEnergyBoundedStatement :=
+      sqrtWheelSquareEndpointEnergyBounded_iff_mertensEnergyBounded.symm
+
+/-- Concrete fixed-depth form using the exact `18349` negative coefficient.
+This is the sharp current proof target: control the canonical rough covariance
+at square endpoints; the wheel interpolation is already free. -/
+theorem squareRootCanonicalRoughCovarianceBounded_18349_iff_sqrtWheelSquareEndpointEnergy :
+    SquareRootCanonicalRoughCovarianceBoundedStatement 18349 ↔
+      SqrtWheelSquareEndpointEnergyBoundedStatement := by
+  exact
+    squareRootCanonicalRoughCovarianceBounded_iff_sqrtWheelSquareEndpointEnergy_of_boundaryRat_neg
+      18349 (by norm_num) squareRootPacketReciprocalBoundaryRat_18349_neg
 
 end RHLean.Analysis
