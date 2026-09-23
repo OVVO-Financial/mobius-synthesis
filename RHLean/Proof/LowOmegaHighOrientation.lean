@@ -6,7 +6,7 @@ import RHLean.Proof.NormalizedCofactorExpansion
 # Low-ω sources are pure high-orientation mass
 
 Elementary, unconditional fact recorded from the omega-parity / orientation
-diagnostic (`research/OMEGA_PARITY_ORIENTATION.md`).
+diagnostic (`EMPIRICAL_DIAGNOSTICS.md`).
 
 A squarefree `m > 1` with at most two distinct prime factors always has its
 largest prime factor above the square root of `m`.  Equivalently, its canonical

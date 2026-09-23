@@ -52,7 +52,7 @@ two are the Type-II core.  `rhoE` carries a smooth deterministic factor and is
 semilinear, so it belongs with the coherent side despite being algebraically
 centered.  `muRho` is *not* deterministic: summed over a balanced region it is a
 smoothed Moebius sum, and the diagnostics in
-`research/COMPRESSION_ESCAPE_DEFECT_NOGO.md` record that it, not the Type-II
+`EMPIRICAL_DIAGNOSTICS.md` record that it, not the Type-II
 core, carries the energy.  The definitions below keep it separate from
 `rhoRho` for exactly that reason.
 

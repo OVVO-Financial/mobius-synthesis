@@ -157,4 +157,69 @@ theorem finiteDifferenceOperator_singleton
     (R := R) ∅ p hp (by simp) (by simp) f
   simpa using h
 
+/-! ## Scale intertwining -/
+
+/-- The canonical finite Möbius difference operator commutes with every floor
+scale shift.  This is the operator-level Fubini identity needed to transport an
+already-formed Euler field through a later `q^2` daughter descent. -/
+theorem finiteDifferenceOperator_shift_comm
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (e : ℕ) (f : ℕ → R) :
+    finiteDifferenceOperator S (shift e f) =
+      shift e (finiteDifferenceOperator S f) := by
+  funext x
+  unfold finiteDifferenceOperator shift
+  apply Finset.sum_congr rfl
+  intro d hd
+  congr 1
+  rw [Nat.div_div_eq_div_mul, Nat.div_div_eq_div_mul, Nat.mul_comm d e]
+
+/-- A fresh-prime finite difference commutes with every floor scale shift. -/
+theorem freshPrimeDifference_shift_comm
+    {R : Type*} [CommRing R]
+    (p e : ℕ) (f : ℕ → R) :
+    freshPrimeDifference p (shift e f) =
+      shift e (freshPrimeDifference p f) := by
+  funext x
+  simp only [freshPrimeDifference_apply, shift]
+  rw [Nat.div_div_eq_div_mul, Nat.div_div_eq_div_mul, Nat.mul_comm e p]
+
+/-- **Prime-11 / q^2 intertwining.**  The first generic Euler difference and the
+Go square-dilated daughter operation commute exactly on every arithmetic field.
+This is stated before taking absolute values or energies. -/
+theorem elevenDifference_squareShift_comm
+    {R : Type*} [CommRing R]
+    (q : ℕ) (f : ℕ → R) :
+    freshPrimeDifference 11 (shift (q * q) f) =
+      shift (q * q) (freshPrimeDifference 11 f) :=
+  freshPrimeDifference_shift_comm 11 (q * q) f
+
+/-- Applying an existing finite prime fibre after the prime-11 difference still
+commutes with the `q^2` daughter scale.  Thus all old Euler coordinates remain
+inside the same signed fibre while the owner scale is pushed down. -/
+theorem finiteDifferenceOperator_eleven_squareShift_intertwining
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (q : ℕ) (f : ℕ → R) :
+    finiteDifferenceOperator S
+        (freshPrimeDifference 11 (shift (q * q) f)) =
+      shift (q * q)
+        (finiteDifferenceOperator S (freshPrimeDifference 11 f)) := by
+  rw [elevenDifference_squareShift_comm]
+  exact finiteDifferenceOperator_shift_comm S (q * q)
+    (freshPrimeDifference 11 f)
+
+/-- If `11` is fresh to `S`, the preceding theorem is exactly the unordered
+Euler insertion operator on both sides. -/
+theorem finiteDifferenceOperator_insert_eleven_squareShift_intertwining
+    {R : Type*} [CommRing R]
+    (S : Finset ℕ) (q : ℕ) (f : ℕ → R)
+    (h11S : 11 ∉ S) (hprime : ∀ r ∈ S, Nat.Prime r) :
+    finiteDifferenceOperator (insert 11 S) (shift (q * q) f) =
+      shift (q * q) (finiteDifferenceOperator (insert 11 S) f) := by
+  rw [finiteDifferenceOperator_insert_eq_freshPrimeDifference
+      S 11 (by norm_num) h11S hprime (shift (q * q) f),
+    finiteDifferenceOperator_insert_eq_freshPrimeDifference
+      S 11 (by norm_num) h11S hprime f]
+  exact finiteDifferenceOperator_eleven_squareShift_intertwining S q f
+
 end RHLean.Arithmetic

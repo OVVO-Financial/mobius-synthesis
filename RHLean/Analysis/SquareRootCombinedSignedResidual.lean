@@ -33,8 +33,8 @@ without the other.  The theorems below record
 * `A_R^born - T_R = (A_R^born - T_R^sm) - D_R` (matched form);
 * the Gram identity showing the combined form has exactly the norm of the
   original matched object, so the RH-scale target is unchanged; and
-* the equivalence of the combined RH-scale statement with the square-prefix
-  criterion `‖A_R^born - T_R‖^2 ≪_eps R^(2+eps)` already stated in the matched
+* the equivalence of the combined RH-scale statement with the matched-channel
+  target `‖A_R^born - T_R‖^2 ≪_eps R^(2+eps)` already stated in the matched
   module.
 
 The one-way triangle bound is also recorded, precisely to show what separating
@@ -186,7 +186,7 @@ def SquareRootMatchedCombinedBoundedStatement : Prop :=
             squareRootTransportCombinedResidual R‖ ^ 2 ≤
           C * Real.rpow (R : ℝ) (2 + ε)
 
-/-- The combined-residual target is exactly the square-prefix RH criterion
+/-- The combined-residual target is exactly the matched-channel target
 `‖A_R^born - T_R‖^2 ≪_eps R^(2+eps)`; centering costs nothing and gains nothing
 by itself. -/
 theorem squareRootMatchedCombinedBounded_iff_matchedTransportBounded :

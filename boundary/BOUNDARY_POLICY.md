@@ -10,9 +10,11 @@ The repository has three quantitative descriptions that must be kept distinct.
 
 1. `boundary/frontier.json` certifies the **canonical square-wheel nonzero-response frontier** `H_{k,n}`. Its certified kind remains `exact_reduction`, because no pointwise power exponent below `1` has been proved for that object.
 2. The native PNT layer has a **proved generalized affine envelope and strict low-slope cubic contraction**, plus conditional square-root conversion theorems from explicit cutoff or intercept laws. The missing theorem there is RH-compatible physical cutoff control.
-3. The covariance layer now has **unconditional inequalities** — the exact squarefree line-event diagonal, the frozen-run root-interval gap, the reciprocal defect ledger, and the quartic downcross ledger bound — none of which is at the critical scale. Several are deliberately recorded as being *worse* than the trivial bound, and the modules say so.
+3. The covariance layer now has **unconditional inequalities** — the exact squarefree line-event diagonal, the frozen-run root-interval gap, the reciprocal defect ledger, the quartic downcross ledger bound, and the post-root envelopes `E(W) <= M(W)^2/2` and `E(W) <= 9(W+4)^2/32` — none of which is at the critical scale. Several are deliberately recorded as being *worse* than the trivial bound, and the modules say so.
 
 The second and third facts are genuine quantitative progress, but neither mutates the first certificate. A PR must never change `boundary/frontier.json` merely because it improves an affine PNT contraction constant, proves another conditional conversion theorem, or adds an unconditional but supercritical covariance inequality. The canonical `H_{k,n}` certificate advances only when the canonical predicate itself is strengthened.
+
+A fifth distinction now matters, because several compiled statements look like frontier movement and are not. Where two quantities are locked together by an unconditional identity — the post-root remainder exponent and the Mertens exponent differ by exactly a factor of two — improving one is not evidence about the other, and a candidate must say which one it moved. Where a hypothesis already implies more than the Riemann hypothesis, the route is recorded as `stronger-than-rh` in `boundary/dead_lanes.json` rather than treated as a step toward the target: the linear downcross seam, the largest-prime defect linear bound, and any fixed finite frame comparison against the frozen lower-Mertens envelope are all of that kind, since each yields the strong Mertens bound. A conditional terminal synthesis with a subcritical coefficient, such as the `34/35` factor-four recurrence, is likewise a statement about everything *after* an unproved parent recurrence, and does not certify the recurrence itself.
 
 A fourth distinction now matters for Lane B. An exact identification of two coordinate systems is admissible only together with the theorem that their energy statements coincide. The package proves five descriptions of the signed endpoint object equal, and in every case the accompanying energy proposition is proved equal to the pre-existing canonical oriented-run seam. A synthesis candidate that identifies a new coordinate without that companion theorem is a renaming, and the gate should be read as rejecting it under the "new basis, reindexing, or equivalent energy" clause below.
 
@@ -79,6 +81,9 @@ The gate rejects a Lean research PR if it satisfies neither lane. In particular,
 - an unconditional inequality that is supercritical, or weaker than the trivial bound, presented as frontier movement;
 - a new coordinate for the signed endpoint object without the companion theorem that its energy statement equals the existing seam;
 - a bound obtained by discarding signs — a support count, a capacity, or a triangle inequality over separately counted channels — where `boundary/dead_lanes.json` already records the route as closed.
+- an exponent improvement on one side of an unconditional exchange-rate identity, presented without saying which linked exponent moved;
+- a conditional terminal synthesis whose subcritical coefficient is offered in place of the parent recurrence it assumes;
+- a frame or coefficient-norm estimate applied before the signed children have been reassembled, where the package proves the two objects differ.
 
 ## Maintenance changes
 

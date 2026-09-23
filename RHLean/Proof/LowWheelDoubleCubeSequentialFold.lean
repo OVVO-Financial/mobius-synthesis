@@ -148,6 +148,33 @@ theorem lowWheelDoubleCube_fourCorners_eq_mixedPrimeCell
   push_cast
   ring
 
+/-- **Three-live-corners collapse.**  If the parent corner, the cofactor-child,
+and the transport-child are all physically present, then the mixed double-cube
+cell has only one possible defect left: the doubly-adjoined endpoint `p^2*n`.
+Thus the four-corner value is exactly `-1` when that second contact crosses the
+endpoint, and `0` otherwise.
+
+This is the generic cell identity used by frozen states: after stripping their
+largest cofactor prime `p`, the original frozen occurrence and the occurrence
+obtained by moving `p` onto the transport face are the two live single-child
+corners. -/
+theorem lowWheelMixedPrimeCell_eq_neg_secondContact_of_three_live
+    (p R X q n : ℕ)
+    (hp : 1 ≤ p) (hq : R < q)
+    (hn : n ≤ X) (hpn : p * n ≤ X) :
+    lowWheelMixedPrimeCell p R X q n =
+      if X < p * p * n then -1 else 0 := by
+  have hpq : q ≤ p * q := by
+    simpa [one_mul] using Nat.mul_le_mul_right q hp
+  have hrootChild : R < p * q := hq.trans_le hpq
+  unfold lowWheelMixedPrimeCell lowWheelTransportIndicator
+    lowWheelRootHighIndicator lowWheelEndpointIndicator
+  by_cases hsecond : p * p * n ≤ X
+  · have hnot : ¬ X < p * p * n := Nat.not_lt.mpr hsecond
+    simp [hq, hrootChild, hn, hpn, hsecond, hnot]
+  · have hcross : X < p * p * n := Nat.lt_of_not_ge hsecond
+    simp [hq, hrootChild, hn, hpn, hsecond, hcross]
+
 /-- **Fresh-prime double-cube recurrence.**  Adjoining one new coordinate to
 both signed low-wheel copies replaces the whole new state by the mixed
 four-corner derivative evaluated on the old parent cube. -/

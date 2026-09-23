@@ -25,6 +25,10 @@ The analytic target is the signed matched difference
 
 not a separate absolute bound for the transport term.  No analytic estimate is
 proved in this file; the RH-scale bound is exposed as an ordinary proposition.
+This matched-only proposition is not itself the square-prefix Mertens energy
+criterion: recovery must also retain the positive-orientation mass.  See
+`SquareRootMatchedDegreeOneRecovery` for the exact signed correction and the
+terminal-to-three-slot bridge.
 -/
 
 noncomputable section
@@ -144,9 +148,10 @@ theorem squareRootSmooth_sub_transport_eq_positive_add_matched
   unfold squareRootMatchedBornSmoothTransport
   ring
 
-/-- The direct RH-scale analytic target for the large born-smooth / transport
-cancellation.  This proposition asserts the estimate but does not assume or
-prove it. -/
+/-- An RH-scale analytic target for the large born-smooth / transport
+channel.  The positive-orientation contribution is absent from this target, so
+it is not the full square-prefix Mertens energy criterion.  This proposition
+asserts the estimate but does not assume or prove it. -/
 def SquareRootMatchedTransportBoundedStatement : Prop :=
   ∀ ε : ℝ, 0 < ε →
     ∃ C : ℝ, 0 ≤ C ∧

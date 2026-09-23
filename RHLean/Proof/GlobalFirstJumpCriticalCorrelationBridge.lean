@@ -16,10 +16,11 @@ correlation already differs from this defect by only the single root Mobius
 atom, while its reciprocal prefixes are exactly the coordinate on which the
 fresh-prime Euler factor `1 - 1/p` acts.
 
-This file makes that reduction quantitative.  A uniform reciprocal-prefix bound
-of size `(log R + 1) / R` implies the desired root-scale `R (log R + 1)` bound
-on the recombined canonical defect.  No first-jump-prime or cofactor-column norm
-is inserted in the argument.
+The conditional Abel return is retained, but its proposed uniform
+`(log R + 1) / R` prefix premise is refuted here: the first prefix is the
+unsigned unit-cofactor prime-partner count.  The active quantitative target is
+instead the signed post-root covariance remainder below, whose bound remains
+open.  No first-jump-prime or cofactor-column norm is inserted in the argument.
 -/
 
 noncomputable section
@@ -58,15 +59,108 @@ theorem canonicalDefectLedger_eq_roughCorrelation_add_rootAtom
   unfold canonicalMoebiusWeight
   ring
 
-/-- The reciprocal-prefix scale naturally matched to an `R log R` endpoint
-after the exact Abel return.  This is the coordinate on which the repository's
-fresh-prime Euler contraction already acts. -/
+/-- A proposed sufficient reciprocal-prefix scale for an `R log R` endpoint.
+The implication below is valid, but the premise is impossible: the unit prefix
+is an unsigned prime-partner count.  See
+`not_criticalReciprocalPrefixRootBound`. -/
 def CriticalReciprocalPrefixRootBound : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧
     ∀ R : ℕ, 3 ≤ R →
       ∀ k ≤ squareRootEndpoint R,
         ‖squareRootCanonicalRoughCorrelationReciprocalPrefix R k‖ ≤
           C * (Real.log (R : ℝ) + 1) / (R : ℝ)
+
+/-- The first reciprocal prefix contains only the unit-cofactor response.
+The existing renewal collapse identifies it with a literal prime count, before
+any asymptotic estimate or choice of an Euler compression order. -/
+theorem criticalReciprocalPrefix_one_eq_partnerCard
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughCorrelationReciprocalPrefix R 1 =
+      ((squareRootCanonicalRoughPrimePartnerSet R 1).card : ℂ) := by
+  have hzero : squareRootCanonicalRoughCorrelationReciprocalSummand R 0 = 0 := by
+    simp [squareRootCanonicalRoughCorrelationReciprocalSummand,
+      squareRootCanonicalRoughResponseCenteredReciprocalSummand,
+      squareRootCanonicalRoughParityReciprocalSummand]
+  unfold squareRootCanonicalRoughCorrelationReciprocalPrefix inclusivePrefix
+  rw [Finset.sum_range_succ, Finset.sum_range_succ]
+  simp only [Finset.sum_range_zero, zero_add, hzero]
+  rw [squareRootCanonicalRoughCorrelationReciprocalSummand_eq_weighted_response_div
+    R (by decide : 0 < 1),
+    squareRootCanonicalRoughCofactorResponse_eq_primePartnerCount R 1 hR,
+    squareRootCanonicalRoughPrimePartnerCount_eq_partnerSet_card]
+  simp [canonicalMoebiusWeight]
+
+/-- In the physical partner coordinate the unit prefix counts precisely the
+primes in the inclusive interval `[R, R^2 - 1]`. -/
+theorem criticalReciprocalPrefix_unitPartnerSet
+    (R : ℕ) (hR : 2 ≤ R) :
+    squareRootCanonicalRoughPrimePartnerSet R 1 =
+      (Finset.Icc R (squareRootEndpoint R)).filter Nat.Prime := by
+  ext q
+  rw [mem_squareRootCanonicalRoughPrimePartnerSet_iff hR (by decide : 0 < 1),
+    Finset.mem_filter, Finset.mem_Icc]
+  constructor
+  · rintro ⟨hq, _hfresh, hlo, hhi⟩
+    exact ⟨⟨by simpa using hlo, by simpa using hhi⟩, hq⟩
+  · rintro ⟨⟨hlo, hhi⟩, hq⟩
+    refine ⟨hq, ?_, by simpa using hlo, by simpa using hhi⟩
+    simpa [canonicalLargestPrimeFactor] using hq.one_lt
+
+/-- Every prime root supplies a unit partner itself.  Consequently the first
+prefix stays at least one along an unbounded sequence of roots. -/
+theorem one_le_norm_criticalReciprocalPrefix_one_of_prime
+    {R : ℕ} (hR : R.Prime) :
+    1 ≤ ‖squareRootCanonicalRoughCorrelationReciprocalPrefix R 1‖ := by
+  have hRtwo : 2 ≤ R := hR.two_le
+  have hRX : R ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : R + 1 ≤ R ^ 2 := by nlinarith
+    omega
+  have hmem : R ∈ squareRootCanonicalRoughPrimePartnerSet R 1 := by
+    rw [criticalReciprocalPrefix_unitPartnerSet R hRtwo]
+    exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨le_rfl, hRX⟩, hR⟩
+  have hcard : 1 ≤ (squareRootCanonicalRoughPrimePartnerSet R 1).card :=
+    Finset.card_pos.mpr ⟨R, hmem⟩
+  rw [criticalReciprocalPrefix_one_eq_partnerCard R hRtwo]
+  simpa using (show (1 : ℝ) ≤
+    ((squareRootCanonicalRoughPrimePartnerSet R 1).card : ℝ) by exact_mod_cast hcard)
+
+/-- **The uniform small-prefix premise is false.**  Its right side tends to
+zero, whereas its unit prefix is at least one at every prime root.  Only
+Euclid's infinitude of primes and `log R / R -> 0` are needed; no PNT or
+Mertens estimate enters the obstruction. -/
+theorem not_criticalReciprocalPrefixRootBound :
+    ¬ CriticalReciprocalPrefixRootBound := by
+  rintro ⟨C, _hC, hbound⟩
+  have hlog : Filter.Tendsto
+      (fun R : ℕ => Real.log (R : ℝ) / (R : ℝ))
+      Filter.atTop (nhds 0) := by
+    simpa using
+      Real.isLittleO_log_id_atTop.tendsto_div_nhds_zero.comp
+        tendsto_natCast_atTop_atTop
+  have hinv : Filter.Tendsto (fun R : ℕ => (1 : ℝ) / (R : ℝ))
+      Filter.atTop (nhds 0) :=
+    Filter.Tendsto.div_atTop tendsto_const_nhds tendsto_natCast_atTop_atTop
+  have hlim : Filter.Tendsto
+      (fun R : ℕ => C * (Real.log (R : ℝ) + 1) / (R : ℝ))
+      Filter.atTop (nhds 0) := by
+    simpa only [add_div, mul_div_assoc, add_zero, mul_zero] using
+      (hlog.add hinv).const_mul C
+  have hsmall : ∀ᶠ R : ℕ in Filter.atTop,
+      C * (Real.log (R : ℝ) + 1) / (R : ℝ) < 1 :=
+    hlim.eventually (gt_mem_nhds (by norm_num : (0 : ℝ) < 1))
+  rcases Filter.eventually_atTop.mp hsmall with ⟨N, hN⟩
+  rcases Nat.exists_infinite_primes (max 3 N) with ⟨R, hRlarge, hRprime⟩
+  have hRthree : 3 ≤ R := (le_max_left 3 N).trans hRlarge
+  have hNR : N ≤ R := (le_max_right 3 N).trans hRlarge
+  have hX : 1 ≤ squareRootEndpoint R := by
+    unfold squareRootEndpoint
+    have hsq : 2 ≤ R ^ 2 := by nlinarith
+    omega
+  have hlo := one_le_norm_criticalReciprocalPrefix_one_of_prime hRprime
+  have hhi := hbound R hRthree 1 hX
+  have hlt := hN R hNR
+  linarith
 
 /-- A critical reciprocal-prefix bound gives the corresponding `R log R` bound
 on the uncentered canonical rough correlation. -/
@@ -331,13 +425,40 @@ theorem two_mul_postRootCovarianceRemainder_eq_besselDefect (W : ℕ) :
     postRootPrimeFamilyCovarianceTotal_eq_energyDifference W]
   ring
 
-/-- Weakest useful one-sided leap: after removing every complete lower-scale
+/-- A sufficient one-sided target: after removing every complete lower-scale
 post-root family covariance, the remaining positive same-scale covariance is
 only linear in the physical endpoint. -/
 def PostRootCovarianceLinearRemainderStatement : Prop :=
   ∃ D : ℝ, 0 ≤ D ∧
     ∀ W : ℕ, 2 ≤ W →
       postRootCovarianceRemainder W ≤ D * (W : ℝ)
+
+/-- The weaker one-sided target needed for Mertens energy: the signed remainder
+may have any positive power loss over linear growth, with its constant depending
+on that loss. This is an explicit arithmetic hypothesis, not a proved bound. -/
+def PostRootCovariancePowerRemainderStatement : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ D : ℝ, 0 ≤ D ∧
+      ∀ W : ℕ, 2 ≤ W →
+        postRootCovarianceRemainder W ≤ D * Real.rpow (W : ℝ) (1 + ε)
+
+/-- A linear remainder satisfies every positive-power remainder target. -/
+theorem postRootCovariancePowerRemainder_of_linear
+    (hlin : PostRootCovarianceLinearRemainderStatement) :
+    PostRootCovariancePowerRemainderStatement := by
+  intro ε hε
+  rcases hlin with ⟨D, hD, hrem⟩
+  refine ⟨D, hD, ?_⟩
+  intro W hW
+  have hbase : (1 : ℝ) ≤ (W : ℝ) := by exact_mod_cast (by omega : 1 ≤ W)
+  have hone : Real.rpow (W : ℝ) (1 : ℝ) = (W : ℝ) :=
+    (Real.rpow_eq_pow (W : ℝ) (1 : ℝ)).trans (Real.rpow_one (W : ℝ))
+  have hpow : (W : ℝ) ≤ Real.rpow (W : ℝ) (1 + ε) := by
+    calc
+      (W : ℝ) = Real.rpow (W : ℝ) (1 : ℝ) := hone.symm
+      _ ≤ Real.rpow (W : ℝ) (1 + ε) :=
+        Real.rpow_le_rpow_of_exponent_le hbase (by linarith)
+  exact (hrem W hW).trans (mul_le_mul_of_nonneg_left hpow hD)
 
 /-- Equivalent Bessel form of the same one-sided linear statement. -/
 def PostRootCovarianceBesselLinearStatement : Prop :=

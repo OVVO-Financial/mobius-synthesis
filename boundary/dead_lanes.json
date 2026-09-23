@@ -5,7 +5,8 @@
     "circular": "an exact identity that restates the target in other notation; proving it is proving the target",
     "lossy": "the route is sound but discards more than the target can afford",
     "ceiling": "the mechanism is real but its best case is provably weaker than the target",
-    "refuted": "the proposed target is not true at the stated scale, so no route to it can succeed"
+    "refuted": "the proposed target is not true at the stated scale, so no route to it can succeed",
+    "stronger-than-rh": "the route is sound but its hypothesis already implies more than the Riemann hypothesis, so proving it is harder than the target rather than a step toward it"
   },
   "lanes": [
     {
@@ -228,6 +229,97 @@
         "numeric": "none required; the emptiness is exact"
       },
       "what_would_reopen": "A descended part built from genuinely nonlocal four-corner cancellation across square time, rather than from a fixed-prime leaf inside one window."
+    },
+    {
+      "id": "fixed-stokes-envelope-uniform-ratio",
+      "title": "Dominate the physical Stokes clip by a fixed finite multiple of the frozen lower-Mertens prime-period envelope",
+      "kind": "stronger-than-rh",
+      "closed_on": "2026-09-21",
+      "claim": "After the unit-constant obstruction, increasing the multiplier C in Clip_R <= C E_R for the fixed coefficients a_p=(M(p-1)-1)/sqrt(p) should still provide the missing RH-level admissibility seam.",
+      "obstruction": "The issue is structural, not the value of C. The audited frozen envelope satisfies E_R=O(R^2). Therefore any fixed finite uniform C gives Clip_R=O(R^2); combined with the exact endpoint-gap identity, D_R=O(R^2), and the bounded exceptional terminal sector, this gives |G_R|=O(R). The q^2 daughter induction then yields |M(R^2-1)|=O(R), and the uniform finite-wheel interval bound interpolates to M(x)=O(sqrt(x)). Thus every fixed finite-C comparison against this frozen envelope asks for the strong Mertens bound rather than the RH-scale K-dependent estimate.",
+      "evidence": {
+        "lean": "RHLean/Proof/SignedTransportAmplificationAudit.lean and RHLean/Proof/LowWheelLargestDefectSeamEquivalence.lean record the same strong-Mertens obstruction for the linear seam; the Stokes clip development itself is a focused research layer outside the shipped library",
+        "numeric": "finite constant audit summarized in CURRENT_PROOF_ROUTE.md"
+      },
+      "what_would_reopen": "Nothing for a fixed finite uniform multiplier on the same frozen envelope. The live replacement must retain LowerMertensCriticalEnvelope R K, or equivalent R^epsilon/energy slack, through the signed top-two Stokes clip before any absolute-value estimate."
+    },
+    {
+      "id": "post-root-exponent-without-mertens",
+      "title": "Improve the post-root covariance exponent inside the record machinery",
+      "kind": "ceiling",
+      "closed_on": "2026-09-08",
+      "claim": "Sharpening the record process, the envelope, or the finite-difference bootstrap moves the signed post-root remainder exponent on its own.",
+      "obstruction": "The Bessel identity 2E(W) = M(W)^2 - complementDiagonalResidual(W) - familyMertensSquareEnergy(W) subtracts two nonnegative terms, so E(W) <= M(W)^2/2 holds unconditionally, with no cancellation, record hypothesis or sieve. That one line makes the remainder statement, the envelope statement, the record-excess statement, the falling finite-difference statement, the Mertens square envelope and the Mertens energy criterion all equivalent. Read quantitatively it is an exchange rate: a Mertens bound of exponent theta gives remainder exponent 2*theta and the compiled bootstrap gives the converse. Nothing in the post-root or record machinery can move the remainder exponent without first moving the Mertens exponent.",
+      "evidence": {
+        "lean": "RHLean/Proof/PostRootCovarianceGlobalExponentTransfer.lean",
+        "numeric": "none required; the inequality is unconditional"
+      },
+      "what_would_reopen": "Nothing on this carrier at the level of exponents. The constant can still move, and does: the odd dyadic annulus representation and the compiled strong Mertens estimate give an unconditional subquadratic envelope, against an elementary lower bound of order -W^(3/2)."
+    },
+    {
+      "id": "exceptional-contact-frame-constant",
+      "title": "Close the exceptional owner schedule by computing a six-contact frame constant",
+      "kind": "refuted",
+      "closed_on": "2026-09-12",
+      "claim": "Computing a frame constant alpha_q <= 3 for the six-contact q^2 pullback on the finite super-orbit, then feeding it into the restricted-owner budget 3*(1/9+1/25+1/49) < 1, closes the induction.",
+      "obstruction": "Three exact finite facts kill it. The contact classes are the images of the six active offsets under a |-> -a/4 mod q^2, not the offsets themselves, and conflating them is the usual first error. The frame constant is two for every field, because q odd makes q^2*d and d agree mod four and the six offsets split into three mod-four pairs; the proposed alpha_q <= 3 is therefore a corollary of fibre counting with no Moebius input at all, and two is attained on the all-ones field. Worst, the assembled coefficient norm the frame estimate bounds and the recursive Mertens energy the induction consumes are different objects: mertensSummatoryInt 2 = 0 while the assembled norm is already positive at Y = 2 for all three exceptional owners. That is a type mismatch, not a bad constant.",
+      "evidence": {
+        "lean": "RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean",
+        "numeric": "exact finite certificates at q = 3, 5, 7 and Y = 2"
+      },
+      "what_would_reopen": "Nothing at the level of a residue-torus spectral constant. The masks are periodic but the Moebius observable is not, so the q^2 children have to be reassembled with their signs before any norm is taken, never squared first."
+    },
+    {
+      "id": "deep-wheel-separate-band-counting",
+      "title": "Iterate finite-wheel band counting to a decaying leading coefficient",
+      "kind": "ceiling",
+      "closed_on": "2026-09-10",
+      "claim": "Pushing the finite wheel past 6, 30 and 210 contracts the post-root covariance constants far enough to matter.",
+      "obstruction": "Density contracts by 1 - 1/p at each new prime, but the additional child intervals cost 1 + 1/p, so separate-band counting gains only the factor 1 - 1/p^2 per prime. The audited leading coefficient therefore has a positive floor, and concrete deeper-wheel counting is not kept on the production path.",
+      "evidence": {
+        "lean": "RHLean/Proof/PostRootCovarianceWheelCounting.lean",
+        "numeric": "constants audited at wheels 6, 30 and 210"
+      },
+      "what_would_reopen": "An estimate of the exact signed finite-difference aggregate taken before absolute values, rather than band-by-band counting after them."
+    },
+    {
+      "id": "largest-prime-defect-cardinality",
+      "title": "Bound the largest-prime stable defect by enumerating its carrier",
+      "kind": "ceiling",
+      "closed_on": "2026-09-09",
+      "claim": "The largest-prime stable defect is a smaller remaining piece than the canonical downcross ledger, so counting its states is a viable route.",
+      "obstruction": "It is not smaller: lowWheelCanonicalDowncrossLedger R = lowWheelLargestDefectLedger R is an identity of the same signed object, and the linear bound on either is proved equivalent to the other, so proving it proves the strong Mertens bound rather than the RH-scale seam. The cardinality route is separately dead by a full power: direct enumeration gives |defect|/R rising 18.6, 22.7, ..., 140.1 across R = 8 to 30, growth of order R^2, while the signed mass over the same range stays inside [-7, 9].",
+      "evidence": {
+        "lean": "RHLean/Proof/LowWheelLargestDefectSeamEquivalence.lean",
+        "numeric": "direct enumeration for R = 8 to 30; recorded in EMPIRICAL_DIAGNOSTICS.md"
+      },
+      "what_would_reopen": "Nothing by cardinality. A signed argument must carry the mutual cancellation of the surviving pieces, because their total is the whole endpoint object, and the target is the epsilon-loss bound rather than the linear one."
+    },
+    {
+      "id": "frozen-second-contact-loose-endpoint",
+      "title": "Keep the frozen second-contact window at its natural X_R/q^2 lower endpoint",
+      "kind": "lossy",
+      "closed_on": "2026-09-11",
+      "claim": "The second-contact owner window can be taken with lower endpoint X_R/q^2, since that is where the descent naturally lands.",
+      "obstruction": "On that carrier the Go endpoint law needs the lower cutoff unfinished at its own owner, which is exactly the cube condition q^3 <= X_R. Outside the gate an unrestricted Mertens gap M(q-1) - M(X_R/q^2) survives: a terminal leaf of the original open problem rather than a descended one. Raising the endpoint to max R (X_R/q^2) puts the image genuinely above the root, the owner sits below the lower cutoff for free, the cube gate disappears and both anchors cancel at every prime owner below the root. The cost of the loose endpoint is measured: about 0.3 R^2/(log R)^2 with constant sign, against a sign-changing quantity of order R on the saturated carrier.",
+      "evidence": {
+        "lean": "RHLean/Proof/LowWheelFrozenSecondContactWindowReassembly.lean, RHLean/Proof/LowWheelFrozenSecondContactWindowDescent.lean",
+        "numeric": "window-scale measurement recorded in EMPIRICAL_DIAGNOSTICS.md"
+      },
+      "what_would_reopen": "Nothing: the saturated carrier supersedes it. The superseded theorems are retained only so the loose endpoint is not reintroduced."
+    },
+    {
+      "id": "high-prime-absorption-of-frozen-top-image",
+      "title": "Absorb the frozen top image into the controlled external high-prime population",
+      "kind": "refuted",
+      "closed_on": "2026-09-13",
+      "claim": "After the frozen cofactor top/bottom cancellation gives D_R = U_R + F_R^(c=1) - T_R, the relocated ledger T_R can be absorbed into the external high-prime population, whose unique-parent part already carries the root budget R.",
+      "obstruction": "The two populations are complementary, not nested. Every high-prime population in the package is indexed by a prime strictly above the root, whereas an image state (t,(c/q, q*p)) has pivot p < q <= c < R and quotient q*p whose only prime factors are q and p, both below the root: the entire image is rough-free below the root wall. The proposed containment therefore holds only when the frozen nontrivial-cofactor sector is empty. And independently of containment the relocation is norm preserving, since a sign-reversing bijection cannot change a magnitude, so bounding T_R is bounding the frozen c > 1 sector and no reindexing can supply that bound.",
+      "evidence": {
+        "lean": "RHLean/Proof/LowWheelFrozenCofactorTopImageHighPrimeObstruction.lean",
+        "numeric": "none required; the disjointness is exact"
+      },
+      "what_would_reopen": "New information about the frozen nontrivial-cofactor sector itself. Relocating it cannot produce the bound."
     }
   ],
   "not_closed": {

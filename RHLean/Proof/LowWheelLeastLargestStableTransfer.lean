@@ -1,6 +1,8 @@
 import Mathlib
 import RHLean.Proof.LowWheelLeastLargestOthello
 import RHLean.Proof.LowWheelCanonicalDefectReduction
+import RHLean.Proof.LowWheelFrozenCofactorTopBottomToggle
+import RHLean.Proof.CanonicalGapAncestryBridge
 
 /-!
 # Stable-mass transfer from the least-prime downcross to the largest-prime top defect
@@ -215,5 +217,170 @@ theorem lowWheelCanonicalDowncrossLedger_eq_largestDefectLedger
   apply Finset.sum_congr rfl
   intro t ht
   exact sum_lowWheelCanonicalDefect_eq_largestDefect ht
+
+/-! ## Frozen `c > 1` states are moving edges of the largest-prime matching
+
+The frozen top/bottom toggle was originally introduced as a separate coordinate
+move.  On a frozen state `y = (t,(c,p))` with `c > 1`, however, its prime
+`q = P⁺(c)` is the largest prime factor of the invariant product `c*p`: the
+frozen least pivot satisfies `p < q`.  Hence the top/bottom move is literally
+the raw largest-prime Othello move already used above.
+
+This is stronger than trying to place the composite quotient `q*p` inside an
+external single-prime grid.  The two endpoints cancel as one moving edge on the
+same complete physical carrier, so they never belong to the largest-prime
+stable defect.
+-/
+
+/-- On a repeated frozen state with nontrivial cofactor, the largest-prime pivot
+of the invariant cofactor/quotient product is exactly the frozen top prime. -/
+theorem lowWheelLargestCofactorQuotientPivot_eq_frozenTopPrime
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    lowWheelLargestCofactorQuotientPivot y.2 =
+      lowWheelFrozenCofactorTopPrime y := by
+  have hfrozen := (Finset.mem_filter.mp hy).1
+  have hcgt : 1 < y.2.1 := (Finset.mem_filter.mp hy).2
+  have hshape := (Finset.mem_filter.mp hfrozen).2
+  have hrepeated := (Finset.mem_filter.mp hfrozen).1
+  have hcarrier := (Finset.mem_filter.mp hrepeated).1
+  rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
+  have hshell := lowWheelCanonicalDowncrossPart_adjacent_shell hx
+  have hpPrime : (lowWheelTaggedDowncrossPivot y).Prime := by
+    simpa [lowWheelTaggedDowncrossPivot] using hshell.1
+  rcases lowWheelFrozenCofactorTopPrime_data hy with
+    ⟨hqPrime, hqDvd, hpq⟩
+  have hprodgt :
+      1 < y.2.1 * lowWheelTaggedDowncrossPivot y := by
+    have hp2 := hpPrime.two_le
+    nlinarith
+  have hqDvdProd :
+      lowWheelFrozenCofactorTopPrime y ∣
+        y.2.1 * lowWheelTaggedDowncrossPivot y :=
+    dvd_mul_of_dvd_left hqDvd _
+  have htopPrime :
+      (canonicalLargestPrimeFactor
+        (y.2.1 * lowWheelTaggedDowncrossPivot y)).Prime :=
+    canonicalLargestPrimeFactor_prime hprodgt
+  have htopDvd :
+      canonicalLargestPrimeFactor
+          (y.2.1 * lowWheelTaggedDowncrossPivot y) ∣
+        y.2.1 * lowWheelTaggedDowncrossPivot y :=
+    canonicalLargestPrimeFactor_dvd hprodgt
+  have htopLe :
+      canonicalLargestPrimeFactor
+          (y.2.1 * lowWheelTaggedDowncrossPivot y) ≤
+        lowWheelFrozenCofactorTopPrime y := by
+    rcases htopPrime.dvd_mul.mp htopDvd with hdivC | hdivP
+    · simpa [lowWheelFrozenCofactorTopPrime] using
+        (CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+          hcgt htopPrime hdivC)
+    · have heq :
+          canonicalLargestPrimeFactor
+              (y.2.1 * lowWheelTaggedDowncrossPivot y) =
+            lowWheelTaggedDowncrossPivot y :=
+        (Nat.prime_dvd_prime_iff_eq htopPrime hpPrime).mp hdivP
+      rw [heq]
+      exact hpq.le
+  have hqLe :
+      lowWheelFrozenCofactorTopPrime y ≤
+        canonicalLargestPrimeFactor
+          (y.2.1 * lowWheelTaggedDowncrossPivot y) :=
+    CanonicalGapAncestryBridge.prime_dvd_le_canonicalLargestPrimeFactor
+      hprodgt hqPrime hqDvdProd
+  have htopEq :
+      canonicalLargestPrimeFactor
+          (y.2.1 * lowWheelTaggedDowncrossPivot y) =
+        lowWheelFrozenCofactorTopPrime y :=
+    le_antisymm htopLe hqLe
+  simpa [lowWheelLargestCofactorQuotientPivot, hshape.1] using htopEq
+
+/-- The previously separate frozen top toggle is exactly the raw largest-prime
+Othello toggle on every repeated frozen `c > 1` source. -/
+theorem lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    lowWheelLargestCofactorQuotientToggle y.2 =
+      (lowWheelFrozenCofactorTopToggle y).2 := by
+  change lowWheelCofactorQuotientToggleAt
+      (lowWheelLargestCofactorQuotientPivot y.2) y.2 =
+    lowWheelCofactorQuotientToggleAt
+      (lowWheelFrozenCofactorTopPrime y) y.2
+  rw [lowWheelLargestCofactorQuotientPivot_eq_frozenTopPrime hy]
+
+/-- The completed largest-prime Othello mate therefore sends the frozen source
+exactly to its physical top image; it does not freeze at that source. -/
+theorem lowWheelLargestOthelloMate_eq_frozenTopToggle
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    lowWheelLargestOthelloMate R y.1 y.2 =
+      (lowWheelFrozenCofactorTopToggle y).2 := by
+  have hfrozen := (Finset.mem_filter.mp hy).1
+  have hcgt : 1 < y.2.1 := (Finset.mem_filter.mp hy).2
+  have hrepeated := (Finset.mem_filter.mp hfrozen).1
+  have hcarrier := (Finset.mem_filter.mp hrepeated).1
+  rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨_ht, hx⟩
+  have hphysical := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
+  have hphysicalData := mem_lowWheelCanonicalPhysicalStateSet.mp hphysical
+  have hkpos : 0 < y.2.2 := by
+    have hk1 := (Finset.mem_Icc.mp hphysicalData.2.1).1
+    omega
+  have hprod : y.2.1 * y.2.2 ≠ 1 := by
+    have hle : y.2.1 ≤ y.2.1 * y.2.2 :=
+      Nat.le_mul_of_pos_right y.2.1 hkpos
+    exact ne_of_gt (hcgt.trans_le hle)
+  have hmate :
+      lowWheelLargestCofactorQuotientToggle y.2 ∈
+        lowWheelCanonicalPhysicalStateSet R y.1 := by
+    rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy]
+    exact lowWheelFrozenCofactorTopToggle_mem_physical hy
+  calc
+    lowWheelLargestOthelloMate R y.1 y.2 =
+        lowWheelLargestCofactorQuotientToggle y.2 := by
+      simp [lowWheelLargestOthelloMate, hprod, hmate]
+    _ = (lowWheelFrozenCofactorTopToggle y).2 :=
+      lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy
+
+/-- Consequently a repeated frozen `c > 1` source is not part of the
+largest-prime stable defect.  Its raw largest-prime mate is already physical. -/
+theorem lowWheelCanonicalRepeatedFrozenCofactor_not_mem_largestDefect
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    y.2 ∉ lowWheelLargestDefectPart R y.1 := by
+  intro hyDefect
+  have hnot := (Finset.mem_filter.mp hyDefect).2.2
+  apply hnot
+  rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy]
+  exact lowWheelFrozenCofactorTopToggle_mem_physical hy
+
+/-- More explicitly, every repeated frozen `c > 1` source belongs to the moving
+part of the completed largest-prime Othello matching. -/
+theorem lowWheelCanonicalRepeatedFrozenCofactor_mem_largestMovingPart
+    {R : ℕ} {y : LowWheelTaggedDowncrossState}
+    (hy : y ∈ lowWheelCanonicalRepeatedFrozenCofactorPart R) :
+    y.2 ∈ finiteOthelloMovingPart
+      (lowWheelCanonicalPhysicalStateSet R y.1)
+      (lowWheelLargestOthelloMate R y.1) := by
+  have hfrozen := (Finset.mem_filter.mp hy).1
+  have hcgt : 1 < y.2.1 := (Finset.mem_filter.mp hy).2
+  have hrepeated := (Finset.mem_filter.mp hfrozen).1
+  have hcarrier := (Finset.mem_filter.mp hrepeated).1
+  rcases mem_lowWheelCanonicalTaggedDowncrossCarrier.mp hcarrier with ⟨ht, hx⟩
+  have hphysical := (mem_lowWheelCanonicalDowncrossPart.mp hx).1
+  have hphysicalData := mem_lowWheelCanonicalPhysicalStateSet.mp hphysical
+  have hkpos : 0 < y.2.2 := by
+    have hk1 := (Finset.mem_Icc.mp hphysicalData.2.1).1
+    omega
+  have hprod : y.2.1 * y.2.2 ≠ 1 := by
+    have hle : y.2.1 ≤ y.2.1 * y.2.2 :=
+      Nat.le_mul_of_pos_right y.2.1 hkpos
+    exact ne_of_gt (hcgt.trans_le hle)
+  have hrawNe : lowWheelLargestCofactorQuotientToggle y.2 ≠ y.2 :=
+    lowWheelLargestRawToggle_ne ht hphysical hprod
+  rw [lowWheelLargestCofactorQuotientToggle_eq_frozenTopToggle hy] at hrawNe
+  apply Finset.mem_filter.mpr
+  refine ⟨hphysical, ?_⟩
+  rw [lowWheelLargestOthelloMate_eq_frozenTopToggle hy]
+  exact hrawNe
 
 end RHLean.Proof

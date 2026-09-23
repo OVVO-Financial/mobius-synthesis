@@ -236,6 +236,79 @@ The discarded quantity $\bigl(\sum_j\lvert B_j\rvert\bigr)^{2}-S^{2}$ grows like
 
 The block energy $E$ *looks* linear here, close to the squarefree density $6N/\pi^{2}$. That reading must not be promoted. Exactly, $E-Q=2\sum_j C_j$, so proving $E\ll N^{1+\varepsilon}$ is proving the aggregate within-block covariance is of RH scale. The way out is refinement rather than a bound on $E$: each refinement step moves energy into the children and leaves an explicit signed cross term, and the leaf energy is exactly $Q$, which is linear with no conjecture at all.
 
+## What the root floor buys on the second-contact ledger
+
+The frozen second-contact ledger can be summed on two carriers that differ only in the lower endpoint of each owner window: the natural one at $X_R/q^2$, and the saturated one at $\max(R,X_R/q^2)$. Section 47 of `SEAMS.md` explains why the second is the correct one. The measurement is why the first must not be reintroduced.
+
+| $R$ | loose ledger | $/(R^2/\log^2 R)$ | saturated ledger | $/(R\log R)$ |
+| --- | --- | --- | --- | --- |
+| $100$ | $125$ | $0.2651$ | $-24$ | $-0.0521$ |
+| $200$ | $416$ | $0.2920$ | $190$ | $0.1793$ |
+| $400$ | $1373$ | $0.3080$ | $-61$ | $-0.0255$ |
+| $800$ | $4437$ | $0.3098$ | $-309$ | $-0.0578$ |
+
+The loose ledger sits at roughly $0.3\,R^2/(\log R)^2$ **with constant sign**, so nothing downstream can cancel it. Raising the endpoint moves it to a sign-changing quantity of order $R\log R$ — a full power — and over $71$ samples the saturated ledger changes sign $20$ times, with $\max|L|/(R\log R)=0.1805$ attained at $R=670$. Both closed forms were checked against direct summation at every scale.
+
+The same run answers the obvious follow-up, and the answer is no.
+
+| $R$ | $\lvert\text{ledger}\rvert$ | $\sum_r\lvert\text{col}_r\rvert$ | columns | loss factor |
+| --- | --- | --- | --- | --- |
+| $200$ | $190$ | $676$ | $30$ | $3.6\times$ |
+| $400$ | $61$ | $2251$ | $56$ | $36.9\times$ |
+| $800$ | $309$ | $8705$ | $98$ | $28.2\times$ |
+
+A triangle inequality over the child-owner columns is not affordable: $\sum_r\lvert\mathrm{col}_r\rvert$ grows back to order $R^2/(\log R)^2$, exactly the scale the root floor removed. The entire remaining gain is cancellation **between** columns, not inside them, which is why the global telescope sums the complete signed owner windows before touching their endpoints.
+
+## The q-square support candidate fails at R = 56
+
+A natural candidate for the signed $q^2$ tower is that the high transport dominates the assembled destination terms. The exact integer diagnostic refutes it at the first interesting root.
+
+At $R=56$, so $X_R=3135$: high transport is $8$, the child-far term is $160$, the renewal term is $309$, and the terminal products sum to $-466$. The assembled destination sum is $3$, leaving $\mathrm{high}-\mathrm{destinations}=5$ and $\mathrm{survivor}-\mathrm{root}=-5$. The support predicate is false.
+
+This is a single exact integer evaluation, not a trend, and that is the point: the candidate is stated as a support inequality and one counterexample settles it. The surviving statement in the package keeps the owner columns signed instead.
+
+## Cardinality of the largest-prime stable defect
+
+The largest-prime stable defect is the canonical downcross ledger in other coordinates — that is a compiled identity, not a measurement. What the measurement adds is how badly the counting route fails on it. Direct enumeration of the defect carrier across $R=8,9,\dots,30$ gives $\lvert\mathrm{defect}\rvert/R$ rising steadily
+
+$$
+18.6,\quad 22.7,\quad \dots,\quad 140.1,
+$$
+
+which is growth of order $R^2$, while the **signed** mass over the same range stays inside $[-7,9]$.
+
+Two full powers separate the two columns. Any argument that reaches the seam by exhibiting the defect's surviving pieces inside already-bounded endpoint populations must therefore also carry their signs and their mutual cancellation, because the total is the whole endpoint object. This is recorded as a numerical observation rather than a compiled claim, and it is recorded so the cardinality route is not attempted again.
+
+## Anchor coverage and the two-anchor slack constants
+
+The abstract energy recurrence keeps its $D_n=3^n$ count and its range outside the algebraic layer deliberately, so the constants $(A,C)$ in the universal inequality remain an explicit hypothesis rather than a proved fact. On the tested post-$7$ stages the measured anchor constant satisfies
+
+$$
+A_q^{\mathrm{emp}}<3.7 ,
+$$
+
+and the universal $(A,C)$ inequality is open. The measurement is what justifies stating the recurrence with free constants instead of a fitted one; it is not evidence that the universal bound holds.
+
+## Omega-parity is not a new coordinate
+
+A recurring proposal is to prove parity between the two- and three-prime-factor classes and deduce Möbius parity. The predeclared test of that lever returned a reframing rather than a result.
+
+Grouping squarefree $m\le X$ by $k=\omega(m)$ gives the finite alternating identity
+
+$$
+M(X)=1+\sum_{k\ge1}(-1)^k Q_k(X),\qquad Q_k(X)=\#\{m\le X\ \text{squarefree}:\omega(m)=k\},
+$$
+
+which is the coordinate the package already contains: the per-shell version is the compiled cofactor-parity statement, and the global $Q_k$ is that object aggregated over the square prefix. So the "2 versus 3 prime factors" lever is the $k=2$ and $k=3$ terms of an identity already in the library, not a new degree of freedom.
+
+What the same diagnostic does supply is elementary and unconditional, and it is compiled: a squarefree $m>1$ with at most two distinct prime factors always has its largest prime factor above $\sqrt m$, so its canonical height is strictly positive and the source is pure high orientation.
+
+## Which centered channel carries the energy
+
+The balanced bilinear centering splits a product into five channels: `muE` and `eE` with two genuinely oscillatory arithmetic variables, `rhoE` with a smooth deterministic factor, `muRho` mixing one smooth and one Möbius variable, and the fully deterministic `rhoRho`.
+
+The natural reading is that the Type-II core `muE`/`eE` carries the difficulty. The compression-escape diagnostics say otherwise: summed over a balanced region, `muRho` is a smoothed Möbius sum rather than a deterministic term, and it is `muRho` — not the Type-II core — that carries the energy. That is why the definitions keep it separate from `rhoRho`, and why the proposal to replace the signed low/high contraction by a positive escape-energy coercivity statement is a closed route rather than a simplification.
+
 ## Certified finite constants are not diagnostics
 
 Four finite quantities appear in the package with proof status rather than diagnostic status. They are listed here only so that they are not mistaken for the measurements above.

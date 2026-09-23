@@ -2,6 +2,7 @@ import Mathlib
 import RHLean.Proof.SquareRootCanonicalDowncrossFinalSeam
 import RHLean.Proof.LowWheelCanonicalRepeatedMovableCancellation
 import RHLean.Proof.LowWheelCanonicalDowncrossBoundaryMultiplicity
+import RHLean.Proof.LowWheelCanonicalFrozenReduction
 import RHLean.Arithmetic.SquarefreePrimeFaceSurjectivity
 
 /-!
@@ -378,6 +379,179 @@ theorem orientedEpsilonBound_of_orientedLinearBound
   obtain ⟨n, rfl⟩ : ∃ n : ℕ, R = n + 1 := ⟨R - 1, by omega⟩
   exact (hO (n + 1) hR).trans
     (mul_le_mul_of_nonneg_left (cast_le_rpow_one_add (δ := ε) (le_of_lt hε) n) hC)
+
+/-! ## Frozen/top/far residual is the same RH-scale seam -/
+
+/-- The exact target isolated by the frozen/top/far reductions: for every
+positive loss, the residual has `R^(1+ε)` growth beyond the cutoff where the
+far-survivor rigidity theorem is available. -/
+def SquareRootFrozenTopFarResidualEpsilonBound : Prop :=
+  ∀ ε : ℝ, 0 < ε →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ R : ℕ, 56 ≤ R →
+        ‖lowWheelFrozenTopFarResidual R‖ ≤
+          C * Real.rpow (R : ℝ) (1 + ε)
+
+/-- A root is dominated by its `1+ε` power whenever `ε ≥ 0`. -/
+private theorem cast_root_le_rpow_one_add
+    {ε : ℝ} (hε : 0 ≤ ε) {R : ℕ} (hR : 1 ≤ R) :
+    (R : ℝ) ≤ Real.rpow (R : ℝ) (1 + ε) := by
+  have hbase : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
+  have h := Real.rpow_le_rpow_of_exponent_le hbase
+    (by linarith : (1 : ℝ) ≤ 1 + ε)
+  simpa using h
+
+/-- The already-compiled `9R` comparison sends the canonical oriented
+`R^(1+ε)` seam to the frozen/top/far residual with no exponent loss. -/
+theorem frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon
+    (h : SquareRootCanonicalOrientedEpsilonBound) :
+    SquareRootFrozenTopFarResidualEpsilonBound := by
+  intro ε hε
+  obtain ⟨C, hC, hO⟩ := h ε hε
+  refine ⟨C + 9, by linarith, ?_⟩
+  intro R hR
+  have hU := norm_lowWheelCanonicalDowncrossUniqueParentLedger_le_root R
+  have hN := norm_squareRootNearPrimeTransport_le R hR
+  have hE := norm_squareRootERuniq_le_root R
+  have hEq :=
+    lowWheelCanonicalDefectLedger_eq_frozenTopFarResidual_add_rootTerms R hR
+  have hF :
+      lowWheelFrozenTopFarResidual R =
+        lowWheelCanonicalDefectLedger R -
+          lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R + squareRootERuniq R := by
+    rw [hEq]
+    ring
+  have hcompDef :
+      ‖lowWheelFrozenTopFarResidual R‖ ≤
+        ‖lowWheelCanonicalDefectLedger R‖ + 9 * (R : ℝ) := by
+    rw [hF]
+    calc
+      ‖lowWheelCanonicalDefectLedger R -
+          lowWheelCanonicalDowncrossUniqueParentLedger R -
+          squareRootNearPrimeTransport R + squareRootERuniq R‖ ≤
+        ‖lowWheelCanonicalDefectLedger R -
+            lowWheelCanonicalDowncrossUniqueParentLedger R -
+            squareRootNearPrimeTransport R‖ + ‖squareRootERuniq R‖ :=
+          norm_add_le _ _
+      _ ≤ (‖lowWheelCanonicalDefectLedger R -
+              lowWheelCanonicalDowncrossUniqueParentLedger R‖ +
+            ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+          gcongr
+          exact norm_sub_le _ _
+      _ ≤ ((‖lowWheelCanonicalDefectLedger R‖ +
+              ‖lowWheelCanonicalDowncrossUniqueParentLedger R‖) +
+            ‖squareRootNearPrimeTransport R‖) + ‖squareRootERuniq R‖ := by
+          gcongr
+          exact norm_sub_le _ _
+      _ ≤ ((‖lowWheelCanonicalDefectLedger R‖ + (R : ℝ)) +
+            7 * (R : ℝ)) + (R : ℝ) := by
+          gcongr
+      _ = ‖lowWheelCanonicalDefectLedger R‖ + 9 * (R : ℝ) := by ring
+  have hcomp :
+      ‖lowWheelFrozenTopFarResidual R‖ ≤
+        ‖lowWheelCanonicalDowncrossLedger R‖ + 9 * (R : ℝ) := by
+    rw [← lowWheelCanonicalDefectLedger_eq_downcrossLedger R]
+    exact hcompDef
+  have hD :
+      ‖lowWheelCanonicalDowncrossLedger R‖ ≤
+        C * Real.rpow (R : ℝ) (1 + ε) := by
+    rw [LateParentCancellation.downcrossLedger_eq_orientedLedger]
+    exact hO R (by omega)
+  have hroot := cast_root_le_rpow_one_add (le_of_lt hε) (by omega : 1 ≤ R)
+  have h9 :
+      9 * (R : ℝ) ≤ 9 * Real.rpow (R : ℝ) (1 + ε) :=
+    mul_le_mul_of_nonneg_left hroot (by norm_num)
+  calc
+    ‖lowWheelFrozenTopFarResidual R‖ ≤
+        ‖lowWheelCanonicalDowncrossLedger R‖ + 9 * (R : ℝ) := hcomp
+    _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
+      add_le_add_right hD _
+    _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
+        9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+    _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
+
+/-- Conversely, the frozen/top/far target gives the complete canonical oriented
+`R^(1+ε)` seam.  Roots below `56` are a finite range and are absorbed using the
+already-compiled unconditional quartic downcross bound. -/
+theorem canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon
+    (h : SquareRootFrozenTopFarResidualEpsilonBound) :
+    SquareRootCanonicalOrientedEpsilonBound := by
+  intro ε hε
+  obtain ⟨C, hC, hF⟩ := h ε hε
+  let C' : ℝ := C + 9 + (55 : ℝ) ^ 4
+  refine ⟨C', by dsimp [C']; nlinarith [hC], ?_⟩
+  intro R hR
+  rw [← LateParentCancellation.downcrossLedger_eq_orientedLedger R]
+  have hrpowNonneg : 0 ≤ Real.rpow (R : ℝ) (1 + ε) :=
+    Real.rpow_nonneg (Nat.cast_nonneg R) _
+  by_cases hlarge : 56 ≤ R
+  · have hcomp :=
+      norm_lowWheelCanonicalDefectLedger_le_frozenTopFarResidual_add_nine_root
+        R hlarge
+    rw [lowWheelCanonicalDefectLedger_eq_downcrossLedger] at hcomp
+    have hbound := hF R hlarge
+    have hroot := cast_root_le_rpow_one_add (le_of_lt hε) (by omega : 1 ≤ R)
+    have h9 :
+        9 * (R : ℝ) ≤ 9 * Real.rpow (R : ℝ) (1 + ε) :=
+      mul_le_mul_of_nonneg_left hroot (by norm_num)
+    have hcoeff : C + 9 ≤ C' := by
+      dsimp [C']
+      norm_num
+    calc
+      ‖lowWheelCanonicalDowncrossLedger R‖ ≤
+          ‖lowWheelFrozenTopFarResidual R‖ + 9 * (R : ℝ) := hcomp
+      _ ≤ C * Real.rpow (R : ℝ) (1 + ε) + 9 * (R : ℝ) :=
+        add_le_add_right hbound _
+      _ ≤ C * Real.rpow (R : ℝ) (1 + ε) +
+          9 * Real.rpow (R : ℝ) (1 + ε) := add_le_add_left h9 _
+      _ = (C + 9) * Real.rpow (R : ℝ) (1 + ε) := by ring
+      _ ≤ C' * Real.rpow (R : ℝ) (1 + ε) :=
+        mul_le_mul_of_nonneg_right hcoeff hrpowNonneg
+  · have hRle : R ≤ 55 := by omega
+    have hquart := norm_lowWheelCanonicalDowncrossLedger_le_quartic R
+    have hcast : (R : ℝ) ≤ (55 : ℝ) := by exact_mod_cast hRle
+    have hpow : (R : ℝ) ^ 4 ≤ (55 : ℝ) ^ 4 := by
+      exact pow_le_pow_left₀ (by positivity) hcast 4
+    have hbase : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast (show 1 ≤ R by omega)
+    have hone :
+        (1 : ℝ) ≤ Real.rpow (R : ℝ) (1 + ε) := by
+      have hm := Real.rpow_le_rpow_of_exponent_le hbase
+        (by linarith : (0 : ℝ) ≤ 1 + ε)
+      simpa using hm
+    have h55nonneg : 0 ≤ (55 : ℝ) ^ 4 := by positivity
+    have hscale :
+        (55 : ℝ) ^ 4 ≤ (55 : ℝ) ^ 4 * Real.rpow (R : ℝ) (1 + ε) := by
+      calc
+        (55 : ℝ) ^ 4 = (55 : ℝ) ^ 4 * 1 := by ring
+        _ ≤ (55 : ℝ) ^ 4 * Real.rpow (R : ℝ) (1 + ε) :=
+          mul_le_mul_of_nonneg_left hone h55nonneg
+    have hcoeff : (55 : ℝ) ^ 4 ≤ C' := by
+      dsimp [C']
+      nlinarith [hC]
+    have hlast :
+        (55 : ℝ) ^ 4 * Real.rpow (R : ℝ) (1 + ε) ≤
+          C' * Real.rpow (R : ℝ) (1 + ε) :=
+      mul_le_mul_of_nonneg_right hcoeff hrpowNonneg
+    exact hquart.trans (hpow.trans (hscale.trans hlast))
+
+/-- **Quantitative no-go at the actual target exponent.**  The frozen/top/far
+`R^(1+ε)` bound is exactly the already-known canonical oriented RH-scale seam,
+up to the compiled `9R` boundary terms.  Isolating the residual did not weaken
+the analytic/combinatorial theorem that remains to be proved. -/
+theorem frozenTopFarResidualEpsilon_iff_canonicalOrientedEpsilon :
+    SquareRootFrozenTopFarResidualEpsilonBound ↔
+      SquareRootCanonicalOrientedEpsilonBound :=
+  ⟨canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon,
+    frozenTopFarResidualEpsilon_of_canonicalOrientedEpsilon⟩
+
+/-- Therefore the advertised frozen/top/far residual target is already
+RH-sufficient through the existing oriented energy bridge. -/
+theorem riemannHypothesis_of_frozenTopFarResidualEpsilon
+    (h : SquareRootFrozenTopFarResidualEpsilonBound) :
+    RiemannHypothesis :=
+  riemannHypothesis_of_canonicalOrientedEpsilon
+    (canonicalOrientedEpsilon_of_frozenTopFarResidualEpsilon h)
 
 end OrientedEpsilonBound
 

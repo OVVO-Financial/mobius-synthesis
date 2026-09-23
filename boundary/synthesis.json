@@ -19,8 +19,58 @@
       "RHLean.Arithmetic.correctedPrimeWheelSite_eq_zero_of_square_hit"
     ]
   },
-  "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis PR increments revision exactly once.",
+  "description": "Monotone ledger for cross-track synthesis theorems. Revision 0 is the publication baseline; each accepted synthesis pull request increments revision exactly once, and its last_witness must directly invoke pre-existing anchors from both source tracks. A republication carrying many upstream advances forward does not manufacture a revision for them: results decisive within one track are recorded under companion_witnesses instead, and revision moves only when a witness meets the two-anchor coupling requirement of the gate.",
   "companion_witnesses": [
+    {
+      "module": "RHLean.Proof.PostRootCovarianceGlobalExponentTransfer",
+      "theorem": "RHLean.Proof.postRootCovariancePowerRemainder_iff_mertensEnergyBounded",
+      "summary": "Closes the post-root loop in one inequality. Both terms subtracted in the Bessel identity 2E(W) = M(W)^2 - complementDiagonalResidual(W) - familyMertensSquareEnergy(W) are nonnegative, so E(W) <= M(W)^2/2 holds unconditionally, with no cancellation, record hypothesis or sieve. That makes the remainder, envelope, record-excess, falling finite-difference, Mertens square envelope and Mertens energy statements one equivalence class. Read quantitatively it is an exchange rate with exponent factor two, and therefore also a no-go: nothing in the post-root or record machinery can move the remainder exponent without first moving the Mertens exponent."
+    },
+    {
+      "module": "RHLean.Proof.PostRootCovarianceRecordAbsorption",
+      "theorem": "RHLean.Proof.mertensEnergyBounded_of_postRootRecordAbsorptionSummable",
+      "summary": "Makes the record step itself the carrier of the remaining problem. The one-step innovation budget splits without any triangle inequality, because the physical row and the square-wall departure have disjoint support; a positive record forces envelope(N) * N^eps < innovation(N), a full endpoint power stronger than naive localization; and the departure is supported exactly on prime squares, so its normalized sum is bounded unconditionally by p^2 sparsity alone. What stays unbounded is the record-conditioned outer row, and the record indicator in the majorant is load-bearing."
+    },
+    {
+      "module": "RHLean.Proof.PostRootCovarianceRecordSquareCharge",
+      "theorem": "RHLean.Proof.postRootCovarianceRemainder_succ_lt_endpoint_mul_squareGap",
+      "summary": "Moves the surviving outer row down to the individual Moebius square-energy increment. Fresh-prime transport cancels the diagonal squares exactly, so twice the outer row is the difference of two discrete Mertens-square increments; at a positive record integrality forces a gap of at least one, converting the identity into a one-sided charge against the cumulative square gap."
+    },
+    {
+      "module": "RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation",
+      "theorem": "RHLean.Proof.lowWheelCanonicalDowncrossLedger_eq_unique_add_terminal_sub_topImage",
+      "summary": "Performs the global subtraction the pointwise top/bottom toggle never took. The move is injective with an explicit inverse, so the frozen nontrivial-cofactor ledger is exactly minus the signed mass of its image, and that image is disjoint from the whole downcross carrier: a genuine relocation onto the post-root side rather than an internal reshuffle. With the already-proved movable cancellation this sharpens the endpoint identity to D_R = U_R + F_R^(c=1) - T_R, which still implies the Riemann hypothesis through the square-prefix energy bridge."
+    },
+    {
+      "module": "RHLean.Proof.LowWheelFrozenCofactorTopImageHighPrimeObstruction",
+      "theorem": "RHLean.Proof.norm_lowWheelFrozenCofactorTopImageLedger_eq",
+      "summary": "Closes the obvious next move. Every high-prime population is indexed by a prime above the root while every image state is rough-free below it, so the two are complementary rather than nested and the proposed containment holds only vacuously. Independently the relocation is norm preserving, so bounding the relocated ledger is bounding the frozen sector itself."
+    },
+    {
+      "module": "RHLean.Proof.LowWheelLargestDefectSeamEquivalence",
+      "theorem": "RHLean.Proof.riemannHypothesis_of_largestDefectLinear",
+      "summary": "Records that the largest-prime stable defect is the terminal seam rather than a reduction of it: the coordinate synthesis is an identity of the same signed object, so the two linear bounds are equivalent in both directions and either proves the strong Mertens bound. The RH-scale target is the epsilon-loss bound, and the cardinality route is separately dead by a full power of R."
+    },
+    {
+      "module": "RHLean.Proof.StableFarWallRenewalTerminalPrimeCount",
+      "theorem": "RHLean.Proof.lowWheelFarPrimeUnitCrossingOwners_eq_reciprocalPrimeInterval",
+      "summary": "Turns the last piece of stable-wall multiplicity into a classical object. At a fixed far prime with A = floor(X_R/p), the unit-terminal condition q*p <= X_R < q^2*p is exactly sqrt(A) < q <= A, so the incoming renewal count is the number of primes in a reciprocal interval rather than an opaque weight."
+    },
+    {
+      "module": "RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis",
+      "theorem": "RHLean.Proof.riemannHypothesis_of_physicalCompleteCell_fourFrameStep",
+      "summary": "Removes the selected-prime contraction from the terminal induction. With the sharp odd-owner budget sum_(q odd) 1/q^2 <= 17/72 and the 36/35 Young split for the endpoint transfer, a factor-four recurrence on the fully signed, fully reassembled physical daughters has effective coefficient 4*(36/35)*(17/72) = 34/35 < 1, which alone gives linear Mertens energy and the Riemann hypothesis."
+    },
+    {
+      "module": "RHLean.Proof.ExceptionalContactFrameEnergyNoGo",
+      "theorem": "RHLean.Proof.contact_frame_two",
+      "summary": "Refutes the six-contact frame route by fibre counting rather than by a constant. The frame constant is two for an arbitrary field, since q odd splits the six offsets into three mod-four pairs, and the assembled coefficient norm the estimate bounds is a different object from the recursive Mertens energy the induction consumes, separated by an exact finite witness. The operative consequence is that q^2 children must be reassembled with their signs before any norm."
+    },
+    {
+      "module": "RHLean.Proof.PrimeWheelFrozenRoughSeatBridge",
+      "theorem": "RHLean.Proof.primeWheelTruncatedMoebiusKernel_eq_frozenPrimeUniverseMass",
+      "summary": "Promotes a coordinate bridge into the proof graph: the signed truncated prime-wheel kernel exposed by the rough-seat Fubini collapse is exactly the chronological frozen prime cube already used by the first-owner and Go machinery. No norm, estimate or change of carrier is used."
+    },
     {
       "module": "RHLean.Analysis.SquareRootCanonicalRoughCovariance",
       "theorem": "RHLean.Proof.squareRootPostCrossingCoupledTail_eq_baseline_sub_mean_covariance",

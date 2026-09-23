@@ -50,7 +50,9 @@ residual `D_R`, so its cancellation can be studied without norms.
 
 No analytic estimate is proved or assumed.  The RH-scale statement on the
 unified form is a named proposition, proved *equivalent* to the existing
-square-prefix criterion and nothing more.
+matched-channel target and nothing more.  The full square-prefix Mertens
+criterion retains the additional positive-orientation correction; see
+`SquareRootMatchedDegreeOneRecovery`.
 -/
 
 noncomputable section
@@ -724,7 +726,7 @@ def SquareRootUnifiedReciprocalBoundedStatement : Prop :=
             squareRootPositiveSmoothPrimeMertensTransform R‖ ^ 2 ≤
           C * Real.rpow (R : ℝ) (2 + ε)
 
-/-- **The square-prefix RH criterion in unified reciprocal form.**  The target
+/-- **The matched-channel target in unified reciprocal form.**  The target
 `‖A_R^born - T_R‖^2 ≪_eps R^(2+eps)` is equivalent to the same bound on the
 unified lower-scale Möbius/reciprocal object.  This is an equivalence of
 statements; neither side is proved here. -/

@@ -224,7 +224,7 @@ theorem K2CenteredConverges.factorFourUniformBound
       linarith
 
 /-!
-The mathematical proof in `research/K2_CENTERED_CLASSICAL_PROOF_COMPLETE.md` proves:
+The classical argument behind this interface proves:
 
 * `K2ClassicalMomentInput` from the classical zero-free-region Mertens bound;
 * `K2CenteredConverges` from `K2ClassicalMomentInput` by the two finite Abel identities plus the harmonic floor comparison;

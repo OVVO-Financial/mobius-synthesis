@@ -661,6 +661,11 @@ dichotomy outright.
   - state the branch target with no fixed constant, in a full-norm and a real-part form, the second being the minimal hypothesis for the terminal imbalance;
   - identify the matched core exactly as `M(R^2-1)` minus one literal positive-orientation middle source mass, reindexed to a canonical source carrier, and decline to assert that bounding it is equivalent to a standalone bound on `M(R^2-1)`.
 
+- `RHLean.Analysis.SquareRootMatchedDegreeOneRecovery`
+  - keeps the Mertens-visible correction inside the norm: with $H_R=\sum_{p\le R}M(p-1)$ the orientation split reads $M(R^2-1)=\mathrm{matched}_R-H_R$, so the matched-channel target alone is not the bound the square-prefix or three-slot criterion consumes;
+  - bounds the terminal low-prime state against the Mertens sample by $R+K$, and against the complete four-cell degree-one sample by $R+K+3$, as recovery estimates rather than bounds on the amplitude;
+  - retains $-H_R$ inside the norm in the final equivalence, assuming no separate bound on either term.
+
 - `RHLean.Proof.SquareRootMertensMiddleTracking`, `RHLean.Proof.SquareRootMertensPositiveTracking`, and `RHLean.Proof.SquareRootMertensAncestralTracking`
   - state the terminal proposition in literal real and integer coordinates and compose it in one theorem to the terminal real imbalance;
   - record that $M(R^2-1) - A_{\mathrm{pos}}(R)$ is *exactly* the matched channel, so the tracking hypothesis is literally the matched-channel bound and reaches the terminal imbalance at $CR + R + K$ rather than $(C+8)R + K$;
@@ -677,16 +682,219 @@ dichotomy outright.
   - records the resulting unconditional implication from the square-prefix energy estimate to Mathlib's Riemann hypothesis, which is the terminal analytic consumer for the arithmetic project;
   - proves the first global consequence of the fresh-prime rough-partner boundary law: along one ancestry chain signed boundaries telescope to endpoint capacities, and after root crossing the positive loss mass telescopes on its own.
 
+## The post-root covariance record process
+
+- `RHLean.Proof.PostRootCovarianceGlobalExponentTransfer`
+  - proves `E(W) <= M(W)^2 / 2` unconditionally, because both terms subtracted in the Bessel identity are nonnegative, with no cancellation, record hypothesis or sieve;
+  - turns every compiled reduction into one equivalence class: the power remainder, the power envelope, the record-excess statement, the falling finite-difference statement, the Mertens square envelope, and the Mertens energy criterion;
+  - reads the same line quantitatively as an exchange rate — Mertens exponent $\theta$ gives remainder exponent $2\theta$, and the bootstrap gives the converse — so no work inside the record machinery can move one without the other;
+  - improves the unconditional *constant* instead, to $E(W)\le 9(W+4)^2/32$, since one quarter of every block of four is not squarefree.
+
+- `RHLean.Proof.PostRootCovariancePowerEnvelope`, `RHLean.Proof.PostRootCovarianceRowEnergy`, and `RHLean.Proof.PostRootMertensSquareFiniteDifference`
+  - define the finite-horizon envelope and its one-step innovation, bound a single row by the preceding Mertens square, and restore the linear coordinate of the falling energy while keeping the family energies signed.
+
+- `RHLean.Proof.PostRootCovarianceRecordAbsorption`
+  - splits the innovation budget into a physical outer row and a square-wall departure *without* a triangle inequality, because the two have disjoint support: at a prime-square endpoint the physical row and the inherited row total both vanish, and away from one the departure vanishes;
+  - proves a positive record at `N` forces `envelope(N) * N^ε < innovation(N)`, a full endpoint power stronger than naive localization, with the gain coming from the record hypothesis rather than an absolute value;
+  - bounds the whole normalized departure sum unconditionally from `p^2` sparsity alone, and proves a summable record-conditioned envelope reaches the protected Mertens energy criterion;
+  - records that the record indicator is load-bearing: dropping it leaves a positive part whose normalized sum is not expected to converge.
+
+- `RHLean.Proof.PostRootCovarianceRecordSquareCharge` and `RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure`
+  - cancel the diagonal squares exactly by fresh-prime transport, so twice the outer row is a difference of discrete Mertens-square increments, and integrality at a record converts that into a one-sided charge against the cumulative square gap;
+  - supply the complementary low case, giving an exhaustive record-step dichotomy with no family norm, prime count, or cancellation hypothesis.
+
+- `RHLean.Proof.PostRootCovarianceLcmBoundary`, `RHLean.Proof.PostRootCovarianceLcmBoundaryClosure`, and `RHLean.Proof.PostRootCovarianceLcmInteriorPacking`
+  - keep the full pair geometry rather than the many-to-one parent map, splitting the remainder by whether the squarefree pair cube fits below the endpoint, with the pair lcm as the intrinsic cube coordinate;
+  - prove that stripping the chronological first separating prime scales the pair lcm exactly by that owner, turning the super-endpoint carrier into a literal first-wall-crossing problem;
+  - aggregate the product packing of all removed interiors.
+
+- `RHLean.Proof.PostRootCovarianceWheelCounting`, `RHLean.Proof.PostRootCovariancePrimeWheel210Scratch`, and `RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch`
+  - improve the finite-wheel constants at 6, 30 and 210 and audit their iteration, proving where the method stops: density contracts by $1-1/p$ but the extra child intervals cost $1+1/p$, so separate-band counting gains only $1-1/p^2$ and its leading coefficient has a positive floor;
+  - pull two unconditional facts back onto the current carrier — the odd dyadic-annulus representation, worth a factor of nine on the quadratic constant, and the compiled strong Mertens estimate, which gives a genuinely subquadratic upper envelope against an elementary lower bound of order $-W^{3/2}$.
+
+## The stable far-prime wall and its renewal
+
+- `RHLean.Proof.StableFarPrimeWallTransport` and `RHLean.Proof.StableFarWallOwnedCensus`
+  - expose the wall in three exact classical coordinates — the low-cofactor Mertens fibre at each far prime, an inert positive top-half block against the lower fibres that must cancel it, and the complementary term in the all-integer renewal telescope — retaining `M(X_R)` explicitly so the classical seam is identified rather than hidden;
+  - put the unit face and both owned images on one carrier, where injectivity across both populations makes `UnitFace - InternalMate - TopImage` the negative Möbius mass of a single disjoint integer carrier.
+
+- `RHLean.Proof.StableFarWallLowCofactorQ2Descent`, `RHLean.Proof.StableFarWallExactQ2Split`, and `RHLean.Proof.StableFarWallQ2ChildFarSlice`
+  - recurse on the low cofactor rather than the outer far prime, which has zero `p^2` daughter scale, stripping the canonical largest prime before any norm;
+  - give the exact raw far transport as `unitFace - descendedMass - crossingMass`, and prove the descended half is literally a far slice of the `q^2` child transport at cutoff `X_R/q^2`, with the converse reconstruction.
+
+- `RHLean.Proof.StableFarWallCrossingRenewal`, `RHLean.Proof.StableFarWallRenewalDescent`, and `RHLean.Proof.StableFarWallCrossingOwnerWindow`
+  - prove every surviving crossing is an actual signed return to the same physical wall, with the owner tag retained because different owners may descend to the same state;
+  - prove the return is a strict arithmetic descent: the next stripped owner is the canonical largest prime of a smaller cofactor, and the second-contact load decreases strictly along compatible steps;
+  - make the remaining multiplicity arithmetic, as an exact prime window `r < q < R` with `q*r*e*p <= X_R < q^2*r*e*p`.
+
+- `RHLean.Proof.StableFarWallRenewalTerminal`, `RHLean.Proof.StableFarWallRenewalTerminalPrimeCount`, and `RHLean.Proof.StableFarWallUnitRenewalCentering`
+  - identify the terminal branches at a fixed far prime as the finite interval `q*p <= X_R < q^2*p`, which for `A = ⌊X_R/p⌋` is exactly $\sqrt A < q \le A$ — the incoming renewal count is a prime count in a reciprocal interval;
+  - center the unit sector on its physical homes, giving a two-level centered incidence normal form with every owner multiplicity retained and no norm taken.
+
+- `RHLean.Proof.StableFarWallAdaptiveFourCornerBridge`
+  - identifies the stable-far `q^2` renewal and the adaptive rough-prime descent as two coordinates on one arithmetic square, where a descending schedule processes the far prime first and the four-corner theorem then zeroes both lower corners permanently. This is cross-prime cancellation that ownerwise `q^2` norms cannot see.
+
+- `RHLean.Proof.StableFarWallSignedReassembly`, `RHLean.Proof.StableFarRenewalDyadicTwoShell`, `RHLean.Proof.StableFarAdaptiveLedgerCollapse`, `RHLean.Proof.StableFarCoordinateOverlap`, `RHLean.Proof.StableFarOwnedSmoothShell`, and `RHLean.Proof.StableFarOwnedSmoothShellCompletion`
+  - keep the far prime attached while the low cofactor is stripped, so the tagged map carries the true Möbius weight and owner multiplicity is never silently forgotten;
+  - identify the owned terminal products with the complete squarefree `R`-smooth shell $(R,R^2)$, eliminate the duplicated root coordinates against the older canonical fixed-state sector, and collapse the old four-term root correction to a single root atom minus the near transport — after which the complete signed adaptive raw ledger *is* the canonical rough correlation.
+
+## Frozen second contact and the q-square residual
+
+- `RHLean.Proof.LowWheelFrozenSecondContactDescent` and `RHLean.Proof.LowWheelFrozenSecondContactRoughPrefix`
+  - erase the largest frozen-cofactor prime to land the predecessor face in the strict lower-scale annulus `X_R/q^2 < P(V) <= X_R/q`, with the Boolean sign reversal exactly undoing that of the product-one mate, and injectivity proved through ordered-Euler-cut uniqueness rather than circularly;
+  - identify the complete frozen cofactor fibre with the nonunit squarefree rough prefix and cancel it against an actual subledger of the existing physical transport, retaining an arbitrary test function so every integer fibre and multiplicity is preserved.
+
+- `RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly` and `RHLean.Proof.LowWheelFrozenSecondContactWindowDescent`
+  - subtract the recursive Go law at both window endpoints so both anchors and both fixed lower-prefix columns cancel, then interchange the double sum so the *child* owner indexes the outer column;
+  - prove the endpoint form's gate is exactly the cube condition `q^3 <= X_R`, exhibit the unrestricted Mertens gap that survives outside it, and then raise the lower endpoint to `max R (X_R/q^2)`, where the owner sits below the cutoff for free and the gate disappears entirely;
+  - retain the superseded theorems as the recorded no-go, so the loose endpoint is not reintroduced.
+
+- `RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope` and `RHLean.Proof.LowWheelFrozenSecondContactScaleFlux`
+  - sum the complete signed owner windows *first* and telescope their moving upper endpoints globally, giving the signed Stokes form of the ledger with no owner-by-owner estimate;
+  - record a structural limit of the local prime toggle on this carrier: multiplying above the canonical owner crosses the endpoint and deleting the owner destroys the second-contact inequality, so cancellation that changes the old owner must come from a different global reassembly;
+  - add two genuinely smaller coordinates, the reciprocal depth with $k^2 < R$ and the source scale with `B = ⌊X_R/A⌋ < R`.
+
+- `RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex`, `RHLean.Proof.LowWheelFrozenSquareResidualQ2Telescope`, `RHLean.Proof.LowWheelFrozenSquareResidualParentProduct`, `RHLean.Proof.LowWheelFrozenSquareResidualParentCarrier`, `RHLean.Proof.LowWheelFrozenSquareResidualParentGeometry`, and `RHLean.Proof.LowWheelFrozenSquareResidualParentSurjectivity`
+  - reindex each residual cofactor by its unique owner, keeping the source-scale Möbius factor outside the daughter sum because the primes below the old pivot are encoded there;
+  - prove every `(A,d)` in a daughter window is a genuine ordered Euler cut with child `A*d`, so the product carries the true weight `mu(A)*mu(d)`, and that for fixed owner the product map is injective *across* source scales;
+  - flatten to a `(q,m)` carrier, prove it lies in the post-root `q`-smooth strip, and then prove the reverse inclusion constructively, using Bertrand only as a finite carrier-saturation device.
+
+- `RHLean.Proof.LowWheelFrozenSquareResidualRootFloored` and `RHLean.Proof.LowWheelFrozenSquareResidualTransportClosure`
+  - reduce one owner fibre to a difference of frozen predecessor prefixes, identifying the first sum with the already-compiled root-floored lower column;
+  - eliminate the remaining moving root-floored column entirely, giving an exact formula for the *existing* historical matching transport, `T_match = F_{R^-}(X_R) + \sum_{q<R} F_{q^-}(R) - 1`, with no hidden source scale, interval-prime cube or `q^2` floor term left.
+
+- `RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation` and `RHLean.Proof.LowWheelFrozenCofactorTopImageHighPrimeObstruction`
+  - perform the global subtraction the pointwise toggle never took: the move is injective with an explicit inverse, the frozen nontrivial-cofactor ledger is exactly minus its image mass, and the image is disjoint from the whole downcross carrier, giving `D_R = U_R + F_R^{c=1} - T_R`;
+  - close the obvious next move, proving the image is rough-free below the root while every high-prime population is indexed above it, so the two are complementary rather than nested and the containment holds only vacuously;
+  - prove the relocation is norm preserving, so bounding the relocated ledger *is* bounding the frozen sector and no reindexing can supply that bound.
+
+- `RHLean.Proof.LowWheelLargestDefectSeamEquivalence`
+  - records that the largest-prime stable defect is the terminal seam rather than a reduction of it, since the coordinate synthesis is an identity of the same signed object and the two linear bounds are equivalent in both directions;
+  - classifies the exact pointwise carrier before any norm, splits it at the largest-prime root scale, and leaves the two RH-scale bounds explicit and open.
+
+## The physical q-square terminal synthesis
+
+- `RHLean.Proof.PhysicalQ2BookkeepingSynthesis`
+  - proves the full physical `q^2` hit carrier partitions disjointly by its actual least *odd* square-prime owner, so summing the genuine daughter over those fibres recovers the Mertens daughter exactly, at every cutoff and with no endpoint error;
+  - separates prime `2` out as base mod-four geometry rather than another contact channel, while keeping its nonzero algebraic two-step remainder explicit.
+
+- `RHLean.Proof.PhysicalQ2TerminalSynthesis`, `RHLean.Proof.PhysicalQ2ExceptionalTerminalSynthesis`, and `RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis`
+  - package everything *after* the parent recurrence, so the remaining hypothesis is irreducible: no `q=2` convention, least-owner transfer, daughter normalization, floor endpoint, reciprocal-square budget, strong induction or terminal wiring remains outside the theorem;
+  - give three subcritical coefficients — $(5/4)\cdot4\cdot(19/23)^2\cdot(1/4)=1805/2116$ with the prime-11 factor, $3\cdot(5/4)\cdot(1/9+1/25+1/49)=1891/2940$ on the exceptional owners alone, and $4\cdot(36/35)\cdot(17/72)=34/35$ using the sharp odd-owner budget and the Young split;
+  - establish that the third of these needs **no** selected-prime observable, tensor substitution, frame mask, or extra Mertens hypothesis.
+
+- `RHLean.Proof.SignedTransportAmplificationAudit`, `RHLean.Proof.SquareRootLowPrimeSharpFrameBudget`, and `RHLean.Proof.SquareRootLowPrimeTSectorQ2Renormalization`
+  - normalize the amplification target to the fully recovered shifted state rather than the matched channel alone, and record the finite obstruction to requesting a subunit constant in the all-`R` formulation;
+  - sharpen the daughter budgets to `1/2` for all prime owners and `1/4` when owner `2` is absent, so frame loss `2`, or `4` on odd primes, still closes the same linear-energy induction;
+  - combine the exact prime-11 square factor $(19/23)^2<3/4$ with the `q^2` daughter budget into a strictly subcritical branching coefficient, while stating clearly that the physical endpoint is *not* asserted to satisfy that recurrence.
+
+- `RHLean.Proof.LogSquareCorrectionQ2Tower`, `RHLean.Proof.RoughDyadicQ2Compression`, `RHLean.Analysis.TwoWheelQ2Compensation`, and `RHLean.Proof.TwoWheelQ2GoCompatibility`
+  - prove the logarithmic square correction is a `q^2`-and-deeper Mertens tower with no first-power term hidden in it;
+  - carry the ordinary dyadic compression *inside* the `q`-rough carrier, since adjoining `2` preserves the predecessor-wheel condition on every nonzero atom, with owner `2` deliberately excluded;
+  - isolate the local compatibility `g(x) - Δ_q g(x) - Δ_q g(x/q) = g(x/q^2)`, so a square deletion is not the daughter by itself, and identify the Go/recovery compatibility defect as the existing signed high-transport column rather than a new analytic error.
+
+- `RHLean.Proof.FinalCompensatedParentReduction` and `RHLean.Proof.FrozenTopFarAdaptiveRawBridge`
+  - combine the `q^2` reassembly with the canonical frozen reduction on one signed endpoint, giving `core + frozenTopFar = q2Residual + rootBoundary`, so the genuinely hard comparison is the `q^2` low-side packet against the frozen/top/far high-side packet;
+  - put that residual directly onto the canonical rough-correlation carrier and then onto the adaptive zero-factor descent, so the raw boundary ledger is attached to the literal physical residual instead of a parallel coordinate system.
+
+## Outside-prime ownership and the exceptional owners
+
+- `RHLean.Analysis.OutsidePrimeLeastSquareBlocker`, `RHLean.Analysis.OutsidePrimeLeastSquareMaximalWheel`, and `RHLean.Analysis.OutsidePrimeLeastSquareMaximalWheelConstruction`
+  - prove least-square ownership is genuinely local, with no ambient prefix in the statement, and bound the complete least-owner super-orbit period by the square-block length;
+  - construct the finite maximal feasible wheel that forces every complete outside least-square owner below 11, by a maximality argument rather than an assumed certificate.
+
+- `RHLean.Analysis.OutsidePrimeCompleteDeletionFirstMoment`
+  - gives genuinely summable owner bounds, $|\chi^T m_q|\le 18K/q^2$ on complete periods and $18(K/q^2+1)$ on an arbitrary prefix, with the absolute value taken only after the signed owner channel has been formed;
+  - states plainly that this does not yet identify the least-square super-orbit Schur block with the Go daughter block.
+
+- `RHLean.Proof.ExceptionalDeletionParentPartition`, `RHLean.Proof.ExceptionalOwnerEnergyClosure`, and `RHLean.Proof.ExceptionalTransportCoboundary`
+  - reduce the complete interior owner schedule to `{3,5,7}` at carrier and signed-mass level, deliberately keeping the observable the selected-prime field so the remaining parity transfer stays visible as the parent-side seam;
+  - keep the three channel coefficients separate, proving the linear envelope under the sufficient budget $\alpha_3/9+\alpha_5/25+\alpha_7/49<1$ with exact constant $C/(1-\beta)$;
+  - prove the chronological high column is an exact prime coboundary whose potential is the frozen cube, so the exceptional predecessor cubes vanish beyond `X >= 1470`.
+
+- `RHLean.Proof.ExceptionalContactFrameEnergyNoGo`, `RHLean.Proof.ExceptionalSignedPacketIdentification`, `RHLean.Proof.JointDaughterCrossEnergyAudit`, and `RHLean.Analysis.PhysicalDaughterEnergyObstructions`
+  - refute the six-contact frame route three ways: the contact classes are the *images* of the offsets under $a\mapsto -a/4 \bmod q^2$, the frame constant is two for an arbitrary field by mod-four pairing, and the assembled coefficient norm is a different object from the recursive Mertens energy, separated by an exact finite witness at `Y = 2`;
+  - give the exact forward dictionary from the true Möbius observable on a complete owner carrier, and exclude replacing an uncompensated nine-edge local block by a scalar linear image of one square-dilated value;
+  - record that a joint-daughter coefficient below one requires negative cross-*owner* energy, which within-daughter cancellation does not assert, and that the selected deletion field has positive periodic drift so its square cannot lie in a uniformly linear envelope.
+
+- `RHLean.Analysis.PhysicalExceptionalLocalIntertwine`
+  - begins the physical local-block theorem on the actual least-square channels, keeping `q=3` as one unrestricted recovered interval while treating `q=5` and `q=7` as exact finite incidence sums, since their masks are not contiguous once smaller channels are removed.
+
+## Finite-prime weight-one layers and what they may not assume
+
+- `RHLean.Analysis.ElevenWeightOneFirstMoment` and `RHLean.Analysis.FinitePrimeHigherWeightOne`
+  - package the finite arithmetic law as an operator on first moments: multiplication by the prime-11 Euler sign has average `19/23` on the 115 zero-free classes, so every weight-one combination is multiplied by `19/23` and its square by $(19/23)^2$;
+  - upgrade that to a deterministic CRT tensor theorem in which the complementary field on a coprime modulus varies arbitrarily, with no independence assumption, and supply the same certificates at 13 and 17.
+
+- `RHLean.Analysis.PhysicalRecoveredPrimeTensorCompatibility`
+  - makes two transfer issues impossible to hide inside a later norm: the tensor theorem permits an arbitrary field on a *coprime complementary* coordinate but not an arbitrary function of the same `11^2` coordinate, and the selected-prime projection carries only the selected sign while the Mertens-visible observable carries the parity of every prime factor.
+
+- `RHLean.Analysis.PartialMomentSchurTarget` and `RHLean.Analysis.PhysicalPartialMomentSchur`
+  - prove the four-block directional split of a second moment about an arbitrary target, and that the scaled Schur complement `W*Q_t - m_t m_t^T` is exactly target independent, with no positivity or probability normalization;
+  - instantiate it on the eight-state zero-free transition rows, showing exactly where a target shift goes: into the rank-one first-moment term, not the Schur covariance.
+
+## Mellin interpolation and partner Euler memory
+
+- `RHLean.Proof.PostRootPartnerReciprocalCompression` and `RHLean.Proof.PostRootPartnerEulerMemory`
+  - convert a post-root raw boundary into a cofactor-weighted reciprocal parent mass exactly, and prove the cofactor-weighted step creates no new mismatch on a complete descending prefix;
+  - prove a complete descending schedule leaves no final raw mass, and establish the memory law `p*(EulerNext - RawNext) = (p-1)*B_p`: the signed boundary is transported between coordinates with the Euler factor, not discarded.
+
+- `RHLean.Proof.PostRootPartnerMellinInterpolation` and `RHLean.Proof.PostRootPartnerLogAlignment`
+  - show the zero-factor raw law and the reciprocal Euler law are the two endpoint specializations of one weighted fresh-prime identity: with `w(cp) = z*w(c)` the parent coefficient is `1-z`, which is `0` at `s=0` and `1-1/p` at `s=1` for the Mellin weight, so differentiating in `s` necessarily produces `log p`;
+  - state the remaining physical seam as an equality of finite signed pushforward measures against an arbitrary test observable, rather than one scalar checksum, with no Perron inversion or PNT estimate used.
+
+## Prime-wheel rough seats
+
+- `RHLean.Proof.PrimeWheelRoughSeatCorrelation` and `RHLean.Proof.PrimeWheelFrozenRoughSeatBridge`
+  - collapse every overlap between exponentially many signed divisor bands into one integer coefficient on each physical rough seat, with no absolute value or wheel-depth loss;
+  - identify that signed truncated kernel with the chronological frozen prime cube already used by the first-owner and Go machinery.
+
+- `RHLean.Proof.PrimeWheelProperSubwheelDepthTwo` and `RHLean.Analysis.RoughWheelFiniteCounting`
+  - stop the wheel at `Y` before the endpoint is resolved and open the moving predecessor column at its own fresh prime, so when `X < (Y+1)^3` the square residual is already an ordinary lower Mertens state, giving the exact algebraic form of the prime/semiprime cancellation;
+  - keep the residue count and both incomplete periods explicit, with the estimate uniform in the wheel.
+
+## Go defect reduction onto the saturated carrier
+
+- `RHLean.Proof.SquareRootLowPrimeGoFullFacePartner` and `RHLean.Proof.SquareRootLowPrimeGoFullFaceResidualAbsorption`
+  - put every prime factor of the complete squarefree child on the Boolean face, so a second-boundary defect is a literal occurrence of the tagged transport carrier with no singleton crossing hypothesis and no root-equality exception;
+  - prove the far part of the mate image is already a subcarrier of the hard physical residual, because a defect mate has a face prime strictly *above* its pivot while a frozen top image has all face primes strictly below, so the Go correction cancels there rather than adding a scalar error term.
+
+- `RHLean.Proof.SquareRootLowPrimeGoReducedSourcePacket` and `RHLean.Proof.SquareRootLowPrimeGoRootFloorTerminalSplit`
+  - record that exactly one source copy survives mate deletion, classify it at its `q^2` boundary as the pre-contact state whose next `q`-move crosses the endpoint, and identify the complement exactly with the old hard residual so mate deletion relocates the packet rather than creating a second remainder;
+  - classify the root-floor half as a canonical root-downcross with frozen `c=1` shape, hence either unique-parent or repeated internal terminal.
+
+- `RHLean.Proof.SquareRootLowPrimeGoDefectAncestryGeneration`, `RHLean.Proof.SquareRootLowPrimeGoDefectCanonicalSeed`, and `RHLean.Proof.SquareRootLowPrimeCanonicalSeedSourceBridge`
+  - identify the defect as a literal restriction of the generation-one ancestry field, with no new observable, and place its canonical child inside the existing saturated seed window, the root-floor incidence failing that predicate at one named condition only.
+
+- `RHLean.Proof.SquareRootLowPrimeCombinedTaggedElevenPushforward` and `RHLean.Proof.SquareRootLowPrimeCombinedResidualSourceNormalForm`
+  - place the full-face Go source on the *existing saturated* second-contact carrier rather than the superseded loose window, splitting the defect canonically into a saturated child population and an explicit root-floor failure with the correct signed orientation;
+  - rewrite the opaque far set-difference residual in the source/partner coordinates and perform the six finite population comparisons in one common tagged currency.
+
+## Dyadic survivor splice
+
+- `RHLean.Proof.DyadicSurvivorMertensInvariant` and `RHLean.Proof.DyadicSurvivorMatchedSplice`
+  - identify the physical survivor boundary left after pairing an odd high-prime state with its doubled child — the odd dyadic band `W/(2p) < c <= W/p` — with the already-formalized upper-prime Mertens transform;
+  - remove the abstract transport symbol from the matched born-smooth channel by exact rewrite, with no norm or new estimate.
+
 ## Closed routes
 
 A published research record should say which routes were tried and abandoned,
 not only which ones worked. `boundary/dead_lanes.json` is that record: each
 entry names the claim, the obstruction that closes it, the Lean or numerical
-evidence, and what new information would reopen it. Four entries were added with
-this revision -- unsigned support capacity, adaptive matching on the raw prefix
-carrier, the fixed first-jump-prime seat bound, and the fixed-prime descended
-leaf on subdoubling runs -- and every one of them is closed by a compiled
-theorem in this package rather than by a failed attempt.
+evidence, and what new information would reopen it. It now carries twenty-two
+entries, and every one is closed by a compiled theorem in this package rather
+than by a failed attempt.
+
+Six were added with this revision, and between them they retire most of what a
+reader would try next: improving the post-root exponent inside the record
+machinery, computing a six-contact frame constant for the exceptional owners,
+iterating finite-wheel band counting, enumerating the largest-prime defect
+carrier, keeping the frozen second-contact window at its loose endpoint, and
+absorbing the frozen top image into the external high-prime population. A
+seventh kind of closure appears here for the first time: `stronger-than-rh`,
+for a route whose hypothesis is sound but already implies more than the Riemann
+hypothesis, so proving it is harder than the target rather than a step toward
+it.
 
 The modules that carried the earlier response-forest, response-matching,
 external-terminal-mass and repeated-mass experiments are no longer retired. They
@@ -706,7 +914,7 @@ late-parent cancellation, and the two Othello wrappers the classifier uses.
   - records the monotone quantitative frontier.
 
 - `boundary/synthesis.json`
-  - records exact cross-track synthesis advances; the refreshed export is at revision 6.
+  - records exact cross-track synthesis advances; the refreshed export is at revision 6. The gate moves that number only for a witness that directly invokes pre-existing anchors from *both* source tracks, so a republication carrying many upstream advances forward records them under `companion_witnesses` instead of manufacturing revisions for them.
 
 - `scripts/check_markdown_math.py`
   - rejects unsupported GitHub Markdown TeX delimiter forms outside code.
@@ -720,18 +928,18 @@ late-parent cancellation, and the two Othello wrappers the classifier uses.
 - `boundary/BOUNDARY_POLICY.md`
   - states the scope gate the two lanes above enforce.
 
-The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field, and `boundary/frontier.json` therefore still certifies `exact_reduction`. What has changed is where that control has to be earned.
+The quantitative frontier is unchanged: the missing theorem is still genuine RH-scale control of the signed Möbius field, and `boundary/frontier.json` therefore still certifies `exact_reduction`. What has changed, again, is where that control has to be earned.
 
 Five things are new in this revision.
 
-1. **One carrier, not five.** The complex/Fermat vertical strip, the ordered Euler cut, the oriented downcross ledger, the signed prefix lifetime, and the canonical defect ledger are now proved to be the same signed object, before any norm. Their energy propositions are proved equal to the pre-existing oriented-run seam, so none of these coordinate changes hides or introduces an estimate.
+1. **The post-root loop is closed, and the closure is a no-go.** Both terms subtracted in the Bessel identity are nonnegative, so $E(W)\le M(W)^2/2$ holds unconditionally — no cancellation, no record hypothesis, no sieve. That single line makes the remainder, envelope, record-excess, falling finite-difference, Mertens square envelope and Mertens energy statements one equivalence class, and read quantitatively it is an exchange rate with exponent factor exactly two. Nothing inside the post-root or record machinery can move the remainder exponent without first moving the Mertens exponent. The constant still moves, and does.
 
-2. **The pair sum is squared before any absolute value.** The Green--Kubo identity is now available on the physical birth/death lines, on square-block partitions, and on whole square runs. In every case the diagonal is at root-square scale or below — sharpened to the exact squarefree diagonal — so the only quantity capable of supercritical growth is the positive aggregate covariance.
+2. **The record step is the carrier of the remaining problem.** The innovation budget splits with no triangle inequality, because the physical row and the square-wall departure have disjoint support; a positive record forces a full endpoint power beyond naive localization; and the departure is bounded unconditionally by $p^2$ sparsity. What is left unbounded is one object: the record-conditioned outer physical row after inherited high transport has been removed.
 
-3. **An exact Euler contraction acts on the critical carrier.** The native factor `1 - 1/p` compresses a fresh-prime parent/child pair on the RH-critical reciprocal coordinate, with every failure confined to three named physical channels; the threshold channel is empty on a complete sub-root wheel, the defect shells telescope to one truncated-wheel boundary, and finite Abel summation returns the result to the unweighted numerator for the cost of an absolute constant.
+3. **The q-square route reaches a terminal synthesis needing no spectral input.** With the sharp odd-owner budget $\sum_{q\ \mathrm{odd}}q^{-2}\le 17/72$ and the $36/35$ Young split for the endpoint transfer, a factor-four recurrence on the fully signed, fully reassembled physical daughters has coefficient $4\cdot(36/35)\cdot(17/72)=34/35<1$ and by itself gives linear Mertens energy and the Riemann hypothesis. Everything after the parent recurrence is now packaged, so the remaining hypothesis is irreducible.
 
-4. **The route by counting is closed, in this package, by theorem.** Unsigned support capacity, adaptive matching on the raw prefix carrier, a fixed first-jump-prime seat bound, and the fixed-prime descended leaf on subdoubling runs each fail for a compiled reason, and each reason is recorded in `boundary/dead_lanes.json`. Every surviving route has to cancel signs before taking absolute values.
+4. **The frozen and far-wall carriers are fully reassembled, signed, before any norm.** The `q^2` parent reassembly leaves an exact formula for the existing historical matching transport with no hidden source scale left in it; the frozen cofactor top/bottom cancellation sharpens the endpoint identity to $D_R=U_R+F_R^{c=1}-T_R$; and the stable far wall descends by a strictly decreasing owner to terminal branches that are literally a prime count in a reciprocal interval.
 
-5. **The analytic consumer is unconditional.** `RHLean.Proof.TerminalMertensForward.riemannHypothesis_of_squarePrefixEnergy` constructs internally the one direction of the classical Mertens criterion the reduction uses, so its only hypothesis is the square-prefix energy estimate itself. That theorem is guarded by `#print axioms` alongside the others.
+5. **Two coordinate systems turn out to be one, again.** The zero-factor raw law and the reciprocal Euler law are the endpoint specializations at $s=0$ and $s=1$ of a single Mellin-weighted fresh-prime identity, so the memory factor is an endpoint difference and differentiating in $s$ produces the logarithmic prime weight. The signed boundary is transported between coordinates with the Euler factor rather than discarded.
 
-The processed-seat layer still adds a second kind of open item. Alongside the outstanding inequalities there remains one outstanding *construction*: the weight-preserving classifier at the no-liberty seam. Its Head, Partial, BornExit and RootEquality branches are now built individually, with membership, injectivity and exact weight preservation proved for each; the product-wall branch of the source dichotomy is removed outright; and the target-side budget is `3R+21`. What is not yet assembled is the source-to-boundary classifier itself, and the `Partial` branch still rests on one named budget, stated so that no downstream file can discharge it by an arithmetic encoding of the seat index.
+The processed-seat layer still carries the one outstanding *construction*: the weight-preserving classifier at the no-liberty seam. Its Head, Partial, BornExit and RootEquality branches are built individually, with membership, injectivity and exact weight preservation proved for each; the product-wall branch of the source dichotomy is removed outright; and the target-side budget is $3R+21$. What is not yet assembled is the source-to-boundary classifier itself, and the `Partial` branch still rests on one named budget, stated so that no downstream file can discharge it by an arithmetic encoding of the seat index.

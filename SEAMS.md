@@ -440,7 +440,133 @@ That argument is now constructed internally in the one direction the route uses.
 
 **Formal modules:** `RHLean.Proof.TerminalMertensReduction` and `RHLean.Proof.TerminalMertensForward`.
 
-## 44. Acceptance criterion for quantitative progress
+## 44. Post-root exponent-transfer seam
+
+In the Bessel identity
+
+$$
+2E(W)=M(W)^2-\text{complementDiagonalResidual}(W)-\text{familyMertensSquareEnergy}(W)
+$$
+
+both subtracted terms are nonnegative, so $E(W)\le M(W)^2/2$ holds unconditionally: no cancellation, no record hypothesis, no sieve. That one line is the seam. It makes the post-root power remainder, the power envelope, the record-excess statement, the falling finite-difference statement, the Mertens square envelope and the Mertens energy criterion a single equivalence class.
+
+Read quantitatively rather than as a bi-implication it is a transfer with an exact exchange rate: a Mertens bound of exponent $\theta$ gives remainder exponent $2\theta$, and the compiled bootstrap gives the converse. So the seam carries a string, and the string is a no-go: nothing in the post-root or record machinery can move the remainder exponent without first moving the Mertens exponent. What can still move is the unconditional constant, and it does — the odd dyadic-annulus representation is worth a factor of nine, and the compiled strong Mertens estimate gives a genuinely subquadratic envelope against an elementary lower bound of order $-W^{3/2}$.
+
+**Formal modules:** `RHLean.Proof.PostRootCovarianceGlobalExponentTransfer` and `RHLean.Proof.PostRootCovarianceUnconditionalDecayScratch`.
+
+## 45. Record-step seam
+
+The finite-horizon envelope advances only at a positive record, and its whole mass is the cumulative record excess, so the record step is where the remaining quantitative problem lives. Three exact facts cross this seam.
+
+The one-step innovation budget splits **without any triangle inequality**, into a physical outer row seat and a square-wall departure seat, because the two mechanisms have disjoint support: at a prime-square endpoint $W+1=p^2$ both the physical Möbius row and the inherited row total vanish, and away from a prime square the departure vanishes. A positive record at $N$ forces $\mathrm{envelope}(N)\cdot N^{\varepsilon}<\mathrm{innovation}(N)$, a full endpoint power stronger than naive localization, with the gain coming from the record hypothesis and not from an absolute value. And the departure is supported exactly on prime squares, so its whole normalized sum is bounded unconditionally by $p^2$ sparsity alone.
+
+What does not cross is the record-conditioned outer row — the record-breaking physical new row after inherited high transport has been removed. That is the whole remaining arithmetic seam on this carrier, and the record indicator in the surviving majorant is load-bearing: dropping it leaves a positive part whose normalized sum is not expected to converge.
+
+**Formal modules:** `RHLean.Proof.PostRootCovarianceRecordAbsorption`, `RHLean.Proof.PostRootCovarianceRecordSquareCharge`, and `RHLean.Proof.PostRootCovarianceRecordSquareChargeClosure`.
+
+## 46. Frozen relocation seam
+
+Moving the largest cofactor prime out of the cofactor and into the quotient, $(t,(c,p))\mapsto(t,(c/q,qp))$, is injective with an explicit inverse, so the frozen nontrivial-cofactor ledger is exactly minus the signed mass of its image. The image is disjoint from the entire downcross carrier, since every image state has normalized root-side parent above $R$: this is a genuine relocation onto the post-root side, not an internal reshuffle. With the already-proved movable cancellation the endpoint identity sharpens to
+
+$$
+D_R=U_R+F_R^{c=1}-T_R .
+$$
+
+The seam is one-way, and the module that says so is as important as the one that crosses it. Every high-prime population here is indexed by a prime strictly above the root, while an image state has pivot $p<q\le c<R$ and quotient $qp$ whose only primes are $q$ and $p$: the image is rough-free below the root. The two populations are complementary, not nested, and the proposed containment holds only vacuously. Independently, a sign-reversing bijection cannot change a magnitude, so $\lVert T_R\rVert=\lVert F_R^{c>1}\rVert$ and bounding the relocated ledger *is* bounding the frozen sector. No reindexing can supply that bound.
+
+**Formal modules:** `RHLean.Proof.LowWheelFrozenCofactorTopBottomCancellation` and `RHLean.Proof.LowWheelFrozenCofactorTopImageHighPrimeObstruction`.
+
+## 47. Saturated second-contact seam
+
+Erasing the largest frozen-cofactor prime $q$ from the product-one face sends the predecessor face into the strict lower-scale annulus $X_R/q^2<P(V)\le X_R/q$, reversing the Boolean sign exactly once and so restoring the original frozen source sign. Injectivity is proved through ordered-Euler-cut uniqueness rather than circularly.
+
+Which lower endpoint is used decides whether the seam closes. Subtracting the recursive Go law at both endpoints of one window cancels both completed anchors and both fixed lower-prefix columns, but the endpoint form requires the lower cutoff to be unfinished at its own owner — exactly the cube condition $q^3\le X_R$. On the natural $X_R/q^2$ carrier an unrestricted Mertens gap $M(q-1)-M(X_R/q^2)$ survives outside that gate: a terminal leaf of the original open problem rather than a descended one. Raising the endpoint to $\max(R,X_R/q^2)$ puts the image genuinely above the root, the owner then sits below the lower cutoff for free, the gate disappears and both anchors cancel at every prime owner below the root. The superseded theorems are kept as the recorded no-go.
+
+The correct order of operations is also part of this seam: sum the complete signed owner windows first, then telescope their moving upper endpoints globally. Estimating owner by owner discards what the global Stokes form retains.
+
+**Formal modules:** `RHLean.Proof.LowWheelFrozenSecondContactDescent`, `RHLean.Proof.LowWheelFrozenSecondContactWindowDescent`, `RHLean.Proof.LowWheelFrozenSecondContactWindowReassembly`, and `RHLean.Proof.LowWheelFrozenSecondContactGlobalTelescope`.
+
+## 48. Parent-product seam
+
+The frozen $q^2$ square residual becomes an honest Möbius object in four exact steps, none of which takes a norm. Each residual cofactor is reindexed by its unique owner, with the source-scale factor $\mu(A)$ kept **outside** the daughter sum because the primes below the old pivot are encoded there. Every $(A,d)$ in a daughter window is realized by a genuine ordered Euler cut with child $A\cdot d$, so the product carries the true weight $\mu(A)\mu(d)$, and for a fixed owner the product map is injective across *different* source scales. Flattening then gives a $(q,m)$ carrier, proved to lie in the post-root $q$-smooth strip, with the reverse inclusion proved constructively — Bertrand appearing only as a finite carrier-saturation device.
+
+What comes out is not a residual at all. The reassembly identifies the *existing* historical matching fixed transport exactly:
+
+$$
+T_{\mathrm{match}}=F_{R^-}(X_R)+\sum_{q<R}F_{q^-}(R)-1 ,
+$$
+
+so after this seam no hidden source scale, interval-prime cube, or $q^2$ floor term is left in that transport.
+
+**Formal modules:** `RHLean.Proof.LowWheelFrozenSquareResidualQ2Reindex`, `RHLean.Proof.LowWheelFrozenSquareResidualParentProduct`, `RHLean.Proof.LowWheelFrozenSquareResidualParentSurjectivity`, `RHLean.Proof.LowWheelFrozenSquareResidualRootFloored`, and `RHLean.Proof.LowWheelFrozenSquareResidualTransportClosure`.
+
+## 49. Stable far-wall renewal seam
+
+The outer far prime $p>R$ has zero $p^2$ daughter scale, so it is the wrong Euler coordinate to recurse on; the low cofactor $c<R$ still carries its complete squarefree history. Stripping $q=P^+(c)$ and splitting at the second-$q$ wall gives the raw far transport as $\mathrm{unitFace}-\mathrm{descendedMass}-\mathrm{crossingMass}$, with the descended half a literal far slice of the $q^2$ child transport.
+
+What makes this a seam rather than a rewrite is that the return is a strict arithmetic descent. A crossing product is indexed by $(q,dp)$ and returns to low cofactor $d$; a second crossing strips the canonical largest prime of $d$, which is strictly smaller, and the second-contact load decreases strictly along compatible steps. The branch terminates at cofactor one, where the arithmetic is completely explicit: for a fixed far prime with $A=\lfloor X_R/p\rfloor$, the condition $qp\le X_R<q^2p$ is exactly $\sqrt A<q\le A$, so the incoming multiplicity is literally a prime count in a reciprocal interval.
+
+The owner tag is retained throughout, because different owners may descend to the same state; forgetting it is permitted only with its exact multiplicity.
+
+**Formal modules:** `RHLean.Proof.StableFarWallLowCofactorQ2Descent`, `RHLean.Proof.StableFarWallExactQ2Split`, `RHLean.Proof.StableFarWallRenewalDescent`, `RHLean.Proof.StableFarWallRenewalTerminalPrimeCount`, and `RHLean.Proof.StableFarWallUnitRenewalCentering`.
+
+## 50. Mellin interpolation seam
+
+The zero-factor raw law and the reciprocal Euler law are not two mechanisms. For any scalar weight with $w(cp)=z\,w(c)$, the exact raw pair law gives
+
+$$
+w(c)r_R(c)+w(cp)r_R(cp)=(1-z)\,w(c)r_R(c)+z\,w(c)\,\mathrm{Boundary}_R(c,p),
+$$
+
+so the parent coefficient is $1-z$. At $z=1$, that is $0$: the raw annihilation. For the Mellin weight $w_s(n)=n^{-s}$ one has $z=p^{-s}$, so $s=0$ recovers the raw annihilation and $s=1$ the reciprocal Euler factor $1-1/p$. The memory factor is therefore the endpoint difference of one multiplicative interpolation, and differentiating in $s$ necessarily produces the logarithmic prime weight $\log p$.
+
+The companion law says the boundary is not lost in the change of coordinates: on a complete descending prefix both coefficient-mismatch ledgers vanish and $p\,(\mathrm{EulerNext}-\mathrm{RawNext})=(p-1)B_p$. The signed boundary is transported to the difference of the next states with exactly the Euler factor $1-1/p$.
+
+**Formal modules:** `RHLean.Proof.PostRootPartnerMellinInterpolation`, `RHLean.Proof.PostRootPartnerEulerMemory`, and `RHLean.Proof.PostRootPartnerReciprocalCompression`.
+
+## 51. Physical daughter seam
+
+A physical $q^2$ hit carrier partitions disjointly by its actual least *odd* square-prime owner, so summing the genuine daughter over those fibres recovers the Mertens daughter exactly, at every cutoff and with no endpoint error. Prime $2$ is not a contact owner: it is base mod-four geometry, and its algebraic two-step remainder is kept explicit rather than folded in.
+
+Everything after the parent recurrence is packaged, which is what makes the remaining hypothesis irreducible. Three subcritical coefficients are compiled: $(5/4)\cdot4\cdot(19/23)^2\cdot(1/4)$ with the prime-11 factor, $3\cdot(5/4)\cdot(1/9+1/25+1/49)$ on the exceptional owners alone, and $4\cdot(36/35)\cdot(17/72)=34/35$ from the sharp odd-owner budget with the Young split. The third needs no selected-prime observable, tensor substitution, frame mask, or extra Mertens hypothesis at all.
+
+Crossing this seam requires the daughters to be *fully signed and fully reassembled* first. A frame estimate that squares the children before reassembling them is bounding a different object, and the package proves it is a different object.
+
+**Formal modules:** `RHLean.Proof.PhysicalQ2BookkeepingSynthesis`, `RHLean.Proof.PhysicalQ2FourFrameTerminalSynthesis`, `RHLean.Proof.PhysicalQ2TerminalSynthesis`, and `RHLean.Proof.SignedTransportAmplificationAudit`.
+
+## 52. Least-square ownership seam
+
+Least-square ownership is local: $q$ owns a physical edge exactly when $q^2$ hits one of the six active affine forms and no smaller prime square does, with no ambient prefix in the statement. The super-orbit for $q$ contains the selected primes, every prime below $q$, and $q$ itself, so once the reserved square product exceeds one square block, $q$ cannot occur in the complete interior. Constructing a maximal feasible wheel turns that into a certificate, and since every physical square contact is odd, the only possible complete owners are $3$, $5$ and $7$.
+
+The seam is deliberately not crossed at the observable. The blocker's signed mass still uses the selected-prime projection, while the true Möbius observable is what the recovery carrier needs; identifying the two requires a separate parity compensation, and the package keeps them apart so the remaining parent-side seam stays visible rather than being absorbed into a later norm.
+
+**Formal modules:** `RHLean.Analysis.OutsidePrimeLeastSquareBlocker`, `RHLean.Analysis.OutsidePrimeLeastSquareMaximalWheelConstruction`, `RHLean.Proof.ExceptionalDeletionParentPartition`, and `RHLean.Proof.ExceptionalSignedPacketIdentification`.
+
+## 53. Weight-one tensor seam
+
+Multiplication by the prime-11 Euler sign has average $19/23$ on the $115$ zero-free residue classes, so every weight-one combination is multiplied by $19/23$ and its square by $(19/23)^2$. That upgrades to a deterministic tensor theorem: a complementary weight field on a modulus **coprime** to $11^2$ may vary arbitrarily and the complete product orbit still sees the same scalar. No independence assumption is used anywhere.
+
+The limit of the seam is compiled alongside it, which is what makes it usable. The theorem permits an arbitrary field on a coprime complementary coordinate; it does not permit an arbitrary function of the same $11^2$ coordinate. And even on a retained cell, the selected-prime projection carries only the selected sign while the Mertens-visible observable carries the parity of every prime factor. Both distinctions are certified finitely, so neither can be hidden inside a later norm estimate.
+
+The sharpest form is a refutation, not a caveat. On the complete aligned period the actual Möbius complement does not satisfy the weight-one factor: the actual and stripped coordinate masses are $-8$ and $-14$, so the observed one-period multiplier is $4/7$ rather than $19/23$. Crossing this seam with the recovered field therefore requires constructing a genuine coprime complementary coordinate, or an exact signed compensation that removes the correlation — substituting the recovered field into the tensor law is proved not to work.
+
+One related identity belongs here for the same reason. The literal Go predecessor cube is not the full Mertens daughter until the high transport is retained, since $M(Y)=F_{q^-}(Y)-\mathrm{highTransport}(Y)$ and for owner $3$ the frozen Go piece can already be zero while the full Mertens child is nonzero. Any final action on this layer must preserve that signed compensation.
+
+**Formal modules:** `RHLean.Analysis.ElevenWeightOneFirstMoment`, `RHLean.Analysis.FinitePrimeHigherWeightOne`, and `RHLean.Analysis.PhysicalRecoveredPrimeTensorCompatibility`.
+
+## 54. Rough-seat seam
+
+For a finite prime set $S$, adjoining a fresh prime is one multiplicative finite difference, $K_{S\cup\{p\}}(X)=K_S(X)-K_S(\lfloor X/p\rfloor)$, and the full signed wheel Fubini-reindexes before any norm into
+
+$$
+M(B)=\sum_{B/W<n\le B,\ (n,W)=1}\mu(n)\,K_S(\lfloor B/n\rfloor).
+$$
+
+Every overlap between exponentially many signed divisor bands is thereby collapsed into one integer coefficient on each physical rough seat, with no absolute value, density estimate or wheel-depth loss. That signed truncated kernel is then identified with the chronological frozen prime cube already used by the first-owner and Go machinery, so this is a bridge between existing coordinates rather than a new carrier.
+
+**Formal modules:** `RHLean.Proof.PrimeWheelRoughSeatCorrelation`, `RHLean.Proof.PrimeWheelFrozenRoughSeatBridge`, and `RHLean.Proof.PrimeWheelProperSubwheelDepthTwo`.
+
+## 55. Acceptance criterion for quantitative progress
 
 A proposed estimate should satisfy both conditions:
 
@@ -460,5 +586,7 @@ Three further filters follow from the recorded obstructions. A proposal whose sa
 Three further filters follow from the newer obstructions. A proposal that cancels the inert top block one-for-one against the middle prime fibres must decide the sign of $2\pi(X_R/2)-\pi(X_R)-\pi(R)$, which first-order PNT does not determine because the leading $X/\log X$ terms cancel. A proposal that charges a bounded collision defect must transport the label to a different arithmetic fibre before reading its corrected weight, because the literal same-site realization is refuted. And a proposal built on fresh-prime equivariance between the wheel and the ancestry ledger must restrict to the ordered extension, since the unrestricted move is false.
 
 Four further filters follow from the routes closed in this revision. A proposal that bounds the covariance by a count of surviving support must say why it escapes the linear frontier: the minimising pivot has frontier density $2/\pi^2$, so the capacity term stays quadratic even after the exact squarefree diagonal is subtracted, and the canonical downcross ledger has superlinear unsigned mass. A proposal that matches along state-dependent prime edges on a raw interval carrier must say what happens to the top-half primes, all of which have the single legal move $p\mapsto1$ and therefore force a fixed set of size at least $\pi(x)-\pi(x/2)-1$. A proposal that estimates the first-jump residual one first-jump prime, or one cofactor column, at a time is already refuted; the aggregate has to be recombined with the square-root-dense piece before any norm. And a proposal that splits a square-run covariance into a fixed-prime descended leaf plus an escape remainder must note that on a subdoubling run the leaf is empty, so the escape is the whole covariance and the split is circular.
+
+Six further filters follow from the routes closed in this revision. A proposal that improves the post-root remainder exponent must say which Mertens exponent it moved, because the two are locked together by an unconditional factor of two. A proposal that computes a frame constant for the exceptional $q^2$ contacts must say why it is not bounding the assembled coefficient norm, which an exact finite witness separates from the recursive Mertens energy the induction consumes. A proposal that iterates finite-wheel band counting must beat the audited positive floor on the leading coefficient, which the $1-1/p^2$ per-prime gain does not. A proposal that enumerates the largest-prime stable defect must first note that its linear bound *is* the terminal seam, and that the cardinality route is dead by a full power. A proposal that uses the frozen second-contact window at its loose $X_R/q^2$ endpoint must handle the unrestricted Mertens gap that survives the cube gate; the saturated endpoint removes it for free. And a proposal that relocates the frozen top image into the high-prime population must note that the two are complementary rather than nested, and that the relocation is norm preserving in any case.
 
 One filter is specific to the no-liberty seam. A proposal that closes the processed-seat route must produce the weight-preserving equivalence itself. Equal cardinalities on the two sides, a bijection that does not preserve signed weight, or an estimate on either population separately all leave the seam uncrossed, because what transfers the signed sum is the weight-preservation hypothesis and nothing weaker.

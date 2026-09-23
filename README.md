@@ -67,7 +67,83 @@ The square-root orientation layer is unchanged in substance:
 
 ## What is new in this revision
 
-Seven layers have been added, and together they change the shape of the remaining problem rather than only its notation. Before this revision the package held several exact descriptions of a signed object and no way to square any of them without first taking absolute values. It now holds one carrier, a Green--Kubo identity on it, an exact Euler contraction acting on it, and compiled reasons why the counting routes cannot finish.
+Six layers have been added. Most of the change is not a new mechanism but a narrowing: several carriers that were still partly opaque are now fully reassembled and signed, and several routes a reader would naturally try next are closed by compiled theorems rather than left open.
+
+### 1. The post-root loop closes, and the closure is a no-go
+
+Both terms subtracted in the Bessel identity are nonnegative, so
+
+$$
+E(W)\le \tfrac12 M(W)^{2}
+$$
+
+holds unconditionally — no cancellation, no record hypothesis, no sieve. That single line makes the post-root power remainder, the power envelope, the record-excess statement, the falling energy finite-difference statement, the Mertens square envelope, and the Mertens energy criterion **one equivalence class**.
+
+Read quantitatively it is a transfer with an exact exchange rate: a Mertens bound of exponent $\theta$ gives remainder exponent $2\theta$, and the compiled bootstrap gives the converse. So the arrow carries a string, and that string is the result: nothing in the post-root or record machinery can move the remainder exponent without first moving the Mertens exponent. The unconditional *constant* still moves, and does — the odd dyadic-annulus representation is worth a factor of nine, and the compiled strong Mertens estimate gives a genuinely subquadratic envelope against an elementary lower bound of order $-W^{3/2}$.
+
+### 2. The record step is the remaining carrier
+
+The finite-horizon envelope advances only at a positive record, so the record step is where the problem now lives. Three exact facts locate it. The one-step innovation budget splits **without any triangle inequality**, because the physical row and the square-wall departure have disjoint support: at a prime-square endpoint both the physical Möbius row and the inherited row total vanish, and away from one the departure vanishes. A positive record forces $\mathrm{envelope}(N)\cdot N^{\varepsilon}<\mathrm{innovation}(N)$, a full endpoint power beyond naive localization, with the gain coming from the record hypothesis rather than an absolute value. And the departure is supported exactly on prime squares, so its whole normalized sum is bounded unconditionally by $p^{2}$ sparsity alone.
+
+One level deeper the surviving row becomes a per-Möbius statement: fresh-prime transport cancels the diagonal squares exactly, so twice the outer row is a difference of discrete Mertens-square increments, and integrality at a record converts that into a one-sided charge against the cumulative square gap. The complementary low case is charged to the local square step, so the dichotomy is exhaustive.
+
+What is left unbounded is exactly one object — the record-conditioned outer row, after inherited high transport has been removed. The record indicator is part of it, not a convenience.
+
+### 3. The frozen and far-wall carriers are fully reassembled
+
+Three reassemblies land on the same conclusion.
+
+The **relocation** is injective with an explicit inverse and lands disjointly from the whole downcross carrier, sharpening the endpoint identity to $D_R=U_R+F_R^{c=1}-T_R$ — which still implies the Riemann hypothesis through the square-prefix energy bridge. The obvious next move is closed with it: the image is rough-free below the root while every high-prime population is indexed above it, so the two are complementary rather than nested, and the relocation is norm preserving in any case.
+
+The **parent product** turns the $q^2$ square residual into an honest Möbius object — reindexed by owner with the source-scale factor kept outside the daughter sum, realized as genuine ordered Euler cuts, flattened, and proved equal to the post-root $q$-smooth strip in both directions. What comes out is not a residual but an exact formula for the *existing* historical matching transport,
+
+$$
+T_{\mathrm{match}}=F_{R^-}(X_R)+\sum_{q<R}F_{q^-}(R)-1 .
+$$
+
+The **far wall** descends strictly: a crossing returns to a smaller low cofactor, the next stripped owner is strictly smaller, and the branch terminates where, for $A=\lfloor X_R/p\rfloor$, the condition $qp\le X_R<q^2p$ is exactly $\sqrt A<q\le A$ — the incoming multiplicity is literally a prime count in a reciprocal interval. One bridge there is cancellation the ownerwise coordinates cannot see: in a descending schedule the far prime that defines the wall is processed first, and the four-corner theorem then zeroes both lower corners permanently.
+
+### 4. One weighted identity behind two Euler laws
+
+The zero-factor raw law and the reciprocal Euler law are not separate mechanisms. For any weight with $w(cp)=z\,w(c)$ the parent coefficient is $1-z$; for the Mellin weight $w_s(n)=n^{-s}$ that is $0$ at $s=0$, which is exactly the raw annihilation, and $1-1/p$ at $s=1$, which is exactly the reciprocal Euler law. The memory factor is the endpoint difference of one multiplicative interpolation, and differentiating in $s$ necessarily produces the logarithmic prime weight $\log p$.
+
+The boundary survives the change of coordinates rather than being discarded: on a complete descending prefix, $p\,(\mathrm{EulerNext}-\mathrm{RawNext})=(p-1)B_p$. And a complete descending schedule leaves no final raw mass, so once the root correction collapses, the complete signed adaptive raw ledger *is* the canonical rough correlation rather than another representation of it.
+
+### 5. A terminal q-square coefficient needing no spectral input
+
+A physical $q^2$ hit carrier partitions disjointly by its actual least **odd** square-prime owner, so summing the genuine daughter over those fibres recovers the Mertens daughter exactly, at every cutoff and with no endpoint error. Prime $2$ is base mod-four geometry, not another contact channel, and its algebraic remainder is kept explicit.
+
+Everything after the parent recurrence is now packaged, so the remaining hypothesis is irreducible. With the sharp odd-owner budget $\sum_{q\ \mathrm{odd}}q^{-2}\le 17/72$ and the $36/35$ Young split for the endpoint transfer, a factor-four recurrence on fully signed, fully reassembled daughters has coefficient
+
+$$
+4\cdot\tfrac{36}{35}\cdot\tfrac{17}{72}=\tfrac{34}{35}<1,
+$$
+
+which by itself gives linear Mertens energy and the Riemann hypothesis — with no selected-prime observable, tensor substitution, frame mask, or extra Mertens hypothesis anywhere.
+
+### 6. The finite-prime layers, and exactly what they may not assume
+
+Multiplication by the prime-11 Euler sign has average $19/23$ on the $115$ zero-free residue classes, so every weight-one combination is multiplied by $19/23$ and its square by $(19/23)^2$; the CRT upgrade lets a complementary field on a **coprime** modulus vary arbitrarily, with no independence assumption, and the same certificates are supplied at $13$ and $17$.
+
+The limits are compiled alongside, and they are executable rather than cautionary. The tensor theorem does not permit an arbitrary function of the same $11^2$ coordinate, and even on a retained cell the selected-prime projection carries only the selected sign while the Mertens-visible observable carries the parity of every prime factor. On the complete aligned period the actual Möbius complement is proved **not** to receive the weight-one factor at all: the two coordinate masses are $-8$ and $-14$, so the observed one-period multiplier is $4/7$ and not $19/23$. A final contraction therefore cannot be obtained by substituting the recovered field into the tensor law; it must first construct a genuine coprime complementary coordinate, or an exact signed compensation that removes the correlation. Separately, the maximal-wheel blocker forces every complete outside least-square owner below $11$, leaving exactly $\{3,5,7\}$, with genuinely summable owner bounds $\lvert\chi^T m_q\rvert\le 18K/q^2$.
+
+### What these layers close
+
+Six further routes are now closed by compiled theorems, each recorded in `boundary/dead_lanes.json` with its obstruction and what would reopen it: improving the post-root exponent inside the record machinery, computing a six-contact frame constant for the exceptional owners, iterating finite-wheel band counting, enumerating the largest-prime defect carrier, keeping the frozen second-contact window at its loose endpoint, and absorbing the frozen top image into the external high-prime population.
+
+Two of them deserve naming here, because they are the ones most likely to be tried again.
+
+The **frame constant** route fails three ways at once: the contact classes are the *images* of the six offsets under $a\mapsto-a/4\bmod q^2$ rather than the offsets themselves; the constant is $2$ for an arbitrary field, by mod-four pairing, so the proposed $\alpha_q\le3$ is fibre counting with no Möbius input; and the assembled coefficient norm a frame estimate bounds is separated from the recursive Mertens energy the induction consumes by an exact finite witness. That is a type mismatch, not a bad constant.
+
+The **largest-prime defect** is not a smaller remaining piece: it is the canonical downcross ledger in other coordinates, so its linear bound *is* the terminal seam, and either form gives the strong Mertens bound rather than the RH-scale estimate. The cardinality route is separately dead by a full power — $\lvert\mathrm{defect}\rvert/R$ rises $18.6,22.7,\dots,140.1$ across $R=8..30$ while the signed mass stays inside $[-7,9]$.
+
+A new kind of closure appears in the ledger for the first time with this revision: `stronger-than-rh`, for a route whose hypothesis is sound but already implies more than the Riemann hypothesis, so that proving it is harder than the target rather than a step toward it. Three entries now fall under that heading in substance — the linear downcross seam, the largest-prime defect linear bound, and any fixed finite Stokes frame comparison.
+
+The synthesis ledger stays at revision 6. The gate moves that number only for a witness that directly invokes pre-existing anchors from *both* source tracks, and the advances above are decisive within one track each; they are recorded under `companion_witnesses` instead of manufacturing revisions for them.
+
+## Layers added in the previous revision
+
+Seven layers were added in the previous publication, and together they changed the shape of the remaining problem rather than only its notation. Before this revision the package held several exact descriptions of a signed object and no way to square any of them without first taking absolute values. It now holds one carrier, a Green--Kubo identity on it, an exact Euler contraction acting on it, and compiled reasons why the counting routes cannot finish.
 
 ### 1. Five coordinates are one object
 
@@ -150,7 +226,7 @@ One scope note about the seam itself. The linear form $\lVert D_{R}\rVert\le CR$
 
 The synthesis ledger advances to revision 6. These layers are exact identities, reductions, obstructions, and one unconditional analytic consumer; they do **not** assert a new asymptotic estimate at the target scale.
 
-## Layers added in the previous revision
+## Earlier exported layers
 
 These six layers are unchanged in substance and are summarized here because the frontier they describe is still the one being pushed.
 
@@ -291,6 +367,12 @@ Structural obstructions are stated as ordinary theorems, not as estimates, and t
 - The raw integer prime-toggle graph has the wrong capacity structure, even with state-dependent freedom. Every squarefree site of $(0,x]$ has a legal move, so the true no-liberty boundary is square hits only and a liberty-exhausting mate would force $M(x)=0$; and every prime with $x<2p$ has the single legal move $p\mapsto1$, so all top-half primes compete for one neighbour and any adaptive involution has fixed set of size at least $\pi(x)-\pi(x/2)-1$. This is a negative control: it is why a carrier that records multiplicities is load-bearing.
 - A fixed first-jump prime carries no useful packing. For $R/2<p$ the packing factor $R/p$ is $1$, yet the canonical $p$-slice stays live under every later oriented owner in $(p,(R^{2}-1)/p]$ and aggregates to the negative cardinality of that interval.
 - On a subdoubling run, stripping a prime from a physical endpoint sends it strictly below the run anchor, so the same-prime negative covariance leaf is empty and its top-escape remainder is literally the whole square-run covariance. Four-corner cancellation is therefore genuinely nonlocal in square time, and the unique fresh-prime owner cube always straddles both run boundaries.
+- The post-root remainder exponent and the Mertens exponent are locked together by an unconditional factor of two, so no work inside the record process, the envelope, or the finite-difference bootstrap can move one without the other.
+- The six-contact frame constant is $2$ for an arbitrary field, by mod-four pairing of the six offsets, and the object a frame estimate bounds is separated from the object the induction consumes by an exact finite witness.
+- Finite-wheel band counting gains only $1-1/p^{2}$ per prime, and its audited leading coefficient has a positive floor, so deeper concrete wheels are not kept on the production path.
+- The largest-prime stable defect is the canonical downcross ledger in other coordinates, so its linear bound is the terminal seam rather than a reduction of it, and its cardinality grows a full power faster than its signed mass.
+- On the loose $X_R/q^{2}$ second-contact carrier an unrestricted Mertens gap survives the cube gate $q^{3}\le X_R$; the saturated endpoint removes it for free, and the measured cost of the loose carrier is about $0.3R^{2}/(\log R)^{2}$ with constant sign against a sign-changing quantity of order $R\log R$.
+- The frozen top image is rough-free below the root while every high-prime population is indexed above it, so the two are complementary rather than nested, and the relocation between them is norm preserving.
 
 ## Documentation and GitHub math
 

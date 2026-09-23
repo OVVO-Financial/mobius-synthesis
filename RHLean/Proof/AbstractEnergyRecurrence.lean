@@ -32,7 +32,7 @@ outside this file: they belong to the analytic layer, and mixing them in would
 turn an algebraic lemma into a conditional theorem.
 
 The empirical status of the constants, recorded in
-`research/TWO_ANCHOR_SLACK_COVERAGE.md`, is that on the tested post-`7` stages
+`EMPIRICAL_DIAGNOSTICS.md`, is that on the tested post-`7` stages
 `A_q^emp < 3.7`; the universal `(A, C)` inequality is open.
 -/
 

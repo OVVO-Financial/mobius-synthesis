@@ -331,4 +331,86 @@ theorem squareRootCanonicalRoughAdaptiveRawMismatchMass_evolved_eq_zero_of_compl
     rw [hraw]
     simp
 
+/-- **The evolved child has zero raw amplitude with either inherited
+coefficient.**  This strengthens mismatch cancellation: the two child terms
+vanish separately.  If the child has a larger prime extension, the actual
+four-corner chronology has already zeroed both coefficients.  Otherwise its
+raw response is zero.  This statement uses the evolved raw coefficient field,
+not an independently evolved Mellin coefficient field. -/
+theorem evolvedRawCoefficient_mul_childRaw_eq_zero_of_completeDescendingPrefix
+    {R c p : ℕ} (qs : List ℕ)
+    (hR : 2 ≤ R) (hc : 0 < c) (hp : p.Prime)
+    (hrough : canonicalLargestPrimeFactor c < p)
+    (hcomplete : SquareRootCanonicalRoughCompleteDescendingPrefix R p qs) :
+    let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs
+      (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))
+    a c * squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0 ∧
+      a (c * p) * squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0 := by
+  dsimp
+  by_cases hchild : squareRootCanonicalRoughHasPrimeExtensionAbove R p (c * p)
+  · rcases hchild with ⟨q, hqPrime, hpq, hupper⟩
+    have hcpPos : 0 < c * p := Nat.mul_pos hc hp.pos
+    have hqUpper : q ≤ squareRootEndpoint R := by
+      have hqProd : q ≤ (c * p) * q := by
+        simpa [Nat.mul_comm] using (Nat.le_mul_of_pos_right q hcpPos)
+      exact hqProd.trans hupper
+    rcases hcomplete.2 q hqPrime hpq hqUpper with
+      ⟨pre, post, hsplit, hprePrime, hpreLarger⟩
+    have hzero :=
+      squareRootCanonicalRoughAdaptiveRawCoefficient_pair_eq_zero_of_larger_extension_split
+        pre post hc hp hqPrime hrough hpq hupper hprePrime hpreLarger
+    rw [← hsplit] at hzero
+    simp [hzero.1, hzero.2]
+  · have hraw :=
+      squareRootCanonicalRoughRawCorrelationSummand_mul_freshPrime_eq_zero_of_no_extension
+        hR hc hp hrough hchild
+    simp [hraw]
+
+/-- **Every evolved raw boundary is the full inherited parent mass.**  The
+post-root transposition extends to every prime on a complete descending
+prefix.  Thus deleting the live parent at this step transfers its whole signed
+mass to the boundary ledger; the zero bulk coefficient alone gives no local
+amplitude saving.  Possible cancellation between different boundary charges
+is preserved and is not estimated here. -/
+theorem evolvedRawBoundary_eq_parentMass_of_completeDescendingPrefix
+    (R : ℕ) {p : ℕ} (qs : List ℕ)
+    (hR : 2 ≤ R) (hp : p.Prime)
+    (hcomplete : SquareRootCanonicalRoughCompleteDescendingPrefix R p qs) :
+    let U := squareRootCanonicalRoughAdaptiveCarrier qs
+      (Finset.Icc 1 (squareRootEndpoint R))
+    let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs
+      (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))
+    squareRootCanonicalRoughAdaptiveRawBoundaryMass R p U a =
+      squareRootCanonicalRoughAdaptiveRawWeightedMass R
+        (squareRootCanonicalRoughFreshPrimeParentsOn p U) a := by
+  dsimp
+  unfold squareRootCanonicalRoughAdaptiveRawBoundaryMass
+    squareRootCanonicalRoughAdaptiveRawWeightedMass
+  apply Finset.sum_congr rfl
+  intro c hcParent
+  rcases mem_squareRootCanonicalRoughFreshPrimeParentsOn.mp hcParent with
+    ⟨_hcU, hcpos, hrough, _hcpU⟩
+  have hpair :=
+    squareRootCanonicalRoughRawCorrelationSummand_add_mul_freshPrime
+      hR hcpos hp hrough
+  have hzero :=
+    evolvedRawCoefficient_mul_childRaw_eq_zero_of_completeDescendingPrefix
+      qs hR hcpos hp hrough hcomplete
+  dsimp at hzero
+  let a := squareRootCanonicalRoughAdaptiveRawCoefficient qs
+    (Finset.Icc 1 (squareRootEndpoint R)) (fun _ => (1 : ℂ))
+  change a c * canonicalMoebiusWeight c *
+      (((squareRootCanonicalRoughFreshLossBoundary R c p).card : ℂ) -
+        ((squareRootCanonicalRoughFreshBirthBoundary R c p).card : ℂ)) =
+    a c * squareRootCanonicalRoughRawCorrelationSummand R c
+  calc
+    _ = a c * (squareRootCanonicalRoughRawCorrelationSummand R c +
+        squareRootCanonicalRoughRawCorrelationSummand R (c * p)) := by
+      rw [hpair]
+      ring
+    _ = _ := by
+      rw [mul_add]
+      rw [show a c * squareRootCanonicalRoughRawCorrelationSummand R (c * p) = 0
+        from hzero.1, add_zero]
+
 end RHLean.Proof

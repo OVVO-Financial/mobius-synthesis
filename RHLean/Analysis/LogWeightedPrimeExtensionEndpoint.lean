@@ -54,6 +54,80 @@ theorem logWeightedEndpointFiberMass_eq_neg_logWeightedBlock (N : ℕ) :
   rw [logWeightedEndpointFiber_eq]
   ring
 
+/-! ## Exact logarithmic Euler-renewal bridge
+
+The cofactor-first extension rectangle and the child-fibre identity already
+live in the repository.  The only remaining finite reindex is to recognize the
+prime-first rectangle as the log-weighted family of literal prime-dilated
+Möbius increments.  Composing the three exact descriptions turns fresh Euler
+adjunction into a square-producing correction with no estimate or PNT input.
+-/
+
+/-- At one fixed prime, the multiplicative block condition
+`N < c*p <= 2*N` is exactly the quotient interval
+`N/p < c <= 2*N/p`. -/
+private theorem logPrimeExtension_cofactor_filter_eq_scaleInterval
+    (N : ℕ) {p : ℕ} (hp : p.Prime) :
+    (Finset.Icc 1 (2 * N)).filter
+        (fun c => N < c * p ∧ c * p ≤ 2 * N) =
+      Finset.Ioc (N / p) ((2 * N) / p) := by
+  ext c
+  have hpPos : 0 < p := hp.pos
+  constructor
+  · intro hc
+    rcases Finset.mem_filter.mp hc with ⟨hcRange, hlow, hupp⟩
+    refine Finset.mem_Ioc.mpr ⟨?_, ?_⟩
+    · exact (Nat.div_lt_iff_lt_mul hpPos).2 hlow
+    · exact (Nat.le_div_iff_mul_le hpPos).2 hupp
+  · intro hc
+    rcases Finset.mem_Ioc.mp hc with ⟨hlow, hupp⟩
+    have hcPos : 0 < c :=
+      lt_of_le_of_lt (Nat.zero_le (N / p)) hlow
+    have hcOne : 1 ≤ c := Nat.succ_le_iff.mpr hcPos
+    have hcUpper : c ≤ 2 * N :=
+      hupp.trans (Nat.div_le_self (2 * N) p)
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Icc.mpr ⟨hcOne, hcUpper⟩, ?_, ?_⟩
+    · exact (Nat.div_lt_iff_lt_mul hpPos).1 hlow
+    · exact (Nat.le_div_iff_mul_le hpPos).1 hupp
+
+/-- **Prime-first extension = log-weighted prime-scale increments.**  This is
+finite Fubini plus floor arithmetic only. -/
+theorem logPrimeExtensionPrimeFirst_eq_primeScaleIncrementSum (N : ℕ) :
+    logPrimeExtensionPrimeFirst N =
+      ∑ p ∈ Finset.Icc 2 (2 * N),
+        if p.Prime then Real.log p * primeScaleIncrement N p else 0 := by
+  unfold logPrimeExtensionPrimeFirst
+  apply Finset.sum_congr rfl
+  intro p _hpRange
+  by_cases hpPrime : p.Prime
+  · rw [if_pos hpPrime]
+    unfold logPrimeExtensionTerm primeScaleIncrement
+    simp only [hpPrime, true_and]
+    rw [← Finset.sum_filter]
+    rw [logPrimeExtension_cofactor_filter_eq_scaleInterval N hpPrime]
+    rw [← Finset.sum_mul]
+    ring
+  · rw [if_neg hpPrime]
+    unfold logPrimeExtensionTerm
+    simp [hpPrime]
+
+/-- **Exact logarithmic prime-renewal identity.**  Fresh prime extensions
+reassemble to the negative log-weighted Möbius block; the only surviving
+failure of freshness is the explicit square-producing correction.  Thus the
+prime-by-prime Euler derivative lands exactly on the square channel before any
+norm is taken. -/
+theorem logWeightedPrimeRenewalIdentity :
+    LogWeightedPrimeRenewalIdentityStatement := by
+  intro N
+  have hfub := logPrimeExtensionCofactorFirst_eq_primeFirst N
+  have hsplit := logPrimeExtensionCofactorFirst_eq_fresh_add_squareCorrection N
+  have hchild := logWeightedChildFiberIdentity N
+  have hprime := logPrimeExtensionPrimeFirst_eq_primeScaleIncrementSum N
+  rw [hprime] at hfub
+  rw [hchild] at hsplit
+  linarith
+
 /-! ## Native PNT: finite von Mangoldt layer -/
 
 /-- Finite Chebyshev `psi` mass through the integer endpoint `x`, defined
